@@ -49,7 +49,7 @@ bot.on("message", function (message)
             let data = {};
           
             data["display_name"] = message.guild.members.find(m => m.id == botID).displayName;
-            data["display_colour"] = {hex: message.guild.members.find(m => m.id == botID).displayColorHex, dec: message.guild.members.find(m => m.id == botID).displayColor};
+            data["display_colour"] = {hex: message.guild.members.find(m => m.id == botID).displayHexColor, dec: message.guild.members.find(m => m.id == botID).displayColor};
           
             commands[command].run(message, message.content.split(" ").splice(1, 1), data);
         }
@@ -126,11 +126,14 @@ var commands =
             {
                 embed.setTitle("__" + data.display_name + " - Help__");
                 embed.setColor(data.display_colour.hex);
+                console.log(data.display_colour);
+                embed.setThumbnail(bot.user.avatarURL);
               
-                embed.setDescription("Hello! I am **" + bot.user.username + "**! I am a bot designed for fun and games!");
-                embed.addField("Support", "Join our Discord Dojo: [https://tilde.glitch.me/join](https://tilde.glitch.me/join) \nVisit our Official Website: \n");
+                embed.setDescription("**Hello! I am " + bot.user.username + "!** I am a bot designed for fun and games!");
+                embed.addField("Getting Started", "Type `" + prefix + "commands` to see my commands\nType `" + prefix + "stats` to see some of my statistics");
+                embed.addField("Support", "Visit our Official Website: [https://tilde.glitch.me/](https://tilde.glitch.me/)\nJoin our Discord Dojo: [https://tilde.glitch.me/join](https://tilde.glitch.me/join) \n");
               
-                embed.setFooter("Requested by " + message.member.displayName);
+                embed.setFooter("Requested by " + message.member.displayName, message.author.avatarURL);
                 message.channel.send(embed);
             }
         }
