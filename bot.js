@@ -3,6 +3,7 @@ var Discord = require('discord.js');
 var util = require(__dirname + '/util/util.js');
 
 var bot = new Discord.Client();
+var Embed = Discord.RichEmbed;
 var prefix = "~";
 
 var botID = 421403753976037376;
@@ -58,6 +59,7 @@ var commands =
     ping: {
         name: "Ping",
         description: "A simple command to check the latency of the bot.",
+        arguments: [],
         usage: `${prefix}ping`,
         run: function(message, args)
         {
@@ -68,10 +70,19 @@ var commands =
     help: {
         name: "Help",
         description: "Displays a simple help message! If a command is specified, it will give information on the command.",
+        arguments: ["-o command"],
         usage: `${prefix}help || ${prefix}help <command>`,
-        run: function()
-      {
-      }
+        run: function(message, args)
+        {
+            let embed = new Embed();
+            if (commands[args[0]])
+            {
+                let spec = commands[args[0]];
+                embed.setTitle(spec.name + " - Command Information");
+                embed.setColor();
+                message.channel.send(embed);
+            }
+        }
     }
 };
 
