@@ -71,15 +71,50 @@ var commands =
         name: "Help",
         description: "Displays a simple help message! If a command is specified, it will give information on the command.",
         arguments: ["-o command"],
-        usage: `${prefix}help || ${prefix}help <command>`,
+        usage: `${prefix}help\` or \`${prefix}help <command>`,
         run: function(message, args)
         {
+            console.log("Running");
             let embed = new Embed();
             if (commands[args[0]])
             {
                 let spec = commands[args[0]];
-                embed.setTitle(spec.name + " - Command Information");
-                embed.setColor();
+                embed.setTitle("__" + spec.name + " - Command Information" + "__");
+                embed.setColor(message.guild.members.get(`${botID}`).displayHexColor);
+                embed.addField("Description", spec.description);
+              
+                let command_args = "";
+              
+                for (let i = 0; i < spec.arguments.length; i++)
+                { 
+                    let tempArg = spec.arguments[i];
+                  
+                    if (tempArg.startsWith("-o "))
+                    {
+                        tempArg = tempArg.substr(3);
+                        command_args += `(__Optional__) \`${tempArg}\`\n`;
+                    }
+                    else if (tempArg.startsWith("-r "))
+                    {
+                        tempArg = tempArg.substr(3);
+                        command_args += `(__Required__) \`${tempArg}\`\n`;
+                    }
+                    else if (tempArg.startsWith("-e "))
+                    {
+                        tempArg = tempArg.substr(3);
+                        let option1 = tempArg.split("||")[0];
+                        let option2 = tempArg.split("||")[1];
+                        command_args += `(__Choose__) \`${option1}\` or \`${option2}\`\n`;
+                    }
+                    else
+                    {
+                        command_args += `(**Uncategorised**) \`${tempArg}\`\n`;
+                    }
+                }
+              
+                embed.addField("Arguments", command_args.trim().length < 1 ? "None" : command_args.trim());
+                embed.addField("Example Usage", spec.usage);
+                embed.setFooter(message.member.displayName);
                 message.channel.send(embed);
             }
         }
