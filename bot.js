@@ -171,11 +171,48 @@ var commands =
             let botBirthday = new Date(bd);
             let botBirthdate = botBirthday.getDate() + "/" + (botBirthday.getMonth() + 1) + "/" + botBirthday.getFullYear() + " [" + botBirthday.getHours() + ":" + util.formatMinutes(botBirthday.getMinutes()) + "]";
 
+            let totalChannels = 0;
+            let totalUsers = 0;
+
+            for (let x = 0; x < guilds.length; x++)
+            {
+                let guild = guilds[x];
+                let channels = guild.channels.size;
+                let members = guild.members.size;
+
+                totalChannels += channels;
+                totalUsers += members;
+            }
           
             embed.setTitle("__" + bot.user.username + " Statistics__");
-            embed.addField("Bot Developers", developers.join(",\n"));
+            embed.setColor(data.display_colour.hex);
+            embed.setThumbnail(bot.user.avatarURL);
+          
+            embed.addField("🎂 __Birthday__ 🎂", ">> " + botBirthdate);
+            embed.addField("🛡️ __Guilds__ 🛡️", ">> **" + guilds.length + "** Guilds");
+            embed.addField(":hash: __Channels__ :hash:", ">> **" + totalChannels + "** Channels");
+            embed.addField("👥 __Users__ 👥", ">> **" + totalUsers + "** Unique Discord Users");
+            embed.addField("✳️ __Commands__ ✳️", ">> **" + Object.keys(commands).length + "** Different Commands");
+          
+            embed.addBlankField();
+          
+            embed.addField("🔨 Bot Developers 🔧", developers.join(",\n"));
+          
+            embed.setFooter("Requested by " + message.member.displayName, message.author.avatarURL);
           
             message.channel.send(embed);
+        }
+    },
+    commands: {
+        name: "Commands",
+        description: "Lists all avaliable commands to your DM channel",
+        arguments: [],
+        permission: 1,
+        usage: `${prefix}ping`,
+        run: function(message, args, data)
+        {
+            message.delete();
+            message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``).then(msg => {msg.delete(3000)});
         }
     }
 };
