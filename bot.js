@@ -16,16 +16,18 @@ var token = process.env.TOKEN || -1;
 
 app.use(express.static('public'));
 
-app.get("/", function (request, response) 
+app.get("/", function(request, response)
 {
     let datetime = new Date();
     console.log("Ping recieved [" + util.formatShortDate(datetime) + ", " + util.formatShortTime(datetime) + "]");
 });
 
-app.get("/ping", function (request, response) 
+app.get("/ping", function(request, response)
 {
+    let datetime = new Date();
     let pcode = Math.floor(Math.random() * 10239571);
-    response.send(pcode);
+    response.send(`Code: ${pcode}`);
+    console.log("Ping recieved [" + util.formatShortDate(datetime) + ", " + util.formatShortTime(datetime) + "]");
 });
 
 var listener = app.listen(port, function()
@@ -36,7 +38,14 @@ var listener = app.listen(port, function()
 // Keep server online
 setInterval(() =>
 {
-    http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-    console.log("Pinged Master Server!");
-}, 2800);
- 
+    var options = {
+        host: process.env.PROJECT_DOMAIN + ".glitch.me",
+        port: 80,
+        path: '/ping'
+    };
+
+    http.get(options, function(res) {}).on('error', function(e)
+    {
+        console.error("Got error: " + e.message);
+    });
+}, 280000);
