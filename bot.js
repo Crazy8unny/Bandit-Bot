@@ -55,6 +55,7 @@ bot.on("message", function (message)
             data["display_colour"] = {hex: message.guild.members.find(m => m.id == botID).displayHexColor, dec: message.guild.members.find(m => m.id == botID).displayColor};
             data["server"] = bot.guilds.get(`421405545426321418`);
             data["developers"] = data.server.roles.get(`421405858736373760`).members.array();
+            data["permission"] = 15;
           
             commands[command].run(message, message.content.split(" ").splice(1, 1), data);
         }
@@ -70,6 +71,7 @@ var commands =
     ping: {
         name: "Ping",
         description: "A simple command to check the latency of the bot.",
+        category: "General",
         arguments: [],
         permission: 1,
         usage: `${prefix}ping`,
@@ -82,6 +84,7 @@ var commands =
     help: {
         name: "Help",
         description: "Displays a simple help message! If a command is specified, it will give information on the command.",
+        category: "General",
         arguments: ["-o command"],
         permission: 1,
         usage: `${prefix}help\` or \`${prefix}help <command>`,
@@ -148,6 +151,7 @@ var commands =
     stats: {
         name: "Stats",
         description: "Sends some statistics of the bot in a fancy Discord Embed.",
+        category: "General",
         arguments: [],
         permission: 1,
         usage: `${prefix}stats`,
@@ -205,14 +209,39 @@ var commands =
     },
     commands: {
         name: "Commands",
-        description: "Lists all avaliable commands to your DM channel",
-        arguments: [],
+        description: "Lists all avaliable commands to your DM channel.",
+        category: "General",
+        arguments: ["-o category"],
         permission: 1,
-        usage: `${prefix}ping`,
+        usage: `${prefix}commands\` or \`${prefix}commands <category>`,
         run: function(message, args, data)
         {
-            message.delete();
-            message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``).then(msg => {msg.delete(3000)});
+            let permission_level = data["permission"];
+          
+            let categories = {};
+          
+            for (let command in commands)
+            {
+                if (commands[command].permission <= permission_level)
+                {
+                    if (!categories[commands[command].category])
+                    {
+                        categories[commands[command].category] = [];
+                    }
+                    categories[commands[command].category].push(commands[command]);
+                }
+            }
+            
+            for (let category in categories)
+            {
+                let embed = new Embed();
+                
+                embed.setTitle("__" + bot.user.username + " - " + category + " Commands__");
+                for (let i = 0; i < categories[category].length; i++)
+                {
+                    embed.addField(categories[category][i].name, categories[category][i].description);
+                }
+            }
         }
     }
 };
