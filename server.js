@@ -16,6 +16,18 @@ app.get("/", function(request, response)
     console.log("Ping recieved [" + util.formatShortDate(datetime) + ", " + util.formatShortTime(datetime) + "]");
 });
 
+app.get("/join", function(request, response)
+{
+    console.log("A user visited the [Join] page!");
+    response.redirect("https://discord.gg/E3DPDk4");
+});
+
+app.get("/invite", function(request, response)
+{
+    console.log("A user visited the [Invite] page!");
+    response.redirect("https://discordapp.com/oauth2/authorize?client_id=421403753976037376&permissions=11328&scope=bot");
+});
+
 app.get("/ping", function(request, response)
 {
     let datetime = new Date();

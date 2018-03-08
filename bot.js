@@ -128,7 +128,7 @@ var commands =
                 embed.setColor(data.display_colour.hex);
               
                 embed.setDescription("Hello! I am **" + bot.user.username + "**! I am a bot designed for fun and games!");
-                embed.addField("Support", "Join our Official Discord Dojo!\nVisit our Official Website\n");
+                embed.addField("Support", "Join our Discord Dojo: [https://tilde.glitch.me/join](https://tilde.glitch.me/join) \nVisit our Official Website: \n");
               
                 embed.setFooter("Requested by " + message.member.displayName);
                 message.channel.send(embed);
