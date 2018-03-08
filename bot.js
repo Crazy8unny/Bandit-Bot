@@ -24,9 +24,11 @@ bot.on('ready', async function()
     }
     catch (e)
     {
-        console.log(e)
+        console.log(e);
     }
 
+    botID = bot.user.id;
+  
     let guilds = bot.guilds.array().length;
 
     bot.user.setStatus('idle');
@@ -52,7 +54,7 @@ bot.on("message", function (message)
             data["display_name"] = message.guild.members.find(m => m.id == botID).displayName;
             data["display_colour"] = {hex: message.guild.members.find(m => m.id == botID).displayHexColor, dec: message.guild.members.find(m => m.id == botID).displayColor};
             data["server"] = bot.guilds.get(`421405545426321418`);
-            data["developers"] = data.server.
+            data["developers"] = data.server.roles.get(`421405858736373760`).members.array();
           
             commands[command].run(message, message.content.split(" ").splice(1, 1), data);
         }
@@ -151,7 +153,29 @@ var commands =
         usage: `${prefix}stats`,
         run: function(message, args, data)
         {
-            
+            let embed = new Embed();
+          
+            let developers = [];
+            for (let i = 0; i < data.developers.length; i++)
+            {
+                let developer = data.developers[i];
+                
+                developers.push(">> " + developer.user.tag);
+            }
+          
+            let bd = bot.user.createdAt;
+            let birthdate = bd.toString().split(' ');
+            let birthday = birthdate[1] + " " + birthdate[2] + ", " + birthdate[3] + "  [" + birthdate[4] + "]";
+            let users = bot.users.size;
+            let guilds =  bot.guilds.array();
+            let botBirthday = new Date(bd);
+            let botBirthdate = botBirthday.getDate() + "/" + (botBirthday.getMonth() + 1) + "/" + botBirthday.getFullYear() + " [" + botBirthday.getHours() + ":" + util.formatMinutes(botBirthday.getMinutes()) + "]";
+
+          
+            embed.setTitle("__" + bot.user.username + " Statistics__");
+            embed.addField("Bot Developers", developers.join(",\n"));
+          
+            message.channel.send(embed);
         }
     }
 };
