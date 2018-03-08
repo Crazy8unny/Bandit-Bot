@@ -237,11 +237,16 @@ var commands =
                 let embed = new Embed();
                 
                 embed.setTitle("__" + bot.user.username + " - " + category + " Commands__");
+                embed.setColor("#9C39FF");
                 for (let i = 0; i < categories[category].length; i++)
                 {
                     embed.addField(categories[category][i].name, categories[category][i].description);
                 }
+                
+                message.author.send(embed);
             }
+            
+            message.channel.send(`✅ Messages containing the commands avaliable to you have been sent to your DMs!`);
         }
     }
 };
