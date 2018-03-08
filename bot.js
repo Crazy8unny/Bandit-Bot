@@ -16,8 +16,8 @@ app.use(express.static('public'));
 
 app.get("/", function (request, response) 
 {
-    response.sendFile(__dirname + '/views/index.html');
-    console.log("Ping recieved [" + util.formatShortDate(new Date()) + ", " + u"]");
+    let datetime = new Date();
+    console.log("Ping recieved [" + util.formatShortDate(datetime) + ", " + util.formatShortTime(datetime) + "]");
 });
 
 var listener = app.listen(port, function()
