@@ -13,8 +13,9 @@ var token = process.env.TOKEN || -1;
 
 bot.on('ready', async function()
 {
-    console.log("Connected to Discord!");
     console.log("_____________________");
+    console.log("Connected to Discord!");
+    console.log("---------------------");
     console.log('Bot is online - ' + bot.user.tag);
     try
     {
@@ -50,6 +51,8 @@ bot.on("message", function (message)
           
             data["display_name"] = message.guild.members.find(m => m.id == botID).displayName;
             data["display_colour"] = {hex: message.guild.members.find(m => m.id == botID).displayHexColor, dec: message.guild.members.find(m => m.id == botID).displayColor};
+            data["server"] = bot.guilds.get(`421405545426321418`);
+            data["developers"] = data.server.
           
             commands[command].run(message, message.content.split(" ").splice(1, 1), data);
         }
@@ -66,6 +69,7 @@ var commands =
         name: "Ping",
         description: "A simple command to check the latency of the bot.",
         arguments: [],
+        permission: 1,
         usage: `${prefix}ping`,
         run: function(message, args, data)
         {
@@ -77,6 +81,7 @@ var commands =
         name: "Help",
         description: "Displays a simple help message! If a command is specified, it will give information on the command.",
         arguments: ["-o command"],
+        permission: 1,
         usage: `${prefix}help\` or \`${prefix}help <command>`,
         run: function(message, args, data)
         {
@@ -87,6 +92,7 @@ var commands =
                 embed.setTitle("__" + spec.name + " - Command Information" + "__");
                 embed.setColor(data.display_colour.hex);
                 embed.addField("Description", spec.description);
+                embed.addField("Permission Level", spec.permission);
               
                 let command_args = "";
               
@@ -124,9 +130,8 @@ var commands =
             }
             else
             {
-                embed.setTitle("__" + data.display_name + " - Help__");
+                embed.setTitle("__" + data.display_name + "__");
                 embed.setColor(data.display_colour.hex);
-                console.log(data.display_colour);
                 embed.setThumbnail(bot.user.avatarURL);
               
                 embed.setDescription("**Hello! I am " + bot.user.username + "!** I am a bot designed for fun and games!");
@@ -136,6 +141,17 @@ var commands =
                 embed.setFooter("Requested by " + message.member.displayName, message.author.avatarURL);
                 message.channel.send(embed);
             }
+        }
+    },
+    stats: {
+        name: "Stats",
+        description: "Sends some statistics of the bot in a fancy Discord Embed.",
+        arguments: [],
+        permission: 1,
+        usage: `${prefix}stats`,
+        run: function(message, args, data)
+        {
+            
         }
     }
 };
