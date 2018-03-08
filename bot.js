@@ -16,7 +16,7 @@ bot.on('ready', async function()
     console.log('Bot is online - ' + bot.user.tag);
     try
     {
-        let link = await bot.generateInvite(["MANAGE_MESSAGES", "SEND_MESSAGES", "READ_MESSAGES"])
+        let link = await bot.generateInvite(["MANAGE_MESSAGES", "SEND_MESSAGES", "READ_MESSAGES", "ADD_REACTIONS"])
         console.log("Invite: " + link);
     }
     catch (e)
@@ -48,7 +48,7 @@ bot.on("message", function (message)
         }
         catch (e)
         {
-            
+            console.error(e);
         }
     }
 });
