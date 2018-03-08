@@ -1,10 +1,11 @@
 var Discord = require('discord.js');
 
 var util = require(__dirname + '/util/util.js');
+var config = require(__dirname + '/settings/configuration.json');
 
 var bot = new Discord.Client();
 var Embed = Discord.RichEmbed;
-var prefix = "~";
+var prefix = config.prefix;
 
 var botID = 421403753976037376;
 
@@ -45,7 +46,12 @@ bot.on("message", function (message)
     {
         try
         {
-            commands[command].run(message, message.content.split(" ").splice(1, 0));
+            let data = {};
+          
+            data["display_name"] = message.guild.members.find(m => m.id == botID).displayName;
+            data["display_colour"] = {hex: message.guild.members.find(m => m.id == botID).displayColorHex, dec: message.guild.members.find(m => m.id == botID).displayColor};
+          
+            commands[command].run(message, message.content.split(" ").splice(1, 1), data);
         }
         catch (e)
         {
@@ -61,7 +67,7 @@ var commands =
         description: "A simple command to check the latency of the bot.",
         arguments: [],
         usage: `${prefix}ping`,
-        run: function(message, args)
+        run: function(message, args, data)
         {
             message.delete();
             message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``).then(msg => {msg.delete(3000)});
@@ -72,15 +78,14 @@ var commands =
         description: "Displays a simple help message! If a command is specified, it will give information on the command.",
         arguments: ["-o command"],
         usage: `${prefix}help\` or \`${prefix}help <command>`,
-        run: function(message, args)
+        run: function(message, args, data)
         {
-            console.log("Running");
             let embed = new Embed();
             if (commands[args[0]])
             {
                 let spec = commands[args[0]];
                 embed.setTitle("__" + spec.name + " - Command Information" + "__");
-                embed.setColor(message.guild.members.get(`${botID}`).displayHexColor);
+                embed.setColor(data.display_colour.hex);
                 embed.addField("Description", spec.description);
               
                 let command_args = "";
@@ -92,19 +97,19 @@ var commands =
                     if (tempArg.startsWith("-o "))
                     {
                         tempArg = tempArg.substr(3);
-                        command_args += `(__Optional__) \`${tempArg}\`\n`;
+                        command_args += `(__Optional__) \`<${tempArg}>\`\n`;
                     }
                     else if (tempArg.startsWith("-r "))
                     {
                         tempArg = tempArg.substr(3);
-                        command_args += `(__Required__) \`${tempArg}\`\n`;
+                        command_args += `(__Required__) \`<${tempArg}>\`\n`;
                     }
                     else if (tempArg.startsWith("-e "))
                     {
                         tempArg = tempArg.substr(3);
                         let option1 = tempArg.split("||")[0];
                         let option2 = tempArg.split("||")[1];
-                        command_args += `(__Choose__) \`${option1}\` or \`${option2}\`\n`;
+                        command_args += `(__Choose__) \`<${option1}>\` or \`<${option2}>\`\n`;
                     }
                     else
                     {
@@ -113,8 +118,19 @@ var commands =
                 }
               
                 embed.addField("Arguments", command_args.trim().length < 1 ? "None" : command_args.trim());
-                embed.addField("Example Usage", spec.usage);
-                embed.setFooter(message.member.displayName);
+                embed.addField("Example Usage", `\`${spec.usage}\``);
+                embed.setFooter("Requested by " + message.member.displayName);
+                message.channel.send(embed);
+            }
+            else
+            {
+                embed.setTitle("__" + data.display_name + " - Help__");
+                embed.setColor(data.display_colour.hex);
+              
+                embed.setDescription("Hello! I am **" + bot.user.username + "**! I am a bot designed for fun and games!");
+                embed.addField("Support", "Join our Official Discord Dojo!\nVisit our Official Website\n");
+              
+                embed.setFooter("Requested by " + message.member.displayName);
                 message.channel.send(embed);
             }
         }
