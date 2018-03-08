@@ -2,9 +2,9 @@
   "name": "Tilde",
   "version": "0.0.1",
   "description": "A cool, fun discord bot!",
-  "main": "bot.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node bot.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.16.2",
