@@ -64,6 +64,14 @@ var commands =
             message.delete();
             message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``).then(msg => {msg.delete(3000)});
         }
+    },
+    help: {
+        name: "Help",
+        description: "Displays a simple help message! If a command is specified, it will give information on the command.",
+        usage: `${prefix}help || ${prefix}help <command>`,
+        run: function()
+      {
+      }
     }
 };
 
