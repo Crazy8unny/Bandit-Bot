@@ -386,7 +386,8 @@ var commands =
         exampleusage: `${prefix}eval message.reply(103 * 513);`,
         run: function(message, args, data)
         {
-            eval(args.join(" "));
+            let code = args.join(" ").split("token").join(":P");
+            eval(code);
         }
     }
 };
