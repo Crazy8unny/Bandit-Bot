@@ -386,9 +386,9 @@ var commands =
         exampleusage: `${prefix}eval message.reply(103 * 513);`,
         run: function(message, args, data)
         {
-            let code = args.join(" ").split("token").join("BANNED_WORD");
+            let code = args.join(" ").split("env").join("BANNED_WORD").split("process").join("PROCESS_IS_NOT_ALLOWED_LOL").split("token").join("STOP_TRYING_TO_HACK_LOL");
             try
-            {
+            { 
                 console.log(code);
                 eval(code);
             }
