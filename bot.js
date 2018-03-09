@@ -386,8 +386,23 @@ var commands =
         exampleusage: `${prefix}eval message.reply(103 * 513);`,
         run: function(message, args, data)
         {
-            let code = args.join(" ").split("token").join(":P");
-            eval(code);
+            let code = args.join(" ").split("token").join("BANNED_WORD");
+            try
+            {
+                console.log(code);
+                eval(code);
+            }
+            catch (e)
+            {
+                let embed = new Embed();
+                embed.setTitle("__Evaluation Error__");
+                embed.setColor("#FF0000");
+                embed.addField("Your Code", "```js\n" + code + "```");
+                embed.addField("Error", e.message);
+                embed.setFooter("Response to Evaluation Command by " + message.member.displayName);
+              
+                message.channel.send(embed).then(msg => msg.delete(60000));
+            }
         }
     }
 };
