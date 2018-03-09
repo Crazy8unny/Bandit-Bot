@@ -109,9 +109,9 @@ var DMCommands =
         {
           
             let embed = new Embed();
-            if (commands[args[0]])
+            if (DMCommands[args[0]])
             {
-                let spec = commands[args[0].toLowerCase()];
+                let spec = DMCommands[args[0].toLowerCase()];
                 embed.setTitle("__" + spec.name + " - DM Command Information" + "__");
                 embed.addField("Category", spec.category);
                 embed.addField("Description", spec.description);
@@ -366,7 +366,7 @@ var commands =
                     embed.setColor("#9C39FF");
                     for (let i = 0; i < categories[category].length; i++)
                     {
-                        embed.addField(categories[category][i].name + "_", categories[category][i].description);
+                        embed.addField("_" + categories[category][i].name + " Command_", categories[category][i].description);
                     }
 
                     message.author.send(embed);
