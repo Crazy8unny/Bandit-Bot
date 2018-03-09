@@ -32,4 +32,29 @@ exports.getPermissionLevel = function(bot, guild, ID)
   
     let member = guild.members.get(ID);
     
+    switch (member.permissions)
+    {
+        case this.has("ADMINISTRATOR"):
+            return 10;
+        case this.has("BAN_MEMBERS"):
+            return 9;
+        case this.has("KICK_MEMBERS"):
+            return 8;
+        case this.has("MANAGE_GUILD"):
+            return 7;
+        case this.has("MANAGE_CHANNELS"):
+            return 6;
+        case this.has("SEND_MESSAGES"):
+            return 5;
+        case this.has("SEND_MESSAGES"):
+            return 4;
+        case this.has("SEND_MESSAGES"):
+            return 3;
+        case this.has("SEND_MESSAGES"):
+            return 2;
+        case this.has("SEND_MESSAGES"):
+            return 1;
+        default:
+            break;
+    }
 }
