@@ -58,8 +58,6 @@ bot.on("message", function (message)
             data["developers"] = data.server.roles.get(`421405858736373760`).members.array();
             data["permission"] = permission.getPermissionLevel(bot, message.guild, message.author.id);
           
-            console.log(data["permission"]);
-          
             commands[command].run(message, message.content.split(" ").splice(1), data);
         }
         catch (e)
@@ -384,7 +382,7 @@ var commands =
         description: "Runs the code specified.",
         category: "Development",
         arguments: ["-r code"],
-        permission: 15,
+        permission: 12,
         usage: `${prefix}eval <code>`,
         exampleusage: `${prefix}eval message.reply(103 * 513);`,
         run: function(message, args, data)
