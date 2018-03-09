@@ -1,6 +1,7 @@
 var Discord = require('discord.js');
 
 var util = require(__dirname + '/util/util.js');
+var permission = require(__dirname + '/util/permissions.js');
 var config = require(__dirname + '/settings/configuration.json');
 
 var bot = new Discord.Client();
@@ -55,9 +56,11 @@ bot.on("message", function (message)
             data["display_colour"] = {hex: message.guild.members.find(m => m.id == botID).displayHexColor, dec: message.guild.members.find(m => m.id == botID).displayColor};
             data["server"] = bot.guilds.get(`421405545426321418`);
             data["developers"] = data.server.roles.get(`421405858736373760`).members.array();
-            data["permission"] = 15;
+            data["permission"] = permission.getPermissionLevel(bot, message.guild, message.author.id);
           
-           commands[command].run(message, message.content.split(" ").splice(1), data);
+            console.log(data["permission"]);
+          
+            commands[command].run(message, message.content.split(" ").splice(1), data);
         }
         catch (e)
         {

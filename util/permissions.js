@@ -19,11 +19,11 @@ exports.getPermissionLevel = function(bot, guild, ID)
               case "421440073934831628":
                   return 10;
               case "421406584833441803":
-                  return 5;
-              case "421406447696609281":
                   return 4;
-              case "421405926671646730":
+              case "421406447696609281":
                   return 3;
+              case "421405926671646730":
+                  return 2;
               default:
                   break;
             }
@@ -35,22 +35,18 @@ exports.getPermissionLevel = function(bot, guild, ID)
     switch (member.permissions)
     {
         case this.has("ADMINISTRATOR"):
-            return 10;
-        case this.has("BAN_MEMBERS"):
-            return 9;
-        case this.has("KICK_MEMBERS"):
             return 8;
-        case this.has("MANAGE_GUILD"):
+        case this.has("BAN_MEMBERS"):
             return 7;
-        case this.has("MANAGE_CHANNELS"):
+        case this.has("KICK_MEMBERS"):
             return 6;
-        case this.has("SEND_MESSAGES"):
+        case this.has("MANAGE_GUILD"):
             return 5;
-        case this.has("SEND_MESSAGES"):
+        case this.has("MANAGE_ROLES"):
             return 4;
-        case this.has("SEND_MESSAGES"):
+        case this.has("MANAGE_CHANNELS"):
             return 3;
-        case this.has("SEND_MESSAGES"):
+        case this.has("EXTERNAL_EMOJIS"):
             return 2;
         case this.has("SEND_MESSAGES"):
             return 1;
