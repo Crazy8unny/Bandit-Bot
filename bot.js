@@ -98,52 +98,24 @@ var DMCommands =
             message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``).then(msg => {msg.delete(3000)});
         }
     },
-    ping: {
-        name: "Ping",
-        description: "A simple command to check the latency of the bot.",
-        category: "General",
-        arguments: [],
-        permission: 1,
-        usage: `${prefix}ping`,
-        run: function(message, args, data)
-        {
-            message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``).then(msg => {msg.delete(3000)});
-        }
-    }
-};
-
-var commands = 
-{
-    ping: {
-        name: "Ping",
-        description: "A simple command to check the latency of the bot.",
-        category: "General",
-        arguments: [],
-        permission: 1,
-        usage: `${prefix}ping`,
-        run: function(message, args, data)
-        {
-            message.delete();
-            message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``).then(msg => {msg.delete(3000)});
-        }
-    },
     help: {
-        name: "Help",
-        description: "Displays a simple help message! If a command is specified, it will give information on the command.",
+        name: "Help (DM)",
+        description: "Displays a help message. If a command is specified, it will give information on the command.",
         category: "General",
         arguments: ["-o command"],
         permission: 1,
-        usage: `${prefix}help\` or \`${prefix}help <command>`,
+        usage: `${prefix}help\`\`\` or \`\`\`${prefix}help ping`,
         run: function(message, args, data)
         {
+          
             let embed = new Embed();
             if (commands[args[0]])
             {
                 let spec = commands[args[0].toLowerCase()];
-                embed.setTitle("__" + spec.name + " - Command Information" + "__");
-                embed.setColor(data.display_colour.hex);
+                embed.setTitle("__" + spec.name + " - DM Command Information" + "__");
+                embed.addField("Category", spec.category);
                 embed.addField("Description", spec.description);
-                embed.addField("Permission Level", spec.permission);
+                embed.addField("Permission Level", ">> " + spec.permission);
               
                 let command_args = "";
               
@@ -175,7 +147,94 @@ var commands =
                 }
               
                 embed.addField("Arguments", command_args.trim().length < 1 ? "None" : command_args.trim());
-                embed.addField("Example Usage", `\`${spec.usage}\``);
+                embed.addField("Example Usage", `\`\`\`${spec.usage}\`\`\``);
+                embed.setFooter("Requested by " + message.author.tag);
+                message.channel.send(embed);
+            }
+            else
+            {
+                embed.setTitle("__" + data.display_name + " - DM Help__");
+                embed.setThumbnail(bot.user.avatarURL);
+              
+                embed.setDescription("**Hello! I am " + bot.user.username + "!** I am a bot designed for fun and games!");
+                embed.addField("Getting Started", "Type `" + prefix + "commands` to see my commands\nType `" + prefix + "stats` to see some of my statistics");
+                embed.addField("Support", "Visit our Official Website: [https://tilde.glitch.me/](https://tilde.glitch.me/)\nJoin our Discord Dojo: [https://tilde.glitch.me/join](https://tilde.glitch.me/join) \n");
+              
+                embed.setFooter("Requested by " + message.author.tag, message.author.avatarURL);
+                message.channel.send(embed);
+            }
+        
+        }
+    }
+};
+
+var commands = 
+{
+    ping: {
+        name: "Ping",
+        description: "A simple command to check the latency of the bot.",
+        category: "General",
+        arguments: [],
+        permission: 1,
+        usage: `${prefix}ping`,
+        run: function(message, args, data)
+        {
+            message.delete();
+            message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``).then(msg => {msg.delete(3000)});
+        }
+    },
+    help: {
+        name: "Help",
+        description: "Displays a simple help message! If a command is specified, it will give information on the command.",
+        category: "General",
+        arguments: ["-o command"],
+        permission: 1,
+        usage: `${prefix}help\` or \`${prefix}help <command>`,
+        exampleusage: `${prefix}help\`\`\` or \`\`\`${prefix}help ping`,
+        run: function(message, args, data)
+        {
+            let embed = new Embed();
+            if (commands[args[0]])
+            {
+                let spec = commands[args[0].toLowerCase()];
+                embed.setTitle("__" + spec.name + " - Command Information" + "__");
+                embed.setColor(data.display_colour.hex);
+                embed.addField("Category", spec.category);
+                embed.addField("Description", spec.description);
+                embed.addField("Permission Level", ">> " + spec.permission);
+              
+                let command_args = "";
+              
+                for (let i = 0; i < spec.arguments.length; i++)
+                { 
+                    let tempArg = spec.arguments[i];
+                  
+                    if (tempArg.startsWith("-o "))
+                    {
+                        tempArg = tempArg.substr(3);
+                        command_args += `(__Optional__) \`<${tempArg}>\`\n`;
+                    }
+                    else if (tempArg.startsWith("-r "))
+                    {
+                        tempArg = tempArg.substr(3);
+                        command_args += `(__Required__) \`<${tempArg}>\`\n`;
+                    }
+                    else if (tempArg.startsWith("-e "))
+                    {
+                        tempArg = tempArg.substr(3);
+                        let option1 = tempArg.split("||")[0];
+                        let option2 = tempArg.split("||")[1];
+                        command_args += `(__Choose__) \`<${option1}>\` or \`<${option2}>\`\n`;
+                    }
+                    else
+                    {
+                        command_args += `(**Uncategorised**) \`${tempArg}\`\n`;
+                    }
+                }
+              
+                embed.addField("Arguments", command_args.trim().length < 1 ? "None" : command_args.trim());
+                embed.addField("Usage", `\`${spec.usage}\``);
+                embed.addField("Example Usage", `\`\`\`${spec.exampleusage}\`\`\``);
                 embed.setFooter("Requested by " + message.member.displayName);
                 message.channel.send(embed);
             }
