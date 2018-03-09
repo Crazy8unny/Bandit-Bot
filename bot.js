@@ -45,7 +45,7 @@ bot.on("message", function (message)
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
     
     let command = message.content.split(" ")[0].substr(1);
-    if (commands[command])
+    if (message.channel.type == "text" && commands[command])
     {
         try
         {
@@ -57,7 +57,25 @@ bot.on("message", function (message)
             data["developers"] = data.server.roles.get(`421405858736373760`).members.array();
             data["permission"] = 15;
           
-            commands[command].run(message, message.content.split(" ").splice(1, 1), data);
+           commands[command].run(message, message.content.split(" ").splice(1, 1), data);
+        }
+        catch (e)
+        {
+            console.error(e);
+        }
+    }
+    else if ((message.channel.type == "dm" || message.channel.type == "group") && DMCommands[command])
+    {
+        
+        try
+        {
+            let data = {};
+          
+            data["server"] = bot.guilds.get(`421405545426321418`);
+            data["developers"] = data.server.roles.get(`421405858736373760`).members.array();
+            data["permission"] = 15;
+          
+           DMCommands[command].run(message, message.content.split(" ").splice(1, 1), data);
         }
         catch (e)
         {
@@ -65,6 +83,34 @@ bot.on("message", function (message)
         }
     }
 });
+
+var DMCommands = 
+{
+    ping: {
+        name: "Ping",
+        description: "A simple command to check the latency of the bot.",
+        category: "General",
+        arguments: [],
+        permission: 1,
+        usage: `${prefix}ping`,
+        run: function(message, args, data)
+        {
+            message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``).then(msg => {msg.delete(3000)});
+        }
+    },
+    ping: {
+        name: "Ping",
+        description: "A simple command to check the latency of the bot.",
+        category: "General",
+        arguments: [],
+        permission: 1,
+        usage: `${prefix}ping`,
+        run: function(message, args, data)
+        {
+            message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``).then(msg => {msg.delete(3000)});
+        }
+    }
+};
 
 var commands = 
 {
@@ -93,7 +139,7 @@ var commands =
             let embed = new Embed();
             if (commands[args[0]])
             {
-                let spec = commands[args[0]];
+                let spec = commands[args[0].toLowerCase()];
                 embed.setTitle("__" + spec.name + " - Command Information" + "__");
                 embed.setColor(data.display_colour.hex);
                 embed.addField("Description", spec.description);
@@ -232,8 +278,9 @@ var commands =
                 }
             }
             
-            for (let category in categories)
+            if (args[0] && categories[util.ucfirst(args[0])])
             {
+                let category = util.ucfirst(args[0]);
                 let embed = new Embed();
                 
                 embed.setTitle("__" + bot.user.username + " - " + category + " Commands__");
@@ -244,9 +291,26 @@ var commands =
                 }
                 
                 message.author.send(embed);
+                message.channel.send(`✅ A Message containing the commands avaliable to you from the specified category (**${category}**) has been sent to your DMs!`);
+            }
+            else
+            {
+                for (let category in categories)
+                {
+                    let embed = new Embed();
+
+                    embed.setTitle("__" + bot.user.username + " - " + category + " Commands__");
+                    embed.setColor("#9C39FF");
+                    for (let i = 0; i < categories[category].length; i++)
+                    {
+                        embed.addField(categories[category][i].name, categories[category][i].description);
+                    }
+
+                    message.author.send(embed);
+                }
+                message.channel.send(`✅ Messages containing the commands avaliable to you have been sent to your DMs!`);
             }
             
-            message.channel.send(`✅ Messages containing the commands avaliable to you have been sent to your DMs!`);
         }
     }
 };
