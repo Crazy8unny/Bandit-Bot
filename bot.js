@@ -147,13 +147,14 @@ var DMCommands =
                 }
               
                 embed.addField("Arguments", command_args.trim().length < 1 ? "None" : command_args.trim());
-                embed.addField("Example Usage", `\`\`\`${spec.usage}\`\`\``);
+                embed.addField("Usage", `\`${spec.usage}\``);
+                embed.addField("Example Usage", `\`\`\`${spec.exampleusage}\`\`\``);
                 embed.setFooter("Requested by " + message.author.tag);
                 message.channel.send(embed);
             }
             else
             {
-                embed.setTitle("__" + data.display_name + " - DM Help__");
+                embed.setTitle("__" + bot.user.tag + " - DM Help__");
                 embed.setThumbnail(bot.user.avatarURL);
               
                 embed.setDescription("**Hello! I am " + bot.user.username + "!** I am a bot designed for fun and games!");
@@ -177,6 +178,7 @@ var commands =
         arguments: [],
         permission: 1,
         usage: `${prefix}ping`,
+        exampleusage: `${prefix}ping`,
         run: function(message, args, data)
         {
             message.delete();
@@ -190,7 +192,7 @@ var commands =
         arguments: ["-o command"],
         permission: 1,
         usage: `${prefix}help\` or \`${prefix}help <command>`,
-        exampleusage: `${prefix}help\`\`\` or \`\`\`${prefix}help ping`,
+        exampleusage: `${prefix}help ping`,
         run: function(message, args, data)
         {
             let embed = new Embed();
@@ -260,6 +262,7 @@ var commands =
         arguments: [],
         permission: 1,
         usage: `${prefix}stats`,
+        exampleusage: `${prefix}stats`,
         run: function(message, args, data)
         {
             let embed = new Embed();
@@ -293,7 +296,7 @@ var commands =
                 totalUsers += members;
             }
           
-            embed.setTitle("__" + bot.user.username + " Statistics__");
+            embed.setTitle("__" + bot.user.tag + " Statistics__");
             embed.setColor(data.display_colour.hex);
             embed.setThumbnail(bot.user.avatarURL);
           
@@ -318,7 +321,8 @@ var commands =
         category: "General",
         arguments: ["-o category"],
         permission: 1,
-        usage: `${prefix}commands\` or \`${prefix}commands <category>`,
+        usage: `${prefix}commands\` or  \`${prefix}commands <category>`,
+        exampleusage: `${prefix}commands General`,
         run: function(message, args, data)
         {
             let permission_level = data["permission"];
@@ -342,7 +346,7 @@ var commands =
                 let category = util.ucfirst(args[0]);
                 let embed = new Embed();
                 
-                embed.setTitle("__" + bot.user.username + " - " + category + " Commands__");
+                embed.setTitle("__" + bot.user.tag + " - " + category + " Commands__");
                 embed.setColor("#9C39FF");
                 for (let i = 0; i < categories[category].length; i++)
                 {
