@@ -19,7 +19,7 @@ bot.on('ready', async function()
     console.log('Bot is online - ' + bot.user.tag);
     try
     {
-        let link = await bot.generateInvite(["MANAGE_MESSAGES", "SEND_MESSAGES", "READ_MESSAGES", "ADD_REACTIONS"])
+        let link = await bot.generateInvite(["MANAGE_MESSAGES", "SEND_MESSAGES", "READ_MESSAGES", "ADD_REACTIONS", "EMBED_LINKS"])
         console.log("Invite: " + link);
     }
     catch (e)
@@ -57,7 +57,7 @@ bot.on("message", function (message)
             data["developers"] = data.server.roles.get(`421405858736373760`).members.array();
             data["permission"] = 15;
           
-           commands[command].run(message, message.content.split(" ").splice(1, 1), data);
+           commands[command].run(message, message.content.split(" ").splice(1), data);
         }
         catch (e)
         {
@@ -366,7 +366,7 @@ var commands =
                     embed.setColor("#9C39FF");
                     for (let i = 0; i < categories[category].length; i++)
                     {
-                        embed.addField(categories[category][i].name, categories[category][i].description);
+                        embed.addField(categories[category][i].name + "_", categories[category][i].description);
                     }
 
                     message.author.send(embed);
@@ -374,6 +374,19 @@ var commands =
                 message.channel.send(`✅ Messages containing the commands avaliable to you have been sent to your DMs!`);
             }
             
+        }
+    },
+    eval: {
+        name: "Eval",
+        description: "Runs the code specified.",
+        category: "Development",
+        arguments: ["-r code"],
+        permission: 15,
+        usage: `${prefix}eval <code>`,
+        exampleusage: `${prefix}eval message.reply(103 * 513);`,
+        run: function(message, args, data)
+        {
+            eval(args.join(" "));
         }
     }
 };
