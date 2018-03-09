@@ -19,7 +19,7 @@ bot.on('ready', async function()
     console.log('Bot is online - ' + bot.user.tag);
     try
     {
-        let link = await bot.generateInvite(["MANAGE_MESSAGES", "SEND_MESSAGES", "READ_MESSAGES", "ADD_REACTIONS", "EMBED_LINKS"])
+        let link = await bot.generateInvite(["MANAGE_MESSAGES", "SEND_MESSAGES", "READ_MESSAGES", "ADD_REACTIONS", "EMBED_LINKS", "CREATE_INSTANT_INVITE"])
         console.log("Invite: " + link);
     }
     catch (e)
