@@ -249,7 +249,7 @@ var commands =
               
                 embed.setDescription("**Hello! I am " + bot.user.username + "!** I am a bot designed for fun and games!");
                 embed.addField("Getting Started", "Type `" + prefix + "commands` to see my commands\nType `" + prefix + "stats` to see some of my statistics");
-                embed.addField("Support", "Visit our Official Website: [https://tilde.glitch.me/](https://tilde.glitch.me/)\nJoin our Discord Dojo: [https://tilde.glitch.me/join](https://tilde.glitch.me/join) \n");
+                embed.addField("Support", "Visit our Official Website: [https://tilde.glitch.me/](https://tilde.glitch.me/)\nJoin our Discord Dojo: [https://tilde.glitch.me/join](https://tilde.glitch.me/join) \nInvite me to your server: [https://tilde.glitch.me/invite](https://tilde.glitch.me/invite) \n");
               
                 embed.setFooter("Requested by " + message.member.displayName, message.author.avatarURL);
                 message.channel.send(embed);
@@ -405,7 +405,21 @@ var commands =
                 message.channel.send(embed).then(msg => msg.delete(60000));
             }
         }
-    }
+    },
+    ping: {
+        name: "Clear",
+        description: "Deletes the last specified amount of messages from the channel the command is called from.",
+        category: "General",
+        arguments: ["-r Amount, -o @User"],
+        permission: 1,
+        usage: `${prefix}ping`,
+        exampleusage: `${prefix}ping`,
+        run: function(message, args, data)
+        {
+            message.delete();
+            message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``).then(msg => {msg.delete(3000)});
+        }
+    },
 };
 
 bot.login(token);

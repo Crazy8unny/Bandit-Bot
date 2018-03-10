@@ -38,11 +38,11 @@ exports.getPermissionLevel = function(bot, guild, ID)
             return 8;
         case this.has("BAN_MEMBERS"):
             return 7;
-        case this.has("KICK_MEMBERS"):
-            return 6;
         case this.has("MANAGE_GUILD"):
+            return 6;
+        case this.has(""):
             return 5;
-        case this.has("MANAGE_ROLES"):
+        case this.has("MANAGE_MESSAGES"):
             return 4;
         case this.has("MANAGE_CHANNELS"):
             return 3;

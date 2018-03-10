@@ -2,10 +2,10 @@ Tilde
 =
 Tilde (**~**) is a cool discord bot used for fun and games!
 
-Features:
-  -  Noughts and Crosses!
-  -  21
-  -  Currency System
+Features [All these features are a work in progress. The order they are in the list is the order they will be added (roughly).]:
+  -  Noughts and Crosses! [Not Done]
+  -  21 [Not Done]
+  -  Currency System [Not Done]
   
   
 ![alt text][logo]

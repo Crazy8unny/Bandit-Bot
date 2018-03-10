@@ -25,7 +25,7 @@ app.get("/join", function(request, response)
 app.get("/invite", function(request, response)
 {
     console.log("A user visited the [Invite] page!");
-    response.redirect("https://discordapp.com/oauth2/authorize?client_id=421403753976037376&permissions=11328&scope=bot");
+    response.redirect("https://discordapp.com/oauth2/authorize?client_id=421403753976037376&permissions=27713&scope=bot");
 });
 
 app.get("/ping", function(request, response)
