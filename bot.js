@@ -58,7 +58,11 @@ bot.on("message", function (message)
             data["developers"] = data.server.roles.get(`421405858736373760`).members.array();
             data["permission"] = permission.getPermissionLevel(bot, message.guild, message.author.id);
           
-            commands[command].run(message, message.content.split(" ").splice(1), data);
+            let error = commands[command].run(message, message.content.split(" ").splice(1), data);
+            if (error)
+            {
+                message.channel.send("```dif\n-" + error + "```");
+            }
         }
         catch (e)
         {
@@ -406,18 +410,37 @@ var commands =
             }
         }
     },
-    ping: {
+    clear: {
         name: "Clear",
         description: "Deletes the last specified amount of messages from the channel the command is called from.",
         category: "General",
         arguments: ["-r Amount, -o @User"],
         permission: 1,
-        usage: `${prefix}ping`,
-        exampleusage: `${prefix}ping`,
+        usage: `${prefix}clear <amount>`,
+        exampleusage: `${prefix}clear 10 @Furvux#2414`,
         run: function(message, args, data)
         {
             message.delete();
-            message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``).then(msg => {msg.delete(3000)});
+            let amount = args[0];
+          
+            if (isNaN(amount)) amount = args[1];
+            if (isNaN(amount)) return "You need to specify an amount!";
+          
+            if (amount > 1000) return `You can only delete up to 1000 messages!`;
+          
+            let user = message.mentions.members.first();
+            let messages = message.channel.messages.array();
+            if (user)
+            {
+                for (let i = 0; i < Math.min(amount, messages.length); i++)
+                {
+                    let msg = messages[i];
+                    msg.delete();
+                }
+            }
+            else
+            {
+            }
         }
     },
 };
