@@ -445,7 +445,45 @@ var commands =
         name: "Clear",
         description: "Deletes the last specified amount of messages from the channel the command is called from.",
         category: "General",
-        arguments: ["-r Amount, -o @User"],
+        arguments: ["-r Amount", "-o @User"],
+        permission: 3,
+        usage: `${prefix}clear <amount>`,
+        exampleusage: `${prefix}clear 10 @Furvux#2414`,
+        run: function(message, args, data)
+        {
+            let amount = args[0];
+          
+            if (isNaN(amount)) amount = args[1];
+            if (isNaN(amount)) return "You need to specify an amount (as a number)!";
+          
+            if (amount > 1000) return `You can only delete up to 1000 messages!`;
+          
+            let user = message.mentions.members.first();
+            let messages = message.channel.messages.array();
+            if (user)
+            {
+                for (let i = 0; i < Math.min(amount, messages.length); i++)
+                {
+                    let msg = messages[i];
+                    msg.delete();
+                }
+            }
+            else
+            {
+                for (let i = 0; i < Math.round(amount / 99); i++)
+                {
+                    message.channel.bulkDelete(99);
+                }
+                message.channel.bulkDelete(amount % 99);
+                message.channel.send("✅ Cleared [**" + (amount - 1) + "**] messages! (__Requested by _" + message.member.displayName + "___)").then(msg => msg.delete(3000));
+            }
+        }
+    },
+    categories: {
+        name: "Categories",
+        description: "Displays a list of command categories.",
+        category: "General",
+        arguments: [],
         permission: 1,
         usage: `${prefix}clear <amount>`,
         exampleusage: `${prefix}clear 10 @Furvux#2414`,
