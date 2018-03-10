@@ -70,18 +70,21 @@ bot.on('ready', async function()
         if (err) console.error(err);
 
         i_Board = image;
+        console.log("-- Asset \"Board.png\" loaded!");
     });
     Jimp.read(x, function (err, x) 
     {
         if (err) console.error(err);
       
         i_X = x;
+        console.log("-- Asset \"Cross.png\" loaded!");
     });
     Jimp.read(o, function (err, o) 
     {
         if (err) console.error(err);
       
         i_O = o;
+        console.log("-- Asset \"Nought.png\" loaded!");
     });
 
 });
@@ -592,7 +595,28 @@ var commands = {
         exampleusage: `${prefix}catagories`,
         run: function(message, args, data) 
         {
-            
+            let categories = {};
+
+            for (let command in commands)
+            {
+                if (commands[command].permission <= data.permission)
+                {
+                    if (!commands[command].category) categories[commands[command].category] = 0;
+                    categories[commands[command].category] += 1;
+                }
+            }
+          
+            let embed = new Embed();
+            embed.setTitle(`__Tilde - Command Categories__`);
+            embed.setColor(data.display_colour.hex);
+          
+            for (let category in categories)
+            {
+                embed.addField(category, `>> ${categories[category]} commands`);
+            }
+          
+            embed.setFooter(`Requested by ${message.member.displayName} | Permission Level: ${data.permission}`);
+            message.channel.send(embed);
         }
     },
     permission:
