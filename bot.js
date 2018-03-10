@@ -17,6 +17,7 @@ var token = process.env.TOKEN || -1;
 
 var gameData = {};
 gameData["XO"] = {};
+var playing = [];
 
 var i_Board;
 var i_X;
@@ -100,6 +101,13 @@ bot.on("message", function(message)
         {
             let data = {};
 
+            data["permission"] = permission.getPermissionLevel(bot, message.guild, message.author.id);
+          
+            if (!isNaN(message.content) && parseInt(message.content) > 0 && parseInt(message.content) < 10 && playing.includes(message.author.id))
+            {
+                
+            }
+          
             data["display_name"] = message.guild.members.find(m => m.id == botID)
                 .displayName;
             data["display_colour"] = {
@@ -111,7 +119,6 @@ bot.on("message", function(message)
             data["server"] = bot.guilds.get(`421405545426321418`);
             data["developers"] = data.server.roles.get(`421405858736373760`)
                 .members.array();
-            data["permission"] = permission.getPermissionLevel(bot, message.guild, message.author.id);
 
             if (data.permission >= commands[command].permission)
             {
