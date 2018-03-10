@@ -7,6 +7,7 @@ var config = require(__dirname + '/settings/configuration.json');
 var bot = new Discord.Client();
 var Embed = Discord.RichEmbed;
 var prefix = config.prefix;
+var OFFICIAL_GUILD_NAME = "Tilde Dojo";
 
 var botID = 421403753976037376;
 
@@ -37,7 +38,7 @@ bot.on('ready', async function()
     bot.user.setActivity(`${bot.guilds.size} Servers | ~help`,
     {
         type: "WATCHING"
-    })
+    });
 
 });
 
@@ -196,26 +197,26 @@ var commands =
         category: "General",
         arguments: [],
         permission: 1,
-        usage: `${prefix}ping`,
-        exampleusage: `${prefix}ping`,
+        usage: `${prefix}invite`,
+        exampleusage: `${prefix}invite`,
         run: function(message, args, data)
         {
             message.delete();
-            message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``).then(msg => {msg.delete(3000)});
+            message.author.send(`Invite me to a server: https://${process.env.PROJECT_DOMAIN}.glitch.me/invite\nJoin my Discord Dojo: https://${process.env.PROJECT_DOMAIN}.glitch.me/join`);
         }
     },
     server: {
         name: "Server",
-        description: `An invitation link to the ${bot.guilds.get(process.env.OFFICIAL_GUILD).name}`,
+        description: `An invitation link to the ${OFFICIAL_GUILD_NAME} will be sent to your DMs!`,
         category: "General",
-        arguments: [],
+        arguments: [], 
         permission: 1,
-        usage: `${prefix}ping`,
-        exampleusage: `${prefix}ping`,
+        usage: `${prefix}server`,
+        exampleusage: `${prefix}server`,
         run: function(message, args, data)
         {
             message.delete();
-            message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``).then(msg => {msg.delete(3000)});
+            message.author.send(`Join my Discord Dojo: https://${process.env.PROJECT_DOMAIN}.glitch.me/join\nInvite me to a server: https://${process.env.PROJECT_DOMAIN}.glitch.me/invite`);
         }
     },
     help: {
