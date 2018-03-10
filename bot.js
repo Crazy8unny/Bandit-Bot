@@ -104,8 +104,23 @@ bot.on("message", function(message)
                 {
                     if (game.board[input - 1] == "-")
                     {
-                        game.board[input - 1] = 
+                        let marker = game.turn == 1 ? i_X : i_O;
+                      
+                        let xCoord = ((input - 1) % 3) * 64 + input * 3;
+                        let yCoord = input % 3 + input * 3;
+                      
+                        game.boardImage.composite();
+                      
+                        game.board[input - 1] = game.players.indexOf(message.author.id) == 0 ? "X" : "O";
+                        game.turn = 3 - game.turn;
                     }
+                    else
+                    {
+                        message.channel.send("That space is taken up already, " + message.author + "!");
+                    }
+                }
+                else
+                {
                 }
             }
         }
@@ -686,6 +701,9 @@ var commands = {
             playing.push(message.author.id, opponent.id);
           
             let board = i_Board.clone();
+            
+            games.XO[gameID].boardImage = board;
+          
             toBufferAndSend(board, message, message.author + "(**X**) vs. " + opponent + "(**O**)");
         }
     },
