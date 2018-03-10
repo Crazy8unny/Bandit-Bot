@@ -18,6 +18,10 @@ var token = process.env.TOKEN || -1;
 var gameData = {};
 gameData["XO"] = {};
 
+var i_Board;
+var i_X;
+var i_O;
+
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyBnKrLqwldnRRryvqUdUH5lidilH3gDTG0",
@@ -56,6 +60,28 @@ bot.on('ready', async function()
     bot.user.setActivity(`${bot.guilds.size} Servers | ~help`,
     {
         type: "WATCHING"
+    });
+  
+    let x = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FX.png";
+    let o = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FO.png";
+    let board = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FBoard.png";
+    Jimp.read(board, function (err, image) 
+    {
+        if (err) console.error(err);
+
+        i_Board = image;
+    });
+    Jimp.read(x, function (err, x) 
+    {
+        if (err) console.error(err);
+      
+        i_X = x;
+    });
+    Jimp.read(o, function (err, o) 
+    {
+        if (err) console.error(err);
+      
+        i_O = o;
     });
 
 });
@@ -592,33 +618,13 @@ var commands = {
         name: "Test",
         description: "TEST COMMAND",
         category: "Development",
-        arguments: [],
+        arguments: ["-r @opponent"],
         permission: 15,
-        usage: `${prefix}test`,
-        exampleusage: `${prefix}test`,
+        usage: `${prefix}xo <@opponent>`,
+        exampleusage: `${prefix}xo @Furvux#2414`,
         run: function(message, args, data)
         {
-            var x = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FX.png";
-            var o = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FO.png";
-            Jimp.read("https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FBoard.png", function (err, image) 
-            {
-                if (err) console.error(err);
-              
-                Jimp.read(x, function (er, x) 
-                {
-                    if (er) console.error(er);
-                    Jimp.read(o, function (e, o) 
-                    {
-                        if (e) console.error(e);
-                        image.composite( x, 3, 3 );
-                        image.composite( o, 70, 3 );
-                        toBufferAndSend(image, message, ":P");
-
-                    });
-
-                });
-                
-            });
+            
         }
     },
 };
