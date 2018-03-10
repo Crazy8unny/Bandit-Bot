@@ -24,8 +24,6 @@ var config = {
     messagingSenderId: "782339524894"
 };
 
-firebase.initializeApp(config);
-
 bot.on('ready', async function()
 {
     console.log("_____________________");
@@ -41,6 +39,8 @@ bot.on('ready', async function()
     {
         console.log(e);
     }
+
+    if (!firebase.apps.length) firebase.initializeApp(config);
 
     botID = bot.user.id;
 
