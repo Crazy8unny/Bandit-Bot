@@ -560,7 +560,10 @@ var commands = {
         permission: 1,
         usage: `${prefix}catagories`,
         exampleusage: `${prefix}catagories`,
-        run: function(message, args, data) {}
+        run: function(message, args, data) 
+        {
+            
+        }
     },
     permission:
     {
