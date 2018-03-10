@@ -92,21 +92,20 @@ bot.on('ready', async function()
 
 bot.on("message", function(message)
 {
-          console.log(message.content + ", " + isNaN(message.content));
     if (!isNaN(message.content) && parseInt(message.content) > 0 && parseInt(message.content) < 10 && playing.includes(message.author.id))
     {
-                    console.log("Into 1");
         for (let gameID in games.XO)
         {
-                    console.log("Into 2");
-            let game = games[gameID];
+            let game = games.XO[gameID];
             if (game.players && game.players.includes(message.author.id))
             {
-                    console.log("Into 3");
                 let input = message.content;
-                if (game.board[input - 1] == "-")
+                if (game.turn == game.players.indexOf(message.author.id) + 1)
                 {
-                    console.log("We got a play!");
+                    if (game.board[input - 1] == "-")
+                    {
+                        game.board[input - 1] = 
+                    }
                 }
             }
         }
@@ -684,6 +683,7 @@ var commands = {
             };
           
             games.XO[gameID] = gameData;
+            playing.push(message.author.id, opponent.id);
           
             let board = i_Board.clone();
             toBufferAndSend(board, message, message.author + "(**X**) vs. " + opponent + "(**O**)");
