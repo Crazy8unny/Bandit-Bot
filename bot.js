@@ -598,10 +598,20 @@ var commands = {
             Jimp.read("https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FBoard.png", function (err, image) 
             {
                 if (err) console.error(err);
-                message.channel.send("Here: ", {file: image});
+                toBufferAndSend(image, message, ":P");
             });
         }
     },
 };
 
 bot.login(token);
+
+
+
+
+function toBufferAndSend(image, message, text)
+{
+    image.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} message.channel.send(text, {file: (buffer)});} );
+  
+                
+}
