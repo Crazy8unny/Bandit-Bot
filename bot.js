@@ -92,14 +92,17 @@ bot.on('ready', async function()
 
 bot.on("message", function(message)
 {
-          
+          console.log(message.content + ", " + isNaN(message.content));
     if (!isNaN(message.content) && parseInt(message.content) > 0 && parseInt(message.content) < 10 && playing.includes(message.author.id))
     {
+                    console.log("Into 1");
         for (let gameID in games.XO)
         {
+                    console.log("Into 2");
             let game = games[gameID];
             if (game.players && game.players.includes(message.author.id))
             {
+                    console.log("Into 3");
                 let input = message.content;
                 if (game.board[input - 1] == "-")
                 {
