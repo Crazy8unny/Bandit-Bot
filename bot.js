@@ -601,7 +601,7 @@ var commands = {
             {
                 if (commands[command].permission <= data.permission)
                 {
-                    if (!commands[command].category) categories[commands[command].category] = 0;
+                    if (!categories[commands[command].category]) categories[commands[command].category] = 0;
                     categories[commands[command].category] += 1;
                 }
             }
@@ -612,7 +612,7 @@ var commands = {
           
             for (let category in categories)
             {
-                embed.addField(category, `>> ${categories[category]} commands`);
+                embed.addField(category, `>> **${categories[category]}** command${categories[category] > 1 ? "s" : ""}`);
             }
           
             embed.setFooter(`Requested by ${message.member.displayName} | Permission Level: ${data.permission}`);
@@ -648,7 +648,9 @@ var commands = {
         exampleusage: `${prefix}xo @Furvux#2414`,
         run: function(message, args, data)
         {
-            
+            let board = i_Board.clone();
+            board.composite(i_X, 3, 3);
+            toBufferAndSend(board, message, "Here you are:");
         }
     },
 };
