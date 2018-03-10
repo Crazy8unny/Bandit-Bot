@@ -73,10 +73,17 @@ bot.on("message", function (message)
             data["developers"] = data.server.roles.get(`421405858736373760`).members.array();
             data["permission"] = permission.getPermissionLevel(bot, message.guild, message.author.id);
           
-            let error = commands[command].run(message, message.content.split(" ").splice(1), data);
-            if (error)
+            if (data.permission >= commands[command].permission)
             {
-                message.channel.send("```diff\n- " + error + "```");
+                let error = commands[command].run(message, message.content.split(" ").splice(1), data);
+                if (error)
+                {
+                    message.channel.send("```diff\n- " + error + "```");
+                }
+            }
+            else
+            {
+                message.channel.send("Sorry, but you do not have enough permission to do that! (Type `" + prefix + "commands` to see what commands you can use!)");
             }
         }
         catch (e)
@@ -93,7 +100,7 @@ bot.on("message", function (message)
           
             data["server"] = bot.guilds.get(`421405545426321418`);
             data["developers"] = data.server.roles.get(`421405858736373760`).members.array();
-            data["permission"] = 15;
+            data["permission"] = 1;
           
            DMCommands[command].run(message, message.content.split(" ").splice(1, 1), data);
         }
@@ -476,7 +483,7 @@ var commands =
                 amount = args[1];
                 if (!user)
                 {
-                    user = message.guild.members.find(m => m.displayName.toLowerCase() == args[0].toLowerCase() || m.user.username.toLowerCase() == args[0].toLowerCase())
+                    user = message.guild.members.find(m => m.displayName.toLowerCase() == args[0].toLowerCase() || m.user.username.toLowerCase() == args[0].toLowerCase());
                 }
             }
             if (isNaN(amount)) return "You need to specify an amount (as a number)!";
@@ -525,7 +532,12 @@ var commands =
         exampleusage: `${prefix}permission @Furvux#2414`,
         run: function(message, args, data)
         {
+            let user = message.mentions.members.first() || message.guild.members.find(m => m.displayName.toLowerCase() == args[0].toLowerCase() || m.user.username.toLowerCase() == args[0].toLowerCase()) || message.member;
+          
+            let perm = permission.getPermissionLevel(bot, message.guild, user.user.id);
             
+          
+            message.channel.send(user.displayName + "'s permission level is **" + perm + "**");
         }
     },
 };
