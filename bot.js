@@ -15,6 +15,9 @@ var botID = 421403753976037376;
 
 var token = process.env.TOKEN || -1;
 
+var gameData = {};
+gameData["XO"] = {};
+
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyBnKrLqwldnRRryvqUdUH5lidilH3gDTG0",
@@ -595,10 +598,26 @@ var commands = {
         exampleusage: `${prefix}test`,
         run: function(message, args, data)
         {
+            var x = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FX.png";
+            var o = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FO.png";
             Jimp.read("https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FBoard.png", function (err, image) 
             {
                 if (err) console.error(err);
-                toBufferAndSend(image, message, ":P");
+              
+                Jimp.read(x, function (er, x) 
+                {
+                    if (er) console.error(er);
+                    Jimp.read(o, function (e, o) 
+                    {
+                        if (e) console.error(e);
+                        image.composite( x, 3, 3 );
+                        image.composite( o, 70, 3 );
+                        toBufferAndSend(image, message, ":P");
+
+                    });
+
+                });
+                
             });
         }
     },
