@@ -1,4 +1,5 @@
 var Discord = require('discord.js');
+var firebase = require('firebase');
 
 var util = require(__dirname + '/util/util.js');
 var permission = require(__dirname + '/util/permissions.js');
@@ -12,6 +13,19 @@ var OFFICIAL_GUILD_NAME = "Tilde Dojo";
 var botID = 421403753976037376;
 
 var token = process.env.TOKEN || -1;
+
+// Initialize Firebase
+var config =
+{
+    apiKey: "AIzaSyBnKrLqwldnRRryvqUdUH5lidilH3gDTG0",
+    authDomain: "tilde-discord.firebaseapp.com",
+    databaseURL: "https://tilde-discord.firebaseio.com",
+    projectId: "tilde-discord",
+    storageBucket: "",
+    messagingSenderId: "782339524894"
+};
+firebase.initializeApp(config);
+
 
 bot.on('ready', async function()
 {
@@ -46,7 +60,7 @@ bot.on("message", function (message)
 {
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
     
-    let command = message.content.split(" ")[0].substr(1);
+    let command = message.content.indexOf(botID) != -1 ? message.content.split(" ")[1] : message.content.split(" ")[0].substr(1);
     if (message.channel.type == "text" && commands[command])
     {
         try
@@ -495,36 +509,23 @@ var commands =
         category: "General",
         arguments: [],
         permission: 1,
-        usage: `${prefix}clear <@user> <amount>`,
-        exampleusage: `${prefix}clear @Furvux#2414 10`,
+        usage: `${prefix}catagories`,
+        exampleusage: `${prefix}catagories`,
         run: function(message, args, data)
         {
-            let amount = args[0];
-          
-            if (isNaN(amount)) amount = args[1];
-            if (isNaN(amount)) return "You need to specify an amount (as a number)!";
-          
-            if (amount > 1000) return `You can only delete up to 1000 messages!`;
-          
-            let user = message.mentions.members.first();
-            let messages = message.channel.messages.array();
-            if (user)
-            {
-                for (let i = 0; i < Math.min(amount, messages.length); i++)
-                {
-                    let msg = messages[i];
-                    msg.delete();
-                }
-            }
-            else
-            {
-                for (let i = 0; i < Math.round(amount / 99); i++)
-                {
-                    message.channel.bulkDelete(99);
-                }
-                message.channel.bulkDelete(amount % 99);
-                message.channel.send("✅ Cleared [**" + (amount - 1) + "**] messages! (__Requested by _" + message.member.displayName + "___)").then(msg => msg.delete(3000));
-            }
+        }
+    },
+    permission: {
+        name: "Permission",
+        description: "Shows you your permission level!",
+        category: "General",
+        arguments: ["-o @user"],
+        permission: 1,
+        usage: `${prefix}permission`,
+        exampleusage: `${prefix}permission @Furvux#2414`,
+        run: function(message, args, data)
+        {
+            
         }
     },
 };
