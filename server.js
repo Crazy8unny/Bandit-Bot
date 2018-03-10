@@ -19,13 +19,13 @@ app.get("/", function(request, response)
 app.get("/join", function(request, response)
 {
     console.log("A user visited the [Join] page!");
-    response.redirect("https://discord.gg/E3DPDk4");
+    response.redirect("");
 });
 
 app.get("/invite", function(request, response)
 {
     console.log("A user visited the [Invite] page!");
-    response.redirect("https://discordapp.com/oauth2/authorize?client_id=421403753976037376&permissions=27713&scope=bot");
+    response.sendFile(__dirname + "/public/invite/index.html");
 });
 
 app.get("/ping", function(request, response)

@@ -202,7 +202,7 @@ var commands =
         run: function(message, args, data)
         {
             message.delete();
-            message.author.send(`Invite me to a server: https://${process.env.PROJECT_DOMAIN}.glitch.me/invite\nJoin my Discord Dojo: https://${process.env.PROJECT_DOMAIN}.glitch.me/join`);
+            message.author.send(`Invite me to a server: https://${process.env.PROJECT_DOMAIN}.glitch.me/invite\nJoin my Discord Dojo: https://${process.env.PROJECT_DOMAIN}.glitch.me/join\n\nWhen inviting me, please ensure you allow all the permissions I request for otherwise I will not work correctly!`);
         }
     },
     server: {
@@ -216,7 +216,8 @@ var commands =
         run: function(message, args, data)
         {
             message.delete();
-            message.author.send(`Join my Discord Dojo: https://${process.env.PROJECT_DOMAIN}.glitch.me/join\nInvite me to a server: https://${process.env.PROJECT_DOMAIN}.glitch.me/invite`);
+            message.author.send(`Join my Discord Dojo: https://${process.env.PROJECT_DOMAIN}.glitch.me/join\nInvite me to a server: https://${process.env.PROJECT_DOMAIN}.glitch.me/invite\n\nWhen inviting me, please ensure you allow all the permissions I request for otherwise I will not work correctly!`);
+            message.channel.send(`✅ A Message containing my  has been sent to your DMs!`);
         }
     },
     help: {
