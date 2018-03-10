@@ -15,8 +15,8 @@ var botID = 421403753976037376;
 
 var token = process.env.TOKEN || -1;
 
-var gameData = {};
-gameData["XO"] = {};
+var games = {};
+games["XO"] = {};
 var playing = [];
 
 var i_Board;
@@ -92,6 +92,22 @@ bot.on('ready', async function()
 
 bot.on("message", function(message)
 {
+          
+    if (!isNaN(message.content) && parseInt(message.content) > 0 && parseInt(message.content) < 10 && playing.includes(message.author.id))
+    {
+        for (let gameID in games.XO)
+        {
+            let game = games[gameID];
+            if (game.players && game.players.includes(message.author.id))
+            {
+                let input = message.content;
+                if (game.board[input - 1] == "-")
+                {
+                }
+            }
+        }
+    }
+  
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
 
     let command = message.content.indexOf(botID) != -1 ? message.content.split(" ")[1] : message.content.split(" ")[0].substr(1);
@@ -102,11 +118,6 @@ bot.on("message", function(message)
             let data = {};
 
             data["permission"] = permission.getPermissionLevel(bot, message.guild, message.author.id);
-          
-            if (!isNaN(message.content) && parseInt(message.content) > 0 && parseInt(message.content) < 10 && playing.includes(message.author.id))
-            {
-                
-            }
           
             data["display_name"] = message.guild.members.find(m => m.id == botID)
                 .displayName;
