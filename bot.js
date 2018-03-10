@@ -388,6 +388,8 @@ var commands =
                 {
                     embed.addField(categories[category][i].name, categories[category][i].description);
                 }
+              
+                embed.setFooter("Type " + prefix + "help `<command>` to get more information about a command (usage, arguments, etc.)");
                 
                 message.author.send(embed);
                 message.channel.send(`✅ A Message containing the commands avaliable to you from the specified category (**${category}**) has been sent to your DMs!`);
@@ -406,8 +408,9 @@ var commands =
                     }
 
                     message.author.send(embed);
+                    embed.setFooter("Type " + prefix + "help `<command>` to get more information about a command (usage, arguments, etc.)");
                 }
-                message.channel.send(`✅ Messages containing the commands avaliable to you have been sent to your DMs!`);
+                message.channel.send(`✅ Messages containing the commands avaliable to you have been sent to your DMs!`);  
             }
             
         }
