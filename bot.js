@@ -1,5 +1,6 @@
 var Discord = require('discord.js');
 var firebase = require('firebase');
+var Jimp = require('jimp');
 
 var util = require(__dirname + '/util/util.js');
 var permission = require(__dirname + '/util/permissions.js');
@@ -581,6 +582,24 @@ var commands = {
             let perm = permission.getPermissionLevel(bot, message.guild, user.user.id);
 
             message.channel.send(user.displayName + "'s permission level is **" + perm + "**");
+        }
+    },
+    test:
+    {
+        name: "Test",
+        description: "TEST COMMAND",
+        category: "Development",
+        arguments: [],
+        permission: 15,
+        usage: `${prefix}test`,
+        exampleusage: `${prefix}test`,
+        run: function(message, args, data)
+        {
+            Jimp.read("https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FBoard.png", function (err, image) 
+            {
+                if (err) console.error(err);
+                message.channel.send("Here: ", {file: image});
+            });
         }
     },
 };
