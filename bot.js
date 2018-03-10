@@ -106,10 +106,11 @@ bot.on("message", function(message)
                     {
                         let marker = game.turn == 1 ? i_X : i_O;
                       
-                        let xCoord = ((input - 1) % 3) * 64 + input * 3;
-                        let yCoord = input % 3 + input * 3;
+                        let xCoord = ((input - 1) % 3) * 64 + (input % 3) * 3;
+                        let yCoord = Math.floor((input - 1) / 3) * 64 + Math.ceil(input / 3) * 3;
                       
-                        game.boardImage.composite();
+                        game.boardImage.composite(marker, xCoord, yCoord);
+                        toBufferAndSend(game.boardImage, message, "Board:");
                       
                         game.board[input - 1] = game.players.indexOf(message.author.id) == 0 ? "X" : "O";
                         game.turn = 3 - game.turn;
