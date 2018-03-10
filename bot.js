@@ -443,22 +443,29 @@ var commands =
     },
     clear: {
         name: "Clear",
-        description: "Deletes the last specified amount of messages from the channel the command is called from.",
+        description: "Deletes the last specified amount of messages from the channel the command is called from. If a user is mentioned, it will delete the amount from the messages that user had sent.",
         category: "General",
-        arguments: ["-r Amount", "-o @User"],
-        permission: 3,
-        usage: `${prefix}clear <amount>`,
-        exampleusage: `${prefix}clear 10 @Furvux#2414`,
+        arguments: ["-r amount", "-o @user"],
+        permission: 4,
+        usage: `${prefix}clear <@user> <amount>`,
+        exampleusage: `${prefix}clear @Furvux#2414 10`,
         run: function(message, args, data)
         {
             let amount = args[0];
+            let user = message.mentions.members.first();
           
-            if (isNaN(amount)) amount = args[1];
+            if (isNaN(amount)) 
+            {
+                amount = args[1];
+                if (!user)
+                {
+                    user = message.guild.members.find(m => m.displayName.toLowerCase() == args[0].toLowerCase() || m.user.username.toLowerCase() == args[0].toLowerCase())
+                }
+            }
             if (isNaN(amount)) return "You need to specify an amount (as a number)!";
           
             if (amount > 1000) return `You can only delete up to 1000 messages!`;
           
-            let user = message.mentions.members.first();
             let messages = message.channel.messages.array();
             if (user)
             {
@@ -485,8 +492,8 @@ var commands =
         category: "General",
         arguments: [],
         permission: 1,
-        usage: `${prefix}clear <amount>`,
-        exampleusage: `${prefix}clear 10 @Furvux#2414`,
+        usage: `${prefix}clear <@user> <amount>`,
+        exampleusage: `${prefix}clear @Furvux#2414 10`,
         run: function(message, args, data)
         {
             let amount = args[0];
