@@ -19,13 +19,13 @@ app.get("/", function(request, response)
 app.get("/join", function(request, response)
 {
     console.log("A user visited the [Join] page!");
-    response.redirect("");
+    response.sendFile(__dirname + "/views/invite/index.html");
 });
 
 app.get("/invite", function(request, response)
 {
     console.log("A user visited the [Invite] page!");
-    response.sendFile(__dirname + "/public/invite/index.html");
+    response.sendFile(__dirname + "/views/invite/index.html");
 });
 
 app.get("/ping", function(request, response)
