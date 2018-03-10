@@ -61,7 +61,7 @@ bot.on("message", function (message)
             let error = commands[command].run(message, message.content.split(" ").splice(1), data);
             if (error)
             {
-                message.channel.send("```dif\n-" + error + "```");
+                message.channel.send("```diff\n- " + error + "```");
             }
         }
         catch (e)
@@ -179,6 +179,34 @@ var commands =
     ping: {
         name: "Ping",
         description: "A simple command to check the latency of the bot.",
+        category: "General",
+        arguments: [],
+        permission: 1,
+        usage: `${prefix}ping`,
+        exampleusage: `${prefix}ping`,
+        run: function(message, args, data)
+        {
+            message.delete();
+            message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``).then(msg => {msg.delete(3000)});
+        }
+    },
+    invite: {
+        name: "Invite",
+        description: "Sends the bot's invite link to your DM channel!",
+        category: "General",
+        arguments: [],
+        permission: 1,
+        usage: `${prefix}ping`,
+        exampleusage: `${prefix}ping`,
+        run: function(message, args, data)
+        {
+            message.delete();
+            message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``).then(msg => {msg.delete(3000)});
+        }
+    },
+    server: {
+        name: "Server",
+        description: `An invitation link to the ${bot.guilds.get(process.env.OFFICIAL_GUILD).name}`,
         category: "General",
         arguments: [],
         permission: 1,
@@ -309,7 +337,7 @@ var commands =
             embed.addField("🛡️ __Guilds__ 🛡️", ">> **" + guilds.length + "** Guilds");
             embed.addField(":hash: __Channels__ :hash:", ">> **" + totalChannels + "** Channels");
             embed.addField("👥 __Users__ 👥", ">> **" + totalUsers + "** Unique Discord Users");
-            embed.addField("✳️ __Commands__ ✳️", ">> **" + Object.keys(commands).length + "** Different Commands");
+            embed.addField("✳️ __Commands__ ✳️", ">> **" + (Object.keys(commands).length + Object.keys(DMCommands).length) + "** Different Commands");
           
             embed.addBlankField();
           
@@ -420,11 +448,10 @@ var commands =
         exampleusage: `${prefix}clear 10 @Furvux#2414`,
         run: function(message, args, data)
         {
-            message.delete();
             let amount = args[0];
           
             if (isNaN(amount)) amount = args[1];
-            if (isNaN(amount)) return "You need to specify an amount!";
+            if (isNaN(amount)) return "You need to specify an amount (as a number)!";
           
             if (amount > 1000) return `You can only delete up to 1000 messages!`;
           
@@ -440,6 +467,12 @@ var commands =
             }
             else
             {
+                for (let i = 0; i < Math.round(amount / 99); i++)
+                {
+                    message.channel.bulkDelete(99);
+                }
+                message.channel.bulkDelete(amount % 99);
+                message.channel.send("✅ Cleared [**" + (amount - 1) + "**] messages! (__Requested by _" + message.member.displayName + "___)").then(msg => msg.delete(3000));
             }
         }
     },
