@@ -106,7 +106,7 @@ bot.on("message", function(message)
                     {
                         let marker = game.turn == 1 ? i_X : i_O;
                       
-                        let xCoord = ((input - 1) % 3) * 64 + (input % 3) * 3;
+                        let xCoord = ((input - 1) % 3) * 64 + ((input % 3)) * 3;
                         let yCoord = Math.floor((input - 1) / 3) * 64 + Math.ceil(input / 3) * 3;
                       
                         game.boardImage.composite(marker, xCoord, yCoord);
