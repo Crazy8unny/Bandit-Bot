@@ -103,6 +103,7 @@ bot.on("message", function(message)
                 let input = message.content;
                 if (game.board[input - 1] == "-")
                 {
+                    console.log("We got a play!");
                 }
             }
         }
@@ -666,9 +667,23 @@ var commands = {
         exampleusage: `${prefix}xo @Furvux#2414`,
         run: function(message, args, data)
         {
+            let opponent = message.mentions.members.first() || message.member;
+            let gameID = util.generateUID(16, true);
+          
+            let gameData = {
+                players: [message.author.id, opponent.user.id],
+                board: [
+                    "-", "-", "-",
+                    "-", "-", "-",
+                    "-", "-", "-"
+                ],
+                turn: 1
+            };
+          
+            games.XO[gameID] = gameData;
+          
             let board = i_Board.clone();
-            board.composite(i_X, 3, 3);
-            toBufferAndSend(board, message, "Here you are:");
+            toBufferAndSend(board, message, message.author + "(**X**) vs. " + opponent + "(**O**)");
         }
     },
 };
