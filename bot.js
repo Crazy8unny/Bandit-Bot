@@ -95,11 +95,11 @@ bot.on('ready', async function()
 bot.on("message", function(message)
 {
     // Game Command
-    if (!isNaN(message.content) && parseInt(message.content) > 0 && parseInt(message.content) < 10 && playing.includes(message.author.id))
+    if (!isNaN(message.content) && parseInt(message.content) > 0 && playing.includes(message.author.id))
     {
         let play = checkGame(message.member);
-        if (play == 0xCAFE25151) placeXO(message, assets.XO.X.i, assets.XO.O.i, toBufferAndSend);
-        else if (play == 0xCAFE25152) place21(message);
+        if (play == 0xCAFE25151 && parseInt(message.content) < 10) placeXO(message, assets.XO.X.i, assets.XO.O.i, toBufferAndSend);
+        else if (play == 0xCAFE25152 && parseInt(message.content) < 22) place21(message);
     }
 
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
@@ -1377,10 +1377,10 @@ function checkGame(user)
 
 function sendTONumber(number, message, gameID)
 {
-    var image = new Jimp(64, 64, function (err, image) 
+    var image = new Jimp(128, 64, function (err, image) 
     {
         if (err) throw err;
-        Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function (font) {
+        Jimp.loadFont(Jimp.FONT_SANS_64_WHITE).then(function (font) {
             image.print(font, 0, 0, number.toString());
             toBufferAndSend(image, message, "[**" + gameID + "**] Number: " + number);
         });
@@ -1408,12 +1408,20 @@ function place21(message)
                 {
                     if (input - game.current < 4)
                     {
-                        game.current += input;
+                        game.current = input;
+                      
+                        if (game.current == 21)
+                        {
+                            message.channel.send(message.author + " has lost! Everyone else has won!!! GG Everyone (except for " + message.member.displayName + " KD)");
+                        }
+                      
                         game.turn++;
                         if (game.turn > game.players.length)
                         {
                             game.turn = 1;
                         }
+                      
+                        sendTONumber(game.current, message, gameID);
                     }
                     else
                     {
@@ -1426,6 +1434,11 @@ function place21(message)
                     message.channel.send("```diff\n- You have to count up, not down! Duh!\n```");
                     return;
                 }
+            }
+            else
+            {
+                message.channel.send("```diff\n- It is not your turn! It is " + message.guild.members.find(m => m.user.id == game.players[game.turn - 1]).displayName + "\n```");
+                return;
             }
         }
     }
