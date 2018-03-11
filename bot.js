@@ -22,6 +22,7 @@ var playing = [];
 
 var assets = {};
 assets.XO = {};
+assets.CoinFlip = {};
 
 // Initialize Firebase
 var config = {
@@ -41,7 +42,7 @@ bot.on('ready', async function()
     console.log('Bot is online - ' + bot.user.tag);
     try
     {
-        let link = await bot.generateInvite(["MANAGE_MESSAGES", "SEND_MESSAGES", "READ_MESSAGES", "ADD_REACTIONS", "EMBED_LINKS", "CREATE_INSTANT_INVITE", "ATTACH_FILES"])
+        let link = await bot.generateInvite(["MANAGE_MESSAGES", "SEND_MESSAGES", "READ_MESSAGES", "READ_MESSAGE_HISTORY", "ADD_REACTIONS", "EMBED_LINKS", "CREATE_INSTANT_INVITE", "ATTACH_FILES"])
         console.log("Invite: " + link);
     }
     catch (e)
