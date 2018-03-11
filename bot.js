@@ -1206,6 +1206,35 @@ var commands = {
             }
         }
     },
+    suggest:
+    {
+        name: "Suggest",
+        description: "Suggest a new feature for the bot!",
+        category: "General",
+        arguments: ["-r suggestion"],
+        permission: 1,
+        usage: `${prefix}suggest`,
+        exampleusage: `${prefix}suggest Add a coinflip command!`,
+        run: function(message, args, data)
+        {
+            let embed = new Embed();
+            
+            embed.setTitle("__Suggestion__");
+            embed.addField("Suggestion", args[0]);
+            embed.addField("Suggester", message.author.tag);
+            embed.addField("Suggestion Point", message.guild.name);
+            embed.setFooter("Suggested at: " + util.formatShortDate(new Date()) + " [" + util.formatShortTime(new Date) + "]", message.author.avatarURL);
+          
+            const filter = (reaction, user) => user.id == message.author.id;
+          
+            message.channel.send(embed).then(msg => 
+            {
+                const collector = msg.createReactionCollector(filter, { time: 60000 });
+              
+            });
+            
+        }
+    },
     test:
     {
         name: "Test",
