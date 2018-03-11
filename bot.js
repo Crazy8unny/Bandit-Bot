@@ -84,7 +84,9 @@ bot.on('ready', async function()
   
     loadAsset(headCoin, assets.CoinFlip.Heads);
     loadAsset(tailCoin, assets.CoinFlip.Tails);
-
+  
+    games.XO.Playing = [];
+    games.TwentyOne.Playing = [];
 });
 
 bot.on("message", function(message)
@@ -1159,7 +1161,7 @@ function checkGame(user)
     {
         return 0xCAFE25151;
     }
-    if (games.XO.Playing.indexOf(user.user.id) != -1)
+    if (games.TwentyOne.Playing.indexOf(user.user.id) != -1)
     {
         return 0xCAFE25151;
     }
