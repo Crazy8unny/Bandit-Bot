@@ -1036,8 +1036,8 @@ var commands = {
                       embed.setThumbnail("https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2Fimage.png?1520797098652");
                       embed.addField("Word", ">> **" + util.ucfirst(definition) + "**");
                       embed.addField("Definition", ">> " + entries[0].definition);
-                      embed.addField("Example Usage", ">> " + entries[0].example);
-                      embed.setFooter("Source: [https://www.urbandictionary.com/](https://www.urbandictionary.com/)");
+                      embed.addField("Example Usage", ">> " + (entries[0].example ? entries[0].example : "None provided..."));
+                      embed.setFooter("Source: https://www.urbandictionary.com/define.php?term=" + definition + "");
                       
                       message.channel.send(embed);
                   }
