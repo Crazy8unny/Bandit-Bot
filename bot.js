@@ -98,7 +98,8 @@ bot.on("message", function(message)
     if (!isNaN(message.content) && parseInt(message.content) > 0 && parseInt(message.content) < 10 && playing.includes(message.author.id))
     {
         let play = checkGame(message.member);
-        placeXO(message, games, assets.XO.X.i, assets.XO.O.i, toBufferAndSend);
+        if (play == 0xCAFE25151) placeXO(message, assets.XO.X.i, assets.XO.O.i, toBufferAndSend);
+        else if (play == 0xCAFE25152) place21(message);
     }
 
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
@@ -1370,7 +1371,7 @@ function checkGame(user)
     }
     if (games.TwentyOne.Playing.indexOf(user.user.id) != -1)
     {
-        return 0xCAFE25151;
+        return 0xCAFE25152;
     }
 }
 
@@ -1384,4 +1385,48 @@ function sendTONumber(number, message, gameID)
             toBufferAndSend(image, message, "[**" + gameID + "**] Number: " + number);
         });
     });
+}
+
+function place21(message)
+{  
+    for (let gameID in games.TwentyOne)
+    {
+        let game = games.TwentyOne[gameID];
+        if (game.players && game.players.includes(message.author.id))
+        {
+            if (game.players.length < 2)
+            {
+                message.channel.send("```diff\n- You need someone else to join the game!\n```");
+                return;
+            }
+          
+            let input = parseInt(message.content);
+            if (game.turn == game.players.indexOf(message.author.id) + 1)
+            {
+                if (game.accepting != false) game.accepting = false;
+                if (input > game.current)
+                {
+                    if (input - game.current < 4)
+                    {
+                        game.current += input;
+                        game.turn++;
+                        if (game.turn > game.players.length)
+                        {
+                            game.turn = 1;
+                        }
+                    }
+                    else
+                    {
+                        message.channel.send("```diff\n- You can only go up by a maximum of 3!\n```");
+                        return;
+                    }
+                }
+                else
+                {
+                    message.channel.send("```diff\n- You have to count up, not down! Duh!\n```");
+                    return;
+                }
+            }
+        }
+    }
 }
