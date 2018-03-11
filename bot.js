@@ -67,13 +67,22 @@ bot.on('ready', async function()
     let o = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FO.png";
     let board = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FBoard.png";
   
+    let headCoin = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FHeads.png";
+    let tailCoin = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FTails.png";
+  
     assets.XO.Board = {};
     assets.XO.X = {};  
     assets.XO.O = {};
+    
+    assets.CoinFlip.Heads = {};
+    assets.CoinFlip.Tails = {};
 
     loadAsset(board, assets.XO.Board);
     loadAsset(x, assets.XO.X);
     loadAsset(o, assets.XO.O);
+  
+    loadAsset(headCoin, assets.CoinFlip.Heads);
+    loadAsset(tailCoin, assets.CoinFlip.Tails);
 
 });
 
