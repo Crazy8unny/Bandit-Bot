@@ -372,26 +372,26 @@ var commands = {
     },
     hug: {
       name:"Hug",
-      description: "Hug a user!",
+      description: "Hug a member!",
       category:"Fun & Games",
       arguments: ["-r @user"],
       permission: 1,
-      usage: `${prefix}slap`,
-      exampleusage: `${prefix}slap @Furvux#2414`,
+      usage: `${prefix}hug`,
+      exampleusage: `${prefix}hug @Furvux#2414`,
       run: function(message, args, data) 
       {
-          let slappedUser = (message.mentions.members.first());
-          if (!slappedUser) return message.channel.send("You must mention a user!");
+          let hugged = (message.mentions.members.first());
+          if (!hugged) return message.channel.send("You must mention a user to hug!");
 
-          let slaps = ["https://media1.giphy.com/media/uG3lKkAuh53wc/giphy.gif", "https://media.giphy.com/media/vxvNnIYFcYqEE/giphy.gif", "https://media.giphy.com/media/xULW8nNDLNVlBY77dm/giphy.gif", "https://media.giphy.com/media/gSIz6gGLhguOY/giphy.gif", "https://media.giphy.com/media/10KJUgvMoiSVSo/giphy.gif", "https://media.giphy.com/media/8cD5U8FgIcOQ/giphy.gif", "https://media.giphy.com/media/3vDS40HZxJwFGTbXoI/giphy.gif", "https://media.giphy.com/media/3oEdvdHf6n0US87Tri/giphy.gif", "https://media.giphy.com/media/1J8vRWb8xUByw/giphy.gif"];
+          let hugs = [];
         
-          let slappedEmbed = new Embed()
-          .setTitle(message.member.displayName.split("_").join("\_") + " slaps " + slappedUser.displayName.split("_").join("\_") + "!")
+          let embed = new Embed()
+          .setTitle(message.member.displayName.split("_").join("\_") + " slaps " + hugged.displayName.split("_").join("\_") + "!")
           .setColor(data.display_colour.hex)
-          .setDescription(message.author + ' slapped ' + slappedUser + '!')
-          .setImage(util.randomItem(slaps));
+          .setDescription(":heart_decoration:" + message.author + ' hugs ' + hugged + '! :heart_decoration:')
+          .setImage(util.randomItem(hugs));
 
-          message.channel.send(slappedEmbed);
+          message.channel.send(embed);
           return;
 
       }
@@ -852,13 +852,14 @@ var commands = {
             {
                 let messages = message.channel.fetchMessages().then(messages => 
                 {
-                    messages = messages.array(); 
-                    console.log(messages.length);
+                    messages = messages.array();
                     for (let i = 0; i < Math.min(amount + 1, messages.length); i++)
                     {
                         let msg = messages[i];
                         if (msg.author.id == user.id) msg.delete();
                     }
+                    message.channel.send("✅ Cleared [**" + (amount - 1) + "**] messages from <@" + user.id + ">! (__Command requested by _" + message.member.displayName + "___)")
+                    .then(msg => msg.delete(6000));
                 });
             }
             else
@@ -936,7 +937,7 @@ var commands = {
         permission: 1,
         usage: `${prefix}xo <@opponent>`,
         exampleusage: `${prefix}xo @Furvux#2414`,
-        run: async function(message, args, data)
+        run: function(message, args, data)
         {
             let opponent = message.mentions.members.first();
           
@@ -995,6 +996,35 @@ var commands = {
             }
         }
     },
+    update:
+    {
+        name: "Update",
+        description: "Updates the bot",
+        category: "Development",
+        arguments: [],
+        permission: 10,
+        usage: `${prefix}update`,
+        exampleusage: `${prefix}update`,
+        run: function(message, args, data)
+        {
+            for (let i = 0; i < 100; i += Math.floor(Math.random() * 18) + 1)
+            {
+                i = Math.min(i, 100);
+                setTimeout(function() {message.channel.send("Updating: **" + i + "%** Complete");}, Math.random() * (3000 - (i * 15)));
+            }
+            setTimeout(function() 
+            {
+                message.channel.send("⚠️ _Bot restarting..._"); 
+                console.log("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                console.log(`⚠️ Bot restarting... ⚠️`);
+                console.log("===============================================\n\n");
+                bot.destroy(); 
+                child_process.fork(__dirname + "/bot.js");
+                console.log(`Bot Successfully Restarted`);
+            }, 2000);
+        }
+    }
+  
 };
 
 bot.login(token);
