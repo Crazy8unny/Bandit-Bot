@@ -1115,7 +1115,7 @@ var commands = {
           
             let gameData = {};
             
-            ga.es
+            games.TwentyOne.Playing.push(message.author.id);
         }
     },
 
@@ -1174,8 +1174,12 @@ function placeXO(message, games, i_X, i_O, basFunc)
                         }
                         else if (winner == "O")
                         {
-                            message.channel.send("Well Done, <@" + game.players[1] + ">! You have won!");
-                            message.channel.send("Unfortunately you have lost, <@" + game.players[0] + ">... better luck next time!");
+                            message.channel.send("Congrats, <@" + game.players[1] + ">! You have won!");
+                            message.channel.send("Wow. You lost. <@" + game.players[0] + ">... try harder next time!");
+                        }
+                        else if (winner == "D")
+                        {
+                            message.channel.send("Well played, <@" + game.players[1] + "> and <@" + game.players[0] + ">! It was a tie! GG guys!");
                         }
                         var index = playing.indexOf(game.players[0]);
                         if (index > -1)
@@ -1243,6 +1247,10 @@ function checkXOBoard(board)
         {
             return mark;
         }
+    }
+    if (board.indexOf("-") == -1)
+    {
+        return "D";
     }
     return "-";
 }
