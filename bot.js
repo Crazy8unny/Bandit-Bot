@@ -115,7 +115,7 @@ bot.on("message", function(message)
                     .splice(1), data);
                 if (error)
                 {
-                    message.channel.send("```diff\n- " + error + "```");
+                    message.channel.send("```diff\n- " + error.message + "```");
                 }
             }
             else
@@ -722,6 +722,16 @@ var commands = {
                 }, total);
                 
             }
+            else
+            {  
+                message.channel.send("⚠️ _Bot restarting..._"); 
+                console.log("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                console.log(`⚠️ Bot restarting... ⚠️`);
+                console.log("===============================================\n\n");
+                bot.destroy(); 
+                child_process.fork(__dirname + "/bot.js");
+                console.log(`Bot Successfully Restarted`);
+            }
         }
     },
     clear:
@@ -838,7 +848,7 @@ var commands = {
         permission: 1,
         usage: `${prefix}xo <@opponent>`,
         exampleusage: `${prefix}xo @Furvux#2414`,
-        run: function(message, args, data)
+        run: async function(message, args, data)
         {
             let opponent = message.mentions.members.first();
           
@@ -864,27 +874,41 @@ var commands = {
                 message.channel.send("The opponent, " + opponent.user + " is already playing a game! Wait untill they finish or choose a different opponent!");
                 return;
             }
+            try
+            {
           
-            let gameID = util.generateUID(16, true);
+                let gameID = util.generateUID(16, true);
+
+                let gameData = {
+                    players: [message.author.id, opponent.user.id],
+                    board: [
+                        "-", "-", "-",
+                        "-", "-", "-",
+                        "-", "-", "-"
+                    ],
+                    turn: 1
+                };
+
+                games.XO[gameID] = gameData;
+                playing.push(message.author.id, opponent.id);
+
+                let board = assets.XO.Board.i.clone();
+
+                games.XO[gameID].boardImage = board;
           
-            let gameData = {
-                players: [message.author.id, opponent.user.id],
-                board: [
-                    "-", "-", "-",
-                    "-", "-", "-",
-                    "-", "-", "-"
-                ],
-                turn: 1
-            };
-          
-            games.XO[gameID] = gameData;
-            playing.push(message.author.id, opponent.id);
-          
-            let board = assets.XO.Board.i.clone();
-            
-            games.XO[gameID].boardImage = board;
-          
-            message.channel.send(message.author + " **(__X__)** vs. " + opponent.user + " **(__O__)**", {file: assets.XO.Board.b});
+                message.channel.send(message.author + " **(__X__)** vs. " + opponent.user + " **(__O__)**", {file: assets.XO.Board.b});
+            }
+            catch (e)
+            {
+                if (e.includes("DiscordAPIError: Missing Permissions"))
+                {
+                    message.channel.send("```diff\n- Sorry, but I do not have enough permission to carry out that command!```");
+                }
+                else
+                {
+                    console.error(e.message);
+                }
+            }
         }
     },
 };
