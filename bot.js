@@ -41,7 +41,7 @@ bot.on('ready', async function()
     console.log('Bot is online - ' + bot.user.tag);
     try
     {
-        let link = await bot.generateInvite(["MANAGE_MESSAGES", "SEND_MESSAGES", "READ_MESSAGES", "ADD_REACTIONS", "EMBED_LINKS", "CREATE_INSTANT_INVITE"])
+        let link = await bot.generateInvite(["MANAGE_MESSAGES", "SEND_MESSAGES", "READ_MESSAGES", "ADD_REACTIONS", "EMBED_LINKS", "CREATE_INSTANT_INVITE", "ATTACH_FILES"])
         console.log("Invite: " + link);
     }
     catch (e)
@@ -720,17 +720,22 @@ var commands = {
 
             if (amount > 1000) return `You can only delete up to 1000 messages!`;
 
-            let messages = message.channel.fetchMessages().array();
             if (user)
             {
-                for (let i = 0; i < Math.min(amount + 1, messages.length); i++)
+                let messages = message.channel.fetchMessages().then(messages => 
                 {
-                    let msg = messages[i];
-                    msg.delete();
-                }
+                    messages = messages.array(); 
+                    console.log(messages.length);
+                    for (let i = 0; i < Math.min(amount + 1, messages.length); i++)
+                    {
+                        let msg = messages[i];
+                        if (msg.author.id == user.user.id) msg.delete();
+                    }
+                });
             }
             else
             {
+                amount ++;
                 for (let i = 0; i < Math.round(amount / 99); i++)
                 {
                     message.channel.bulkDelete(99);
@@ -900,6 +905,15 @@ function placeXO(message, games, i_X, i_O, basFunc)
                             message.channel.send("Well Done, <@" + game.players[1] + ">! You have won!");
                             message.channel.send("Unfortunately you have lost, <@" + game.players[0] + ">... better luck next time!");
                         }
+                        var index = playing.indexOf(game.players[0]);
+                        if (index > -1) {
+                            playing.splice(index, 1);
+                        }
+                        index = playing.indexOf(game.players[1]);
+                        if (index > -1) {
+                            playing.splice(index, 1);
+                        }
+                        games.XO[gameID] = null;
                     }
                     
                     game.turn = 3 - game.turn;
