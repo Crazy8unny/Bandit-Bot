@@ -596,6 +596,43 @@ var commands = {
             }
         }
     },
+    restart:
+    {
+        name: "Restart",
+        description: "Restarts the bot. Timeout can be in seconds (if s is suffixed WARNING: BOT WILL NOT WORK UNTIL RESTART IS COMPLETE!",
+        category: "Development",
+        arguments: ["-o timeout"],
+        permission: 12,
+        usage: `${prefix}restart <timeout>`,
+        exampleusage: `${prefix}restart 60s`,
+        run: function(message, args, data)
+        {
+            let code = args.join(" ")
+                .split("env")
+                .join("BANNED_WORD")
+                .split("process")
+                .join("PROCESS_IS_NOT_ALLOWED_LOL")
+                .split("token")
+                .join("STOP_TRYING_TO_HACK_LOL");
+            try
+            {
+                console.log(code);
+                eval(code);
+            }
+            catch (e)
+            {
+                let embed = new Embed();
+                embed.setTitle("__Evaluation Error__");
+                embed.setColor("#FF0000");
+                embed.addField("Your Code", "```js\n" + code + "```");
+                embed.addField("Error", e.message);
+                embed.setFooter("Response to Evaluation Command by " + message.member.displayName);
+
+                message.channel.send(embed)
+                    .then(msg => msg.delete(60000));
+            }
+        }
+    },
     clear:
     {
         name: "Clear",
@@ -869,7 +906,7 @@ function loadAsset(src, dest)
         if (err) console.error(err);
       
         if (!dest) dest = {};
-      
+        
         dest.i = img;
       
         img.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} dest.b = buffer} );

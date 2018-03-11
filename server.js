@@ -34,7 +34,7 @@ app.get("/ping", function(request, response)
     let pcode = Math.floor(Math.random() * 10239571);
     response.send(`Ping Code: ${pcode}`);
     console.log("Ping recieved [" + util.formatShortDate(datetime) + ", " + util.formatShortTime(datetime) + "]");
-});
+}); 
 
 var listener = app.listen(port, function()
 {
