@@ -125,7 +125,14 @@ bot.on("message", function(message)
         }
         catch (e)
         {
-            console.error(e);
+            if (e.includes("DiscordAPIError: Missing Permissions"))
+            {
+                message.channel.send("```diff\n- Sorry, but I do not have enough permission to carry out that command!```");
+            }
+            else
+            {
+                console.error(e);
+            }
         }
     }
     else if ((message.channel.type == "dm" || message.channel.type == "group") && DMCommands[command])
@@ -145,6 +152,7 @@ bot.on("message", function(message)
         }
         catch (e)
         {
+            
             console.error(e);
         }
     }
@@ -326,41 +334,27 @@ var commands = {
                 });
         }
     },
-    shorten: 
+    coinflip: 
     {
-       name:"Shorten",
-       description:"A command which shortens links, with a title as well!",
-       category:"General",
+       name:"Coin Flip",
+       description:"Flip a coin!",
+       category:"Fun & Games",
        arguments: [],
        permission: 1,
-       usage: `${prefix}shorten <URL> [title]`,
-       exampleusage: `${prefix}shorten <URL> [title]`,
+       usage: `${prefix}coinflip`,
+       exampleusage: `${prefix}coinflip`,
        run: function(message, args, data)
-        {
-        if (!args[0]) return message.channel.send(`**Usage: ${prefix}shorten <URL> [title]**`);
-
-        if (!args[1]) {
-
-            shorten.shorten(args[0], function(res) {
-
-                if (res.startsWith('Error:')) message.channel.send('**Please enter a valid URL**');
-
-                message.channel.send(`**${res}**`);
-
-            })
-
-        } else {
-
-            shorten.custom(args[0], args[1], function(res) {
-
-                if (res.startsWith('Error:')) return message.channel.send(`**${res}**`);
-
-                message.channel.send(`**${res}**`);
-
-            })
-
-        }
-    }
+       {
+           let t = Math.floor(Math.random() * 100);
+           if (t > 50)
+           {
+               message.channel.send("**Heads**");
+           }
+           else
+           {
+               message.channel.send("**Tails**");
+           }
+       }
     },
     invite:
     {
