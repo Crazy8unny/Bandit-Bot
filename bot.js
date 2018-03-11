@@ -334,6 +334,30 @@ var commands = {
                 });
         }
     },
+    slap: {
+      name:"Slap",
+      descriptiom:"Slap a user!",
+      category:"Fun & Games",
+      arguments: [],
+      permission: 1,
+      usage: `${prefix}slap <mention>`,
+      exampleusage: `${prefix}slap <mention>`,
+      run: function(message, args, data) 
+      {
+          let slappedUser = (message.mentions.users.first())
+          if (!slappedUser) return message.channel.send("You must mention a user!");
+
+          let slappedEmbed = new Discord.RichEmbed()
+          .setTitle('A user got slapped!')
+          .setColor(0x1D82B6)
+          .setDescription(message.author + ' slapped ' + slappedUser + '!')
+          .setImage(`https://media.giphy.com/media/vxvNnIYFcYqEE/giphy.gif`);
+
+          message.channel.send(slappedEmbed);
+          return;
+
+      }
+    },
     coinflip: 
     {
        name:"Coin Flip",
