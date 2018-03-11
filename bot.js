@@ -1,5 +1,6 @@
 var Discord = require('discord.js');
 var firebase = require('firebase');
+var child_process = require("child_process");
 var Jimp = require('jimp');
 
 var util = require(__dirname + '/util/util.js');
@@ -649,7 +650,7 @@ var commands = {
                         {
                             messageTo.push(bot.guilds.get(args[1]));
                         }
-                    }
+                    }/*
                     else if (args[1].split(",").length > 1 && !arrayIsNaN(args[1].split(",")))
                     {
                         for (let i = 0; i < bot.guilds.array().length; i++)
@@ -660,16 +661,30 @@ var commands = {
                                 messageTo.push(bot.guilds.array()[i].channels.find(c => c.type == "text"));
                             }
                         }
-                    }
+                    }*/
                 }
               
                 for (let x = 0; x < messageTo.length; x++)
                 {
-                    let ch = messageTo[x];
-                    ch.send("The bot will restart in " + (total / 1000) + " seconds.");
+                    let channel = messageTo[x];
+                    channel.send(`✅ Tilder will restart in __${(total / 1000)} second${(total / 1000) > 1 ? "s" : ""}__!`);
+                  
+                    console.log("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    console.log(`Bot will restart in ${(total / 1000)} second${(total / 1000) > 1 ? "s" : ""}.`);
+                    console.log("===============================================\n\n");
+
                 }
               
-                setTimeout(function() {message.channel.send("Bot restarting..."); process.exit();}, total);
+                setTimeout(function() 
+                {
+                    message.channel.send("⚠️ _Bot restarting..._"); 
+                    console.log("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    console.log(`⚠️ Bot restarting... ⚠️`);
+                    console.log("===============================================\n\n");
+                    bot.destroy(); 
+                    child_process.fork(__dirname + "/bot.js");
+                    console.log(`Bot Successfully Restarted`);
+                }, total);
                 
             }
         }
@@ -700,7 +715,7 @@ var commands = {
 
             if (amount > 1000) return `You can only delete up to 1000 messages!`;
 
-            let messages = message.channel.messages.array();
+            let messages = message.channel.fetchMessages().array();
             if (user)
             {
                 for (let i = 0; i < Math.min(amount + 1, messages.length); i++)
