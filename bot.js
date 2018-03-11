@@ -617,15 +617,22 @@ var commands = {
                     return "Timeout must be a number! (Only one letter suffix at end!)";
                 }
                 
+                if (!isNaN(timeframe))
+                {
+                    timeout = timeout.toString() + timeframe;
+                    timeframe = "k";
+                }
+              
                 timeout = parseInt(timeout);
                 let timeframes = {
+                    "k": 100,
                     "s": 1000,
                     "m": 60000,
                     "h": 3600000,
                     "d": 86400000
                 };
                 
-                
+                console.log(timeout * timeframes[timeframe]);
                 
             }
         }
@@ -723,7 +730,7 @@ var commands = {
         exampleusage: `${prefix}permission @Furvux#2414`,
         run: function(message, args, data)
         {
-            let user = message.mentions.members.first() || message.guild.members.find(m => m.displayName.toLowerCase() == args[0].toLowerCase() || m.user.username.toLowerCase() == args[0].toLowerCase()) || message.member;
+            let user = message.mentions.members.first() || message.guild.members.find(m => m.displayName.toLowerCase() == args[0] ? args[0].toLowerCase() : args[0] || m.user.username.toLowerCase() == args[0] ? args[0].toLowerCase() : args[0]) || message.member;
 
             let perm = permission.getPermissionLevel(bot, message.guild, user.user.id);
 
