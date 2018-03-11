@@ -1113,7 +1113,11 @@ var commands = {
                 }
             }
           
-            let gameData = {};
+            let gameData = {
+                players: [message.author.id],
+                current: 0,
+                turn: 1
+            };
             
             games.TwentyOne.Playing.push(message.author.id);
           
@@ -1130,7 +1134,7 @@ var commands = {
         exampleusage: `${prefix}test`,
         run: function(message, args, data)
         {
-            sendNumber(15, message);
+            sendTONumber(-1, message);
         }
     },
 
@@ -1333,14 +1337,14 @@ function checkGame(user)
     }
 }
 
-function sendNumber(number, message)
+function sendTONumber(number, message, gameID)
 {
     var image = new Jimp(64, 64, function (err, image) 
     {
         if (err) throw err;
         Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function (font) {
             image.print(font, 0, 0, number.toString());
-            toBufferAndSend(image, message, "Number: " + number);
+            toBufferAndSend(image, message, "[**" + gameID + "**] Number: " + number);
         });
     });
 }
