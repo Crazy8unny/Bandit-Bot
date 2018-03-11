@@ -68,7 +68,7 @@ bot.on('ready', async function()
 
     let x = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FX.png";
     let o = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FO.png";
-    let board = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FXOBoard.png";
+    let board = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FNoughtsAndCrossesBoard.png";
 
     let headCoin = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FHeads.png";
     let tailCoin = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FTails.png";
@@ -393,7 +393,7 @@ var commands = {
             let hugged = (message.mentions.members.first());
             if (!hugged) return message.channel.send("You must mention a user to hug!");
 
-            let hugs = ["https://media.giphy.com/media/2FayVoBQ0oxVel3aM/giphy.gif", "https://media.giphy.com/media/IuCSOHcDlooPm/giphy.gif", "https://media.giphy.com/media/EvYHHSntaIl5m/giphy.gif", "https://media.giphy.com/media/3M4NpbLCTxBqU/giphy.gif", "https://media.giphy.com/media/lXiRKBj0SAA0EWvbG/giphy.gif", "https://media.giphy.com/media/llmZp6fCVb4ju/giphy.gif", "https://media.giphy.com/media/16bJmyPvRbCDu/giphy.gif", "https://media.giphy.com/media/3oEjI72YdcYarva98I/giphy.gif", "https://media.giphy.com/media/Bj9k1U69GZ8Iw/giphy.gif"];
+            let hugs = ["https://i.imgur.com/6rxDiFS.gif", "https://i.imgur.com/c3WzMZu.gif", "https://i.imgur.com/V5G9LMz.mp4", "https://media.giphy.com/media/2FayVoBQ0oxVel3aM/giphy.gif", "https://media.giphy.com/media/IuCSOHcDlooPm/giphy.gif", "https://media.giphy.com/media/EvYHHSntaIl5m/giphy.gif", "https://media.giphy.com/media/3M4NpbLCTxBqU/giphy.gif", "https://media.giphy.com/media/lXiRKBj0SAA0EWvbG/giphy.gif", "https://media.giphy.com/media/llmZp6fCVb4ju/giphy.gif", "https://media.giphy.com/media/16bJmyPvRbCDu/giphy.gif", "https://media.giphy.com/media/3oEjI72YdcYarva98I/giphy.gif", "https://media.giphy.com/media/Bj9k1U69GZ8Iw/giphy.gif"];
 
             let embed = new Embed()
                 .setTitle(message.member.displayName.split("_")
