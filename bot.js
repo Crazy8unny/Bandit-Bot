@@ -2,6 +2,7 @@ var Discord = require('discord.js');
 var firebase = require('firebase');
 var child_process = require("child_process");
 var Jimp = require('jimp');
+var urbandict = require("urban-dictionary");
 
 var util = require(__dirname + '/util/util.js');
 var permission = require(__dirname + '/util/permissions.js');
@@ -999,6 +1000,50 @@ var commands = {
                 }
             }
         }
+    },
+    define: {
+      name: "Define",
+      description: "Defines a specified word using Urban Dictionary",
+      category:"Fun & Games",
+      arguments: ["-r word"],
+      permission: 1,
+      usage: `${prefix}define`,
+      exampleusage: `${prefix}define peak`,
+      run: function(message, args, data) 
+      {
+          let definition = args.join(" ");
+          if (!definition) return "You need to specify a word to look up!";
+          if (definition.trim().toLowerCase() === 'furvux') message.channel.send(`Clearly the best developer in the world!`);
+          else if (definition.trim().toLowerCase() === 'sheikh1365') message.channel.send(`A kind hearted person!`);
+          else if (definition.trim().toLowerCase() === 'keen') message.channel.send(`Keenly Clever!`);
+          else if (definition.trim().toLowerCase() === 'glassykiller') message.channel.send(`Your Father.`);
+
+          else
+          {
+              urbandict.term(definition, function(error, entries, tags, sounds)
+              {
+                  if (error)
+                  {
+                      console.error(error)
+                      message.channel.send(`Couldn't find **${definition}** on Urban Dictionary.`)
+                  }
+                  else
+                  {
+                      let embed = new Embed();
+
+                      embed.setTitle("__" + definition + " - Urban Definition__");
+                      embed.setColor(data.display_colour.hex);
+                      embed.setThumbnail("https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2Fimage.png?1520797098652");
+                      embed.addField("Word", ">> **" + util.ucfirst(definition) + "**");
+                      embed.addField("Definition", ">> " + entries[0].definition);
+                      embed.addField("Example Usage", ">> " + entries[0].example);
+                      embed.setFooter("Source: [https://www.urbandictionary.com/](https://www.urbandictionary.com/)");
+                      
+                      message.channel.send(embed);
+                  }
+              });
+          }
+      }
     },
   
 };
