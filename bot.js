@@ -22,12 +22,6 @@ var playing = [];
 var assets = {};
 assets.XO = {};
 
-var i_X;
-var i_O;
-
-var b_X;
-var b_O;
-
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyBnKrLqwldnRRryvqUdUH5lidilH3gDTG0",
@@ -86,28 +80,33 @@ bot.on('ready', async function()
     {
         if (err) console.error(err);
       
-        i_X = x;
+        assets.XO.X = {};
+      
+        assets.XO.X.i = x;
         console.log("-- Asset \"Cross.png\" loaded!");
       
-        x.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} b_X = buffer} );
+        x.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} assets.XO.X.b = buffer} );
     });
     Jimp.read(o, function (err, o) 
     {
         if (err) console.error(err);
       
-        i_O = o;
+        assets.XO.O = {};
+      
+        assets.XO.O.i = o;
         console.log("-- Asset \"Nought.png\" loaded!");
       
-        o.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} b_O = buffer} );
+        o.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} assets.XO.O.b = buffer} );
     });
 
 });
 
 bot.on("message", function(message)
 {
+    // Game Command
     if (!isNaN(message.content) && parseInt(message.content) > 0 && parseInt(message.content) < 10 && playing.includes(message.author.id))
     {
-        placeXO(message, games, i_X, i_O, toBufferAndSend);
+        placeXO(message, games, assets.XO.X.i, assets.XO.O.i, toBufferAndSend);
     }
   
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
@@ -262,6 +261,71 @@ var DMCommands = {
             }
 
         }
+    },
+  commands:
+    {
+        name: "Commands",
+        description: "Lists all avaliable commands to your DM channel.",
+        category: "General",
+        arguments: ["-o category"],
+        permission: 1,
+        usage: `${prefix}commands\` or  \`${prefix}commands <category>`,
+        exampleusage: `${prefix}commands General`,
+        run: function(message, args, data)
+        {
+            let permission_level = 1;
+
+            let categories = {};
+
+            for (let command in DMCommands)
+            {
+                if (commands[command].permission <= permission_level)
+                {
+                    if (!categories[commands[command].category])
+                    {
+                        categories[commands[command].category] = [];
+                    }
+                    categories[commands[command].category].push(commands[command]);
+                }
+            }
+
+            if (args[0] && categories[util.ucfirst(args[0])])
+            {
+                let category = util.ucfirst(args[0]);
+                let embed = new Embed();
+
+                embed.setTitle("__" + bot.user.tag + " - " + category + " Commands__");
+                embed.setColor("#9C39FF");
+                for (let i = 0; i < categories[category].length; i++)
+                {
+                    embed.addField(categories[category][i].name, categories[category][i].description);
+                }
+
+                embed.setFooter("Type " + prefix + "help `<command>` to get more information about a command (usage, arguments, etc.)");
+
+                message.author.send(embed);
+                message.channel.send(`✅ A Message containing the commands avaliable to you from the specified category (**${category}**) has been sent to your DMs!`);
+            }
+            else
+            {
+                for (let category in categories)
+                {
+                    let embed = new Embed();
+
+                    embed.setTitle("__" + bot.user.username + " - " + category + " Commands__");
+                    embed.setColor("#9C39FF");
+                    for (let i = 0; i < categories[category].length; i++)
+                    {
+                        embed.addField("_" + categories[category][i].name + " Command_", categories[category][i].description);
+                    }
+
+                    message.author.send(embed);
+                    embed.setFooter("Type " + prefix + "help `<command>` to get more information about a command (usage, arguments, etc.)");
+                }
+                message.channel.send(`✅ Messages containing the commands avaliable to you have been sent to your DMs!`);
+            }
+
+        }
     }
 };
 
@@ -283,8 +347,6 @@ var commands = {
                 {
                     msg.delete(3000)
                 });
-          
-            message.channel.send(new Embed().setImage(i_X)).then(msg => setTimeout(() => {msg.edit("File", new Embed().setImage(i_O))}, 1000));
         }
     },
     invite:
