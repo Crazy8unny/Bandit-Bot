@@ -635,6 +635,7 @@ var commands = {
             embed.addBlankField();
 
             embed.addField("🔨 Bot Developers 🔧", developers.join(",\n"));
+            embed.addField("📮 Official Server 📮", ">> **[Tilde Dojo](<https://discord.gg/D7REjnU>)**");
 
             embed.setFooter("Requested by " + message.member.displayName, message.author.avatarURL);
 
