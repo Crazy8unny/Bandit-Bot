@@ -1119,6 +1119,20 @@ var commands = {
           
         }
     },
+    test:
+    {
+        name: "Test",
+        description: "Test command",
+        category: "Development",
+        arguments: [],
+        permission: 15,
+        usage: `${prefix}test`,
+        exampleusage: `${prefix}test`,
+        run: function(message, args, data)
+        {
+            sendNumber(15, message);
+        }
+    },
 
 };
 
@@ -1319,13 +1333,14 @@ function checkGame(user)
     }
 }
 
-function sendNumber()
+function sendNumber(number, message)
 {
     var image = new Jimp(64, 64, function (err, image) 
     {
         if (err) throw err;
-        Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
-            image.print(font, 10, 10, "Hello world!");
+        Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function (font) {
+            image.print(font, 0, 0, number.toString());
+            toBufferAndSend(image, message, "Number: " + number);
         });
     });
 }
