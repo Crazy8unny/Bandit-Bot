@@ -370,6 +370,32 @@ var commands = {
 
       }
     },
+    hug: {
+      name:"Hug",
+      description: "Hug a user!",
+      category:"Fun & Games",
+      arguments: ["-r @user"],
+      permission: 1,
+      usage: `${prefix}slap`,
+      exampleusage: `${prefix}slap @Furvux#2414`,
+      run: function(message, args, data) 
+      {
+          let slappedUser = (message.mentions.members.first());
+          if (!slappedUser) return message.channel.send("You must mention a user!");
+
+          let slaps = ["https://media1.giphy.com/media/uG3lKkAuh53wc/giphy.gif", "https://media.giphy.com/media/vxvNnIYFcYqEE/giphy.gif", "https://media.giphy.com/media/xULW8nNDLNVlBY77dm/giphy.gif", "https://media.giphy.com/media/gSIz6gGLhguOY/giphy.gif", "https://media.giphy.com/media/10KJUgvMoiSVSo/giphy.gif", "https://media.giphy.com/media/8cD5U8FgIcOQ/giphy.gif", "https://media.giphy.com/media/3vDS40HZxJwFGTbXoI/giphy.gif", "https://media.giphy.com/media/3oEdvdHf6n0US87Tri/giphy.gif", "https://media.giphy.com/media/1J8vRWb8xUByw/giphy.gif"];
+        
+          let slappedEmbed = new Embed()
+          .setTitle(message.member.displayName.split("_").join("\_") + " slaps " + slappedUser.displayName.split("_").join("\_") + "!")
+          .setColor(data.display_colour.hex)
+          .setDescription(message.author + ' slapped ' + slappedUser + '!')
+          .setImage(util.randomItem(slaps));
+
+          message.channel.send(slappedEmbed);
+          return;
+
+      }
+    },
     punch: {
       name: "Punch",
       description: "Punch a user!",
