@@ -125,7 +125,7 @@ bot.on("message", function(message)
                     .splice(1), data);
                 if (error)
                 {
-                    message.channel.send("```diff\n- " + error.message + "```");
+                    message.channel.send("```diff\n- " + error + "```");
                 }
             }
             else
@@ -938,10 +938,6 @@ var commands = {
                 {
                     message.channel.send("```diff\n- Sorry, but I do not have enough permission to carry out that command!```");
                 }
-                else
-                {
-                    console.error(e.message);
-                }
             }
         }
     },
@@ -1001,7 +997,7 @@ function placeXO(message, games, i_X, i_O, basFunc)
                         if (index > -1) {
                             playing.splice(index, 1);
                         }
-                        games.XO[gameID] = null;
+                        delete games.XO[gameID];
                     }
                     
                     game.turn = 3 - game.turn;
@@ -1090,3 +1086,8 @@ function arrayIsNaN(array)
     }
     return true;
 }
+
+process.on('unhandledRejection', error => {
+    console.error(`Uncaught Promise Rejection:\n${error}`);
+    
+});
