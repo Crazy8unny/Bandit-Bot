@@ -68,7 +68,7 @@ bot.on('ready', async function()
 
     let x = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FX.png";
     let o = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FO.png";
-    let board = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FBoard.png";
+    let board = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FXOBoard.png";
 
     let headCoin = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FHeads.png";
     let tailCoin = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FTails.png";
@@ -397,10 +397,10 @@ var commands = {
 
             let embed = new Embed()
                 .setTitle(message.member.displayName.split("_")
-                    .join("\_") + " slaps " + hugged.displayName.split("_")
+                    .join("\_") + " hugs " + hugged.displayName.split("_")
                     .join("\_") + "!")
                 .setColor(data.display_colour.hex)
-                .setDescription(":heart_decoration:" + message.author + ' hugs ' + hugged + '! :heart_decoration:')
+                .setDescription(":heart_decoration:" + message.author + ' hugged ' + hugged + '! :heart_decoration:')
                 .setImage(util.randomItem(hugs));
 
             message.channel.send(embed);
@@ -426,7 +426,7 @@ var commands = {
 
             let embed = new Embed()
                 .setTitle(message.member.displayName.split("_")
-                    .join("\_") + " slaps " + victum.displayName.split("_")
+                    .join("\_") + " punches " + victum.displayName.split("_")
                     .join("\_") + "!")
                 .setColor(data.display_colour.hex)
                 .setDescription(message.author + ' punched ' + victum + '!')
