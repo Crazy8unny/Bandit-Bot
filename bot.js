@@ -67,6 +67,10 @@ bot.on('ready', async function()
     let o = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FO.png";
     let board = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FBoard.png";
   
+    assets.XO.Board = {};
+    assets.XO.X = {};  
+    assets.XO.O = {};
+
     loadAsset(board, assets.XO.Board);
     loadAsset(x, assets.XO.X);
     loadAsset(o, assets.XO.O);
@@ -84,6 +88,7 @@ bot.on("message", function(message)
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
 
     let command = message.content.indexOf(botID) != -1 ? message.content.split(" ")[1] : message.content.split(" ")[0].substr(1);
+    command = command.toLowerCase().trim();
     if (message.channel.type == "text" && commands[command])
     {
         try
