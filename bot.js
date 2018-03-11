@@ -729,7 +729,7 @@ var commands = {
                     for (let i = 0; i < Math.min(amount + 1, messages.length); i++)
                     {
                         let msg = messages[i];
-                        if (msg.author.id == user.user.id) msg.delete();
+                        if (msg.author.id == user.id) msg.delete();
                     }
                 });
             }
