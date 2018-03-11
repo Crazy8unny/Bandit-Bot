@@ -94,37 +94,6 @@ bot.on("message", function(message)
 {
     if (!isNaN(message.content) && parseInt(message.content) > 0 && parseInt(message.content) < 10 && playing.includes(message.author.id))
     {
-        for (let gameID in games.XO)
-        {
-            let game = games.XO[gameID];
-            if (game.players && game.players.includes(message.author.id))
-            {
-                let input = message.content;
-                if (game.turn == game.players.indexOf(message.author.id) + 1)
-                {
-                    if (game.board[input - 1] == "-")
-                    {
-                        let marker = game.turn == 1 ? i_X : i_O;
-                      
-                        let xCoord = ((input - 1) % 3) * 64 + ((input > 3 ? 6 - input : input)) * 3;
-                        let yCoord = Math.floor((input - 1) / 3) * 64 + Math.ceil(input / 3) * 3;
-                      
-                        game.boardImage.composite(marker, xCoord, yCoord);
-                        toBufferAndSend(game.boardImage, message, "Board:");
-                      
-                        game.board[input - 1] = game.players.indexOf(message.author.id) == 0 ? "X" : "O";
-                        game.turn = 3 - game.turn;
-                    }
-                    else
-                    {
-                        message.channel.send("That space is taken up already, " + message.author + "!");
-                    }
-                }
-                else
-                {
-                }
-            }
-        }
     }
   
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
@@ -720,4 +689,40 @@ function toBufferAndSend(image, message, text)
     image.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} message.channel.send(text, {file: (buffer)});} );
   
                 
+}
+
+function place(message)
+{
+    
+for (let gameID in games.XO)
+{
+    let game = games.XO[gameID];
+    if (game.players && game.players.includes(message.author.id))
+    {
+        let input = message.content;
+        if (game.turn == game.players.indexOf(message.author.id) + 1)
+        {
+            if (game.board[input - 1] == "-")
+            {
+                let marker = game.turn == 1 ? i_X : i_O;
+
+                let xCoord = ((input - 1) % 3) * 64 + ((input > 3 ? input - 3 > 3 ? input - 6 : input - 3 : input)) * 3;
+                let yCoord = Math.floor((input - 1) / 3) * 64 + Math.ceil(input / 3) * 3;
+
+                game.boardImage.composite(marker, xCoord, yCoord);
+                toBufferAndSend(game.boardImage, message, "Board:");
+
+                game.board[input - 1] = game.players.indexOf(message.author.id) == 0 ? "X" : "O";
+                game.turn = 3 - game.turn;
+            }
+            else
+            {
+                message.channel.send("That space is taken up already, " + message.author + "!");
+            }
+        }
+        else
+        {
+        }
+    }
+}
 }
