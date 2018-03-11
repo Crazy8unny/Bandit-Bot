@@ -65,39 +65,10 @@ bot.on('ready', async function()
     let x = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FX.png";
     let o = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FO.png";
     let board = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FBoard.png";
-    Jimp.read(board, function (err, image) 
-    {
-        if (err) console.error(err);
-
-        assets.XO.Board = {};
-      
-        assets.XO.Board.i = image;
-        console.log("-- Asset \"Board.png\" loaded!");
-      
-        image.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} assets.XO.Board.b = buffer} );
-    });
-    Jimp.read(x, function (err, x) 
-    {
-        if (err) console.error(err);
-      
-        assets.XO.X = {};
-      
-        assets.XO.X.i = x;
-        console.log("-- Asset \"Cross.png\" loaded!");
-      
-        x.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} assets.XO.X.b = buffer} );
-    });
-    Jimp.read(o, function (err, o) 
-    {
-        if (err) console.error(err);
-      
-        assets.XO.O = {};
-      
-        assets.XO.O.i = o;
-        console.log("-- Asset \"Nought.png\" loaded!");
-      
-        o.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} assets.XO.O.b = buffer} );
-    });
+  
+    loadAsset(board, assets.XO.Board);
+    loadAsset(x, assets.XO.X);
+    loadAsset(o, assets.XO.O);
 
 });
 
@@ -888,4 +859,22 @@ function checkXOBoard(board)
         }
     }
     return "-";
+}
+
+function loadAsset(src, dest)
+{
+    let before = new Date();
+    Jimp.read(src, function (err, img) 
+    {
+        if (err) console.error(err);
+      
+        if (!dest) dest = {};
+      
+        dest.i = img;
+      
+        img.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} dest.b = buffer} );
+      
+        let now = new Date();
+        console.log("-- Asset \"" + util.ucfirst(src.split("0%2F")[1]) + "\" loaded [" + (now - before) + "ms]");
+    });
 }
