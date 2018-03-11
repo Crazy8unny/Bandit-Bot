@@ -357,6 +357,8 @@ var commands = {
           let slappedUser = (message.mentions.users.first());
           if (!slappedUser) return message.channel.send("You must mention a user!");
 
+          let slaps = ["https://media1.giphy.com/media/uG3lKkAuh53wc/giphy.gif", "https://media.giphy.com/media/vxvNnIYFcYqEE/giphy.gif"];
+        
           let slappedEmbed = new Embed()
           .setTitle('A user got slapped!')
           .setColor(0x1D82B6)
