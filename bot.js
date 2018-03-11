@@ -1003,6 +1003,7 @@ var commands = {
 
                 games.XO[gameID] = gameData;
                 playing.push(message.author.id, opponent.id);
+                games.XO.Playing.push(message.author.id, opponent.id);
 
                 let board = assets.XO.Board.i.clone();
 
@@ -1082,6 +1083,39 @@ var commands = {
                     
                 });
             }
+        }
+    },
+    twentyone:
+    {
+        name: "TwentyOne",
+        description: "Starts a game of 21! For others to join, they need to type `" + prefix + "join <gameID>`. Of you do not specify a gameID, one will be crated for you! \n__Note: Game ID must be 7 characters in length!__",
+        category: "Fun & Games",
+        arguments: ["-o gameID"],
+        permission: 1,
+        usage: `${prefix}twentyone`,
+        exampleusage: `${prefix}twentyone F51X632`,
+        run: function(message, args, data)
+        {
+            let gameID = util.generateUID(7, true);
+            if (args[0])
+            {
+                if (args[0].length == 7)
+                {
+                    gameID = args[0];
+                }
+                else if (args[0].length < 7)
+                {
+                    gameID = args[0] + util.generateUID(7 - args[0].length, true);
+                }
+                else if (args[0].length > 7)
+                {
+                    gameID = args[0].substr(0, 7);
+                }
+            }
+          
+            let gameData = {};
+            
+            ga.es
         }
     },
 
