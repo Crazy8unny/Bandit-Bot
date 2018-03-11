@@ -636,7 +636,7 @@ var commands = {
                 
                 let total = (timeout * timeframes[timeframe]);
               
-                let messageTo = [message.guild];
+                let messageTo = [message.channel];
                 if (args[1])
                 {
                     if (args[1] == "all")
@@ -652,21 +652,24 @@ var commands = {
                     }
                     else if (args[1].split(",").length > 1 && !arrayIsNaN(args[1].split(",")))
                     {
-                        messageTo = [];
-                        for (let i = 0; i < bot.guilds.array(); i++)
+                        for (let i = 0; i < bot.guilds.array().length; i++)
                         {
                             console.log(args[1].split(","));
                             if (args[1].split(",").indexOf(bot.guilds.array()[i].id) != -1)
                             {
-                                messageTo.push(bot.guilds.array()[i]);
+                                messageTo.push(bot.guilds.array()[i].channels.find(c => c.type == "text"));
                             }
                         }
                     }
-                  
-                    console.log(arrayIsNaN(args[1].split(",")));
                 }
               
-                setTimeout(function() {process.exit()}, total);
+                for (let x = 0; x < messageTo.length; x++)
+                {
+                    let ch = messageTo[x];
+                    ch.send("The bot will restart in " + (total / 1000) + " seconds.");
+                }
+              
+                setTimeout(function() {message.channel.send("Bot restarting..."); process.exit();}, total);
                 
             }
         }
