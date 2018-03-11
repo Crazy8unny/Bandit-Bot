@@ -1223,9 +1223,9 @@ var commands = {
             
                 embed.setTitle("__New Suggestion__");
                 embed.setColor("#00AA00");
-                embed.addField("Suggestion", args[0]);
-                embed.addField("Suggester", message.author.tag);
-                embed.addField("Suggestion Point", "**#" + message.channel.name + "** in **[" + message.guild.name + "](" + invite + ")**");
+                embed.addField("Suggestion", ">> " + args.join(" "));
+                embed.addField("Suggester", ">> **" + message.author.tag  + "**");
+                embed.addField("Suggestion Point", ">> **#" + message.channel.name + "** in **[" + message.guild.name + "](" + invite + ")**");
                 embed.setFooter("Suggested at: " + util.formatShortDate(new Date()) + " [" + util.formatShortTime(new Date) + "]", message.author.avatarURL);
 
                 const filter = (reaction, user) => user.id == message.author.id;
@@ -1241,7 +1241,7 @@ var commands = {
                         if (r.emoji.name == "✅")
                         {
                             msg.delete();
-                            bot.guilds.get(`421405545426321418`).channels.get(`421441403751759875`).send(embed);
+                            bot.guilds.get(`421405545426321418`).channels.get(`421441403751759875`).send(embed).then(m => {m.react("✅"); m.react("❎");});
                         }
                         else if (r.emoji.name == "❎")
                         {
@@ -1250,6 +1250,36 @@ var commands = {
                     });
                 });
             });
+        }
+    },
+    rembed:
+    {
+        name: "Rembed",
+        description: "Embeds the content in a rich embed. Parameters are speprated by commas for this command.",
+        category: "General",
+        arguments: ["-r title", "-r colour", "-r body"],
+        permission: 4,
+        usage: `${prefix}rembed`,
+        exampleusage: `${prefix}rembed Hello World, #FF0099, Hello, world! This is a nice Rich Embed!`,
+        run: function(message, args, data)
+        {
+            args = message.content.split(",");
+          
+            if (!args[0]) return "You need a title! (Type `" + prefix + "help rembed` to see hot to use this command!)";
+            if (!args[1]) return "You need a colour! (Type `" + prefix + "help rembed` to see hot to use this command!)";
+            if (!args[2]) return "You need a body for the embed! (Type `" + prefix + "help rembed` to see hot to use this command!)";
+          
+            let title = args.shift();
+            let colour = args.shift();
+            let body = args.join(",");
+          
+            let embed = new Embed();
+            embed.setTitle(title);
+            embed.setColor(colour);
+            embed.setDescription(body);
+            embed.setFooter("By " + message.author.tag, message.author.avatarURL);
+            
+            message.channel.send(embed);
         }
     },
     test:
