@@ -381,11 +381,11 @@ var commands = {
            let t = Math.floor(Math.random() * 100);
            if (t > 50)
            {
-               message.channel.send("**Heads**");
+               message.channel.send("**Heads**", {file: assets.CoinFlip.Heads.b});
            }
            else
            {
-               message.channel.send("**Tails**");
+               message.channel.send("**Tails**", {file: assets.CoinFlip.Tails.b});
            }
        }
     },
