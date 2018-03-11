@@ -326,6 +326,41 @@ var commands = {
                 });
         }
     },
+    shorten: 
+    {
+       name:"Shorten",
+       description:"A command which shortens links, with a title as well!",
+       category:"General",
+       arguments: [],
+       permission: 1,
+       usage: `${prefix}shorten <URL> [title]`,
+       exampleusage: `${prefix}shorten <URL> [title]`,
+       run: function(message, args, data)
+        {
+        if (!args[0]) return message.channel.send(`**Usage: ${prefix}shorten <URL> [title]**`);
+
+        if (!args[1]) {
+
+            shorten.shorten(args[0], function(res) {
+
+                if (res.startsWith('Error:')) message.channel.send('**Please enter a valid URL**');
+
+                message.channel.send(`**${res}**`);
+
+            })
+
+        } else {
+
+            shorten.custom(args[0], args[1], function(res) {
+
+                if (res.startsWith('Error:')) return message.channel.send(`**${res}**`);
+
+                message.channel.send(`**${res}**`);
+
+            })
+
+        }
+    },
     invite:
     {
         name: "Invite",
