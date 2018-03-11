@@ -647,9 +647,23 @@ var commands = {
                     {
                         if (parseInt(args[1]) > 10000)
                         {
-                            
+                            messageTo.push(bot.guilds.get(args[1]));
                         }
                     }
+                    else if (args[1].split(",").length > 1 && !arrayIsNaN(args[1].split(",")))
+                    {
+                        messageTo = [];
+                        for (let i = 0; i < bot.guilds.array(); i++)
+                        {
+                            console.log(args[1].split(","));
+                            if (args[1].split(",").indexOf(bot.guilds.array()[i].id) != -1)
+                            {
+                                messageTo.push(bot.guilds.array()[i]);
+                            }
+                        }
+                    }
+                  
+                    console.log(arrayIsNaN(args[1].split(",")));
                 }
               
                 setTimeout(function() {process.exit()}, total);
@@ -938,4 +952,16 @@ function loadAsset(src, dest)
         let now = new Date();
         console.log("-- Asset \"" + util.ucfirst(src.split("0%2F")[1]) + "\" loaded [" + (now - before) + "ms]");
     });
+}
+
+function arrayIsNaN(array)
+{
+    for (let i = 0; i < array.length; i++)
+    {
+        if (!isNaN(array[i]))
+        {
+            return false;
+        }
+    }
+    return true;
 }
