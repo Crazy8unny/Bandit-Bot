@@ -318,6 +318,10 @@ var commands = {
         run: function(message, args, data)
         {
             let embed = new Embed();
+            if (args[0] && !commands[args[0]])
+            {
+                return "Sorry, but there is not command with that name!";
+            }
             if (commands[args[0]])
             {
                 let spec = commands[args[0].toLowerCase()];
@@ -573,7 +577,7 @@ var commands = {
             let messages = message.channel.messages.array();
             if (user)
             {
-                for (let i = 0; i < Math.min(amount, messages.length); i++)
+                for (let i = 0; i < Math.min(amount + 1, messages.length); i++)
                 {
                     let msg = messages[i];
                     msg.delete();
