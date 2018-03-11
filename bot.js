@@ -610,8 +610,8 @@ var commands = {
             // Timeout exists
             if (args[0])
             {
-                let timeout = args[0].substr(0, timeout.length - 1);
-                let timeframe = args[0].substr(timeout.length - 1);
+                let timeout = args[0].substr(0, args[0].length - 1);
+                let timeframe = args[0].substr(args[0].length - 1);
                 if (isNaN(timeout))
                 {
                     return "Timeout must be a number! (Only one letter suffix at end!)";
