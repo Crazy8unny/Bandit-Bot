@@ -281,7 +281,7 @@ var commands = {
                     msg.delete(3000)
                 });
           
-            message.channel.send({file: b_O}).then(msg => setTimeout(() => {msg.edit("File", {file: b_X})}, 1000));
+            message.channel.send(new Embed().setImage(i_X)).then(msg => setTimeout(() => {msg.edit("File", new Embed().setImage(i_O))}, 1000));
         }
     },
     invite:
