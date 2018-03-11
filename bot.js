@@ -346,7 +346,7 @@ var commands = {
     },
     slap: {
       name:"Slap",
-      descriptiom:"Slap a user!",
+      description: "Slap a user!",
       category:"Fun & Games",
       arguments: ["-r @user"],
       permission: 1,
@@ -360,12 +360,38 @@ var commands = {
           let slaps = ["https://media1.giphy.com/media/uG3lKkAuh53wc/giphy.gif", "https://media.giphy.com/media/vxvNnIYFcYqEE/giphy.gif", "https://media.giphy.com/media/xULW8nNDLNVlBY77dm/giphy.gif", "https://media.giphy.com/media/gSIz6gGLhguOY/giphy.gif", "https://media.giphy.com/media/10KJUgvMoiSVSo/giphy.gif", "https://media.giphy.com/media/8cD5U8FgIcOQ/giphy.gif", "https://media.giphy.com/media/3vDS40HZxJwFGTbXoI/giphy.gif", "https://media.giphy.com/media/3oEdvdHf6n0US87Tri/giphy.gif", "https://media.giphy.com/media/1J8vRWb8xUByw/giphy.gif"];
         
           let slappedEmbed = new Embed()
-          .setTitle(message.member.displayName + " slaps " + slappedUser.displayName + "!")
+          .setTitle(message.member.displayName.split("_").join("\_") + " slaps " + slappedUser.displayName.split("_").join("\_") + "!")
           .setColor(data.display_colour.hex)
           .setDescription(message.author + ' slapped ' + slappedUser + '!')
           .setImage(util.randomItem(slaps));
 
           message.channel.send(slappedEmbed);
+          return;
+
+      }
+    },
+    punch: {
+      name: "Punch",
+      description: "Punch a user!",
+      category:"Fun & Games",
+      arguments: ["-r @user"],
+      permission: 1,
+      usage: `${prefix}punch`,
+      exampleusage: `${prefix}punch @Furvux#2414`,
+      run: function(message, args, data) 
+      {
+          let victum = (message.mentions.members.first());
+          if (!victum) return message.channel.send("You must mention a user!");
+
+          let punches = ["https://media.giphy.com/media/3o7WTBPWWzcjDyTlGU/giphy.gif", "https://media.giphy.com/media/EYD7OzuuTfRVC/giphy.gif"];
+        
+          let embed = new Embed()
+          .setTitle(message.member.displayName.split("_").join("\_") + " slaps " + victum.displayName.split("_").join("\_") + "!")
+          .setColor(data.display_colour.hex)
+          .setDescription(message.author + ' punched ' + victum + '!')
+          .setImage(util.randomItem(punches));
+
+          message.channel.send(embed);
           return;
 
       }
