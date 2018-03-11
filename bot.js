@@ -620,7 +620,7 @@ var commands = {
                 if (!isNaN(timeframe))
                 {
                     timeout = timeout.toString() + timeframe;
-                    timeframe = "r";
+                    timeframe = "k";
                 }
               
                 timeout = parseInt(timeout);
@@ -634,7 +634,25 @@ var commands = {
                     "d": 86400000
                 };
                 
-                console.log(timeout * timeframes[timeframe]);
+                let total = (timeout * timeframes[timeframe]);
+              
+                let messageTo = [message.guild];
+                if (args[1])
+                {
+                    if (args[1] == "all")
+                    {
+                        messageTo = bot.guilds.array();
+                    }
+                    else if (!isNaN(args[1]))
+                    {
+                        if (parseInt(args[1]) > 10000)
+                        {
+                            
+                        }
+                    }
+                }
+              
+                setTimeout(function() {process.exit()}, total);
                 
             }
         }
