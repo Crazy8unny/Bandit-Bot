@@ -383,7 +383,7 @@ var commands = {
           let victum = (message.mentions.members.first());
           if (!victum) return message.channel.send("You must mention a user!");
 
-          let punches = ["https://media.giphy.com/media/3o7WTBPWWzcjDyTlGU/giphy.gif", "https://media.giphy.com/media/EYD7OzuuTfRVC/giphy.gif"];
+          let punches = ["https://media.giphy.com/media/3o7WTBPWWzcjDyTlGU/giphy.gif", "https://media.giphy.com/media/EYD7OzuuTfRVC/giphy.gif", "https://media.giphy.com/media/GoN89WuFFqb2U/giphy.gif", "https://media.giphy.com/media/3oEhn4mIrTuCf0bn1u/giphy.gif", "https://media.giphy.com/media/DViGV8rfVjw6Q/giphy.gif", "https://media.giphy.com/media/pLnxbpVosgjE4/giphy.gif"];
         
           let embed = new Embed()
           .setTitle(message.member.displayName.split("_").join("\_") + " slaps " + victum.displayName.split("_").join("\_") + "!")
