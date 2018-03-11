@@ -17,16 +17,16 @@ exports.getPermissionLevel = function(bot, guild, ID)
                     return 15;
                 case "421406682678165506":
                     return 12;
-                case "421440291086532638":
+                case "422308425834168321":
                     return 11;
                 case "421440073934831628":
                     return 10;
                 case "421406584833441803":
-                    fP = 4;
-                case "421406447696609281":
                     fP = 3;
-                case "421405926671646730":
+                case "421406447696609281":
                     fP = 2;
+                case "421405926671646730":
+                    fP = 1;
                 default:
                     break;
             }

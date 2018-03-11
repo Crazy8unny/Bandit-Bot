@@ -360,6 +360,7 @@ var commands = {
             })
 
         }
+    }
     },
     invite:
     {
@@ -643,7 +644,7 @@ var commands = {
         description: "Restarts the bot. Timeout can be in seconds (if s is suffixed at end of timeout) or milliseconds if no timeframe is specified. WARNING: BOT WILL NOT WORK UNTIL RESTART IS COMPLETE!",
         category: "Development",
         arguments: ["-o timeout"],
-        permission: 12,
+        permission: 10,
         usage: `${prefix}restart <timeout>`,
         exampleusage: `${prefix}restart 60s`,
         run: function(message, args, data)
@@ -891,7 +892,7 @@ var commands = {
           
             message.channel.send(message.author + " **(__X__)** vs. " + opponent.user + " **(__O__)**", {file: assets.XO.Board.b});
         }
-    
+    },
 };
 
 bot.login(token);
