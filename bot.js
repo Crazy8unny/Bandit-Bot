@@ -348,22 +348,22 @@ var commands = {
       name:"Slap",
       descriptiom:"Slap a user!",
       category:"Fun & Games",
-      arguments: [],
+      arguments: ["-r @user"],
       permission: 1,
-      usage: `${prefix}slap <mention>`,
-      exampleusage: `${prefix}slap <mention>`,
+      usage: `${prefix}slap`,
+      exampleusage: `${prefix}slap @Furvux#2414`,
       run: function(message, args, data) 
       {
-          let slappedUser = (message.mentions.users.first());
+          let slappedUser = (message.mentions.members.first());
           if (!slappedUser) return message.channel.send("You must mention a user!");
 
-          let slaps = ["https://media1.giphy.com/media/uG3lKkAuh53wc/giphy.gif", "https://media.giphy.com/media/vxvNnIYFcYqEE/giphy.gif"];
+          let slaps = ["https://media1.giphy.com/media/uG3lKkAuh53wc/giphy.gif", "https://media.giphy.com/media/vxvNnIYFcYqEE/giphy.gif", "https://media.giphy.com/media/xULW8nNDLNVlBY77dm/giphy.gif", "https://media.giphy.com/media/gSIz6gGLhguOY/giphy.gif", "https://media.giphy.com/media/10KJUgvMoiSVSo/giphy.gif", "https://media.giphy.com/media/8cD5U8FgIcOQ/giphy.gif", "https://media.giphy.com/media/3vDS40HZxJwFGTbXoI/giphy.gif", "https://media.giphy.com/media/3oEdvdHf6n0US87Tri/giphy.gif", "https://media.giphy.com/media/1J8vRWb8xUByw/giphy.gif"];
         
           let slappedEmbed = new Embed()
-          .setTitle('A user got slapped!')
-          .setColor(0x1D82B6)
+          .setTitle(message.member.displayName + " slaps " + slappedUser.displayName + "!")
+          .setColor(data.display_colour.hex)
           .setDescription(message.author + ' slapped ' + slappedUser + '!')
-          .setImage(`https://media.giphy.com/media/vxvNnIYFcYqEE/giphy.gif`);
+          .setImage(util.randomItem(slaps));
 
           message.channel.send(slappedEmbed);
           return;

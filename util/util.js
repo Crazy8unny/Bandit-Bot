@@ -17,6 +17,11 @@ exports.contains = (array, object)  =>
     return false;
 }
 
+exports.randomItem = (array)  =>
+{
+    return array[Math.floor(Math.random() * array.length)];
+}
+
 exports.generateUID = (length, upper) => 
 {
     var possibilities = "12345678900123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567891234567890abcdefghijklmnopqrstuvwxyz01234567890";
