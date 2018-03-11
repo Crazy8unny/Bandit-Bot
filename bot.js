@@ -620,12 +620,14 @@ var commands = {
                 if (!isNaN(timeframe))
                 {
                     timeout = timeout.toString() + timeframe;
-                    timeframe = "k";
+                    timeframe = "r";
                 }
               
                 timeout = parseInt(timeout);
                 let timeframes = {
-                    "k": 100,
+                    "r": 1,
+                    "k": 10,
+                    "m": 100,
                     "s": 1000,
                     "m": 60000,
                     "h": 3600000,
