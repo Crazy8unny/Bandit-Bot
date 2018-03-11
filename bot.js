@@ -1133,6 +1133,50 @@ var commands = {
             message.channel.send(message.author + " has started a game of **21**! Type `" + prefix + "join " + gameID + "` to join the game!");
         }
     },
+    "21":
+    {
+        name: "21",
+        description: "Starts a game of **21**! For others to join, they need to type `" + prefix + "join <gameID>`. If you do not specify a gameID, one will be crated for you! \n__Note: Game ID must be 7 characters in length!__",
+        category: "Fun & Games",
+        arguments: ["-o gameID"],
+        permission: 1,
+        usage: `${prefix}21`,
+        exampleusage: `${prefix}21 F51X632`,
+        run: function(message, args, data)
+        {
+            let gameID = util.generateUID(7, true);
+            if (args[0])
+            {
+                if (args[0].length == 7)
+                {
+                    gameID = args[0];
+                }
+                else if (args[0].length < 7)
+                {
+                    gameID = args[0] + util.generateUID(7 - args[0].length, true);
+                }
+                else if (args[0].length > 7)
+                {
+                    gameID = args[0].substr(0, 7);
+                }
+            }
+          
+            let gameData = {
+                players: [message.author.id],
+                current: 0,
+                accepting: true,
+                turn: 1
+            };
+            games.TwentyOne[gameID] = gameData;
+          
+            gameIDs[gameID] = "TwentyOne";
+            
+            playing.push(message.author.id);
+            games.TwentyOne.Playing.push(message.author.id);
+          
+            message.channel.send(message.author + " has started a game of **21**! Type `" + prefix + "join " + gameID + "` to join the game!");
+        }
+    },
     join:
     {
         name: "Join",
@@ -1166,13 +1210,13 @@ var commands = {
         name: "Test",
         description: "Test command",
         category: "Development",
-        arguments: [],
+        arguments: ["-r game"],
         permission: 15,
         usage: `${prefix}test`,
-        exampleusage: `${prefix}test`,
+        exampleusage: `${prefix}test xo`,
         run: function(message, args, data)
         {
-            sendTONumber(-1, message);
+            
         }
     },
 
@@ -1382,7 +1426,7 @@ function sendTONumber(number, message, gameID)
         if (err) throw err;
         Jimp.loadFont(Jimp.FONT_SANS_64_WHITE).then(function (font) {
             image.print(font, 0, 0, number.toString());
-            toBufferAndSend(image, message, "[**" + gameID + "**] Number: " + number);
+            toBufferAndSend(image, message, "Game [**" + gameID + "**] Number: " + number + "\n**Turn**: " + message.guild.members.find(m => m.user.id == games.TwentyOne[gameID].players[games.TwentyOne[gameID].turn - 1]).displayName)
         });
     });
 }
@@ -1408,11 +1452,29 @@ function place21(message)
                 {
                     if (input - game.current < 4)
                     {
+                        if (input > 21)
+                        {
+                            message.channel.send("```diff\n- You can only go up to 21!\n```");
+                            return;
+                        }
+                      
                         game.current = input;
                       
                         if (game.current == 21)
                         {
-                            message.channel.send(message.author + " has lost! Everyone else has won!!! GG Everyone (except for " + message.member.displayName + " KD)");
+                            message.channel.send(message.author + " has lost! Everyone else has won!!! GG Everyone (except for **" + message.member.displayName + "** XD)! :tada:");
+                            sendTONumber(21, message, gameID);
+                          
+                            for (let i = 0; i < game.players.length; i++)
+                            {
+                                var index = playing.indexOf(game.players[i]);
+                                if (index > -1)
+                                {
+                                    playing.splice(index, 1);
+                                }
+                            }
+                            delete games.TwentyOne[gameID];
+                            return;
                         }
                       
                         game.turn++;
