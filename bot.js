@@ -1217,22 +1217,39 @@ var commands = {
         exampleusage: `${prefix}suggest Add a coinflip command!`,
         run: function(message, args, data)
         {
-            let embed = new Embed();
-            
-            embed.setTitle("__Suggestion__");
-            embed.addField("Suggestion", args[0]);
-            embed.addField("Suggester", message.author.tag);
-            embed.addField("Suggestion Point", message.guild.name);
-            embed.setFooter("Suggested at: " + util.formatShortDate(new Date()) + " [" + util.formatShortTime(new Date) + "]", message.author.avatarURL);
-          
-            const filter = (reaction, user) => user.id == message.author.id;
-          
-            message.channel.send(embed).then(msg => 
+            message.channel.createInvite({maxAge: 0, reason: "Advertisement and Suggestion"}).then(function(invite) 
             {
-                const collector = msg.createReactionCollector(filter, { time: 60000 });
-              
-            });
+                let embed = new Embed();
             
+                embed.setTitle("__New Suggestion__");
+                embed.setColor("#00AA00");
+                embed.addField("Suggestion", args[0]);
+                embed.addField("Suggester", message.author.tag);
+                embed.addField("Suggestion Point", "**#" + message.channel.name + "** in **[" + message.guild.name + "](" + invite + ")**");
+                embed.setFooter("Suggested at: " + util.formatShortDate(new Date()) + " [" + util.formatShortTime(new Date) + "]", message.author.avatarURL);
+
+                const filter = (reaction, user) => user.id == message.author.id;
+
+                message.channel.send(embed).then(msg => 
+                {
+                    msg.react("✅");
+                    msg.react("❎");
+                    msg.channel.send(message.author + ", react with ✅ to approve and send the suggestion, or react with ❎ to disapprove and delete the suggestion.").then(m => m.delete(15000));
+                    const collector = msg.createReactionCollector(filter, { time: 60000 });
+                    collector.on('collect', r => 
+                    {
+                        if (r.emoji.name == "✅")
+                        {
+                            msg.delete();
+                            bot.guilds.get(`421405545426321418`).channels.get(`421441403751759875`).send(embed);
+                        }
+                        else if (r.emoji.name == "❎")
+                        {
+                            msg.delete();
+                        }
+                    });
+                });
+            });
         }
     },
     test:
