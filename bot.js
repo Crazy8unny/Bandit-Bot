@@ -19,11 +19,12 @@ var games = {};
 games["XO"] = {};
 var playing = [];
 
-var i_Board;
+var assets = {};
+assets.XO = {};
+
 var i_X;
 var i_O;
 
-var b_Board;
 var b_X;
 var b_O;
 
@@ -74,10 +75,12 @@ bot.on('ready', async function()
     {
         if (err) console.error(err);
 
-        i_Board = image;
+        assets.XO.Board = {};
+      
+        assets.XO.Board.i = image;
         console.log("-- Asset \"Board.png\" loaded!");
       
-        image.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} b_Board = buffer} );
+        image.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} assets.XO.Board.b = buffer} );
     });
     Jimp.read(x, function (err, x) 
     {
@@ -711,11 +714,11 @@ var commands = {
             games.XO[gameID] = gameData;
             playing.push(message.author.id, opponent.id);
           
-            let board = i_Board.clone();
+            let board = assets.XO.Board.i.clone();
             
             games.XO[gameID].boardImage = board;
           
-            toBufferAndSend(board, message, message.author + "(**X**) vs. " + opponent + "(**O**)");
+            message.channel.send(message.author + " **(__X__)** vs. " + opponent.user + " **(__O__)**", {file: assets.XO.Board.b});
         }
     },
 };
@@ -728,9 +731,8 @@ bot.login(token);
 function toBufferAndSend(image, message, text)
 {
     image.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} message.channel.send(text, {file: (buffer)});} );
-  
-                
 }
+
 function placeXO(message, games, i_X, i_O, basFunc)
 {
     for (let gameID in games.XO)
