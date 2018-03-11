@@ -891,7 +891,7 @@ var commands = {
           
             message.channel.send(message.author + " **(__X__)** vs. " + opponent.user + " **(__O__)**", {file: assets.XO.Board.b});
         }
-    },
+    
 };
 
 bot.login(token);
