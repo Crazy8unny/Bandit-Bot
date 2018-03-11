@@ -1116,6 +1116,7 @@ var commands = {
             let gameData = {};
             
             games.TwentyOne.Playing.push(message.author.id);
+          
         }
     },
 
@@ -1158,8 +1159,11 @@ function placeXO(message, games, i_X, i_O, basFunc)
                     let xCoord = ((input - 1) % 3) * 64 + ((input > 3 ? input - 3 > 3 ? input - 6 : input - 3 : input)) * 3;
                     let yCoord = Math.floor((input - 1) / 3) * 64 + Math.ceil(input / 3) * 3;
 
+                    let player1 = message.guild.members.find(m => m.id == game.players[0]);
+                    let player2 = message.guild.members.find(m => m.id == game.players[1]);
+                  
                     game.boardImage.composite(marker, xCoord, yCoord);
-                    basFunc(game.boardImage, message, "Board:");
+                    basFunc(game.boardImage, message, player1.displayName + " vs. " + player2.displayName);
 
                     game.board[input - 1] = game.players.indexOf(message.author.id) == 0 ? "X" : "O";
 
@@ -1313,4 +1317,15 @@ function checkGame(user)
     {
         return 0xCAFE25151;
     }
+}
+
+function sendNumber()
+{
+    var image = new Jimp(64, 64, function (err, image) 
+    {
+        if (err) throw err;
+        Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
+            image.print(font, 10, 10, "Hello world!");
+        });
+    });
 }
