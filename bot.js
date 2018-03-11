@@ -3,7 +3,6 @@ var firebase = require('firebase');
 var Jimp = require('jimp');
 
 var util = require(__dirname + '/util/util.js');
-var gameUtil = require(__dirname + '/util/gameutil.js');
 var permission = require(__dirname + '/util/permissions.js');
 var config = require(__dirname + '/settings/configuration.json');
 
@@ -95,7 +94,7 @@ bot.on("message", function(message)
 {
     if (!isNaN(message.content) && parseInt(message.content) > 0 && parseInt(message.content) < 10 && playing.includes(message.author.id))
     {
-        gameUtil.place(message, games, i_X, i_O, toBufferAndSend);
+        placeXO(message, games, i_X, i_O, toBufferAndSend);
     }
   
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
@@ -645,18 +644,42 @@ var commands = {
             message.channel.send(user.displayName + "'s permission level is **" + perm + "**");
         }
     },
-    test:
+    xo:
     {
-        name: "Test",
-        description: "TEST COMMAND",
-        category: "Development",
+        name: "XO",
+        description: "Initiate a game of noughts and crosses (tic tac toe) with the mentioned opponent!",
+        category: "Fun & Games",
         arguments: ["-r @opponent"],
-        permission: 15,
+        permission: 1,
         usage: `${prefix}xo <@opponent>`,
         exampleusage: `${prefix}xo @Furvux#2414`,
         run: function(message, args, data)
         {
-            let opponent = message.mentions.members.first() || message.member;
+            let opponent = message.mentions.members.first();
+          
+            if (!opponent)
+            {
+                message.channel.send("Woops! You forgot to mention someone to play against, " + message.author + "!");
+                return;
+            }
+            else if (opponent == message.member)
+            {
+                message.channel.send("You cannot play against yourself, " + message.author + "!");
+                return;
+            }
+          
+            if (playing.includes(message.author.id))
+            {
+                message.channel.send("You are already in a game, " + message.author + "! Finish the game you are in before you start a new one!");
+                return;
+            }
+          
+            if (playing.includes(opponent.user.id))
+            {
+                message.channel.send("The opponent, " + opponent.user + " is already playing a game! Wait untill they finish or choose a different opponent!");
+                return;
+            }
+          
             let gameID = util.generateUID(16, true);
           
             let gameData = {
@@ -691,4 +714,98 @@ function toBufferAndSend(image, message, text)
     image.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} message.channel.send(text, {file: (buffer)});} );
   
                 
+}
+function placeXO(message, games, i_X, i_O, basFunc)
+{
+    for (let gameID in games.XO)
+    {
+        let game = games.XO[gameID];
+        if (game.players && game.players.includes(message.author.id))
+        {
+            let input = message.content;
+            if (game.turn == game.players.indexOf(message.author.id) + 1)
+            {
+                if (game.board[input - 1] == "-")
+                {
+                    let marker = game.turn == 1 ? i_X : i_O;
+
+                    let xCoord = ((input - 1) % 3) * 64 + ((input > 3 ? input - 3 > 3 ? input - 6 : input - 3 : input)) * 3;
+                    let yCoord = Math.floor((input - 1) / 3) * 64 + Math.ceil(input / 3) * 3;
+
+                    game.boardImage.composite(marker, xCoord, yCoord);
+                    basFunc(game.boardImage, message, "Board:");
+
+                    game.board[input - 1] = game.players.indexOf(message.author.id) == 0 ? "X" : "O";
+                  
+                    let winner = checkXOBoard(game.board);
+                  
+                    if (winner != "-")
+                    {
+                        if (winner == "X") 
+                        {
+                            message.channel.send("Well Done, <@" + game.players[0] + ">! You have won!");
+                            message.channel.send("Unfortunately you have lost, <@" + game.players[1] + ">... better luck next time!");
+                        }
+                        else if (winner == "O") 
+                        {
+                            message.channel.send("Well Done, <@" + game.players[1] + ">! You have won!");
+                            message.channel.send("Unfortunately you have lost, <@" + game.players[0] + ">... better luck next time!");
+                        }
+                    }
+                    
+                    game.turn = 3 - game.turn;
+                }
+                else
+                {
+                    message.channel.send("That space is taken up already, " + message.author + "!");
+                }
+            }
+            else
+            {
+                message.channel.send("It is not your turn, " + message.author + "!");
+            }
+        }
+    }
+}
+
+function checkXOBoard(board)
+{
+    let marks = ["X", "O"];
+    for (let i = 0; i < marks.length; i++)
+    {
+        let mark = marks[i];
+        if (board[0] == mark && board[1] == mark && board[2] == mark)
+        {
+            return mark;
+        }
+        if (board[3] == mark && board[4] == mark && board[5] == mark)
+        {
+            return mark;
+        }
+        if (board[6] == mark && board[7] == mark && board[8] == mark)
+        {
+            return mark;
+        }
+        if (board[0] == mark && board[3] == mark && board[6] == mark)
+        {
+            return mark;
+        }
+        if (board[1] == mark && board[4] == mark && board[7] == mark)
+        {
+            return mark;
+        }
+        if (board[2] == mark && board[5] == mark && board[8] == mark)
+        {
+            return mark;
+        }
+        if (board[0] == mark && board[4] == mark && board[8] == mark)
+        {
+            return mark;
+        }
+        if (board[2] == mark && board[4] == mark && board[6] == mark)
+        {
+            return mark;
+        }
+    }
+    return "-";
 }
