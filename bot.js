@@ -413,7 +413,7 @@ var commands = {
     punch:
     {
         name: "Punch",
-        description: "Punch a user!",
+        description: "Punch someone who is being annoying or stupid!",
         category: "Fun & Games",
         arguments: ["-r @user"],
         permission: 1,
@@ -1136,7 +1136,7 @@ var commands = {
     "21":
     {
         name: "21",
-        description: "Starts a game of **21**! For others to join, they need to type `" + prefix + "join <gameID>`. If you do not specify a gameID, one will be crated for you! \n__Note: Game ID must be 7 characters in length!__",
+        description: "Starts a game of **21**! For others to join, they need to type `" + prefix + "join <gameID>`. If you do not specify a gameID, one will be created for you! \n__Note: Game ID must be 7 characters in length!__",
         category: "Fun & Games",
         arguments: ["-o gameID"],
         permission: 1,
