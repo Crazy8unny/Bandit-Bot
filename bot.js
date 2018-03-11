@@ -23,6 +23,10 @@ var i_Board;
 var i_X;
 var i_O;
 
+var b_Board;
+var b_X;
+var b_O;
+
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyBnKrLqwldnRRryvqUdUH5lidilH3gDTG0",
@@ -72,6 +76,8 @@ bot.on('ready', async function()
 
         i_Board = image;
         console.log("-- Asset \"Board.png\" loaded!");
+      
+        image.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} b_Board = buffer} );
     });
     Jimp.read(x, function (err, x) 
     {
@@ -79,6 +85,8 @@ bot.on('ready', async function()
       
         i_X = x;
         console.log("-- Asset \"Cross.png\" loaded!");
+      
+        x.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} b_X = buffer} );
     });
     Jimp.read(o, function (err, o) 
     {
@@ -86,6 +94,8 @@ bot.on('ready', async function()
       
         i_O = o;
         console.log("-- Asset \"Nought.png\" loaded!");
+      
+        o.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} b_O = buffer} );
     });
 
 });
@@ -270,6 +280,8 @@ var commands = {
                 {
                     msg.delete(3000)
                 });
+          
+            message.channel.send({file: b_O}).then(msg => setTimeout(() => {msg.edit("File", {file: b_X})}, 1000));
         }
     },
     invite:
