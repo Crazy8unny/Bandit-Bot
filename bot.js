@@ -65,28 +65,28 @@ bot.on('ready', async function()
     {
         type: "WATCHING"
     });
-  
+
     let x = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FX.png";
     let o = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FO.png";
     let board = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FBoard.png";
-  
+
     let headCoin = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FHeads.png";
     let tailCoin = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FTails.png";
-  
+
     assets.XO.Board = {};
-    assets.XO.X = {};  
+    assets.XO.X = {};
     assets.XO.O = {};
-    
+
     assets.CoinFlip.Heads = {};
     assets.CoinFlip.Tails = {};
 
     loadAsset(board, assets.XO.Board);
     loadAsset(x, assets.XO.X);
     loadAsset(o, assets.XO.O);
-  
+
     loadAsset(headCoin, assets.CoinFlip.Heads);
     loadAsset(tailCoin, assets.CoinFlip.Tails);
-  
+
     games.XO.Playing = [];
     games.TwentyOne.Playing = [];
 });
@@ -99,11 +99,12 @@ bot.on("message", function(message)
         let play = checkGame(message.member);
         placeXO(message, games, assets.XO.X.i, assets.XO.O.i, toBufferAndSend);
     }
-  
+
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
 
     let command = message.content.indexOf(botID) != -1 ? message.content.split(" ")[1] : message.content.split(" ")[0].substr(1);
-    command = command.toLowerCase().trim();
+    command = command.toLowerCase()
+        .trim();
     if (message.channel.type == "text" && commands[command])
     {
         try
@@ -111,7 +112,7 @@ bot.on("message", function(message)
             let data = {};
 
             data["permission"] = permission.getPermissionLevel(bot, message.guild, message.author.id);
-          
+
             data["display_name"] = message.guild.members.find(m => m.id == botID)
                 .displayName;
             data["display_colour"] = {
@@ -167,7 +168,7 @@ bot.on("message", function(message)
         }
         catch (e)
         {
-            
+
             console.error(e);
         }
     }
@@ -264,7 +265,7 @@ var DMCommands = {
 
         }
     },
-  commands:
+    commands:
     {
         name: "Commands",
         description: "Lists all avaliable commands to your DM channel.",
@@ -349,105 +350,120 @@ var commands = {
                 });
         }
     },
-    slap: {
-      name:"Slap",
-      description: "Slap a user!",
-      category:"Fun & Games",
-      arguments: ["-r @user"],
-      permission: 1,
-      usage: `${prefix}slap`,
-      exampleusage: `${prefix}slap @Furvux#2414`,
-      run: function(message, args, data) 
-      {
-          let slappedUser = (message.mentions.members.first());
-          if (!slappedUser) return message.channel.send("You must mention a user!");
-
-          let slaps = ["https://media1.giphy.com/media/uG3lKkAuh53wc/giphy.gif", "https://media.giphy.com/media/vxvNnIYFcYqEE/giphy.gif", "https://media.giphy.com/media/xULW8nNDLNVlBY77dm/giphy.gif", "https://media.giphy.com/media/gSIz6gGLhguOY/giphy.gif", "https://media.giphy.com/media/10KJUgvMoiSVSo/giphy.gif", "https://media.giphy.com/media/8cD5U8FgIcOQ/giphy.gif", "https://media.giphy.com/media/3vDS40HZxJwFGTbXoI/giphy.gif", "https://media.giphy.com/media/3oEdvdHf6n0US87Tri/giphy.gif", "https://media.giphy.com/media/1J8vRWb8xUByw/giphy.gif"];
-        
-          let slappedEmbed = new Embed()
-          .setTitle(message.member.displayName.split("_").join("\_") + " slaps " + slappedUser.displayName.split("_").join("\_") + "!")
-          .setColor(data.display_colour.hex)
-          .setDescription(message.author + ' slapped ' + slappedUser + '!')
-          .setImage(util.randomItem(slaps));
-
-          message.channel.send(slappedEmbed);
-          return;
-
-      }
-    },
-    hug: {
-      name:"Hug",
-      description: "Hug a member!",
-      category:"Fun & Games",
-      arguments: ["-r @user"],
-      permission: 1,
-      usage: `${prefix}hug`,
-      exampleusage: `${prefix}hug @Furvux#2414`,
-      run: function(message, args, data) 
-      {
-          let hugged = (message.mentions.members.first());
-          if (!hugged) return message.channel.send("You must mention a user to hug!");
-
-          let hugs = [];
-        
-          let embed = new Embed()
-          .setTitle(message.member.displayName.split("_").join("\_") + " slaps " + hugged.displayName.split("_").join("\_") + "!")
-          .setColor(data.display_colour.hex)
-          .setDescription(":heart_decoration:" + message.author + ' hugs ' + hugged + '! :heart_decoration:')
-          .setImage(util.randomItem(hugs));
-
-          message.channel.send(embed);
-          return;
-
-      }
-    },
-    punch: {
-      name: "Punch",
-      description: "Punch a user!",
-      category:"Fun & Games",
-      arguments: ["-r @user"],
-      permission: 1,
-      usage: `${prefix}punch`,
-      exampleusage: `${prefix}punch @Furvux#2414`,
-      run: function(message, args, data) 
-      {
-          let victum = (message.mentions.members.first());
-          if (!victum) return message.channel.send("You must mention a user!");
-
-          let punches = ["https://media.giphy.com/media/3o7WTBPWWzcjDyTlGU/giphy.gif", "https://media.giphy.com/media/EYD7OzuuTfRVC/giphy.gif", "https://media.giphy.com/media/GoN89WuFFqb2U/giphy.gif", "https://media.giphy.com/media/3oEhn4mIrTuCf0bn1u/giphy.gif", "https://media.giphy.com/media/DViGV8rfVjw6Q/giphy.gif", "https://media.giphy.com/media/pLnxbpVosgjE4/giphy.gif"];
-        
-          let embed = new Embed()
-          .setTitle(message.member.displayName.split("_").join("\_") + " slaps " + victum.displayName.split("_").join("\_") + "!")
-          .setColor(data.display_colour.hex)
-          .setDescription(message.author + ' punched ' + victum + '!')
-          .setImage(util.randomItem(punches));
-
-          message.channel.send(embed);
-          return;
-
-      }
-    },
-    coinflip: 
+    slap:
     {
-       name:"Coin Flip",
-       description:"Flip a coin!",
-       category:"Fun & Games",
-       arguments: [],
-       permission: 1,
-       usage: `${prefix}coinflip`,
-       exampleusage: `${prefix}coinflip`,
-       run: function(message, args, data)
-       {
-           let t = Math.floor(Math.random() * 100);
-           if (t > 50)
-           {
-               message.channel.send("**Heads**", {file: assets.CoinFlip.Heads.b});
-           }
-           else
-           {
-               message.channel.send("**Tails**", {file: assets.CoinFlip.Tails.b});
-           }
-       }
+        name: "Slap",
+        description: "Slap a user!",
+        category: "Fun & Games",
+        arguments: ["-r @user"],
+        permission: 1,
+        usage: `${prefix}slap`,
+        exampleusage: `${prefix}slap @Furvux#2414`,
+        run: function(message, args, data)
+        {
+            let slappedUser = (message.mentions.members.first());
+            if (!slappedUser) return message.channel.send("You must mention a user!");
+
+            let slaps = ["https://media1.giphy.com/media/uG3lKkAuh53wc/giphy.gif", "https://media.giphy.com/media/vxvNnIYFcYqEE/giphy.gif", "https://media.giphy.com/media/xULW8nNDLNVlBY77dm/giphy.gif", "https://media.giphy.com/media/gSIz6gGLhguOY/giphy.gif", "https://media.giphy.com/media/10KJUgvMoiSVSo/giphy.gif", "https://media.giphy.com/media/8cD5U8FgIcOQ/giphy.gif", "https://media.giphy.com/media/3vDS40HZxJwFGTbXoI/giphy.gif", "https://media.giphy.com/media/3oEdvdHf6n0US87Tri/giphy.gif", "https://media.giphy.com/media/1J8vRWb8xUByw/giphy.gif"];
+
+            let slappedEmbed = new Embed()
+                .setTitle(message.member.displayName.split("_")
+                    .join("\_") + " slaps " + slappedUser.displayName.split("_")
+                    .join("\_") + "!")
+                .setColor(data.display_colour.hex)
+                .setDescription(message.author + ' slapped ' + slappedUser + '!')
+                .setImage(util.randomItem(slaps));
+
+            message.channel.send(slappedEmbed);
+            return;
+
+        }
+    },
+    hug:
+    {
+        name: "Hug",
+        description: "Hug a member!",
+        category: "Fun & Games",
+        arguments: ["-r @user"],
+        permission: 1,
+        usage: `${prefix}hug`,
+        exampleusage: `${prefix}hug @Furvux#2414`,
+        run: function(message, args, data)
+        {
+            let hugged = (message.mentions.members.first());
+            if (!hugged) return message.channel.send("You must mention a user to hug!");
+
+            let hugs = [];
+
+            let embed = new Embed()
+                .setTitle(message.member.displayName.split("_")
+                    .join("\_") + " slaps " + hugged.displayName.split("_")
+                    .join("\_") + "!")
+                .setColor(data.display_colour.hex)
+                .setDescription(":heart_decoration:" + message.author + ' hugs ' + hugged + '! :heart_decoration:')
+                .setImage(util.randomItem(hugs));
+
+            message.channel.send(embed);
+            return;
+
+        }
+    },
+    punch:
+    {
+        name: "Punch",
+        description: "Punch a user!",
+        category: "Fun & Games",
+        arguments: ["-r @user"],
+        permission: 1,
+        usage: `${prefix}punch`,
+        exampleusage: `${prefix}punch @Furvux#2414`,
+        run: function(message, args, data)
+        {
+            let victum = (message.mentions.members.first());
+            if (!victum) return message.channel.send("You must mention a user!");
+
+            let punches = ["https://media.giphy.com/media/3o7WTBPWWzcjDyTlGU/giphy.gif", "https://media.giphy.com/media/EYD7OzuuTfRVC/giphy.gif", "https://media.giphy.com/media/GoN89WuFFqb2U/giphy.gif", "https://media.giphy.com/media/3oEhn4mIrTuCf0bn1u/giphy.gif", "https://media.giphy.com/media/DViGV8rfVjw6Q/giphy.gif", "https://media.giphy.com/media/pLnxbpVosgjE4/giphy.gif"];
+
+            let embed = new Embed()
+                .setTitle(message.member.displayName.split("_")
+                    .join("\_") + " slaps " + victum.displayName.split("_")
+                    .join("\_") + "!")
+                .setColor(data.display_colour.hex)
+                .setDescription(message.author + ' punched ' + victum + '!')
+                .setImage(util.randomItem(punches));
+
+            message.channel.send(embed);
+            return;
+
+        }
+    },
+    coinflip:
+    {
+        name: "Coin Flip",
+        description: "Flip a coin!",
+        category: "Fun & Games",
+        arguments: [],
+        permission: 1,
+        usage: `${prefix}coinflip`,
+        exampleusage: `${prefix}coinflip`,
+        run: function(message, args, data)
+        {
+            let t = Math.floor(Math.random() * 100);
+            if (t > 50)
+            {
+                message.channel.send("**Heads**",
+                {
+                    file: assets.CoinFlip.Heads.b
+                });
+            }
+            else
+            {
+                message.channel.send("**Tails**",
+                {
+                    file: assets.CoinFlip.Tails.b
+                });
+            }
+        }
     },
     invite:
     {
@@ -745,13 +761,13 @@ var commands = {
                 {
                     return "Timeout must be a number! (Only one letter suffix at end!)";
                 }
-                
+
                 if (!isNaN(timeframe))
                 {
                     timeout = timeout.toString() + timeframe;
                     timeframe = "k";
                 }
-              
+
                 timeout = parseInt(timeout);
                 let timeframes = {
                     "r": 1,
@@ -762,9 +778,9 @@ var commands = {
                     "h": 3600000,
                     "d": 86400000
                 };
-                
+
                 let total = (timeout * timeframes[timeframe]);
-              
+
                 let messageTo = [message.channel];
                 if (args[1])
                 {
@@ -778,50 +794,51 @@ var commands = {
                         {
                             messageTo.push(bot.guilds.get(args[1]));
                         }
-                    }/*
-                    else if (args[1].split(",").length > 1 && !arrayIsNaN(args[1].split(",")))
-                    {
-                        for (let i = 0; i < bot.guilds.array().length; i++)
-                        {
-                            console.log(args[1].split(","));
-                            if (args[1].split(",").indexOf(bot.guilds.array()[i].id) != -1)
-                            {
-                                messageTo.push(bot.guilds.array()[i].channels.find(c => c.type == "text"));
-                            }
-                        }
-                    }*/
+                    }
+                    /*
+                                        else if (args[1].split(",").length > 1 && !arrayIsNaN(args[1].split(",")))
+                                        {
+                                            for (let i = 0; i < bot.guilds.array().length; i++)
+                                            {
+                                                console.log(args[1].split(","));
+                                                if (args[1].split(",").indexOf(bot.guilds.array()[i].id) != -1)
+                                                {
+                                                    messageTo.push(bot.guilds.array()[i].channels.find(c => c.type == "text"));
+                                                }
+                                            }
+                                        }*/
                 }
-              
+
                 for (let x = 0; x < messageTo.length; x++)
                 {
                     let channel = messageTo[x];
                     channel.send(`✅ Tilder will restart in __${(total / 1000)} second${(total / 1000) > 1 ? "s" : ""}__!`);
-                  
+
                     console.log("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     console.log(`Bot will restart in ${(total / 1000)} second${(total / 1000) > 1 ? "s" : ""}.`);
                     console.log("===============================================\n\n");
 
                 }
-              
-                setTimeout(function() 
+
+                setTimeout(function()
                 {
-                    message.channel.send("⚠️ _Bot restarting..._"); 
+                    message.channel.send("⚠️ _Bot restarting..._");
                     console.log("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     console.log(`⚠️ Bot restarting... ⚠️`);
                     console.log("===============================================\n\n");
-                    bot.destroy(); 
+                    bot.destroy();
                     child_process.fork(__dirname + "/bot.js");
                     console.log(`Bot Successfully Restarted`);
                 }, total);
-                
+
             }
             else
-            {  
-                message.channel.send("⚠️ _Bot restarting..._"); 
+            {
+                message.channel.send("⚠️ _Bot restarting..._");
                 console.log("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 console.log(`⚠️ Bot restarting... ⚠️`);
                 console.log("===============================================\n\n");
-                bot.destroy(); 
+                bot.destroy();
                 child_process.fork(__dirname + "/bot.js");
                 console.log(`Bot Successfully Restarted`);
             }
@@ -855,21 +872,22 @@ var commands = {
 
             if (user)
             {
-                let messages = message.channel.fetchMessages().then(messages => 
-                {
-                    messages = messages.array();
-                    for (let i = 0; i < Math.min(amount + 1, messages.length); i++)
+                let messages = message.channel.fetchMessages()
+                    .then(messages =>
                     {
-                        let msg = messages[i];
-                        if (msg.author.id == user.id) msg.delete();
-                    }
-                    message.channel.send("✅ Cleared [**" + (amount - 1) + "**] messages from <@" + user.id + ">! (__Command requested by _" + message.member.displayName + "___)")
-                    .then(msg => msg.delete(6000));
-                });
+                        messages = messages.array();
+                        for (let i = 0; i < Math.min(amount + 1, messages.length); i++)
+                        {
+                            let msg = messages[i];
+                            if (msg.author.id == user.id) msg.delete();
+                        }
+                        message.channel.send("✅ Cleared [**" + (amount - 1) + "**] messages from <@" + user.id + ">! (__Command requested by _" + message.member.displayName + "___)")
+                            .then(msg => msg.delete(6000));
+                    });
             }
             else
             {
-                amount ++;
+                amount++;
                 for (let i = 0; i < Math.round(amount / 99); i++)
                 {
                     message.channel.bulkDelete(99);
@@ -889,7 +907,7 @@ var commands = {
         permission: 1,
         usage: `${prefix}catagories`,
         exampleusage: `${prefix}catagories`,
-        run: function(message, args, data) 
+        run: function(message, args, data)
         {
             let categories = {};
 
@@ -901,16 +919,16 @@ var commands = {
                     categories[commands[command].category] += 1;
                 }
             }
-          
+
             let embed = new Embed();
             embed.setTitle(`__Tilde - Command Categories__`);
             embed.setColor(data.display_colour.hex);
-          
+
             for (let category in categories)
             {
                 embed.addField(category, `>> **${categories[category]}** command${categories[category] > 1 ? "s" : ""}`);
             }
-          
+
             embed.setFooter(`Requested by ${message.member.displayName} | Permission Level: ${data.permission}`);
             message.channel.send(embed);
         }
@@ -945,7 +963,7 @@ var commands = {
         run: function(message, args, data)
         {
             let opponent = message.mentions.members.first();
-          
+
             if (!opponent)
             {
                 message.channel.send("Woops! You forgot to mention someone to play against, " + message.author + "!");
@@ -956,13 +974,13 @@ var commands = {
                 message.channel.send("You cannot play against yourself, " + message.author + "!");
                 return;
             }
-          
+
             if (playing.includes(message.author.id))
             {
                 message.channel.send("You are already in a game, " + message.author + "! Finish the game you are in before you start a new one!");
                 return;
             }
-          
+
             if (playing.includes(opponent.user.id))
             {
                 message.channel.send("The opponent, " + opponent.user + " is already playing a game! Wait untill they finish or choose a different opponent!");
@@ -970,7 +988,7 @@ var commands = {
             }
             try
             {
-          
+
                 let gameID = util.generateUID(16, true);
 
                 let gameData = {
@@ -989,8 +1007,11 @@ var commands = {
                 let board = assets.XO.Board.i.clone();
 
                 games.XO[gameID].boardImage = board;
-          
-                message.channel.send(message.author + " **(__X__)** vs. " + opponent.user + " **(__O__)**", {file: assets.XO.Board.b});
+
+                message.channel.send(message.author + " **(__X__)** vs. " + opponent.user + " **(__O__)**",
+                {
+                    file: assets.XO.Board.b
+                });
             }
             catch (e)
             {
@@ -1001,51 +1022,67 @@ var commands = {
             }
         }
     },
-    define: {
-      name: "Define",
-      description: "Defines a specified word using Urban Dictionary",
-      category:"Fun & Games",
-      arguments: ["-r word"],
-      permission: 1,
-      usage: `${prefix}define`,
-      exampleusage: `${prefix}define peak`,
-      run: function(message, args, data) 
-      {
-          let definition = args.join(" ");
-          if (!definition) return "You need to specify a word to look up!";
-          if (definition.trim().toLowerCase() === 'furvux') message.channel.send(`Clearly the best developer in the world!`);
-          else if (definition.trim().toLowerCase() === 'sheikh1365') message.channel.send(`A kind hearted person!`);
-          else if (definition.trim().toLowerCase() === 'keen') message.channel.send(`Keenly Clever!`);
-          else if (definition.trim().toLowerCase() === 'glassykiller') message.channel.send(`Your Father.`);
+    define:
+    {
+        name: "Define",
+        description: "Defines a specified word using Urban Dictionary",
+        category: "Fun & Games",
+        arguments: ["-r word"],
+        permission: 1,
+        usage: `${prefix}define`,
+        exampleusage: `${prefix}define peak`,
+        run: function(message, args, data)
+        {
+            let definition = args.join(" ");
+            if (!definition) return "You need to specify a word to look up!";
 
-          else
-          {
-              urbandict.term(definition, function(error, entries, tags, sounds)
-              {
-                  if (error)
-                  {
-                      console.error(error)
-                      message.channel.send(`Couldn't find **${definition}** on Urban Dictionary.`)
-                  }
-                  else
-                  {
-                      let embed = new Embed();
+            else
+            {
+                urbandict.term(definition, function(error, entries, tags, sounds)
+                {
+                    if (error)
+                    {
+                        if (definition.trim().toLowerCase() != 'furvux' && definition.trim().toLowerCase() != 'sheikh1365' && definition.trim().toLowerCase() != 'glassykiller')
+                        {
+                            console.error(error);
+                            message.channel.send(`Couldn't find **${definition}** on Urban Dictionary.`);
+                            return;
+                        }
+                    }
 
-                      embed.setTitle("__" + definition + " - Urban Definition__");
-                      embed.setColor(data.display_colour.hex);
-                      embed.setThumbnail("https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2Fimage.png?1520797098652");
-                      embed.addField("Word", ">> **" + util.ucfirst(definition) + "**");
-                      embed.addField("Definition", ">> " + entries[0].definition);
-                      embed.addField("Example Usage", ">> " + (entries[0].example ? entries[0].example : "None provided..."));
-                      embed.setFooter("Source: https://www.urbandictionary.com/define.php?term=" + definition + "");
-                      
-                      message.channel.send(embed);
-                  }
-              });
-          }
-      }
+                    if (definition.trim().toLowerCase() === 'furvux')
+                    {
+                        entries
+                        entries[0].definition = (`The Best Developer in the World`);
+                        entries[0].example = (`He is almost as good as Furvux!`);
+                    }
+                    else if (definition.trim().toLowerCase() === 'sheikh1365')
+                    {
+                        entries[0].definition = (`Kindhearted, amazing`);
+                        entries[0].example = (`Wow! You are such a Sheikh1365 person!`);
+                    }
+                    else if (definition.trim().toLowerCase() === 'glassykiller')
+                    {
+                        entries[0].definition = (`Your Father.`);
+                        entries[0].example = (`Hello, GlassyKiller!`);
+                    }
+                    let embed = new Embed();
+
+                    embed.setTitle("__" + definition + " - Urban Definition__");
+                    embed.setColor(data.display_colour.hex);
+                    embed.setThumbnail("https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2Fimage.png?1520797098652");
+                    embed.addField("Word", ">> **" + util.ucfirst(definition) + "**");
+                    embed.addField("Definition", ">> " + entries[0].definition);
+                    embed.addField("Example Usage", ">> " + (entries[0].example ? entries[0].example : "None provided..."));
+                    embed.setFooter("Source: https://www.urbandictionary.com/define.php?term=" + definition + "");
+
+                    message.channel.send(embed);
+                    
+                });
+            }
+        }
     },
-  
+
 };
 
 bot.login(token);
@@ -1055,7 +1092,17 @@ bot.login(token);
 
 function toBufferAndSend(image, message, text)
 {
-    image.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} message.channel.send(text, {file: (buffer)});} );
+    image.getBuffer(Jimp.MIME_PNG, function(e, buffer)
+    {
+        if (e)
+        {
+            console.error(e);
+        }
+        message.channel.send(text,
+        {
+            file: (buffer)
+        });
+    });
 }
 
 function placeXO(message, games, i_X, i_O, basFunc)
@@ -1079,32 +1126,34 @@ function placeXO(message, games, i_X, i_O, basFunc)
                     basFunc(game.boardImage, message, "Board:");
 
                     game.board[input - 1] = game.players.indexOf(message.author.id) == 0 ? "X" : "O";
-                  
+
                     let winner = checkXOBoard(game.board);
-                  
+
                     if (winner != "-")
                     {
-                        if (winner == "X") 
+                        if (winner == "X")
                         {
                             message.channel.send("Well Done, <@" + game.players[0] + ">! You have won!");
                             message.channel.send("Unfortunately you have lost, <@" + game.players[1] + ">... better luck next time!");
                         }
-                        else if (winner == "O") 
+                        else if (winner == "O")
                         {
                             message.channel.send("Well Done, <@" + game.players[1] + ">! You have won!");
                             message.channel.send("Unfortunately you have lost, <@" + game.players[0] + ">... better luck next time!");
                         }
                         var index = playing.indexOf(game.players[0]);
-                        if (index > -1) {
+                        if (index > -1)
+                        {
                             playing.splice(index, 1);
                         }
                         index = playing.indexOf(game.players[1]);
-                        if (index > -1) {
+                        if (index > -1)
+                        {
                             playing.splice(index, 1);
                         }
                         delete games.XO[gameID];
                     }
-                    
+
                     game.turn = 3 - game.turn;
                 }
                 else
@@ -1165,16 +1214,23 @@ function checkXOBoard(board)
 function loadAsset(src, dest)
 {
     let before = new Date();
-    Jimp.read(src, function (err, img) 
+    Jimp.read(src, function(err, img)
     {
         if (err) console.error(err);
-      
+
         if (!dest) dest = {};
-        
+
         dest.i = img;
-      
-        img.getBuffer( Jimp.MIME_PNG, function(e, buffer) {if (e) {console.error(e);} dest.b = buffer} );
-      
+
+        img.getBuffer(Jimp.MIME_PNG, function(e, buffer)
+        {
+            if (e)
+            {
+                console.error(e);
+            }
+            dest.b = buffer
+        });
+
         let now = new Date();
         console.log("-- Asset \"" + util.ucfirst(src.split("0%2F")[1]) + "\" loaded [" + (now - before) + "ms]");
     });
@@ -1192,13 +1248,15 @@ function arrayIsNaN(array)
     return true;
 }
 
-process.on('unhandledRejection', error => {
+process.on('unhandledRejection', error =>
+{
     console.error(`Uncaught Promise Rejection:\n${error}`);
-    
+
 });
 
-process.on('exit', () => {
-    
+process.on('exit', () =>
+{
+
 });
 
 function checkGame(user)
