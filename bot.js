@@ -21,6 +21,7 @@ var games = {};
 games["XO"] = {};
 games["TwentyOne"] = {};
 var playing = [];
+var gameIDs = {};
 
 var assets = {};
 assets.XO = {};
@@ -744,7 +745,7 @@ var commands = {
     restart:
     {
         name: "Restart",
-        description: "Restarts the bot. Timeout can be in seconds (if s is suffixed at end of timeout) or milliseconds if no timeframe is specified. WARNING: BOT WILL NOT WORK UNTIL RESTART IS COMPLETE!",
+        description: "Restarts the bot. Timeout can be in seconds (if s is suffixed at end of timeout) or milliseconds if no timeframe is specified.\n\n**__WARNING: BOT WILL NOT WORK UNTIL RESTART IS COMPLETE!__**",
         category: "Development",
         arguments: ["-o timeout"],
         permission: 10,
@@ -1005,6 +1006,8 @@ var commands = {
                 playing.push(message.author.id, opponent.id);
                 games.XO.Playing.push(message.author.id, opponent.id);
 
+                gameIDs[gameID] = "XO";
+              
                 let board = assets.XO.Board.i.clone();
 
                 games.XO[gameID].boardImage = board;
@@ -1088,7 +1091,7 @@ var commands = {
     twentyone:
     {
         name: "TwentyOne",
-        description: "Starts a game of 21! For others to join, they need to type `" + prefix + "join <gameID>`. Of you do not specify a gameID, one will be crated for you! \n__Note: Game ID must be 7 characters in length!__",
+        description: "Starts a game of **21**! For others to join, they need to type `" + prefix + "join <gameID>`. If you do not specify a gameID, one will be crated for you! \n__Note: Game ID must be 7 characters in length!__",
         category: "Fun & Games",
         arguments: ["-o gameID"],
         permission: 1,
@@ -1116,11 +1119,45 @@ var commands = {
             let gameData = {
                 players: [message.author.id],
                 current: 0,
+                accepting: true,
                 turn: 1
             };
+            games.TwentyOne[gameID] = gameData;
+          
+            gameIDs[gameID] = "TwentyOne";
             
+            playing.push(message.author.id);
             games.TwentyOne.Playing.push(message.author.id);
           
+            message.channel.send(message.author + " has started a game of **21**! Type `" + prefix + "join " + gameID + "` to join the game!");
+        }
+    },
+    join:
+    {
+        name: "Join",
+        description: "Joins the game with the specified ID.",
+        category: "Fun & Games",
+        arguments: ["-r ID"],
+        permission: 1,
+        usage: `${prefix}join`,
+        exampleusage: `${prefix}join F51X632`,
+        run: function(message, args, data)
+        {
+            if (!args[0]) return "You need to specify the ID of the game you want to join!";
+            if (gameIDs[args[0]])
+            {
+                if (gameIDs[args[0]] == "TwentyOne")
+                {
+                    if (games.TwentyOne[args[0]] && games.TwentyOne[args[0]].accepting != false)
+                    {
+                        playing.push(message.author.id);
+                        games.TwentyOne.Playing.push(message.author.id);
+                        games.TwentyOne[args[0]].players.push(message.author.id);
+                        
+                        message.channel.send("✅ You have successfully joined the game of **21**, " + message.author + "!");
+                    }
+                }
+            }
         }
     },
     test:
