@@ -182,6 +182,7 @@ var DMCommands = {
         arguments: [],
         permission: 1,
         usage: `${prefix}ping`,
+        exampleusage: `${prefix}ping`,
         run: function(message, args, data)
         {
             message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``)
@@ -193,12 +194,13 @@ var DMCommands = {
     },
     help:
     {
-        name: "Help (DM)",
+        name: "Help",
         description: "Displays a help message. If a command is specified, it will give information on the command.",
         category: "General",
         arguments: ["-o command"],
         permission: 1,
-        usage: `${prefix}help\`\`\` or \`\`\`${prefix}help ping`,
+        usage: `${prefix}help\` or \`${prefix}help <command>`,
+        exampleusage: `${prefix}help ping`,
         run: function(message, args, data)
         {
 
@@ -279,13 +281,13 @@ var DMCommands = {
 
             for (let command in DMCommands)
             {
-                if (commands[command].permission <= permission_level)
+                if (DMCommands[command].permission <= permission_level)
                 {
-                    if (!categories[commands[command].category])
+                    if (!categories[DMCommands[command].category])
                     {
-                        categories[commands[command].category] = [];
+                        categories[DMCommands[command].category] = [];
                     }
-                    categories[commands[command].category].push(commands[command]);
+                    categories[DMCommands[command].category].push(DMCommands[command]);
                 }
             }
 
@@ -294,7 +296,7 @@ var DMCommands = {
                 let category = util.ucfirst(args[0]);
                 let embed = new Embed();
 
-                embed.setTitle("__" + bot.user.tag + " - " + category + " Commands__");
+                embed.setTitle("__" + bot.user.tag + " - " + category + " DM Commands__");
                 embed.setColor("#9C39FF");
                 for (let i = 0; i < categories[category].length; i++)
                 {
@@ -304,7 +306,6 @@ var DMCommands = {
                 embed.setFooter("Type " + prefix + "help `<command>` to get more information about a command (usage, arguments, etc.)");
 
                 message.author.send(embed);
-                message.channel.send(`✅ A Message containing the commands avaliable to you from the specified category (**${category}**) has been sent to your DMs!`);
             }
             else
             {
@@ -312,17 +313,16 @@ var DMCommands = {
                 {
                     let embed = new Embed();
 
-                    embed.setTitle("__" + bot.user.username + " - " + category + " Commands__");
+                    embed.setTitle("__" + bot.user.username + " - " + category + " DM Commands__");
                     embed.setColor("#9C39FF");
                     for (let i = 0; i < categories[category].length; i++)
                     {
-                        embed.addField("_" + categories[category][i].name + " Command_", categories[category][i].description);
+                        embed.addField("_" + categories[category][i].name + " DM Command_", categories[category][i].description);
                     }
 
                     message.author.send(embed);
                     embed.setFooter("Type " + prefix + "help `<command>` to get more information about a command (usage, arguments, etc.)");
                 }
-                message.channel.send(`✅ Messages containing the commands avaliable to you have been sent to your DMs!`);
             }
 
         }
