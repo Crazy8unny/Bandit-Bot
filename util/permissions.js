@@ -13,20 +13,25 @@ exports.getPermissionLevel = function(bot, guild, ID)
         {
             switch (role.id)
             {
+                  // Bot Developer
                 case "421405858736373760":
                     return 15;
+                // Administrator
                 case "421406682678165506":
                     return 12;
+                // Helper
                 case "422308425834168321":
                     return 11;
+                // Staff
                 case "421440073934831628":
                     return 10;
+                
+                //Contributor
                 case "421406584833441803":
                     fP = 3;
-                case "421406447696609281":
-                    fP = 2;
+                // Member
                 case "421405926671646730":
-                    fP = 1;
+                    fP = 2;
                 default:
                     break;
             }
