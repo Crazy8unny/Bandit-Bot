@@ -393,7 +393,7 @@ var commands = {
             let hugged = (message.mentions.members.first());
             if (!hugged) return message.channel.send("You must mention a user to hug!");
 
-            let hugs = [];
+            let hugs = ["https://media.giphy.com/media/2FayVoBQ0oxVel3aM/giphy.gif", "https://media.giphy.com/media/IuCSOHcDlooPm/giphy.gif", "https://media.giphy.com/media/EvYHHSntaIl5m/giphy.gif", "https://media.giphy.com/media/3M4NpbLCTxBqU/giphy.gif", "https://media.giphy.com/media/lXiRKBj0SAA0EWvbG/giphy.gif", "https://media.giphy.com/media/llmZp6fCVb4ju/giphy.gif", "https://media.giphy.com/media/16bJmyPvRbCDu/giphy.gif", "https://media.giphy.com/media/3oEjI72YdcYarva98I/giphy.gif", "https://media.giphy.com/media/Bj9k1U69GZ8Iw/giphy.gif"];
 
             let embed = new Embed()
                 .setTitle(message.member.displayName.split("_")
