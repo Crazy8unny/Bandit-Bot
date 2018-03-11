@@ -92,6 +92,7 @@ bot.on("message", function(message)
     // Game Command
     if (!isNaN(message.content) && parseInt(message.content) > 0 && parseInt(message.content) < 10 && playing.includes(message.author.id))
     {
+        let play = checkGame(message.member);
         placeXO(message, games, assets.XO.X.i, assets.XO.O.i, toBufferAndSend);
     }
   
@@ -996,34 +997,6 @@ var commands = {
             }
         }
     },
-    update:
-    {
-        name: "Update",
-        description: "Updates the bot",
-        category: "Development",
-        arguments: [],
-        permission: 10,
-        usage: `${prefix}update`,
-        exampleusage: `${prefix}update`,
-        run: function(message, args, data)
-        {
-            for (let i = 0; i < 100; i += Math.floor(Math.random() * 18) + 1)
-            {
-                i = Math.min(i, 100);
-                setTimeout(function() {message.channel.send("Updating: **" + i + "%** Complete");}, Math.random() * (3000 - (i * 15)));
-            }
-            setTimeout(function() 
-            {
-                message.channel.send("⚠️ _Bot restarting..._"); 
-                console.log("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                console.log(`⚠️ Bot restarting... ⚠️`);
-                console.log("===============================================\n\n");
-                bot.destroy(); 
-                child_process.fork(__dirname + "/bot.js");
-                console.log(`Bot Successfully Restarted`);
-            }, 2000);
-        }
-    }
   
 };
 
@@ -1175,3 +1148,19 @@ process.on('unhandledRejection', error => {
     console.error(`Uncaught Promise Rejection:\n${error}`);
     
 });
+
+process.on('exit', () => {
+    
+});
+
+function checkGame(user)
+{
+    if (games.XO.Playing.indexOf(user.user.id) != -1)
+    {
+        return 0xCAFE25151;
+    }
+    if (games.XO.Playing.indexOf(user.user.id) != -1)
+    {
+        return 0xCAFE25151;
+    }
+}
