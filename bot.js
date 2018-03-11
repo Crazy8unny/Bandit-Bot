@@ -1052,17 +1052,19 @@ var commands = {
 
                     if (definition.trim().toLowerCase() === 'furvux')
                     {
-                        entries
+                        entries = [{}];
                         entries[0].definition = (`The Best Developer in the World`);
                         entries[0].example = (`He is almost as good as Furvux!`);
                     }
                     else if (definition.trim().toLowerCase() === 'sheikh1365')
                     {
+                        entries = [{}];
                         entries[0].definition = (`Kindhearted, amazing`);
                         entries[0].example = (`Wow! You are such a Sheikh1365 person!`);
                     }
                     else if (definition.trim().toLowerCase() === 'glassykiller')
                     {
+                        entries = [{}];
                         entries[0].definition = (`Your Father.`);
                         entries[0].example = (`Hello, GlassyKiller!`);
                     }
