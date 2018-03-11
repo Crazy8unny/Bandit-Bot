@@ -18,6 +18,7 @@ var token = process.env.TOKEN || -1;
 
 var games = {};
 games["XO"] = {};
+games["TwentyOne"] = {};
 var playing = [];
 
 var assets = {};
