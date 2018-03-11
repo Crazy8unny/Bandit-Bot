@@ -599,7 +599,7 @@ var commands = {
     restart:
     {
         name: "Restart",
-        description: "Restarts the bot. Timeout can be in seconds (if s is suffixed WARNING: BOT WILL NOT WORK UNTIL RESTART IS COMPLETE!",
+        description: "Restarts the bot. Timeout can be in seconds (if s is suffixed at end of timeout) or milliseconds if no timeframe is specified. WARNING: BOT WILL NOT WORK UNTIL RESTART IS COMPLETE!",
         category: "Development",
         arguments: ["-o timeout"],
         permission: 12,
@@ -607,29 +607,26 @@ var commands = {
         exampleusage: `${prefix}restart 60s`,
         run: function(message, args, data)
         {
-            let code = args.join(" ")
-                .split("env")
-                .join("BANNED_WORD")
-                .split("process")
-                .join("PROCESS_IS_NOT_ALLOWED_LOL")
-                .split("token")
-                .join("STOP_TRYING_TO_HACK_LOL");
-            try
+            // Timeout exists
+            if (args[0])
             {
-                console.log(code);
-                eval(code);
-            }
-            catch (e)
-            {
-                let embed = new Embed();
-                embed.setTitle("__Evaluation Error__");
-                embed.setColor("#FF0000");
-                embed.addField("Your Code", "```js\n" + code + "```");
-                embed.addField("Error", e.message);
-                embed.setFooter("Response to Evaluation Command by " + message.member.displayName);
-
-                message.channel.send(embed)
-                    .then(msg => msg.delete(60000));
+                let timeout = args[0].substr(0, timeout.length - 1);
+                let timeframe = args[0].substr(timeout.length - 1);
+                if (isNaN(timeout))
+                {
+                    return "Timeout must be a number! (Only one letter suffix at end!)";
+                }
+                
+                timeout = parseInt(timeout);
+                let timeframes = {
+                    "s": 1000,
+                    "m": 60000,
+                    "h": 3600000,
+                    "d": 86400000
+                };
+                
+                
+                
             }
         }
     },
