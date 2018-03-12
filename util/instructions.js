@@ -6,4 +6,8 @@ When you start a game of **Noughts and Crosses** with someone, you will need to 
 __**Note: You can only play in 1 game at once!**__
 `
 
-exports.TwentyOne
+exports.TwentyOne = `
+**Twenty One** (also known as **21**) is a turn-based game where each player can count up 3 consecutive numbers from the current number. The players have to try **not** to say **21**, beacause the user who has to say **21** immediately loses! 
+
+When a game of **21** is initiated, other players need to join (you cannot play against yourself!) and so you are given a gameID. For other players to join your game, they need to write \`~join 
+`
