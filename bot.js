@@ -1367,6 +1367,16 @@ var commands = {
                 if (game == "xo" || game == "tic tac toe" || game == "noughts and crosses")
                 {
                     let embed = new Embed();  
+                    embed.setTitle("__Noughts and Crosses - Game Instructions__");
+                    embed.setColor("#00AA00");
+                    embed.setDescription(instructions.XO)
+                    embed.setFooter("Requested by " + message.displayName, message.author.avatarURL);
+                    message.channel.send(embed);
+                }
+                if (game == "21" || game == "twentyone" || game == "2one")
+                {
+                    let embed = new Embed();  
+                    embed.setTitle("__Tewnty One - Game Instructions__");
                     embed.setColor("#00AA00");
                     embed.setDescription(instructions.XO)
                     embed.setFooter("Requested by " + message.displayName, message.author.avatarURL);

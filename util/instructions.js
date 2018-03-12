@@ -5,3 +5,5 @@ When you start a game of **Noughts and Crosses** with someone, you will need to 
 
 __**Note: You can only play in 1 game at once!**__
 `
+
+exports.TwentyOne
