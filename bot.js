@@ -1350,15 +1350,15 @@ var commands = {
             channel.send("✅ Bot Channel has been set to this channel!");
         }
     },
-    test:
+    instructions:
     {
-        name: "Test",
-        description: "Test command",
-        category: "Development",
+        name: "Instructions",
+        description: "Sends instructions on a game of the bot.",
+        category: "Fun & Games",
         arguments: ["-r game"],
-        permission: 15,
-        usage: `${prefix}test`,
-        exampleusage: `${prefix}test xo`,
+        permission: 1,
+        usage: `${prefix}instructions`,
+        exampleusage: `${prefix}instructions xo`,
         run: function(message, args, data)
         {
             if (args[0])
