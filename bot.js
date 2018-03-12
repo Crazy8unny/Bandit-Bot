@@ -5,6 +5,7 @@ var Jimp = require('jimp');
 var urbandict = require("urban-dictionary");
 
 var util = require(__dirname + '/util/util.js');
+var instructions = require(__dirname + '/util/instructions.js');
 var permission = require(__dirname + '/util/permissions.js');
 var config = require(__dirname + '/settings/configuration.json');
 
@@ -1360,7 +1361,18 @@ var commands = {
         exampleusage: `${prefix}test xo`,
         run: function(message, args, data)
         {
-            
+            if (args[0])
+            {
+                let game = args.join(" ").toLowerCase();
+                if (game == "xo" || game == "tic tac toe" || game == "noughts and crosses")
+                {
+                    let embed = new Embed();  
+                    embed.setColor("#00AA00");
+                    embed.setDescription(instructions.XO)
+                    embed.setFooter("Requested by " + message.displayName, message.author.avatarURL);
+                    message.channel.send(embed);
+                }
+            }
         }
     },
 
