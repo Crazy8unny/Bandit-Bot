@@ -27,6 +27,8 @@ var assets = {};
 assets.XO = {};
 assets.CoinFlip = {};
 
+var serverdata = {};
+
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyBnKrLqwldnRRryvqUdUH5lidilH3gDTG0",
@@ -87,9 +89,23 @@ bot.on('ready', async function()
 
     loadAsset(headCoin, assets.CoinFlip.Heads);
     loadAsset(tailCoin, assets.CoinFlip.Tails);
+  
+    loadData("Serverdata", serverdata);
 
     games.XO.Playing = [];
     games.TwentyOne.Playing = [];
+});
+
+bot.on("guildCreate", function(guild)
+{
+    console.log("Joined Guild " + guild.name + "!");
+    let data = {};
+    data.Name = guild.name;
+    data.Configuration = {prefix: prefix};
+    data.Date = new Date();
+  
+    let ref = firebase.database().ref().child("Serverdata").child(guild.id.toString());
+    ref.update(data);
 });
 
 bot.on("message", function(message)
@@ -101,6 +117,7 @@ bot.on("message", function(message)
         if (play == 0xCAFE25151 && parseInt(message.content) < 10) placeXO(message, assets.XO.X.i, assets.XO.O.i, toBufferAndSend);
         else if (play == 0xCAFE25152 && parseInt(message.content) < 22) place21(message);
     }
+  
 
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
 
@@ -1649,6 +1666,9 @@ function place21(message)
 
 function loadData(src, dest)
 {
+    if (!dest) dest = {};
+    if (!src) src = "/";
+  
     let ref = firebase.database().ref(src);
     ref.once("value", function(snapshot) 
     {
