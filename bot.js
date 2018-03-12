@@ -1107,50 +1107,6 @@ var commands = {
             }
         }
     },
-    twentyone:
-    {
-        name: "TwentyOne",
-        description: "Starts a game of **21**! For others to join, they need to type `" + prefix + "join <gameID>`. If you do not specify a gameID, one will be crated for you! \n__Note: Game ID must be 7 characters in length!__",
-        category: "Fun & Games",
-        arguments: ["-o gameID"],
-        permission: 1,
-        usage: `${prefix}twentyone`,
-        exampleusage: `${prefix}twentyone F51X632`,
-        run: function(message, args, data)
-        {
-            let gameID = util.generateUID(7, true);
-            if (args[0])
-            {
-                if (args[0].length == 7)
-                {
-                    gameID = args[0];
-                }
-                else if (args[0].length < 7)
-                {
-                    gameID = args[0] + util.generateUID(7 - args[0].length, true);
-                }
-                else if (args[0].length > 7)
-                {
-                    gameID = args[0].substr(0, 7);
-                }
-            }
-          
-            let gameData = {
-                players: [message.author.id],
-                current: 0,
-                accepting: true,
-                turn: 1
-            };
-            games.TwentyOne[gameID] = gameData;
-          
-            gameIDs[gameID] = "TwentyOne";
-            
-            playing.push(message.author.id);
-            games.TwentyOne.Playing.push(message.author.id);
-          
-            message.channel.send(message.author + " has started a game of **21**! Type `" + prefix + "join " + gameID + "` to join the game!");
-        }
-    },
     "21":
     {
         name: "21",
@@ -1361,6 +1317,20 @@ var commands = {
             let option = options[ascii % options.length];
           
             message.channel.send(message.author + ", in answer to your query: **" + q + "**, \n" + option);
+        }
+    },
+    test:
+    {
+        name: "Test",
+        description: "Test command",
+        category: "Development",
+        arguments: ["-r game"],
+        permission: 15,
+        usage: `${prefix}test`,
+        exampleusage: `${prefix}test xo`,
+        run: function(message, args, data)
+        {
+            
         }
     },
     test:
