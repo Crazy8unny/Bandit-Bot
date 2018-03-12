@@ -1325,7 +1325,7 @@ var commands = {
         description: "Sets the default channel for the bot. The bot must have all its permissions on this channel.",
         category: "Setup",
         arguments: ["-r #channel"],
-        permission: 15,
+        permission: 4,
         usage: `${prefix}setchannel`,
         exampleusage: `${prefix}setchannel #general`,
         run: function(message, args, data)
@@ -1339,7 +1339,12 @@ var commands = {
             {
                 channel = message.guild.channels.find(c => c.name.toLowerCase().startsWith(args[0].toLowerCase())) || message.guild.channels.get(args[0]);
             }
-            
+          
+            let updates = {channel: channel.id};
+
+            let ref = firebase.database().ref().child("Serverdata").child(message.guild.id.toString()).child("Configuration");
+            ref.update(updates);
+          
             message.channel.send("✅ Bot Channel has been set to <#" + channel.id + ">!");
             channel.send("✅ Bot Channel has been set to this channel!");
         }
