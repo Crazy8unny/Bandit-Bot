@@ -1290,7 +1290,7 @@ var commands = {
         arguments: ["-r title", "-r body"],
         permission: 10,
         usage: `${prefix}update`,
-        exampleusage: `${prefix}update Music Commands, Guess what! Music Commands have n`,
+        exampleusage: `${prefix}update Music Commands, Guess what! Music Commands have now been added! Go to any bot-command channel on any server with Tilde on it and type \`${prefix}play <song>\` to play the song from YouTube!`,
         run: function(message, args, data)
         {
             args = message.content.split("update ")[1].split(",");
@@ -1303,7 +1303,7 @@ var commands = {
             let body = args.join(",").trim();
           
             let embed = new Embed();
-            embed.setTitle(title);
+            embed.setTitle("__" + title  + "__");
             embed.setColor(colour);
             embed.setDescription(body);
             embed.setFooter("By " + message.author.tag, message.author.avatarURL);
