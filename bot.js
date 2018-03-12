@@ -1338,7 +1338,7 @@ var commands = {
                 ascii += q[i].charCodeAt(0);
             }
             
-            ascii *= (ascii + 3.1415926535897923);
+            ascii *= (ascii + 3.1415926535897923 * message.author.id) * Math.random();
             ascii = Math.floor(ascii);
             
             let option = options[ascii % options.length];
@@ -1645,4 +1645,14 @@ function place21(message)
             }
         }
     }
+}
+
+function loadData(src, dest)
+{
+    let ref = firebase.database().ref(src);
+    ref.once("value", function(snapshot) 
+    {
+        let data = snapshot.val();
+        dest = data;
+    });
 }
