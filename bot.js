@@ -1311,6 +1311,41 @@ var commands = {
             message.channel.send(embed);
         }
     },
+    "8ball":
+    {
+        name: "8Ball",
+        description: "The Magic 8Ball command!",
+        category: "Fun & Games",
+        arguments: ["-r question"],
+        permission: 1,
+        usage: `${prefix}8ball`,
+        exampleusage: `${prefix}8ball am I cool?`,
+        run: function(message, args, data)
+        {
+            let q = args.join(" ");
+            if (!q)
+            {
+                message.channel.send("You need to specify a question, " + message.author + "!");
+                return;
+            }
+          
+            let options = ["No way!", "Sorry, but no. Just no.", "Unfortunately not...", "Hmmm.... maybe.", "I am not too sure about that one!", "Quite possibly, actually!", "Almost yess..... but no.", "Of course!", "Yea man!", "Yes.", "Definately yes!", "It seems that the fortunes have decided...... yes."];
+          
+            let ascii = 0;
+          
+            for (let i = 0; i < q.length; i++)
+            {
+                ascii += q[i].charCodeAt(0);
+            }
+            
+            ascii *= (ascii + 3.1415926535897923);
+            ascii = Math.floor(ascii);
+            
+            let option = options[ascii % options.length];
+          
+            message.channel.send(message.author + ", in answer to your query: **" + q + "**, \n" + option);
+        }
+    },
     test:
     {
         name: "Test",
