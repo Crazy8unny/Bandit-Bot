@@ -8,6 +8,16 @@ child_process.fork(__dirname + "/bot.js");
 
 var port = process.env.PORT || 3000;
 
+var sassMiddleware = require("node-sass-middleware");
+
+app.use(sassMiddleware({
+  src: __dirname + '/public',
+  dest: '/tmp',
+  //debug: true,
+  //outputStyle: 'compressed',
+}));
+
+app.use(express.static('/tmp'));
 app.use(express.static('public'));
 
 app.get("/", function(request, response)
