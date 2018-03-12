@@ -1263,15 +1263,44 @@ var commands = {
         exampleusage: `${prefix}rembed Hello World, #FF0099, Hello, world! This is a nice Rich Embed!`,
         run: function(message, args, data)
         {
-            args = message.content.split(",");
+            args = message.content.split("rembed ")[1].split(",");
           
             if (!args[0]) return "You need a title! (Type `" + prefix + "help rembed` to see hot to use this command!)";
             if (!args[1]) return "You need a colour! (Type `" + prefix + "help rembed` to see hot to use this command!)";
-            if (!args[2]) return "You need a body for the embed! (Type `" + prefix + "help rembed` to see hot to use this command!)";
+            if (!args[2]) return "You need a body for the embed! (Type `" + prefix + "help rembed` to see how to use this command!)";
           
             let title = args.shift();
             let colour = args.shift();
-            let body = args.join(",");
+            let body = args.join(",").trim();
+          
+            let embed = new Embed();
+            embed.setTitle(title);
+            embed.setColor(colour);
+            embed.setDescription(body);
+            embed.setFooter("By " + message.author.tag, message.author.avatarURL);
+            
+            message.channel.send(embed);
+        }
+    },
+    update:
+    {
+        name: "Rembed",
+        description: "Embeds the content in a rich embed. Parameters are speprated by commas for this command.",
+        category: "General",
+        arguments: ["-r title", "-r body"],
+        permission: 10,
+        usage: `${prefix}update`,
+        exampleusage: `${prefix}update Music Commands, Guess what! Music Commands have n`,
+        run: function(message, args, data)
+        {
+            args = message.content.split("update ")[1].split(",");
+          
+            if (!args[0]) return "You need a title! (Type `" + prefix + "help update` to see hot to use this command!)";
+            if (!args[1]) return "You need a body for the update! (Type `" + prefix + "help update` to see how to use this command!)";
+          
+            let title = args.shift();
+            let colour = "#00AA00";
+            let body = args.join(",").trim();
           
             let embed = new Embed();
             embed.setTitle(title);
