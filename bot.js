@@ -1319,18 +1319,29 @@ var commands = {
             message.channel.send(message.author + ", in answer to your query: **" + q + "**, \n" + option);
         }
     },
-    test:
+    setchannel:
     {
-        name: "Test",
-        description: "Test command",
-        category: "Development",
-        arguments: ["-r game"],
+        name: "Set Channel",
+        description: "Sets the default channel for the bot. The bot must have all its permissions on this channel.",
+        category: "Setup",
+        arguments: ["-r #channel"],
         permission: 15,
-        usage: `${prefix}test`,
-        exampleusage: `${prefix}test xo`,
+        usage: `${prefix}setchannel`,
+        exampleusage: `${prefix}setchannel #general`,
         run: function(message, args, data)
         {
+            let channel = message.mentions.channels.first();
+            if (!args[0])
+            {
+                channel = message.channel;
+            }
+            if (!channel)
+            {
+                channel = message.guild.channels.find(c => c.name.toLowerCase().startsWith(args[0].toLowerCase())) || message.guild.channels.get(args[0]);
+            }
             
+            message.channel.send("✅ Bot Channel has been set to <#" + channel.id + ">!");
+            channel.send("✅ Bot Channel has been set to this channel!");
         }
     },
     test:
