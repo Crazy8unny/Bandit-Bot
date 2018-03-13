@@ -15,12 +15,20 @@ body, html
 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
-    background-position: center;
+    background-position: 0px 0px;
     background-repeat: repeat;
     background-size: 32px 32px;
     z-index: 1;
   
     filter: blur(.5px);
+    
+    animation: bb 30s infinite;
+}
+
+@keyframes bb 
+{
+  0% {background-position: 0% 0%;}
+  100% {background-position: 100% 100%;}
 }
 
 .cover-img
@@ -32,12 +40,4 @@ body, html
 {
     background: rgba(0, 0, 0, 0);
     z-index: 2;
-}
-
-@media only screen and (max-device-width: 1366px) 
-{
-    .parallax 
-    {
-        background-attachment: scroll;
-    }
 }
