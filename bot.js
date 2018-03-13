@@ -99,7 +99,7 @@ bot.on('ready', async function()
 
 bot.on("guildCreate", function(guild)
 {
-    console.log("Joined Guild " + guild.name + "!");
+    console.log("Joined Guild: " + guild.name + "!");
     let data = {};
     data.Name = guild.name;
     data.Configuration = {prefix: prefix};
@@ -107,6 +107,11 @@ bot.on("guildCreate", function(guild)
   
     let ref = firebase.database().ref().child("Serverdata").child(guild.id.toString());
     ref.update(data);
+});
+
+bot.on("guildDelete", function(guild)
+{
+    console.log("Left Guild: " + guild.name + "!");
 });
 
 bot.on("message", function(message)
@@ -836,7 +841,7 @@ var commands = {
                     channel.send(`✅ Tilder will restart in __${(total / 1000)} second${(total / 1000) > 1 ? "s" : ""}__!`);
 
                     console.log("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    console.log(`Bot will restart in ${(total / 1000)} second${(total / 1000) > 1 ? "s" : ""}.`);
+                    console.log(`Bot will restart in ${(total / 1000)} second${(total / 1000) == 1 ? "s" : ""}.`);
                     console.log("===============================================\n\n");
 
                 }
