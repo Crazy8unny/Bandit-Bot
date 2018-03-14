@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,800&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,600,800&subset=latin-ext');
 @import "scss/variables.scss";
 
 @keyframes background-scroll 
@@ -46,7 +46,7 @@ body, html
         top: 20%;
         color: #FFFFFF;
         font-size: 192px;
-        font-weight: 600;
+        font-weight: 800;
         text-align: center;
         text-shadow: 10px 0 0px rgba(0, 0, 0, 0.5);
         text-transform: uppercase;
@@ -58,9 +58,9 @@ body, html
         top: 25%;
         color: #FFFFFF;
         font-size: 32px;
-        font-weight: 600;
+        font-weight: 800;
         text-align: center;
-        text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        text-shadow: 0 0 15px rgba(0, 204, 204, 0.5);
         text-transform: uppercase;
       
         background: rgba(0, 0, 0, 0.4);
@@ -71,4 +71,6 @@ body, html
 {
     background: rgba(0, 0, 0, 0);
     z-index: 2;
+    
+    padding: 10px;
 }
