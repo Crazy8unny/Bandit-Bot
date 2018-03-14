@@ -51,14 +51,14 @@ body, html
         text-shadow: 10px 0 0px rgba(0, 0, 0, 0.5);
         text-transform: uppercase;
       
-        @media (max-width: $mobile)
-        {
-            font-size: 82px;
-        }
       
         @media (max-width: $tablet)
         {
             font-size: 132px;
+        }
+        @media (max-width: $mobile)
+        {
+            font-size: 82px;
         }
     }
   
@@ -76,6 +76,12 @@ body, html
         @media (max-width: $mobile)
         {
             font-size: 16px;
+        }
+      
+      
+        @media (max-width: $tablet)
+        {
+            font-size: 32px;
         }
       
         background: rgba(0, 0, 0, 0.4);
