@@ -1039,7 +1039,7 @@ var commands = {
             }
             catch (e)
             {
-                if (e.includes("DiscordAPIError: Missing Permissions"))
+                if (e.message.includes("DiscordAPIError: Missing Permissions"))
                 {
                     message.channel.send("```diff\n- Sorry, but I do not have enough permission to carry out that command!```");
                 }
@@ -1399,6 +1399,7 @@ function toBufferAndSend(image, message, text)
 {
     image.getBuffer(Jimp.MIME_PNG, function(e, buffer)
     {
+        console.log("13");
         if (e)
         {
             console.error(e);
@@ -1414,6 +1415,8 @@ function placeXO(message, games, i_X, i_O, basFunc)
 {
     for (let gameID in games.XO)
     {
+    if (gameID == "Playing") continue;
+        console.log(gameID);
         let game = games.XO[gameID];
         if (game.players && game.players.includes(message.author.id))
         {
@@ -1430,7 +1433,9 @@ function placeXO(message, games, i_X, i_O, basFunc)
                     let player1 = message.guild.members.find(m => m.id == game.players[0]);
                     let player2 = message.guild.members.find(m => m.id == game.players[1]);
                   
-                    game.boardImage.composite(marker, xCoord, yCoord);                     basFunc(game.boardImage, message, player1.displayName + " vs. " + player2.displayName);
+                    game.boardImage.composite(marker, xCoord, yCoord);                     
+                  
+                    basFunc(game.boardImage, message, player1.displayName + " vs. " + player2.displayName);
 
                     game.board[input - 1] = game.players.indexOf(message.author.id) == 0 ? "X" : "O";
 
