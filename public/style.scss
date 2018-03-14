@@ -17,6 +17,7 @@ body, html
     font-family: Nunito, Heveltica;
     
 }
+
 .cover-img
 {
     /* The image used */
@@ -24,6 +25,11 @@ body, html
 
     /* Full height */
     height: 100%; 
+  
+    @media (max-height: 700px)
+    {
+        height: 700px;
+    }
 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;     
@@ -40,7 +46,19 @@ body, html
         font-size: 192px;
         font-weight: 600;
         text-align: center;
-        text-shadow: 0 0 15px rgba(0, 0, 0, 1);
+        text-shadow: 10px 0 0px rgba(0, 0, 0, 0.5);
+        text-transform: uppercase;
+    }
+  
+    div.motto.small
+    {
+        position: relative;
+        top: 25%;
+        color: #FFFFFF;
+        font-size: 32px;
+        font-weight: 600;
+        text-align: center;
+        text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
         text-transform: uppercase;
     }
 }
