@@ -28,9 +28,9 @@ body, html
     /* Full height */
     height: 100%; 
   
-    @media (max-height: 700px)
+    @media (max-height: 500px)
     {
-        height: 700px;
+        height: 500px;
     }
 
     /* Create the parallax scrolling effect */
@@ -53,6 +53,12 @@ body, html
       
         @media (max-width: $mobile)
         {
+            font-size: 82px;
+        }
+      
+        @media (max-width: $tablet)
+        {
+            font-size: 132px;
         }
     }
   
@@ -66,6 +72,11 @@ body, html
         text-align: center;
         text-shadow: 0 0 15px rgba(0, 204, 204, 0.5);
         text-transform: uppercase;
+      
+        @media (max-width: $mobile)
+        {
+            font-size: 16px;
+        }
       
         background: rgba(0, 0, 0, 0.4);
     }
