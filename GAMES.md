@@ -4,7 +4,7 @@ To Implement:
   - Word Search
   - Command Me  
   - Find Wally (Or deravation of game)
-  - Mytyc Guar
+  - Mystic Guardians (Or derevation of game)
   
 _________________________________________
   
