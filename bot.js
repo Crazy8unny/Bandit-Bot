@@ -1413,8 +1413,9 @@ function toBufferAndSend(image, message, text)
 
 function placeXO(message, games, i_X, i_O, basFunc)
 {
-    for (let gameID in games.XO)
+    for (let i = 0; i < Object.keys(games.XO).length; i++)
     {
+        let gameID = Object.keys(games.XO)[i];
     if (gameID == "Playing") continue;
         console.log(gameID);
         let game = games.XO[gameID];
