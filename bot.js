@@ -166,7 +166,7 @@ bot.on("message", function(message)
         }
         catch (e)
         {
-            if (e.includes("DiscordAPIError: Missing Permissions"))
+            if (e.message.includes("DiscordAPIError: Missing Permissions"))
             {
                 message.channel.send("```diff\n- Sorry, but I do not have enough permission to carry out that command!```");
             }
@@ -473,21 +473,16 @@ var commands = {
         exampleusage: `${prefix}coinflip`,
         run: function(message, args, data)
         {
-            let t = Math.floor(Math.random() * 100);
-            if (t > 50)
-            {
-                message.channel.send("**Heads**",
-                {
-                    file: assets.CoinFlip.Heads.b
-                });
-            }
-            else
-            {
-                message.channel.send("**Tails**",
-                {
-                    file: assets.CoinFlip.Tails.b
-                });
-            }
+            let coins = ["Heads!", "Tails!"];
+
+            let finalCoin = Math.floor((Math.random() * coins.length))
+
+            let coinEmbed = new Discord.RichEmbed()
+            .setColor(data.display_colour.hex)
+            .addField("Flipped Coin", coins[finalCoin])
+            .setImage(finalCoin == 0 ? assets.CoinFlip.Heads.b : assets.CoinFlip.Tails.b);
+
+            message.channel.send(coinEmbed);
         }
     },
     invite:
@@ -1379,7 +1374,7 @@ var commands = {
                     embed.setTitle("__Noughts and Crosses - Game Instructions__");
                     embed.setColor("#00AA00");
                     embed.setDescription(instructions.XO)
-                    embed.setFooter("Requested by " + message.displayName, message.author.avatarURL);
+                    embed.setFooter("Requested by " + message.member.displayName, message.author.avatarURL);
                     message.channel.send(embed);
                 }
                 if (game == "21" || game == "twentyone" || game == "2one")
@@ -1387,8 +1382,8 @@ var commands = {
                     let embed = new Embed();  
                     embed.setTitle("__Tewnty One - Game Instructions__");
                     embed.setColor("#00AA00");
-                    embed.setDescription(instructions.XO)
-                    embed.setFooter("Requested by " + message.displayName, message.author.avatarURL);
+                    embed.setDescription(instructions.TwentyOne)
+                    embed.setFooter("Requested by " + message.member.displayName, message.author.avatarURL);
                     message.channel.send(embed);
                 }
             }
@@ -1544,6 +1539,7 @@ function loadAsset(src, dest)
         if (!dest) dest = {};
 
         dest.i = img;
+        dest.u = src;
 
         img.getBuffer(Jimp.MIME_PNG, function(e, buffer)
         {
