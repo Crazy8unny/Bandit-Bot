@@ -473,14 +473,14 @@ var commands = {
         exampleusage: `${prefix}coinflip`,
         run: function(message, args, data)
         {
-            let coins = ["Heads!", "Tails!"];
+            let coins = ["Heads", "Tails"];
 
             let finalCoin = Math.floor((Math.random() * coins.length))
 
             let coinEmbed = new Discord.RichEmbed()
             .setColor(data.display_colour.hex)
-            .addField("Flipped Coin", coins[finalCoin])
-            .setImage(finalCoin == 0 ? assets.CoinFlip.Heads.b : assets.CoinFlip.Tails.b);
+            .setTitle("__Flipped Coin: " + coins[finalCoin] + "__")
+            .setImage(finalCoin == 0 ? assets.CoinFlip.Heads.u : assets.CoinFlip.Tails.u);
 
             message.channel.send(coinEmbed);
         }
@@ -1395,8 +1395,6 @@ var commands = {
 bot.login(token);
 
 
-
-
 function toBufferAndSend(image, message, text)
 {
     image.getBuffer(Jimp.MIME_PNG, function(e, buffer)
@@ -1432,8 +1430,7 @@ function placeXO(message, games, i_X, i_O, basFunc)
                     let player1 = message.guild.members.find(m => m.id == game.players[0]);
                     let player2 = message.guild.members.find(m => m.id == game.players[1]);
                   
-                    game.boardImage.composite(marker, xCoord, yCoord);
-                    basFunc(game.boardImage, message, player1.displayName + " vs. " + player2.displayName);
+                    game.boardImage.composite(marker, xCoord, yCoord);                     basFunc(game.boardImage, message, player1.displayName + " vs. " + player2.displayName);
 
                     game.board[input - 1] = game.players.indexOf(message.author.id) == 0 ? "X" : "O";
 
