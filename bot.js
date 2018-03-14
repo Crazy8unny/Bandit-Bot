@@ -1183,6 +1183,10 @@ var commands = {
                     }
                 }
             }
+            else
+            {
+                message.channel.send("Oh dear! I cannot find a game with that ID, " + message.author + "! Make sure you have the ID correct (capital letters are capitalized, etc.)!");
+            }
         }
     },
     suggest:
