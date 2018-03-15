@@ -49,6 +49,11 @@ a
     {
         height: 600px;
     }
+  
+    @media (min-width: $desktop)
+    {
+        height: 100%;
+    }
 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;     
@@ -105,7 +110,6 @@ a
 
 .section
 {
-    background: rgba(0, 0, 0, 0);
     z-index: 2;
     
     padding: 10px;
@@ -284,4 +288,9 @@ blockquote cite:before
 .fr
 {
     float: right !important;
+}
+
+.font150
+{
+    font-size: 150%;
 }
