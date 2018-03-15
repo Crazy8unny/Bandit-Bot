@@ -20,6 +20,18 @@ body, html
     
 }
 
+a
+{
+    color: #00CCCC;
+    text-decoration: underline;
+    cursor: pointer;
+  
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+
 .cover-img
 {
     /* The image used */
@@ -256,6 +268,12 @@ blockquote cite:before
 .review .stars
 {
     margin-left: 40px;
+    color: #FFCC00;
+}
+
+.review .stars > b
+{
+    color: #333333;
 }
 
 .fl
