@@ -13,5 +13,5 @@ When a game of **21** is initiated, other players need to join (you cannot play 
 `
 
 exports.Coinflip = `
-**Coinflip** is a very basic game. All it is is flipping a coin. When \`~coinflip\` is sent, the bot flips a coin for you and sends you back the result. This is a 1 player game.
+**Coinflip** is a very basic game - probably the most simple game ever! All it is is flipping a coin. When \`~coinflip\` is sent, the bot flips a coin for you and sends you back the result. This is a 1 player game.
 `

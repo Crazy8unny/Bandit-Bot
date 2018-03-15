@@ -17,7 +17,8 @@
     <meta name="og:url"   content="https://tilde.glitch.me/">
     <meta name="og:description" content="Tilde is a cool bot designed for fun and games! This is his website, where you can change the settings of Tilde or add commands on your servers!">
     
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" integrity="sha256-2k1KVsNPRXxZOsXQ8aqcZ9GOOwmJTMoOB5o5Qp1d6/s=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css.map">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 
   </head>
@@ -66,7 +67,7 @@
     <br><br><br><br><br>
     
     
-    <div class="parallax section games" style="height: 450px;">
+    <div class="parallax section games" style="height: 400px;">
        <center> 
     <div class="title">
       Games
@@ -78,11 +79,25 @@
       <center><h4>
         An in-depth description of some of <b>Tilde</b>'s games.
       </h4></center>
-      <h4>Noughts and Crosses</h4>
+      <h4 class="gametitle">Noughts and Crosses</h4>
         <p class="gamedesc">
 Noughts and Crosses (also known as tic tac toe, or XO) is a simple and fun game for two players, X and O, who take turns marking the spaces in a 3×3 grid. The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game.
 
 When you start a game of Noughts and Crosses with someone, you will need to place your marker (either an X or an O) on the grid. To do this, you must specify a number from 1-9. Each number represents a square on the grid. 1 would be top-left and 9would be bottom right, 5 would be the middle square and so on. The person who initiates the game will be player 1 and will play as X. The second player will be playing as O. X will start the match by simply typing a message containing the number of the palce they want to play in only! If the message contains any characters other than a number between 1 and 9, nothing will happen. Whenever a new mark is placed, the bot will resend the image of the board. This way you can view the history of the game.
+      </p>
+      <br><br><br>
+      
+      <h4 class="gametitle">Twenty One (<b>21</b>)</h4>
+        <p class="gamedesc">
+Twenty One (also known as 21) is a turn-based game where each player can count up 3 consecutive numbers from the current number. The players have to try not to say 21, beacause the user who has to say 21 immediately loses! 
+
+When a game of 21 is initiated, other players need to join (you cannot play against yourself!) and so you are given a gameID. For other players to join your game, they need to write <b>~join &lt;game ID&gt;</b>, which automatically joins them to the game they specified. To play, you need to specify the number you wish to go to, but you can only go up by a maximum of 3! For example, if the number is 12 and I want to go to 15, instead of typeing 13, 14, 15, I would simply write 15! The turns are ordered chronologically in the way of joining (i.e. the turns are according to when you join - if you join the game second, you would have your turn second!). The player who initiates the game is always the first player.
+      </p>
+      <br><br><br>
+      
+      <h4 class="gametitle">Coinflip (Heads or Tails)</h4>
+        <p class="gamedesc">
+Coinflip is a very basic game - probably the most simple game ever! All it is is flipping a coin. When <b>~coinflip</b> is sent, the bot flips a coin for you and sends you back the result. This is a 1 player game.
       </p>
     </div>
     <br><br><br><br><br>
