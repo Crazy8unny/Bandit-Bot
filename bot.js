@@ -127,7 +127,7 @@ bot.on("message", function(message)
 
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
 
-    let command = message.content.indexOf(botID) != -1 ? message.content.split(" ")[1] : message.content.split(" ")[0].substr(1);
+    let command = message.content.indexOf(botID) != -1 ? message.content.split(">")[1] : message.content.split(" ")[0].substr(prefix.length);
     command = command.toLowerCase()
         .trim();
     if (message.channel.type == "text" && commands[command])
@@ -156,7 +156,9 @@ bot.on("message", function(message)
                     .splice(1), data);
                 if (error)
                 {
-                    message.channel.send("```diff\n- " + error + "```");
+                    let embed = new Embed()
+                    .setColor(`#FF0000`)
+                    .setDescription(error);
                 }
             }
             else
@@ -168,12 +170,14 @@ bot.on("message", function(message)
         {
             if (e.message.includes("DiscordAPIError: Missing Permissions"))
             {
-                message.channel.send("```diff\n- Sorry, but I do not have enough permission to carry out that command!```");
+                let embed = new Embed()
+                .setTitle("__Not Enough Permission__")
+                .setColor(`#FF0000`)
+                .setDescription(`Sorry, but I do not have enough permission to carry out that command!`);
+              
+                message.channel.send(embed);
             }
-            else
-            {
-                console.error(e);
-            }
+            console.error(e);
         }
     }
     else if ((message.channel.type == "dm" || message.channel.type == "group") && DMCommands[command])
@@ -1570,10 +1574,10 @@ function arrayIsNaN(array)
     return true;
 }
 
-process.on('unhandledRejection', error =>
+process.on('unhandledRejection', (reason, p) => 
 {
-    console.error(`Uncaught Promise Rejection:\n${error}`);
-
+    console.info('Unhandled Rejection at:' + p + '\nReason:' + reason);
+  
 });
 
 process.on('exit', () =>
