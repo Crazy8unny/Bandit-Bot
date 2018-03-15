@@ -38,10 +38,12 @@ a
 .cover-img
 {
     /* The image used */
-    background-image: url("https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FCoverimg.png?1521142277136");/*url("https://images.unsplash.com/photo-1496134732667-ae8d2853a045?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e4dd1c9106a69065ccfa21a36cfb53b1&auto=format&fit=crop&w=1350&q=80");*/
+    background-image: url("https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FCoverimg.png?1521142277136");
 
     /* Full height */
     height: 100%; 
+  
+    opacity: 1;
   
     @media (max-height: 330px)
     {
@@ -110,7 +112,7 @@ a
         }
       
         background: rgba(0, 0, 0, 0.4);  
-  }
+    }
 }
 
 .section
@@ -367,4 +369,10 @@ blockquote cite:before
 .fr
 {
     float: right !important;
+}
+
+.gamedesc
+{
+    width: 700px;
+    margin-left: 40px;
 }
