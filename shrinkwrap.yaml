@@ -8,6 +8,7 @@ dependencies:
   pm2: 2.10.1
   urban-dictionary: 1.0.6
   uws: 9.14.0
+  ytdl-core: 0.20.2
 packages:
   /@firebase/app-types/0.1.2:
     dev: false
@@ -1387,6 +1388,12 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-lIbgIIQA3lz5XaB6vxakj6sDHADJiZadYEJB+FgA+C4nubM1NwcuvUr9EJPmnH1skZqpqUzWborWo8EIUi0Sdw==
+  /html-entities/1.2.1:
+    dev: false
+    engines:
+      '0': node >= 0.4.0
+    resolution:
+      integrity: sha1-DfKTUfByEWNRXfueVUPl9u7VFi8=
   /http-errors/1.6.2:
     dependencies:
       depd: 1.1.1
@@ -1890,6 +1897,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-wgeVXhrDwAWnIF/yZARsFnMBtdFXOg1b8RIrhilp+0iDYN4mdQcNZElDZ0e4B64BhaxeQ5zN7PMyvu7we1kPeQ==
+  /m3u8stream/0.2.1:
+    dependencies:
+      miniget: 1.1.0
+    dev: false
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha512-kESIvCcoDOZ2ozD6wGxB962E24nPLDTezIBdqfJH1HxoY/dMTRFXOfq7sXtqPQM3nQihKXlv6pYmUpf01S/tVQ==
   /map-cache/0.2.2:
     dev: false
     engines:
@@ -1993,6 +2008,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-e9KC4/WELtKVu3SM3Z8f+iyCRoU=
+  /miniget/1.1.0:
+    dev: false
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha512-ICBPQWEoz19eyPHbXLkvjPi62xLhz2irltks35NCYqzYHO0/35IbAaBP3Bbc4VgAwmloIPEpK7CO4/omOiUfDg==
   /minimatch/3.0.4:
     dependencies:
       brace-expansion: 1.1.11
@@ -3550,6 +3571,17 @@ packages:
     dev: false
     resolution:
       integrity: sha1-a6MY6xaWFyf10oT46gA+jWFU0Mg=
+  /ytdl-core/0.20.2:
+    dependencies:
+      html-entities: 1.2.1
+      m3u8stream: 0.2.1
+      miniget: 1.1.0
+      sax: 1.2.4
+    dev: false
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha512-7AAIdhVRJgS3HulFCdT4C4G8FpeKouFinMCa8YA2cvKmEjXoIiNcMJmtnOI1VJil+l57K1Ly4MzEKlvR6H7C0g==
   tgz.pm2.io/gkt-1.0.0:
     dev: false
     name: gkt
@@ -3571,3 +3603,4 @@ specifiers:
   pm2: ^2.10.1
   urban-dictionary: ^1.0.6
   uws: ^9.14.0
+  ytdl-core: ^0.20.2

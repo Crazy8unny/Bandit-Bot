@@ -308,11 +308,15 @@ blockquote cite:before
 
 .parallax.games
 { 
+    margin: 0;
+    padding: 0;
     .title
     {
         
         position: relative;
-        top: 70px;
+        margin: 0;
+        padding-top: 50px;
+        padding-bottom: 60px;
         color: #FFFFFF;
         font-size: 192px;
         font-family: Lato;
@@ -393,7 +397,6 @@ blockquote cite:before
 
 .gamedesc
 {
-    width: 700px;
     margin-left: 40px;
 }
 
