@@ -33,9 +33,9 @@ body, html
         height: 330px;
     }
   
-    @media (max-width: 330px)
+    @media (min-width: 300px)
     {
-        height: 330px;
+        height: 600px;
     }
 
     /* Create the parallax scrolling effect */
