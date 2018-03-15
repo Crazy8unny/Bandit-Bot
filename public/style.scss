@@ -28,9 +28,14 @@ body, html
     /* Full height */
     height: 100%; 
   
-    @media (max-height: 500px)
+    @media (max-height: 330px)
     {
-        height: 500px;
+        height: 330px;
+    }
+  
+    @media (max-width: 330px)
+    {
+        height: 330px;
     }
 
     /* Create the parallax scrolling effect */
@@ -147,6 +152,23 @@ h3
 
 h4
 {
+    font-size: 28px;
+  
+    &:not(b, l) {font-weight: 600;}
+      
+    @media (max-width: $tablet)
+    {
+        font-size: 22px;
+    }
+
+    @media (max-width: $mobile)
+    {
+        font-size: 16px;
+    }
+}
+
+h5
+{
     font-size: 16px;
   
     &:not(b, l) {font-weight: 600;}
@@ -155,38 +177,26 @@ h4
     {
         font-size: 14px;
     }
-}
-
-h5
-{
-    font-size: 52px;
-  
-    &:not(b, l) {font-weight: 600;}
-      
-    @media (max-width: $tablet)
-    {
-        font-size: 42px;
-    }
 
     @media (max-width: $mobile)
     {
-        font-size: 32px;
+        font-size: 12px;
     }
 }
 
 h6
 {
-    font-size: 52px;
+    font-size: 12px;
   
     &:not(b, l) {font-weight: 600;}
       
     @media (max-width: $tablet)
     {
-        font-size: 42px;
+        font-size: 10px;
     }
 
     @media (max-width: $mobile)
     {
-        font-size: 32px;
+        font-size: 8px;
     }
 }
