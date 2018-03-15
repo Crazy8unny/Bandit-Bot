@@ -11,3 +11,7 @@ exports.TwentyOne = `
 
 When a game of **21** is initiated, other players need to join (you cannot play against yourself!) and so you are given a gameID. For other players to join your game, they need to write \`~join <game ID>\`, which automatically joins them to the game they specified. To play, you need to specify the number you wish to go to, but you can only go up by a maximum of 3! For example, if the number is 12 and I want to go to 15, instead of typeing \`13, 14, 15\`, I would simply write \`15\`! The turns are ordered chronologically in the way of joining (i.e. the turns are according to when you join - if you join the game second, you would have your turn second!). The player who initiates the game is always the first player.
 `
+
+exports.Coinflip = `
+**Coinflip** is a very basic game. All it is is flipping a coin. When \`~coinflip\` is sent, the bot flips a coin for you and sends you back the result. This is a 1 player game.
+`

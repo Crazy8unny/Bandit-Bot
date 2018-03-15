@@ -120,7 +120,7 @@ bot.on("message", function(message)
     if (!isNaN(message.content) && parseInt(message.content) > 0 && playing.includes(message.author.id))
     {
         let play = checkGame(message.member);
-        if (play == 0xCAFE25151 && parseInt(message.content) < 10) placeXO(message, assets.XO.X.i, assets.XO.O.i, toBufferAndSend);
+        if (play == 0xCAFE25151 && parseInt(message.content) < 10) placeXO(message, games, assets.XO.X.i, assets.XO.O.i, toBufferAndSend);
         else if (play == 0xCAFE25152 && parseInt(message.content) < 22) place21(message);
     }
   
@@ -128,8 +128,10 @@ bot.on("message", function(message)
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
 
     let command = message.content.indexOf(botID) != -1 ? message.content.split(">")[1] : message.content.split(" ")[0].substr(prefix.length);
-    command = command.toLowerCase()
-        .trim();
+    
+    if (!command) return;
+  
+    command = command.toLowerCase().trim();
     if (message.channel.type == "text" && commands[command])
     {
         try
@@ -159,6 +161,8 @@ bot.on("message", function(message)
                     let embed = new Embed()
                     .setColor(`#FF0000`)
                     .setDescription(error);
+                  
+                message.channel.send(embed);
                 }
             }
             else
@@ -1390,6 +1394,15 @@ var commands = {
                     embed.setFooter("Requested by " + message.member.displayName, message.author.avatarURL);
                     message.channel.send(embed);
                 }
+                if (game == "heads or tails" || game == "coinflip" || game == "heads" || game == "tails")
+                {
+                    let embed = new Embed();  
+                    embed.setTitle("__Coinflip - Game Instructions__");
+                    embed.setColor("#00AA00");
+                    embed.setDescription(instructions.Coinflip)
+                    embed.setFooter("Requested by " + message.member.displayName, message.author.avatarURL);
+                    message.channel.send(embed);
+                }
             }
         }
     },
@@ -1417,11 +1430,10 @@ function toBufferAndSend(image, message, text)
 
 function placeXO(message, games, i_X, i_O, basFunc)
 {
-    for (let i = 0; i < Object.keys(games.XO).length; i++)
-    {
-        let gameID = Object.keys(games.XO)[i];
-    if (gameID == "Playing") continue;
-        console.log(gameID);
+    for (let gameID in games.XO)
+    {   
+        if (gameID == "Playing") continue;
+      
         let game = games.XO[gameID];
         if (game.players && game.players.includes(message.author.id))
         {
