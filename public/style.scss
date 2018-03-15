@@ -172,6 +172,7 @@ h3
 h4
 {
     font-size: 28px;
+    font-family: Nunito, Lato, Heveltica;
   
     &:not(b, l) {font-weight: 600;}
       
@@ -189,6 +190,7 @@ h4
 h5
 {
     font-size: 16px;
+    font-family: Nunito, Lato, Heveltica;
   
     &:not(b, l) {font-weight: 600;}
       
@@ -206,6 +208,7 @@ h5
 h6
 {
     font-size: 12px;
+    font-family: Nunito, Lato, Heveltica;
   
     &:not(b, l) {font-weight: 600;}
       
@@ -218,6 +221,16 @@ h6
     {
         font-size: 8px;
     }
+}
+
+p
+{
+    font-family: Nunito, Lato, Heveltica;
+}
+
+ul
+{
+    font-family: Nunito, Lato, Heveltica;
 }
 
 blockquote 
@@ -259,6 +272,7 @@ blockquote cite:before
 
 .review
 {
+    font-family: Nunito, Lato, Heveltica;
     border: 1px solid #DDDDDD;
     width: 49%;
   
