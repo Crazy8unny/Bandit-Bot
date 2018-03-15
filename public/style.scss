@@ -12,6 +12,12 @@
 body, html
 {
     height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body
+{    
     margin: 0; 
     padding: 0;
     
@@ -21,6 +27,11 @@ body, html
     color: #333333;
   
     overflow-x: hidden;
+}
+
+html
+{
+    overflow-y: hidden !important;
 }
 
 a
@@ -242,7 +253,6 @@ blockquote
     font-family: Georgia, serif;
     font-size: 18px;
     font-style: italic;
-    width: 500px;
     margin: 3.75px 0;
     padding: 5.25px 40px;
     line-height: 1.45;
@@ -278,9 +288,6 @@ blockquote cite:before
 {
     font-family: Nunito, Lato, Heveltica;
     border: 1px solid #DDDDDD;
-    width: 49%;
-  
-    height: 200px;
 }
 
 .parallax
@@ -350,13 +357,17 @@ blockquote cite:before
     text-decoration: underline;
 }
 
+.review .stars .fas
+{
+    margin-right: 5px;
+    color: #FFCC00;
+}
 .review .stars
 {
     margin-left: 40px;
-    color: #FFCC00;
 }
 
-.review .stars > b
+.review .stars
 {
     color: #333333;
 }
@@ -380,5 +391,10 @@ blockquote cite:before
 .gamedesc
 {
     width: 700px;
+    margin-left: 40px;
+}
+
+.review blockquote
+{
     margin-left: 40px;
 }
