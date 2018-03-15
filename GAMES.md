@@ -2,7 +2,7 @@ To Implement:
 =============
   - Treasure Hunt
   - Word Search
-  - Command Me  
+  - Command Maze  
   - Find Wally (Or deravation of game)
   - Mystic Guardians (Or derevation of game)
   

@@ -262,6 +262,16 @@ blockquote cite:before
     height: 200px;
 }
 
+.parallax
+{
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;     
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1;
+}
+
 .review .title
 {
     margin: 5px;
