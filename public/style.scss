@@ -89,13 +89,13 @@ a
     {
         position: relative;
         top: 25%;
-        heihgt
+        padding-top: 10px;
+        padding-bottom: 10px;
         color: #FFFFFF;
         font-size: 32px;
         font-weight: 800;
         text-align: center;
-        text-shadow: 0 0 15px rgba(0, 204, 204, 0.5);
-        text-transform: uppercase;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
       
         @media (max-width: $tablet)
         {
