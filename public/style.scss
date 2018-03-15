@@ -264,12 +264,19 @@ blockquote cite:before
 
 .parallax
 {
+    background: url("https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2Fchessdark.jpg?1521101643792");
+  
     /* Create the parallax scrolling effect */
     background-attachment: fixed;     
     background-position: center;
+    width: 100%;
     background-repeat: no-repeat;
     background-size: cover;
     z-index: 1;
+}
+
+.parallex.section.games
+{
 }
 
 .review .title
