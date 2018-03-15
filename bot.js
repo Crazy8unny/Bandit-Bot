@@ -470,6 +470,35 @@ var commands = {
 
         }
     },
+    shoot:
+    {
+        name: "Shoot",
+        description: "Shoot someone (because why not?)!",
+        category: "Fun & Games",
+        arguments: ["-r @user"],
+        permission: 1,
+        usage: `${prefix}shoot`,
+        exampleusage: `${prefix}shoot @Furvux#2414`,
+        run: function(message, args, data)
+        {
+            let victum = (message.mentions.members.first());
+            if (!victum) return message.channel.send("You must mention a user!");
+
+            let shots = ["https://media.giphy.com/media/M4hHth10WJ2Fi/giphy.gif", "https://media.giphy.com/media/2uvG5Dn1K7pEA/giphy.gif", "https://media.giphy.com/media/EizPK3InQbrNK/giphy.gif", "https://media.giphy.com/media/7qeOvQC1pRFJK/giphy.gif", "https://media.giphy.com/media/14wfa45kICmaBO/giphy.gif"];
+          
+            let embed = new Embed()
+                .setTitle(message.member.displayName.split("_")
+                    .join("\_") + " shoots " + victum.displayName.split("_")
+                    .join("\_") + "!")
+                .setColor(data.display_colour.hex)
+                .setDescription(message.author + ' shot ' + victum + '!')
+                .setImage(util.randomItem(shots));
+
+            message.channel.send(embed);
+            return;
+
+        }
+    },
     coinflip:
     {
         name: "Coin Flip",
