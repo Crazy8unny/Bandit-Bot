@@ -19,8 +19,7 @@ body, html
     font-family: Nunito, Heveltica;
   
     color: #333333;
-    
-}
+     }
 
 a
 {
@@ -107,8 +106,8 @@ a
             font-size: 16px;
         }
       
-        background: rgba(0, 0, 0, 0.4);     
-    }
+        background: rgba(0, 0, 0, 0.4);  
+  }
 }
 
 .section
@@ -278,10 +277,8 @@ blockquote cite:before
     z-index: 1;
 }
 
-.parallax.section.games
-{
-    color: #FFFFFF;
-    
+.parallax.games
+{ 
     .title
     {
         
@@ -292,7 +289,7 @@ blockquote cite:before
         font-family: Lato;
         font-weight: 800;
         text-align: center;
-        text-shadow: 0px 0 15px rgba(0, 0, 0, 0.5);
+        text-shadow: 0px 0 15px rgba(0, 0, 0, 1);
         text-transform: uppercase;
       
       
@@ -310,25 +307,21 @@ blockquote cite:before
         position: relative;
         top: 25%;
         color: #FFFFFF;
-        font-size: 32px;
+        font-size: 20px;
         font-weight: 800;
         text-align: center;
-        text-shadow: 0 0 15px rgba(0, 204, 204, 0.5);
-        text-transform: uppercase;
+        text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
       
         @media (max-width: $tablet)
         {
-            font-size: 32px;
+            font-size: 20px;
         }
       
         @media (max-width: $mobile)
         {
-            font-size: 16px;
-        }
-      
-        background: rgba(0, 0, 0, 0.4);     
+            font-size: 14px;
+        } 
     }
-    
 }
 
 .review .title
@@ -357,9 +350,4 @@ blockquote cite:before
 .fr
 {
     float: right !important;
-}
-
-.font150
-{
-    font-size: 150%;
 }
