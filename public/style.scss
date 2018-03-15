@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,600,800&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700&subset=latin-ext');
+
 @import "scss/variables.scss";
 
 @keyframes background-scroll 
@@ -105,7 +107,8 @@ a
             font-size: 16px;
         }
       
-        background: rgba(0, 0, 0, 0.4);     }
+        background: rgba(0, 0, 0, 0.4);     
+    }
 }
 
 .section
@@ -275,8 +278,57 @@ blockquote cite:before
     z-index: 1;
 }
 
-.parallex.section.games
+.parallax.section.games
 {
+    color: #FFFFFF;
+    
+    .title
+    {
+        
+        position: relative;
+        top: 20%;
+        color: #FFFFFF;
+        font-size: 192px;
+        font-family: Lato;
+        font-weight: 800;
+        text-align: center;
+        text-shadow: 0px 0 15px rgba(0, 0, 0, 0.5);
+        text-transform: uppercase;
+      
+      
+        @media (max-width: $tablet)
+        {
+            font-size: 132px;
+        }
+        @media (max-width: $mobile)
+        {
+            font-size: 82px;
+        }
+    }
+    .subtitle
+    {
+        position: relative;
+        top: 25%;
+        color: #FFFFFF;
+        font-size: 32px;
+        font-weight: 800;
+        text-align: center;
+        text-shadow: 0 0 15px rgba(0, 204, 204, 0.5);
+        text-transform: uppercase;
+      
+        @media (max-width: $tablet)
+        {
+            font-size: 32px;
+        }
+      
+        @media (max-width: $mobile)
+        {
+            font-size: 16px;
+        }
+      
+        background: rgba(0, 0, 0, 0.4);     
+    }
+    
 }
 
 .review .title
