@@ -200,3 +200,53 @@ h6
         font-size: 8px;
     }
 }
+
+blockquote 
+{
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-style: italic;
+    width: 500px;
+    margin: 3.75px 0;
+    padding: 5.25px 40px;
+    line-height: 1.45;
+    position: relative;
+    color: #383838;
+}
+
+blockquote quote:before 
+{
+    content: "\201C";
+    display: block;
+    padding-left: 10px;
+    font-size: 60px;
+    position: absolute;
+    left: 0px;
+    top: -20px;
+    color: #7a7a7a;
+}
+
+blockquote cite 
+{
+    color: #999999;
+    font-size: 14px;
+    display: block;
+    margin-top: 8px;
+}
+
+blockquote quote:after
+{
+    content: "\201D";
+    display: block;
+    padding-left: 10px;
+    font-size: 60px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    color: #7a7a7a;
+}
+ 
+blockquote cite:before 
+{
+    content: "\2014 \2009";
+}
