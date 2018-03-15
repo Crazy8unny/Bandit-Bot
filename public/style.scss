@@ -135,106 +135,106 @@ a
 
 h1 
 {
-    font-size: 52px;
+    font-size: 52px !important;
   
     &:not(b, l) {font-weight: 600;}
       
     @media (max-width: $tablet)
     {
-        font-size: 46px;
+        font-size: 46px !important;
     }
 
     @media (max-width: $mobile)
     {
-        font-size: 40px;
+        font-size: 40px !important;
     }
 }
 
 h2
 {
-    font-size: 46px;
+    font-size: 46px !important;
   
     &:not(b, l) {font-weight: 600;}
       
     @media (max-width: $tablet)
     {
-        font-size: 40px;
+        font-size: 40px !important;
     }
 
     @media (max-width: $mobile)
     {
-        font-size: 34px;
+        font-size: 34px !important;
     }
 }
 
 h3
 {
-    font-size: 40px;
+    font-size: 40px !important;
   
     &:not(b, l) {font-weight: 600;}
       
     @media (max-width: $tablet)
     {
-        font-size: 34px;
+        font-size: 34px !important;
     }
 
     @media (max-width: $mobile)
     {
-        font-size: 28px;
+        font-size: 28px !important;
     }
 }
 
 h4
 {
-    font-size: 28px;
+    font-size: 28px !important;
     font-family: Nunito, Lato, Heveltica;
   
     &:not(b, l) {font-weight: 600;}
       
     @media (max-width: $tablet)
     {
-        font-size: 22px;
+        font-size: 22px !important;
     }
 
     @media (max-width: $mobile)
     {
-        font-size: 16px;
+        font-size: 16px !important;
     }
 }
 
 h5
 {
-    font-size: 16px;
+    font-size: 16px !important;
     font-family: Nunito, Lato, Heveltica;
   
     &:not(b, l) {font-weight: 600;}
       
     @media (max-width: $tablet)
     {
-        font-size: 14px;
+        font-size: 14px !important;
     }
 
     @media (max-width: $mobile)
     {
-        font-size: 12px;
+        font-size: 12px !important;
     }
 }
 
 h6
 {
-    font-size: 12px;
+    font-size: 12px !important;
     font-family: Nunito, Lato, Heveltica;
   
     &:not(b, l) {font-weight: 600;}
       
     @media (max-width: $tablet)
     {
-        font-size: 10px;
+        font-size: 10px !important;
     }
 
     @media (max-width: $mobile)
     {
-        font-size: 8px;
+        font-size: 8px !important;
     }
 }
 
@@ -288,6 +288,9 @@ blockquote cite:before
 {
     font-family: Nunito, Lato, Heveltica;
     border: 1px solid #DDDDDD;
+  
+    height: 300px;
+    min-height: 100px;
 }
 
 .parallax
