@@ -7,4 +7,5 @@ To Do:
  - [~]  Add sound engine (to play from youtube)
  - [~]  Add currency system (info stored in Firebase)
  - [~]  Add advanced games (Word Search, Treasure Hunt, Command Maze, etc.)
+ - [~]  Get a better logo!
  - [~]  Gain Popularity
