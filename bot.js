@@ -396,6 +396,7 @@ var commands = {
         {
             let slappedUser = (message.mentions.members.first());
             if (!slappedUser) return message.channel.send("You must mention a user!");
+            if (slappedUser.user.id == message.user.id) return "Self Harm is not permitted!";
 
             let slaps = ["https://media1.giphy.com/media/uG3lKkAuh53wc/giphy.gif", "https://media.giphy.com/media/vxvNnIYFcYqEE/giphy.gif", "https://media.giphy.com/media/xULW8nNDLNVlBY77dm/giphy.gif", "https://media.giphy.com/media/gSIz6gGLhguOY/giphy.gif", "https://media.giphy.com/media/10KJUgvMoiSVSo/giphy.gif", "https://media.giphy.com/media/8cD5U8FgIcOQ/giphy.gif", "https://media.giphy.com/media/3vDS40HZxJwFGTbXoI/giphy.gif", "https://media.giphy.com/media/3oEdvdHf6n0US87Tri/giphy.gif", "https://media.giphy.com/media/1J8vRWb8xUByw/giphy.gif"];
 
@@ -424,7 +425,8 @@ var commands = {
         run: function(message, args, data)
         {
             let hugged = (message.mentions.members.first());
-            if (!hugged) return message.channel.send("You must mention a user to hug!");
+            if (!hugged) return ("You must mention a user to hug!");
+            if (hugged.user.id == message.user.id) return "Please do not be that lonely!";
 
             let hugs = ["https://i.imgur.com/6rxDiFS.gif", "https://i.imgur.com/c3WzMZu.gif", "https://i.imgur.com/V5G9LMz.mp4", "https://media.giphy.com/media/2FayVoBQ0oxVel3aM/giphy.gif", "https://media.giphy.com/media/IuCSOHcDlooPm/giphy.gif", "https://media.giphy.com/media/EvYHHSntaIl5m/giphy.gif", "https://media.giphy.com/media/3M4NpbLCTxBqU/giphy.gif", "https://media.giphy.com/media/lXiRKBj0SAA0EWvbG/giphy.gif", "https://media.giphy.com/media/llmZp6fCVb4ju/giphy.gif", "https://media.giphy.com/media/16bJmyPvRbCDu/giphy.gif", "https://media.giphy.com/media/3oEjI72YdcYarva98I/giphy.gif", "https://media.giphy.com/media/Bj9k1U69GZ8Iw/giphy.gif"];
 
@@ -454,8 +456,9 @@ var commands = {
         {
             let victum = (message.mentions.members.first());
             if (!victum) return message.channel.send("You must mention a user!");
+            if (victum.user.id == message.user.id) return "Self Harm is not permitted!";
 
-            let punches = ["https://media.giphy.com/media/3o7WTBPWWzcjDyTlGU/giphy.gif", "https://media.giphy.com/media/EYD7OzuuTfRVC/giphy.gif", "https://media.giphy.com/media/GoN89WuFFqb2U/giphy.gif", "https://media.giphy.com/media/3oEhn4mIrTuCf0bn1u/giphy.gif", "https://media.giphy.com/media/DViGV8rfVjw6Q/giphy.gif", "https://media.giphy.com/media/pLnxbpVosgjE4/giphy.gif"];
+            let punches = ["https://media.giphy.com/media/3o7WTBPWWzcjDyTlGU/giphy.gif", "https://media.giphy.com/media/EYD7OzuuTfRVC/giphy.gif", "https://media.giphy.com/media/GoN89WuFFqb2U/giphy.gif", "https://media.giphy.com/media/3oEhn4mIrTuCf0bn1u/giphy.gif", "https://media.giphy.com/media/DViGV8rfVjw6Q/giphy.gif", "https://media.giphy.com/media/pLnxbpVosgjE4/giphy.gif", "https://media.giphy.com/media/zPfWFc6ZUWGQM/giphy.gif"];
 
             let embed = new Embed()
                 .setTitle(message.member.displayName.split("_")
@@ -483,8 +486,9 @@ var commands = {
         {
             let victum = (message.mentions.members.first());
             if (!victum) return message.channel.send("You must mention a user!");
+            if (victum.user.id == message.user.id) return "Stop trying to do a blighty (look it up) and get back up there, Soldier!";
 
-            let shots = ["https://media.giphy.com/media/M4hHth10WJ2Fi/giphy.gif", "https://media.giphy.com/media/2uvG5Dn1K7pEA/giphy.gif", "https://media.giphy.com/media/EizPK3InQbrNK/giphy.gif", "https://media.giphy.com/media/7qeOvQC1pRFJK/giphy.gif", "https://media.giphy.com/media/14wfa45kICmaBO/giphy.gif"];
+            let shots = ["https://media.giphy.com/media/M4hHth10WJ2Fi/giphy.gif", "https://media.giphy.com/media/2uvG5Dn1K7pEA/giphy.gif", "https://media.giphy.com/media/EizPK3InQbrNK/giphy.gif", "https://media.giphy.com/media/7qeOvQC1pRFJK/giphy.gif", "https://media.giphy.com/media/14wfa45kICmaBO/giphy.gif", "https://media.giphy.com/media/l0HlOJcFhgwoQP1GE/giphy.gif", "https://media.giphy.com/media/PUY972zpherGE/giphy.gif", "https://media.giphy.com/media/3o6Zt1gBcG3dn3b4WI/giphy.gif"];
           
             let embed = new Embed()
                 .setTitle(message.member.displayName.split("_")
