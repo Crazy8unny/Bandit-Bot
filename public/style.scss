@@ -73,19 +73,17 @@ body, html
         text-shadow: 0 0 15px rgba(0, 204, 204, 0.5);
         text-transform: uppercase;
       
-        @media (max-width: $mobile)
-        {
-            font-size: 16px;
-        }
-      
-      
         @media (max-width: $tablet)
         {
             font-size: 32px;
         }
       
-        background: rgba(0, 0, 0, 0.4);
-    }
+        @media (max-width: $mobile)
+        {
+            font-size: 16px;
+        }
+      
+        background: rgba(0, 0, 0, 0.4);     }
 }
 
 .section
@@ -94,4 +92,101 @@ body, html
     z-index: 2;
     
     padding: 10px;
+}
+
+h1 
+{
+    font-size: 52px;
+  
+    &:not(b, l) {font-weight: 600;}
+      
+    @media (max-width: $tablet)
+    {
+        font-size: 46px;
+    }
+
+    @media (max-width: $mobile)
+    {
+        font-size: 40px;
+    }
+}
+
+h2
+{
+    font-size: 46px;
+  
+    &:not(b, l) {font-weight: 600;}
+      
+    @media (max-width: $tablet)
+    {
+        font-size: 40px;
+    }
+
+    @media (max-width: $mobile)
+    {
+        font-size: 34px;
+    }
+}
+
+h3
+{
+    font-size: 40px;
+  
+    &:not(b, l) {font-weight: 600;}
+      
+    @media (max-width: $tablet)
+    {
+        font-size: 34px;
+    }
+
+    @media (max-width: $mobile)
+    {
+        font-size: 28px;
+    }
+}
+
+h4
+{
+    font-size: 16px;
+  
+    &:not(b, l) {font-weight: 600;}
+      
+    @media (max-width: $tablet)
+    {
+        font-size: 14px;
+    }
+}
+
+h5
+{
+    font-size: 52px;
+  
+    &:not(b, l) {font-weight: 600;}
+      
+    @media (max-width: $tablet)
+    {
+        font-size: 42px;
+    }
+
+    @media (max-width: $mobile)
+    {
+        font-size: 32px;
+    }
+}
+
+h6
+{
+    font-size: 52px;
+  
+    &:not(b, l) {font-weight: 600;}
+      
+    @media (max-width: $tablet)
+    {
+        font-size: 42px;
+    }
+
+    @media (max-width: $mobile)
+    {
+        font-size: 32px;
+    }
 }
