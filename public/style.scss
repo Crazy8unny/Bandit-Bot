@@ -406,8 +406,8 @@ ul {
   list-style-type: none;
 }
 
-ul li:before {
-  content: '\2014';
-  position: absolute;
-  margin-left: -20px;
+li:before {
+    content: "-"; /* Insert content that looks like bullets */
+    padding-right: 8px;
+    color: #999999; /* Or a color you prefer */
 }
