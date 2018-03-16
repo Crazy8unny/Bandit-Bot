@@ -747,7 +747,7 @@ var commands = {
                 embed.setFooter("Type " + prefix + "help `<command>` to get more information about a command (usage, arguments, etc.)");
 
                 message.author.send(embed);
-                message.channel.send(`✅ A Message containing the commands avaliable to you from the specified category (**${category}**) has been sent to your DMs!`);
+                message.channel.send(`✅ A Message containing the commands avaliable to you from the specified category (**${category}**) has been sent to your DMs!\n\n_Note: If you haven't recieved anything yet, you need to enable messages from server members!_`);
             }
             else
             {
@@ -765,7 +765,7 @@ var commands = {
                     message.author.send(embed);
                     embed.setFooter("Type " + prefix + "help `<command>` to get more information about a command (usage, arguments, etc.)");
                 }
-                message.channel.send(`✅ Messages containing the commands avaliable to you have been sent to your DMs!`);
+                message.channel.send(`✅ Messages containing the commands avaliable to you have been sent to your DMs!\n\n_Note: If you haven't recieved anything yet, you need to enable messages from server members!_`);
             }
 
         }
@@ -1576,6 +1576,22 @@ var commands = {
                     }
                 });
             });
+        }
+    },
+    roll:
+    {
+        name: "Roll",
+        description: "Rolls a dice for you.",
+        category: "General",
+        arguments: ["-r title", "-r message", "-o colour", "-o thumbnail"],
+        permission: 10,
+        usage: `${prefix}hook`,
+        exampleusage: `${prefix}hook test hook,, test body,, #FF0000,, https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FBalls.jpg`,
+        run: function(message, args, data)
+        {
+            let hookArgs = message.content.slice(prefix.length + 4).split(",,"); 
+
+            hook(message.channel, hookArgs[0], hookArgs[1], hookArgs[2], hookArgs[3]);
         }
     },
 
