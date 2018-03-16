@@ -1582,16 +1582,22 @@ var commands = {
     {
         name: "Roll",
         description: "Rolls a dice for you.",
-        category: "General",
-        arguments: ["-r title", "-r message", "-o colour", "-o thumbnail"],
-        permission: 10,
-        usage: `${prefix}hook`,
-        exampleusage: `${prefix}hook test hook,, test body,, #FF0000,, https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FBalls.jpg`,
+        category: "Fun & Games",
+        arguments: [],
+        permission: 1,
+        usage: `${prefix}roll`,
+        exampleusage: `${prefix}roll`,
         run: function(message, args, data)
         {
-            let hookArgs = message.content.slice(prefix.length + 4).split(",,"); 
-
-            hook(message.channel, hookArgs[0], hookArgs[1], hookArgs[2], hookArgs[3]);
+            let number = Math.floor(Math.random() * 5) + 1;
+          
+            if (number == 6)
+            {
+                let number2 = Math.floor(Math.random() * 5) + 1;
+                number += number2;
+            }
+          
+            message.channel.send("You rolled a **" + number + "**!");
         }
     },
 
