@@ -37,13 +37,18 @@ html
 a
 {
     color: #00CCCC !important;
-    text-decoration: underline !important;
+    text-decoration: underline;
     cursor: pointer !important;
   
     user-select: none !important;
     -moz-user-select: none !important;
     -webkit-user-select: none !important;
     -o-user-select: none !important;
+    
+    p
+    {
+      text-decoration: underline !important;
+    }
 }
 
 .cover-img
@@ -425,35 +430,68 @@ blockquote cite:before
 .navigation
 {
     position: fixed;
-  
-    left: -20%;
+    left: -0%;
   
     width: 20%;
+    height: 100%;  
+    
+    margin:  0;
   
-  @media (max-width: $tablet)
-  {
-      left: -0%;
-
-      width: 40%;
-  }
+    z-index: 3;
   
-  @media (max-width: $phablet)
-  {
-      left: -0%;
+    @media (max-width: $tablet)
+    {
+        left: -40%;
 
-      width: 50%;
-  }
+        width: 40%;
+    }
+
+    @media (max-width: $phablet)
+    {
+        left: -50%;
+
+        width: 50%;
+    }
+
+    @media (max-width: $mobile)
+    {
+        left: -90%;
+
+        width: 90%;
+    }
   
-  @media (max-width: $mobile)
-  {
-      left: -90%;
-
-      width: 90%;
-  }
     background: red;
   
     ul
     {
         list-style-type: none;
+    }
+    
+    li:not(:first-child)
+    {
+        margin-top: 10px;
+    }
+    
+    li:not(:last-child)
+    {
+        margin-bottom: 10px;
+    }
+  
+    li
+    {
+        font-size: 1.5em;
+      
+        border-bottom: 1px solid #FFF;
+      
+        h3
+        {
+            margin-left: 1.5em;
+        }
+    }
+  
+    a li
+    {
+        color: #FFFFFF !important;
+        text-decoration: none !important;
     }
 }
