@@ -1611,7 +1611,7 @@ var commands = {
         exampleusage: `${prefix}deathbattle @furvux#2414`,
         run: function(message, args, data)
         {
-            let verbs = ["slaps", "punches", "spits upon", "hits", "shoots", "kicks", "bodyslams", "tries out jujitsu"];
+            let verbs = ["slaps", "punches", "spits upon", "hits", "shoots", "kicks", "bodyslams", "tries out jujitsu on"];
             let avecs = ["a cod fish", "a gun", "John Doe", "their leg", "a brass cup", "a plastic chair", "an aeroplane"];
             
             if (!args[0]) return "You need to fight with someone!";
@@ -1624,14 +1624,15 @@ var commands = {
           
             let health1 = 100;
             let health2 = 100;
-          
-            let embed = new Embed();
-          
-            embed.setTitle("__" + player1.displayName + " vs " + player2.displayName + "__");
-          
-            embed.addField(player1.displayName + "'s Health", health1);
             
             let turn = 1;
+          
+            let oembed = new Embed();
+
+            oembed.setTitle("__" + player1.displayName + " vs " + player2.displayName + "__");
+
+            oembed.addField(player1.displayName + "'s Health", health1);
+            oembed.addField(player2.displayName + "'s Health", health2);
           
             setInterval(function() 
             {
@@ -1639,13 +1640,21 @@ var commands = {
                 let aid = util.randomItem(avecs);
               
                 let damage = Math.floor(Math.random() * 15);
+                        
+                let embed = new Embed();
+
+                embed.setTitle("__" + player1.displayName + " vs " + player2.displayName + "__");
+
+                embed.addField(player1.displayName + "'s Health", health1);
+                embed.addField(player2.displayName + "'s Health", health2);
+              
                 if (damage == 0)
                 {
                     //Missed
                 }
                 else
                 {
-                    
+                    embed.setDescription((turn == 1 ? player1.displayName : player2.displayName) + " " + action + "");
                 }
             });
         }
