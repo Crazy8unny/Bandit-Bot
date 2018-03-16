@@ -27,6 +27,7 @@ var gameIDs = {};
 var assets = {};
 assets.XO = {};
 assets.CoinFlip = {};
+assets.DeathBattle = {};
 
 var serverdata = {};
 
