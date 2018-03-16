@@ -1534,8 +1534,7 @@ var commands = {
                                   if (game.players && game.players.indexOf(message.author.id) != -1)
                                   {
                                       let winner = game.players.indexOf(message.author.id) == 0 ? "X" : "O";
-                                      console.log(game.players);
-
+                                      
                                       if (winner != "-")
                                       {
                                           if (winner == "X")
@@ -1589,7 +1588,6 @@ function toBufferAndSend(image, message, text)
 {
     image.getBuffer(Jimp.MIME_PNG, function(e, buffer)
     {
-        console.log("13");
         if (e)
         {
             console.error(e);
