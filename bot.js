@@ -1516,6 +1516,55 @@ var commands = {
                         playing.splice(playing.indexOf(message.author.id), 1);
                         
                         let game = checkGame(message.member);
+                      
+                        if (!game) return;
+                      
+                        switch (game)
+                        {
+                          case 0xCAFE25151:
+                              for (let gameID in games.XO)
+                              {   
+                                  if (gameID == "Playing") continue;
+
+                                  let game = games.XO[gameID];
+                                  if (game.players && game.players.indexOf(message.author.id) != -1)
+                                  {
+                                      let winner = game.players[game.players.indexOf(message.author.id)] == 0 ? "X" : "O";
+
+                                      if (winner != "-")
+                                      {
+                                          if (winner == "X")
+                                          {
+                                              message.channel.send(":tada: Because the opponent left, <@" + game.players[0] + ">, you have won! Well Done! :tada:");
+                                              message.channel.send("You left the game, <@" + game.players[1] + ">. Wow.");
+                                          }
+                                          else if (winner == "O")
+                                          {
+                                              message.channel.send(":tada: Because the opponent left, <@" + game.players[1] + ">, you have won! Well Done! :tada:");
+                                              message.channel.send("You left the game, <@" + game.players[0] + ">. Wow.");
+                                          }
+                                        
+                                          var index = playing.indexOf(game.players[0]);
+                                          if (index > -1)
+                                          {
+                                              playing.splice(index, 1);
+                                          }
+                                          index = playing.indexOf(game.players[1]);
+                                          if (index > -1)
+                                          {
+                                              playing.splice(index, 1);
+                                          }
+                                          delete games.XO[gameID];
+                                      }
+                                  }
+                              }
+                              break;
+                          case 0xCAFE25152:
+                              break;
+                          default:
+                              break;
+                        }
+                          
                     }
                     else if (r.emoji.name == "❎")
                     {
