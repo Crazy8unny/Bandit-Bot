@@ -424,9 +424,9 @@ blockquote cite:before
 .navigation
 {
     position: fixed;
-    left: -15%;
+    left: -20%;
   
-    width: 15%;
+    width: 20%;
     height: 100%;  
     
     margin:  0;
@@ -435,27 +435,27 @@ blockquote cite:before
   
     z-index: 3;
   
-    @media (max-width: $desktopHD)
+    @media (min-width: $desktopHD)
     {
         left: -20%;
         width: 20%;
     }
   
-    @media (max-width: $desktop)
+    @media (min-width: $desktop)
     {
         left: -25%;
 
         width: 25%;
     }
   
-    @media (max-width: $tablet)
+    @media (min-width: $tablet)
     {
         left: -40%;
 
         width: 40%;
     }
 
-    @media (max-width: $phablet)
+    @media (min-width: $phablet)
     {
         left: -50%;
 
