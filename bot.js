@@ -1513,11 +1513,12 @@ var commands = {
                         {
                             return "You are not even playing a game!";
                         }
-                        playing.splice(playing.indexOf(message.author.id), 1);
                         
                         let game = checkGame(message.member);
                       
                         if (!game) return;
+                      
+                        playing.splice(playing.indexOf(message.author.id), 1);
                       
                         switch (game)
                         {
