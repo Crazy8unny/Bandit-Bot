@@ -1,6 +1,4 @@
 
 
 
-      let hookArgs = message.content.slice(prefix.length + 4).split(","); 
-
-      hook(message.channel, hookArgs[0], hookArgs[1], hookArgs[2], hookArgs[3]);
+      

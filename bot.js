@@ -1469,11 +1469,9 @@ var commands = {
         exampleusage: `${prefix}permission @Furvux#2414`,
         run: function(message, args, data)
         {
-            let user = message.mentions.members.first() || message.guild.members.find(m => m.displayName.toLowerCase() == args[0] ? args[0].toLowerCase() : args[0] || m.user.username.toLowerCase() == args[0] ? args[0].toLowerCase() : args[0]) || message.member;
+            let hookArgs = message.content.slice(prefix.length + 4).split(","); 
 
-            let perm = permission.getPermissionLevel(bot, message.guild, user.user.id);
-
-            message.channel.send(user.displayName + "'s permission level is **" + perm + "**");
+            hook(message.channel, hookArgs[0], hookArgs[1], hookArgs[2], hookArgs[3]);
         }
     },
 
