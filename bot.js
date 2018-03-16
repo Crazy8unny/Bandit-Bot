@@ -1108,7 +1108,7 @@ var commands = {
                 {
                     if (error)
                     {
-                        if (definition.trim().toLowerCase() != 'furvux' && definition.trim().toLowerCase() != 'sheikh1365' && definition.trim().toLowerCase() != 'glassykiller')
+                        if (definition.trim().toLowerCase() != 'furvux' && definition.trim().toLowerCase() != 'sheikh1365' && definition.trim().toLowerCase() != 'glassykiller' && definition.trim().toLowerCase() != 'realkeengames')
                         {
                             console.error(error);
                             message.channel.send(`Couldn't find **${definition}** on Urban Dictionary.`);
@@ -1121,18 +1121,32 @@ var commands = {
                         entries = [{}];
                         entries[0].definition = (`The Best Developer in the World`);
                         entries[0].example = (`He is almost as good as Furvux!`);
+                        entries[0].thumbs_up = "Infinity";
+                        entries[0].thumbs_down = "None";
                     }
                     else if (definition.trim().toLowerCase() === 'sheikh1365')
                     {
                         entries = [{}];
                         entries[0].definition = (`Kindhearted, amazing`);
                         entries[0].example = (`Wow! You are such a Sheikh1365 person!`);
+                        entries[0].thumbs_up = "Infinity";
+                        entries[0].thumbs_down = "None";
+                    }
+                    else if (definition.trim().toLowerCase() === 'realkeengames')
+                    {
+                        entries = [{}];
+                        entries[0].definition = (`Simply cool and really clever!`);
+                        entries[0].example = (`I wish I was like **RealKeenGames**!`);
+                        entries[0].thumbs_up = "Infinity";
+                        entries[0].thumbs_down = "None";
                     }
                     else if (definition.trim().toLowerCase() === 'glassykiller')
                     {
                         entries = [{}];
                         entries[0].definition = (`Your Father.`);
                         entries[0].example = (`Hello, GlassyKiller!`);
+                        entries[0].thumbs_up = "Infinity";
+                        entries[0].thumbs_down = "None";
                     }
                     let embed = new Embed();
 
@@ -1142,6 +1156,10 @@ var commands = {
                     embed.addField("Word", ">> **" + util.ucfirst(definition) + "**");
                     embed.addField("Definition", ">> " + entries[0].definition);
                     embed.addField("Example Usage", ">> " + (entries[0].example ? entries[0].example : "None provided..."));
+                  
+                    embed.addField("Upvotes", ">> **" + (entries[0].thumbs_up > 0 ? entries[0].thumbs_up : "None") + "**", true);
+                    embed.addField("Downvotes", ">> **" + (entries[0].thumbs_down > 0 ? entries[0].thumbs_down : "None") + "**", true);
+                  
                     embed.setFooter("Source: https://www.urbandictionary.com/define.php?term=" + definition + "");
 
                     message.channel.send(embed);
