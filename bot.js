@@ -1649,14 +1649,14 @@ var commands = {
                     embed.setColor(data.display_colour.hex);
 
                     embed.setTitle("__" + player1.displayName + " vs " + player2.displayName + "__");
-
+console.log(damage);
                     if (damage == 0)
                     {
-                        embed.setDescription("**" + (turn == 1 ? player1.displayName : player2.displayName) + "** " + action + " **" + (turn == 1 ? player2.displayName : player1.displayName) + "** with " + aid + ", but THEY MISSED!!!\n**" + damage + "** damage delt.");
+                        embed.setDescription("**" + (turn == 1 ? player1.displayName : player2.displayName) + "** " + action + " **" + (turn == 1 ? player2.displayName : player1.displayName) + "** with " + aid + ", but THEY MISSED!!!\n**" + damage + "** damage was delt.");
                     }
                     else
                     {
-                        embed.setDescription("**" + (turn == 1 ? player1.displayName : player2.displayName) + "** " + action + " **" + (turn == 1 ? player2.displayName : player1.displayName) + "** with " + aid + "!\n**" + damage + "** damage delt.");
+                        embed.setDescription("**" + (turn == 1 ? player1.displayName : player2.displayName) + "** " + action + " **" + (turn == 1 ? player2.displayName : player1.displayName) + "** with " + aid + "!\n**" + damage + "** damage was delt.");
                     }
 
                     if (turn == 1)
@@ -1675,20 +1675,22 @@ var commands = {
                         let wEmbed = new Embed();
                         wEmbed.setColor("#FFBB00");
                         wEmbed.setTitle("🏆 __" + player2.displayName + " has won!__ 🏆");
-                        wEmbed.setDescription("Well done, " + player2.displayName + "! " + ending + " "(health2 < 10 ? "It was a close match though!" : "There was no way you were going to be beaten!"));
+                        wEmbed.setDescription("Well done, " + player2.displayName + "! " + ending + " " + (health2 < 10 ? "It was a close match though!" : "There was no way you were going to be beaten!"));
                         
                         msg.edit(wEmbed);
-                        clearInterval();
+                        clearInterval(this);
                     }
                     else if (health2 < 0)
                     {
+                        let ending = util.randomItem(endings).split("{DEAD}").join(player2.displayName).split("{ALIVE}").join(player1.displayName);
+                      
                         let wEmbed = new Embed();
                         wEmbed.setColor("#FFBB00");
                         wEmbed.setTitle("🏆 __" + player1.displayName + " has won!__ 🏆");
-                        wEmbed.setDescription("Well done, " + player1.displayName + "! You beat up " + player2.displayName + " badly!");
+                        wEmbed.setDescription("Well done, " + player1.displayName + "! " + ending + " " + (health1 < 10 ? "It was a close match though!" : "There was no way you were going to be beaten!"));
                         
                         msg.edit(wEmbed);
-                        clearInterval();
+                        clearInterval(this);
                     }
                     else
                     {
@@ -1699,7 +1701,7 @@ var commands = {
                         turn = 3 - turn;
                     }
 
-                }, 1500);
+                }, 1200);
             });
           
             
