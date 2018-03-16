@@ -1759,7 +1759,7 @@ function arrayIsNaN(array)
 
 process.on('unhandledRejection', (reason, p) => 
 {
-    console.info('Unhandled Rejection at:' + p + '\nReason:' + reason);
+    console.error('Unhandled Rejection at: ' + p + '\nReason: ' + reason);
   
 });
 
