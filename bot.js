@@ -1631,32 +1631,66 @@ var commands = {
 
             oembed.setTitle("__" + player1.displayName + " vs " + player2.displayName + "__");
 
-            oembed.addField(player1.displayName + "'s Health", health1);
-            oembed.addField(player2.displayName + "'s Health", health2);
+            oembed.addField("__" + player1.displayName + "'s Health", health1, true);
+            oembed.addField("__" + player2.displayName + "'s Health", health2, true);
           
-            setInterval(function() 
+            message.channel.send(oembed).then(function(msg) 
             {
-                let action = util.randomItem(verbs);
-                let aid = util.randomItem(avecs);
-              
-                let damage = Math.floor(Math.random() * 15);
-                        
-                let embed = new Embed();
-
-                embed.setTitle("__" + player1.displayName + " vs " + player2.displayName + "__");
-
-                embed.addField(player1.displayName + "'s Health", health1);
-                embed.addField(player2.displayName + "'s Health", health2);
-              
-                if (damage == 0)
+                setInterval(function() 
                 {
-                    //Missed
-                }
-                else
-                {
-                    embed.setDescription((turn == 1 ? player1.displayName : player2.displayName) + " " + action + "");
-                }
+                    let action = util.randomItem(verbs);
+                    let aid = util.randomItem(avecs);
+
+                    let damage = Math.floor(Math.random() * 15);
+
+                    let embed = new Embed();
+
+                    embed.setTitle("__" + player1.displayName + " vs " + player2.displayName + "__");
+
+                    if (damage == 0)
+                    {
+                        embed.setDescription("**" + (turn == 1 ? player1.displayName : player2.displayName) + " " + action + " **" + (turn == 1 ? player2.displayName : player1.displayName) + "** with " + aid + ", but THEY MISSED!!!");
+                    }
+                    else
+                    {
+                        embed.setDescription("**" + (turn == 1 ? player1.displayName : player2.displayName) + "** " + action + " **" + (turn == 1 ? player2.displayName : player1.displayName) + "** with " + aid + "!");
+                    }
+
+                    if (turn == 1)
+                    {
+                        health2 -= damage;
+                    }
+                    else
+                    {
+                        health1 -= damage;
+                    }
+
+                    if (health1 < 0)
+                    {
+                        let wEmbed = new Embed();
+                        wEmbed.setTitle("🏆 __" + player2.displayName + " has won!__ 🏆");
+                        wEmbed.setDescription("Well done, " + player2.displayName + "! You beat up " + player1.displayName + " badly!");
+                        clearInterval();
+                    }
+                    else if (health2 < 0)
+                    {
+                        let wEmbed = new Embed();
+                        wEmbed.setTitle("🏆 __" + player1.displayName + " has won!__ 🏆");
+                        wEmbed.setDescription("Well done, " + player1.displayName + "! You beat up " + player2.displayName + " badly!");
+                        clearInterval();
+                    }
+                    else
+                    {
+                        embed.addField("__" + player1.displayName + "'s Health__", health1, true);
+                        embed.addField("__" + player2.displayName + "'s Health__", health2, true);
+
+                        msg.edit(embed);
+                    }
+
+                }, 500);
             });
+          
+            
         }
     },
 
