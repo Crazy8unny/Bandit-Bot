@@ -1,5 +1,5 @@
 To Do:
 ======
-  - [~] Leave Game command
-  - [~] Deathbattle game command
-  - [~] Shoot Fun Command
+  - **[x]** ~~Leave Game command~~
+  - **[x]** ~~Deathbattle game command~~
+  - **[x]** ~~Shoot Fun Command~~

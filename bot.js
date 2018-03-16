@@ -1649,7 +1649,7 @@ var commands = {
                     embed.setColor(data.display_colour.hex);
 
                     embed.setTitle("__" + player1.displayName + " vs " + player2.displayName + "__");
-console.log(damage);
+
                     if (damage == 0)
                     {
                         embed.setDescription("**" + (turn == 1 ? player1.displayName : player2.displayName) + "** " + action + " **" + (turn == 1 ? player2.displayName : player1.displayName) + "** with " + aid + ", but THEY MISSED!!!\n**" + damage + "** damage was delt.");
