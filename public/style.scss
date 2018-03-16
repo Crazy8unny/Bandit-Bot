@@ -478,13 +478,13 @@ blockquote cite:before
         position: relative;
         display: block;
       
-        border-bottom: 1px solid #FFFFFF;
       
         i
         {
             font-size: 36px;
             float: left;
-            margin-right: 15px;
+            margin-left: 15px;
+            margin-top: 15px;
             line-height: 30px;
             width: 30px;
             text-align: center;
@@ -492,7 +492,9 @@ blockquote cite:before
       
         p
         {
-            margin: 0;
+            display: inline;
+            position: relative;
+            top: 15px;
             line-height: 30px;
             font-size: 18px;
             font-weight: 600;
@@ -503,10 +505,27 @@ blockquote cite:before
             color: #FFFFFF !important;
             text-decoration: none !important;
 
-            margin: 10px 0px;
+            margin-left: 20px;
             padding-left: 25px;
             padding-right: 25px;
             opacity: .7;
         }
+        
+        a:hover
+        {
+            opacity: 1;
+        }
     }
+}
+
+.navigation-icon
+{
+    position: fixed;
+    margin: 0;
+    top: 5px;
+    left: 15px;
+    z-index: 5;
+    color: #FFFFFF;
+    font-size: 36px;
+    text-shadow: 0 0 15px rgba(0, 0, 0, 1);
 }
