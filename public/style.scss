@@ -302,7 +302,7 @@ blockquote cite:before
     font-family: Nunito, Lato, Heveltica;
     border: 1px solid #DDDDDD;
   
-    height: 250px;
+    height: au;
     min-height: 100px;
 }
 
@@ -435,6 +435,13 @@ blockquote cite:before
     opacity: 0;
   
     z-index: 3;
+  
+    @media (max-width: $desktop)
+    {
+        left: -25%;
+
+        width: 25%;
+    }
   
     @media (max-width: $tablet)
     {
