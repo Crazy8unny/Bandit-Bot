@@ -432,6 +432,8 @@ blockquote cite:before
     
     margin:  0;
   
+    opacity: 0;
+  
     z-index: 3;
   
     @media (max-width: $tablet)
