@@ -49,7 +49,7 @@ bot.on('ready', async function()
     console.log('Bot is online - ' + bot.user.tag);
     try
     {
-        let link = await bot.generateInvite(["MANAGE_MESSAGES", "SEND_MESSAGES", "READ_MESSAGES", "READ_MESSAGE_HISTORY", "ADD_REACTIONS", "EMBED_LINKS", "CREATE_INSTANT_INVITE", "ATTACH_FILES"])
+        let link = await bot.generateInvite(["MANAGE_MESSAGES", "SEND_MESSAGES", "READ_MESSAGES", "READ_MESSAGE_HISTORY", "ADD_REACTIONS", "EMBED_LINKS", "CREATE_INSTANT_INVITE", "ATTACH_FILES", "MANAGE_WEBHOOKS"])
         console.log("Invite: " + link);
     }
     catch (e)
@@ -1474,6 +1474,23 @@ var commands = {
             hook(message.channel, hookArgs[0], hookArgs[1], hookArgs[2], hookArgs[3]);
         }
     },
+    leavegame:
+    {
+        name: "Leave Game",
+        description: "Leaves the current game the user is playing.",
+        category: "Fun & Games",
+        arguments: [],
+        permission: 10,
+        usage: `${prefix}leavegame`,
+        exampleusage: `${prefix}leavegame`,
+        run: function(message, args, data)
+        {
+            if (playing.indexOf(message.author.id) == -1)
+            {
+                
+            }
+        }
+    },
 
 };
 
@@ -1804,7 +1821,10 @@ function hook(channel, title, message, color, avatar) {
                           "avatarURL": avatar,
                           "embeds": [{
                               "color": parseInt(`0x${color}`),
-                              "description":message
+                              "description":message,
+                      thumbnail: {
+                           url: avatar
+                        }
                           }]
                       })
                           .catch(error => { 
@@ -1819,7 +1839,9 @@ function hook(channel, title, message, color, avatar) {
                   "embeds": [{
                       "color": parseInt(`0x${color}`),
                       "description":message,
-                      "thumbnail": avatar;
+                      thumbnail: {
+                           url: avatar
+                        }
                   }]
               })
                   .catch(error => { 
