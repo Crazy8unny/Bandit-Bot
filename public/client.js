@@ -33,3 +33,15 @@ $(document).ready(function()
         }
     });
 });
+
+if (typeof(Storage) !== "undefined") 
+{
+    localStorage.setItem("signedin", "true");
+    setTimeout(function() {console.log(localStorage.getItem("signedin"));}, 1000);
+    localStorage.setItem("data", {"username": "Test", "date": new Date()});
+    setTimeout(function() {console.log(JSON.parse(localStorage.getItem("data")));}, 1000);
+} 
+else 
+{
+    // Sorry! No Web Storage support..
+}
