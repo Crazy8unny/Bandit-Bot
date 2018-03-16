@@ -631,6 +631,7 @@ var commands = {
                 embed.setDescription("**Hello! I am " + bot.user.username + "!** I am a bot designed for fun and games!");
                 embed.addField("Getting Started", "Type `" + prefix + "commands` to see my commands\nType `" + prefix + "stats` to see some of my statistics");
                 embed.addField("Support", "Visit our Official Website: [https://tilde.glitch.me/](https://tilde.glitch.me/)\nJoin our Discord Dojo: [https://tilde.glitch.me/join](https://tilde.glitch.me/join) \nInvite me to your server: [https://tilde.glitch.me/invite](https://tilde.glitch.me/invite) \n");
+                embed.addField("__Help us Out__", "Help us out by [upvoting Tilde](https://discordbots.org/bot/421403753976037376/vote)!");
 
                 embed.setFooter("Requested by " + message.member.displayName, message.author.avatarURL);
                 message.channel.send(embed);
@@ -696,6 +697,8 @@ var commands = {
 
             embed.addField("🔨 Bot Developers 🔧", developers.join(",\n"));
             embed.addField("📮 Official Server 📮", ">> **[Tilde Dojo](<https://discord.gg/D7REjnU>)**");
+            embed.addBlankField();
+            embed.addField("__Help us Out__", "Help us out by [upvoting Tilde](https://discordbots.org/bot/421403753976037376/vote)!");
 
             embed.setFooter("Requested by " + message.member.displayName, message.author.avatarURL);
 
