@@ -1463,13 +1463,13 @@ var commands = {
         name: "Hook",
         description: "Creates a Webhook",
         category: "General",
-        arguments: [""],
-        permission: 15,
-        usage: `${prefix}permission`,
-        exampleusage: `${prefix}permission @Furvux#2414`,
+        arguments: ["-r title", "-r message", "-o colour", "-o thumbnail"],
+        permission: 10,
+        usage: `${prefix}hook`,
+        exampleusage: `${prefix}hook test hook,, test body,, #FF0000,, https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FBalls.jpg`,
         run: function(message, args, data)
         {
-            let hookArgs = message.content.slice(prefix.length + 4).split(","); 
+            let hookArgs = message.content.slice(prefix.length + 4).split(",,"); 
 
             hook(message.channel, hookArgs[0], hookArgs[1], hookArgs[2], hookArgs[3]);
         }
@@ -1779,14 +1779,16 @@ function loadData(src, dest)
 
 function hook(channel, title, message, color, avatar) {
 
-  if (!channel) return console.log('Channel not specified.');
-  if (!title) return console.log('Title not specified.');
-  if (!message) return console.log('Message not specified.');
-  if (!color) color = 'd9a744'; 
+  if (!channel) return ('Channel not specified.');
+  if (!title) return ('Title not specified.');
+  if (!message) return ('Message not specified.');
+  if (!color) color = '843B80'; 
   if (!avatar) avatar = 'https://cdn4.iconfinder.com/data/icons/technology-devices-1/500/speech-bubble-128.png' 
 
   color = color.replace(/\s/g, '');
   avatar = avatar.replace(/\s/g, '');
+  
+    if (color.startsWith("#")) color = color.substr(1);
 
   channel.fetchWebhooks()
       .then(webhook => {
@@ -1816,7 +1818,8 @@ function hook(channel, title, message, color, avatar) {
                   "avatarURL": avatar,
                   "embeds": [{
                       "color": parseInt(`0x${color}`),
-                      "description":message
+                      "description":message,
+                      "thumbnail": avatar;
                   }]
               })
                   .catch(error => { 
