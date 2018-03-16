@@ -44,11 +44,6 @@ a
     -moz-user-select: none !important;
     -webkit-user-select: none !important;
     -o-user-select: none !important;
-    
-    p
-    {
-      text-decoration: underline !important;
-    }
 }
 
 .cover-img
@@ -460,7 +455,7 @@ blockquote cite:before
         width: 90%;
     }
   
-    background: red;
+    background: #212120;
   
     ul
     {
@@ -480,18 +475,38 @@ blockquote cite:before
     li
     {
         font-size: 1.5em;
+        position: relative;
+        display: block;
       
-        border-bottom: 1px solid #FFF;
+        border-bottom: 1px solid #FFFFFF;
       
-        h3
+        i
         {
-            margin-left: 1.5em;
+            font-size: 36px;
+            float: left;
+            margin-right: 15px;
+            line-height: 30px;
+            width: 30px;
+            text-align: center;
         }
-    }
-  
-    a li
-    {
-        color: #FFFFFF !important;
-        text-decoration: none !important;
+      
+        p
+        {
+            margin: 0;
+            line-height: 30px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        a
+        {
+            color: #FFFFFF !important;
+            text-decoration: none !important;
+
+            margin: 10px 0px;
+            padding-left: 25px;
+            padding-right: 25px;
+            opacity: .7;
+        }
     }
 }
