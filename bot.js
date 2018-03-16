@@ -1480,15 +1480,49 @@ var commands = {
         description: "Leaves the current game the user is playing.",
         category: "Fun & Games",
         arguments: [],
-        permission: 10,
+        permission: 1,
         usage: `${prefix}leavegame`,
         exampleusage: `${prefix}leavegame`,
         run: function(message, args, data)
         {
             if (playing.indexOf(message.author.id) == -1)
             {
-                
+                return "You are not even playing a game!";
             }
+            
+            let checker = new Embed();
+            checker.setTitle("__Just Checking...__");
+            checker.setDescription("Are you sure you want to leave the game you are currently playing?");
+            checker.addField("Confirm", ">> React with ✅", true);
+            checker.addField("Cancel ", ">> React with ❎", true);
+          
+            const filter = (reaction, user) => user.id == message.author.id;
+
+            message.channel.send(checker).then(msg => 
+            {
+                msg.react("✅");
+                msg.react("❎");
+                const collector = msg.createReactionCollector(filter, { time: 60000 });
+                collector.on('collect', r => 
+                {
+                    if (r.emoji.name == "✅")
+                    {
+                        msg.delete();
+                      
+                        if (playing.indexOf(message.author.id) == -1)
+                        {
+                            return "You are not even playing a game!";
+                        }
+                        playing.splice(playing.indexOf(message.author.id), 1);
+                        
+                        let game = checkGame(message.member);
+                    }
+                    else if (r.emoji.name == "❎")
+                    {
+                        msg.delete();
+                    }
+                });
+            });
         }
     },
 
