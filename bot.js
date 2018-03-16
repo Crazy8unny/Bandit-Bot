@@ -1611,9 +1611,10 @@ var commands = {
         exampleusage: `${prefix}deathbattle @furvux#2414`,
         run: function(message, args, data)
         {
-            let verbs = ["slaps", "punches", "spits upon", "hits", "shoots", "kicks", "bodyslams", "tries out jujitsu on"];
-            let avecs = ["a cod fish", "a gun", "John Doe", "their leg", "a brass cup", "a plastic chair", "an aeroplane"];
-            
+            let verbs   = ["slaps", "punches", "spits upon", "hits", "shoots", "kicks", "bodyslams", "tries out jujitsu on"];
+            let avecs   = ["a cod fish", "a gun", "John Doe", "their leg", "a brass cup", "a plastic chair", "an aeroplane"];
+            let endings = ["Phew! You beat up {DEAD} really badly!", "My word! Someone get the ambulance for {DEAD}!", "Crap! {DEAD} got beaten so badly!", "Wow - {DEAD} just couldn't keep up with {ALIVE}'s sick skills!"];  
+          
             if (!args[0]) return "You need to fight with someone!";
           
             let player1 = message.member;
@@ -1628,11 +1629,12 @@ var commands = {
             let turn = 1;
           
             let oembed = new Embed();
+            oembed.setColor(data.display_colour.hex);
 
             oembed.setTitle("__" + player1.displayName + " vs " + player2.displayName + "__");
 
-            oembed.addField("__" + player1.displayName + "'s Health", health1, true);
-            oembed.addField("__" + player2.displayName + "'s Health", health2, true);
+            oembed.addField("__" + player1.displayName + "'s Health__", health1, true);
+            oembed.addField("__" + player2.displayName + "'s Health__", health2, true);
           
             message.channel.send(oembed).then(function(msg) 
             {
@@ -1644,16 +1646,17 @@ var commands = {
                     let damage = Math.floor(Math.random() * 15);
 
                     let embed = new Embed();
+                    embed.setColor(data.display_colour.hex);
 
                     embed.setTitle("__" + player1.displayName + " vs " + player2.displayName + "__");
 
                     if (damage == 0)
                     {
-                        embed.setDescription("**" + (turn == 1 ? player1.displayName : player2.displayName) + " " + action + " **" + (turn == 1 ? player2.displayName : player1.displayName) + "** with " + aid + ", but THEY MISSED!!!");
+                        embed.setDescription("**" + (turn == 1 ? player1.displayName : player2.displayName) + "** " + action + " **" + (turn == 1 ? player2.displayName : player1.displayName) + "** with " + aid + ", but THEY MISSED!!!\n**" + damage + "** damage delt.");
                     }
                     else
                     {
-                        embed.setDescription("**" + (turn == 1 ? player1.displayName : player2.displayName) + "** " + action + " **" + (turn == 1 ? player2.displayName : player1.displayName) + "** with " + aid + "!");
+                        embed.setDescription("**" + (turn == 1 ? player1.displayName : player2.displayName) + "** " + action + " **" + (turn == 1 ? player2.displayName : player1.displayName) + "** with " + aid + "!\n**" + damage + "** damage delt.");
                     }
 
                     if (turn == 1)
@@ -1667,16 +1670,24 @@ var commands = {
 
                     if (health1 < 0)
                     {
+                        let ending = util.randomItem(endings).split("{DEAD}").join(player1.displayName).split("{ALIVE}").join(player2.displayName);
+                      
                         let wEmbed = new Embed();
+                        wEmbed.setColor("#FFBB00");
                         wEmbed.setTitle("🏆 __" + player2.displayName + " has won!__ 🏆");
-                        wEmbed.setDescription("Well done, " + player2.displayName + "! You beat up " + player1.displayName + " badly!");
+                        wEmbed.setDescription("Well done, " + player2.displayName + "! " + ending + " "(health2 < 10 ? "It was a close match though!" : "There was no way you were going to be beaten!"));
+                        
+                        msg.edit(wEmbed);
                         clearInterval();
                     }
                     else if (health2 < 0)
                     {
                         let wEmbed = new Embed();
+                        wEmbed.setColor("#FFBB00");
                         wEmbed.setTitle("🏆 __" + player1.displayName + " has won!__ 🏆");
                         wEmbed.setDescription("Well done, " + player1.displayName + "! You beat up " + player2.displayName + " badly!");
+                        
+                        msg.edit(wEmbed);
                         clearInterval();
                     }
                     else
@@ -1685,9 +1696,10 @@ var commands = {
                         embed.addField("__" + player2.displayName + "'s Health__", health2, true);
 
                         msg.edit(embed);
+                        turn = 3 - turn;
                     }
 
-                }, 500);
+                }, 1500);
             });
           
             
