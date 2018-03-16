@@ -1600,6 +1600,25 @@ var commands = {
             message.channel.send("You rolled a **" + number + "**!");
         }
     },
+    deathbattle:
+    {
+        name: "Death Battle",
+        description: "Fight a fast-paced battle to the death with the user who is mentioned!",
+        category: "Fun & Games",
+        arguments: ["-r @user"],
+        permission: 10,
+        usage: `${prefix}deathbattle`,
+        exampleusage: `${prefix}deathbattle @furvux#2414`,
+        run: function(message, args, data)
+        {
+            let verbs = ["slaps", "punches", "spits upon", "hits", "shoots", "kicks", "bodyslams", "tries out jujitsu"];
+            let avecs = ["a cod fish", "a gun", "John Doe", "their leg", "a brass cup", "a plastic chair", "an aeroplane"];
+            
+          
+            let player1 = message.member;
+            let player2 = message.mentions.members.first() || message.guild.members(m => m.displayName.startsWith(args[0]));
+        }
+    },
 
 };
 
