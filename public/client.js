@@ -1,4 +1,5 @@
 var menuOpen = false;
+var snimationSpeed
 
 $(document).ready(function()
 {
