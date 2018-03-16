@@ -425,7 +425,7 @@ blockquote cite:before
 .navigation
 {
     position: fixed;
-    left: -0%;
+    left: -20%;
   
     width: 20%;
     height: 100%;  
@@ -527,5 +527,5 @@ blockquote cite:before
     z-index: 5;
     color: #FFFFFF;
     font-size: 36px;
-    text-shadow: 0 0 15px rgba(0, 0, 0, 1);
+    text-shadow: 0 0 7px rgba(0, 0, 0, 0.5);
 }
