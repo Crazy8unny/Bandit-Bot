@@ -435,6 +435,13 @@ blockquote cite:before
   
     z-index: 3;
   
+    @media (max-width: $desktopHD)
+    {
+        left: -2%;
+
+        width: 20;
+    }
+  
     @media (max-width: $desktop)
     {
         left: -25%;
