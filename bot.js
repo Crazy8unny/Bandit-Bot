@@ -1132,7 +1132,7 @@ var commands = {
                         entries[0].thumbs_up = "Infinity";
                         entries[0].thumbs_down = "None";
                     }
-                    else if (definition.trim().toLowerCase() === 'realkeengames')
+                    else if (definition.trim().toLowerCase() === 'itsjustkeen')
                     {
                         entries = [{}];
                         entries[0].definition = (`Simply cool and really clever!`);
