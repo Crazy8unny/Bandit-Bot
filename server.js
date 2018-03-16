@@ -29,7 +29,13 @@ app.get("/", function(request, response)
 app.get("/join", function(request, response)
 {
     console.log("A user visited the [Join] page!");
-    response.sendFile(__dirname + "/views/invite/index.html");
+    response.sendFile(__dirname + "/views/join/index.html");
+});
+
+app.get("/joinheads", function(request, response)
+{
+    console.log("A user visited the [Join Heads] page!");
+    response.sendFile(__dirname + "/views/joinheads/index.html");
 });
 
 app.get("/invite", function(request, response)
