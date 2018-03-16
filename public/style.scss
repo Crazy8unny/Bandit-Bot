@@ -435,34 +435,34 @@ blockquote cite:before
   
     z-index: 3;
   
-    @media (min-width: $desktopHD)
+    @media only screen and (max-width: $desktopHD)
     {
         left: -20%;
         width: 20%;
     }
   
-    @media (min-width: $desktop)
+    @media only screen and (max-width: $desktop)
     {
         left: -25%;
 
         width: 25%;
     }
   
-    @media (min-width: $tablet)
+    @media only screen and (max-width: $tablet)
     {
         left: -40%;
 
         width: 40%;
     }
 
-    @media (min-width: $phablet)
+    @media only screen and (max-width: $phablet)
     {
         left: -50%;
 
         width: 50%;
     }
 
-    @media (max-width: $mobile)
+    @media only screen and (max-width: $mobile)
     {
         left: -90%;
 
