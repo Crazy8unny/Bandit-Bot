@@ -1,5 +1,5 @@
 var menuOpen = false;
-var snimationSpeed
+var animationSpeed = 200;
 
 $(document).ready(function()
 {
@@ -10,11 +10,11 @@ $(document).ready(function()
             $(".navigation").animate({
                   left: 0,
                   opacity: 1
-              }, 1000, "linear");
+              }, animationSpeed, "linear");
 
             $(this).animate({
                   left: $(".navigation").width() + 15
-              }, 1000, "linear");
+              }, animationSpeed, "linear");
           
             menuOpen = true;
         }
@@ -23,11 +23,11 @@ $(document).ready(function()
             $(".navigation").animate({
                   left: -$(".navigation").width(),
                   opacity: 0
-              }, 1000, "linear");
+              }, animationSpeed, "linear");
 
             $(this).animate({
                   left: 15
-              }, 1000, "linear");
+              }, animationSpeed, "linear");
           
             menuOpen = false;
         }
