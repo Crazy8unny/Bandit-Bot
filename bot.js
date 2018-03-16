@@ -1614,9 +1614,15 @@ var commands = {
             let verbs = ["slaps", "punches", "spits upon", "hits", "shoots", "kicks", "bodyslams", "tries out jujitsu"];
             let avecs = ["a cod fish", "a gun", "John Doe", "their leg", "a brass cup", "a plastic chair", "an aeroplane"];
             
+            if (!args[0]) return "You need to fight with someone!";
           
             let player1 = message.member;
             let player2 = message.mentions.members.first() || message.guild.members(m => m.displayName.startsWith(args[0]));
+          
+            if (!player2) return "Please mention someone to fight against!";
+            if (player2 == player1) return "You can't fight yourself, you silly billy!";
+          
+            
         }
     },
 
