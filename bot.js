@@ -1458,6 +1458,24 @@ var commands = {
             }
         }
     },
+    hook:
+    {
+        name: "Hook",
+        description: "Creates a Webhook",
+        category: "General",
+        arguments: [""],
+        permission: 15,
+        usage: `${prefix}permission`,
+        exampleusage: `${prefix}permission @Furvux#2414`,
+        run: function(message, args, data)
+        {
+            let user = message.mentions.members.first() || message.guild.members.find(m => m.displayName.toLowerCase() == args[0] ? args[0].toLowerCase() : args[0] || m.user.username.toLowerCase() == args[0] ? args[0].toLowerCase() : args[0]) || message.member;
+
+            let perm = permission.getPermissionLevel(bot, message.guild, user.user.id);
+
+            message.channel.send(user.displayName + "'s permission level is **" + perm + "**");
+        }
+    },
 
 };
 
@@ -1759,4 +1777,56 @@ function loadData(src, dest)
         let data = snapshot.val();
         dest = data;
     });
+}
+
+function hook(channel, title, message, color, avatar) {
+
+  if (!channel) return console.log('Channel not specified.');
+  if (!title) return console.log('Title not specified.');
+  if (!message) return console.log('Message not specified.');
+  if (!color) color = 'd9a744'; 
+  if (!avatar) avatar = 'https://cdn4.iconfinder.com/data/icons/technology-devices-1/500/speech-bubble-128.png' 
+
+  color = color.replace(/\s/g, '');
+  avatar = avatar.replace(/\s/g, '');
+
+  channel.fetchWebhooks()
+      .then(webhook => {
+
+          let foundHook = webhook.find('name', 'Webhook'); 
+
+          if (!foundHook) {
+              channel.createWebhook('Webhook', 'https://cdn4.iconfinder.com/data/icons/technology-devices-1/500/speech-bubble-128.png') 
+                  .then(webhook => {
+
+                      webhook.send('', {
+                          "username": title,
+                          "avatarURL": avatar,
+                          "embeds": [{
+                              "color": parseInt(`0x${color}`),
+                              "description":message
+                          }]
+                      })
+                          .catch(error => { 
+                              console.log(error);
+                              return channel.send('**Something went wrong when sending the webhook. Please check console.**');
+                          })
+                  })
+          } else { 
+              foundHook.send('', { 
+                  "username": title,
+                  "avatarURL": avatar,
+                  "embeds": [{
+                      "color": parseInt(`0x${color}`),
+                      "description":message
+                  }]
+              })
+                  .catch(error => { 
+                      console.log(error);
+                      return channel.send('**Something went wrong when sending the webhook. Please check console.**');
+                  })
+              }
+
+      })
+
 }
