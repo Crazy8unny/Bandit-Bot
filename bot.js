@@ -1622,7 +1622,32 @@ var commands = {
             if (!player2) return "Please mention someone to fight against!";
             if (player2 == player1) return "You can't fight yourself, you silly billy!";
           
+            let health1 = 100;
+            let health2 = 100;
+          
+            let embed = new Embed();
+          
+            embed.setTitle("__" + player1.displayName + " vs " + player2.displayName + "__");
+          
+            embed.addField(player1.displayName + "'s Health", health1);
             
+            let turn = 1;
+          
+            setInterval(function() 
+            {
+                let action = util.randomItem(verbs);
+                let aid = util.randomItem(avecs);
+              
+                let damage = Math.floor(Math.random() * 15);
+                if (damage == 0)
+                {
+                    //Missed
+                }
+                else
+                {
+                    
+                }
+            });
         }
     },
 
