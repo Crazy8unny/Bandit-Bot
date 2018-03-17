@@ -1849,11 +1849,14 @@ var elemental = {
                         let cName = util.randomItem(Object.keys(assets.Elementals.Characters.Fire));
                         let character = assets.Elementals.Characters.Fire[cName];
                       
+                        let attacks = [];
+                      
                         let chosenEmbed = new Embed();
                         chosenEmbed.setColor("#FF8800");
                         chosenEmbed.setDescription("You recieved a " + cName + "!");
                         chosenEmbed.setImage(character.u);
-                        chosenEmbed.addField("Stats", `>> __Type:__ **Fire**\n>> __Health:__ **Fire**\n`);
+                        chosenEmbed.addField("Stats", `>> __Type:__ **Fire**\n>> __Health:__ **{health}**\n>> __Basic Damage:__ **{basicdmg}**\n>> __Elemental Damage:__ **{elemdmg}**\n`);
+                        chosenEmbed.addField("Attacks", `>> **Scratch** (Basic)\n`);
                         
                         
                         message.channel.send(chosenEmbed);
