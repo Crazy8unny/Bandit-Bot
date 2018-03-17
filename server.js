@@ -3,8 +3,7 @@ var http = require("http");
 var app = express();
 var util = require(__dirname + '/util/util.js');
 var child_process = require("child_process");
-
-child_process.fork(__dirname + "/bot.js");
+var instructions = require(__dirname + '/util/instructions.js');
 
 var port = process.env.PORT || 3000;
 
@@ -55,11 +54,17 @@ app.get("/ping", function(request, response)
 var listener = app.listen(port, function()
 {
     console.log(process.env.PROJECT_DOMAIN.toUpperCase() + ' is online! [Port: ' + listener.address().port + ']');
+    child_process.fork(__dirname + "/bot.js");
 });
 
 // Keep server online
 setInterval(() =>
 {
+    if (!instructions.on)
+    {
+
+child_process.fork(__dirname + "/bot.js");
+    }
     var options = {
         host: process.env.PROJECT_DOMAIN + ".glitch.me",
         port: 80,
