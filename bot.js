@@ -2103,6 +2103,7 @@ var elemental = {
                                 updateData["Attacks"] = [chosenAttack.split("\n")[0].split("**")[1], chosenAttack.split("\n")[1].split("_")[1]];
 
                                 updateFirebaseData(updateData, "Userdata/" + author.id + "/Elementals/Characters/" + cName, "u");
+                                updateFirebaseData({Carrots: 5}, "Userdata/" + author.id + "/Elementals/Inventory", "u");
                             }
                             else
                             {
@@ -2259,35 +2260,7 @@ var elemental = {
         exampleusage: `${prefix} ${creatureCommand} rename Fizzball MyPet`,
         run: function(message, args, settings) 
         {
-            if (!args[0])
-            {
-                return "You need to specify which elemental you want to rename!";
-            }
-            if (!args[1])
-            {
-                return "You need to specify a new name for your Elemental!";
-            }
             
-            let ref = firebase.database().ref("Userdata/" + message.author.id + "/Elementals/Characters");
-            ref.once("value", function(snapshot)
-            {
-                let data = snapshot.val();
-
-                if (!data) {message.channel.send("You do not have any Elementals! Type `" + prefix + "elementals start` to start your Elemental career!"); return;}
-              
-                if (!data[args[0]])
-                {
-                    message.channel.send("You do not have any Elementals by that name! Type `" + prefix + "elementals mine` too see all your Elementals!"); 
-                    return;
-                }
-                else
-                {
-                    data[args[1]] = data[args[0]];
-                    delete data[args[0]];
-                    ref.set(data);
-                    message.channel.send("✅ Your Elemental **" + args[0] + "** has been renamed to __**" + args[1] + "**__!");
-                }
-            });
         }
     },
 };
