@@ -1827,7 +1827,7 @@ var elemental = {
             embed.addField("🍃 __Nature Type__ 🍃", "Nature Type Elementals unlock **nature-type** attacks and moves when leveled up!\n__Strong Against:__ **Water**\n__Weak Against:__ **Fire**");
             //embed.addField("💨 Air Type 💨", "", true);
           
-            embed.setFooter("You have __60 seconds__ to choose your elemental type!", author.avatarURL);
+            embed.setFooter("You have 60 seconds to choose your elemental type!", author.avatarURL);
             
             
           
@@ -1846,14 +1846,17 @@ var elemental = {
                        // They chose Fire
                         msg.delete();
                      
-                        let character = assets.Elementals.Characters.Fire[util.randomItem(Object.keys(assets.Elementals.Characters.Fire))];
+                        let cName = util.randomItem(Object.keys(assets.Elementals.Characters.Fire));
+                        let character = assets.Elementals.Characters.Fire[cName];
                       
                         let chosenEmbed = new Embed();
-                        embed.setColor("#FF8800");
-                        embed.setThumbnail("https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FFire.png?1521287557154");
-                        embed.setDescription("");
+                        chosenEmbed.setColor("#FF8800");
+                        chosenEmbed.setDescription("You recieved a " + cName + "!");
+                        chosenEmbed.setImage(character.u);
+                        chosenEmbed.addField("Stats", `>> __Type:__ **Fire**\n>> __Health:__ **Fire**\n`);
                         
-                        message.channel.send();
+                        
+                        message.channel.send(chosenEmbed);
                     }
                     else if (r.emoji.name == "💧")
                     {
@@ -2051,7 +2054,7 @@ function loadAsset(src, dest)
         });
 
         let now = new Date();
-        console.log("-- Asset \"" + util.ucfirst(src.split("0%2F")[1]) + "\" loaded [" + (now - before) + "ms]");
+        console.log("-- Asset \"" + util.ucfirst(src.split("%2F")[1]) + "\" loaded [" + (now - before) + "ms]");
     });
 }
 
