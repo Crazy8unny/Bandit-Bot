@@ -1752,8 +1752,16 @@ var commands = {
             
             try
             {
-                let comm = args.shift();
-                elemental[comm.toLowerCase()].run(message, args, data);
+                let comm = args.shift().toLowerCase();
+                if (data.permission >= elemental[comm].permission)
+                {
+                    let error = elemental[comm].run(message, args, data);
+                    if (error) return error;
+                }
+                else
+                {  
+                    return "Sorry, but your permission level is too low to access that command! \nType `" + prefix + "elemental help` to recieve help on the Elemental sub-category.";
+                }
             }
             catch (e) 
             {
@@ -1811,13 +1819,24 @@ var elemental = {
         permission: 1,
         usage: `${prefix} ${creatureCommand} start`,
         exampleusage: `${prefix} ${creatureCommand}start`,
-        run: function(message, args, data)
+        run: function(message, args, settings)
         {
             let author = message.author;
             
+            let ref = firebase.database.ref("Userdata/" + author.id + "/Elementals");
+            ref.once("valu", function (snapshot)
+            {
+                let data = snapshot.val();
+              
+                if (data)
+                {
+                    
+                }
+            });
+          
             let embed = new Embed();
             embed.setTitle("__Choose your Starter Elemental Type__");
-            embed.setColor(data.display_colour.hex);
+            embed.setColor(settings.display_colour.hex);
             embed.setDescription("You need to choose your starter Elemental type. The types are listed below with all their weaknesses and strengths.");
             
             embed.addField("🔥 __Fire Type__ 🔥", "Fire Type Elementals unlock **fire-type** attacks and moves when leveled up!\n__Strong Against:__ **Nature**\n__Weak Against:__ **Water**");
@@ -2125,7 +2144,7 @@ function checkXOBoard(board)
     return "-";
 }
 
-function loadAsset(src, dest)
+async function loadAsset(src, dest)
 {
     let before = new Date();
     Jimp.read(src, function(err, img)
@@ -2273,14 +2292,14 @@ function place21(message)
     }
 }
 
-function loadData(src, dest)
+async function loadData(src, dest)
 {
     let before = new Date();
     if (!dest) dest = {};
     if (!src) src = "/";
   
     let ref = firebase.database().ref(src);
-    ref.once("value", function(snapshot) 
+    await ref.once("value", function(snapshot) 
     {
         let data = snapshot.val();
         dest = data;
