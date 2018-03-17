@@ -102,6 +102,9 @@ bot.on('ready', async function()
 
     assets.Elementals.Characters.Nature.Marsoak = {};
     assets.Elementals.Characters.Nature.Shrumarsh = {};
+  
+    assets.Elementals.Inventory = {};
+    assets.Elementals.Characters = {};
 
     loadAsset(board, assets.XO.Board);
     loadAsset(x, assets.XO.X);
@@ -2255,7 +2258,7 @@ var elemental = {
         description: "Check your inventory!",
         category: "General",
         arguments: [],
-        permission: 1,
+        permission: 10,
         usage: `${prefix} ${creatureCommand} rename`,
         exampleusage: `${prefix} ${creatureCommand} rename Fizzball MyPet`,
         run: function(message, args, settings) 
