@@ -2686,7 +2686,17 @@ function hook(channel, title, message, color, avatar)
 
 function fillInventory(data, message)
 {
+    const padding = 9;
+    const border = 1;
+    
+    let place = 1;
+  
+    let xCoord = ((place - 1) * 128) + (padding * place) + border;
+    let yCoord = 9;
+  
     let inventoryBG = assets.Elementals.Inventory.i.clone();
     let Carrot = assets.Elementals.Inventory.Objects.Carrot.i.clone();
+    
+    inventoryBG.composite(Carrot, xCoord, yCoord);
     toBufferAndSend(inventoryBG, message, "");
 }
