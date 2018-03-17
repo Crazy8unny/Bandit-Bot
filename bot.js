@@ -1742,32 +1742,34 @@ var commands = {
     },
     pfp: 
     {
-        name: "Profile P",
-        description: "The Elemental type commands fall under this category. To use an elemental command, type `" + prefix + "elemental <command> <arguments>`",
+        name: "Profile Picture",
+        description: "**The command for this is `" + prefix + "pfp`**, and you can optionally mention a user to see their profile picture.",
         category: "Fun & Games",
-        arguments: ["-r command", "-o arguments"],
-        permission: 10,
-        usage: `${prefix}elemental`,
-        exampleusage: `${prefix}elemental start`,
+        arguments: ["-o @user"],
+        permission: 1,
+        usage: `${prefix}pfp`,
+        exampleusage: `${prefix}pfp @Furvux#2414`,
         run: function(message, args, data)
         {
             if (!args[0])
             {
-                return "You need to specify a command to run in the sub-category of `elemental`! Type `" + prefix + "elemental help` to see help for the commands under the sub-category of Elemental.";
+
+                const embed = new Embed()
+                    .setTitle('Profile Picture')
+                    .setURL(message.author.avatarURL)
+                    .setColor(message.member.colorRole.color)
+                    .setImage(message.author.avatarURL)
+                message.channel.send(embed)
             }
-            
-            try
+            else
             {
-                let comm = args.shift();
-                elemental[comm.toLowerCase()].run(message, args, data);
-            }
-            catch (e) 
-            {
-                if (e.message.includes("TypeError: Cannot read property 'run' of undefined"))
-                {
-                    return "No such command found under the sub-category of `elemental`! Ensure correct spelling and make sure the command is avaliable to your level!";
-                }
-                return e.message;
+                let person = message.mentions.members.first() || message.guild.members.find(m => m.user.username.toLowerCase().trim().startsWith(args[0].toLowerCase().trim())) || message.member;
+                const embed = new Embed()
+                    .setTitle('Profile Picture')
+                    .setURL(person.user.avatarURL)
+                    .setColor(message.member.colorRole.color)
+                    .setImage(person.user.avatarURL)
+                message.channel.send(embed)
             }
         }
     }
