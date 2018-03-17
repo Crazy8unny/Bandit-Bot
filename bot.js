@@ -46,6 +46,7 @@ var creatureCommand = "elementals";
 
 bot.on('ready', async function()
 {
+    let before = new Date();
     console.log("_____________________");
     console.log("Connected to Discord!");
     console.log("---------------------");
@@ -122,6 +123,9 @@ bot.on('ready', async function()
 
     games.XO.Playing = [];
     games.TwentyOne.Playing = [];
+  
+    let after = new Date();
+    console.log("~ Total Loading Time: " + (after - before) + "ms");
 });
 
 bot.on("guildCreate", function(guild)
@@ -719,6 +723,7 @@ var commands = {
             embed.addField("👥 __Users__ 👥", ">> **" + totalUsers + "** Unique Discord Users");
             embed.addField("✳️ __Commands__ ✳️", ">> **" + (Object.keys(commands)
                 .length + Object.keys(DMCommands)
+                .length + Object.keys(elemental)
                 .length) + "** Different Commands");
 
             embed.addBlankField();
