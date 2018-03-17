@@ -2062,6 +2062,11 @@ var elemental = {
                     message.channel.send("You do not have any Elementals by that name! Type `" + prefix + "elementals mine` too see all your Elementals!"); 
                     return;
                 }
+                else
+                {
+                    data[args[0]] = args[1];
+                    message.channel.send("✅ Your Elemental **" + args[0] + "** has been renamed to __**" + args[1] + "**__!");
+                }
             });
         }
     }
