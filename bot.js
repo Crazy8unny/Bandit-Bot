@@ -41,7 +41,7 @@ var config = {
     messagingSenderId: "782339524894"
 };
 
-var creatureCommand = "narlia";
+var creatureCommand = "elemental";
 
 bot.on('ready', async function()
 {
@@ -1724,17 +1724,31 @@ var commands = {
             {
                 return "You need to specify a command to run in the sub-category of `elemental`! Type `" + prefix + "elemental help` to see help for the commands under the sub-category of Elemental.";
             }
+            
+            try
+            {
+                let comm = args.shift();
+                elemental[comm.toLowerCase()].run(message, args, data);
+            }
+            catch (e) 
+            {
+                if (e.message.includes("TypeError: Cannot read property 'run' of undefined"))
+                {
+                    return "No such command found under the sub-category of `elemental`! Ensure correct spelling and make sure the command is avaliable to your level!";
+                }
+                return e.message;
+            }
         }
     }
 
 };
 
-var c = {
+var elemental = {
     "start": 
     {
         name: "Start",
         description: "Starts your profile on the game!",
-        category: "Fun & Games",
+        category: "Starting",
         arguments: [],
         permission: 1,
         usage: `${prefix} ${creatureCommand} start`,
@@ -1744,17 +1758,21 @@ var c = {
             let author = message.author;
             
             let embed = new Embed();
-            embed.setTitle("__Choose your Starter Elemental__");
-            embed.setDescription("You need to choose your starter Elemental. The types are listed below with all their weaknesses and strengths.");
+            embed.setTitle("__Choose your Starter Elemental Type__");
+            embed.setDescription("You need to choose your starter Elemental type. The types are listed below with all their weaknesses and strengths.");
             
             embed.addField("🔥 Fire Type 🔥", "Fire Type Elementals unlock **fire-type** attacks and moves when leveled up!\n__Strong Against:__ Nature\n__Weak Against:__ Water", true);
             embed.addField("🌊 Water Type 🌊", "Water Type Elementals unlock **water-type** attacks and moves when leveled up!\n__Strong Against:__ Fire\n__Weak Against:__ Nature", true);
             //embed.addField("💨 Air Type 💨", "", true);
-            embed.addField("🍂 Nature Type 🍂", "Nature Type Elementals unlock **nature-type** attacks and moves when leveled up!\n__Strong Against:__ Water\n__Weak Against:__ Fire", true);
+            embed.addField("🍃 Nature Type 🍃", "Nature Type Elementals unlock **nature-type** attacks and moves when leveled up!\n__Strong Against:__ Water\n__Weak Against:__ Fire", true);
+          
+            embed.setFooter("You have 60 seconds to choose your elemental type!", author.avatarURL);
+            
+            message.channel.send(embed);
         }
         
     },
-    "start": 
+    "stkart": 
     {
         name: "Death Battle",
         description: "Fight a fast-paced battle to the death with the user who is mentioned!",
