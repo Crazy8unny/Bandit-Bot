@@ -1868,6 +1868,18 @@ var elemental = {
                         chosenEmbed.setFooter("Fire Type Elemental", "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FFire.png");
                         
                         message.channel.send(chosenEmbed);
+                    
+                        let updateData = {};
+
+                        updateData["Name"] = cName;
+                        updateData["Born"] = new Date();
+                        updateData["Type"] = "Fire";
+                        updateData["Health"] = health;
+                        updateData["BasicDamage"] = basicdmg;
+                        updateData["ElementalDamage"] = elemdmg;
+                        updateData["Attacks"] = [chosenAttack.split("\n")[0].split("**")[1], chosenAttack.split("\n")[1].split("_")[1]];
+                      
+                        updateFirebaseData(updateData, "Userdata/" + author.id + "/Elementals/" + cName, "u");
                     }
                     else if (r.emoji.name == "💧")
                     {
@@ -1896,6 +1908,18 @@ var elemental = {
                         chosenEmbed.setFooter("Water Type Elemental", "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FWater.png");
                         
                         message.channel.send(chosenEmbed);
+                    
+                        let updateData = {};
+
+                        updateData["Name"] = cName;
+                        updateData["Born"] = new Date();
+                        updateData["Type"] = "Water";
+                        updateData["Health"] = health;
+                        updateData["BasicDamage"] = basicdmg;
+                        updateData["ElementalDamage"] = elemdmg;
+                        updateData["Attacks"] = [chosenAttack.split("\n")[0].split("**")[1], chosenAttack.split("\n")[1].split("_")[1]];
+                      
+                        updateFirebaseData(updateData, "Userdata/" + author.id + "/Elementals/" + cName, "u");
                     }
                     else if (r.emoji.name == "🍃")
                     {
@@ -1917,7 +1941,7 @@ var elemental = {
                       
                         let chosenEmbed = new Embed();
                         chosenEmbed.setColor("#00AA00");
-                        chosenEmbed.setDescription("You recieved a __**" + cName + "**__!\nType `" + prefix + "elemental rename <name>` to rename your elemental!");
+                        chosenEmbed.setDescription("You recieved a __**" + cName + "**__!\nType `" + prefix + "elemental rename " + cName + " <name>` to rename your elemental!");
                         chosenEmbed.setThumbnail(character.u);
                         chosenEmbed.addField("__Stats__", `>> __Type:__ **Nature**\n>> __Health:__ **${health}**\n>> __Basic Damage:__ **${basicdmg}**\n>> __Elemental Damage:__ **${elemdmg}**\n`);
                         chosenEmbed.addField("__Attacks__", chosenAttack);
@@ -1928,13 +1952,14 @@ var elemental = {
                         let updateData = {};
 
                         updateData["Name"] = cName;
+                        updateData["Born"] = new Date();
                         updateData["Type"] = "Nature";
                         updateData["Health"] = health;
                         updateData["BasicDamage"] = basicdmg;
                         updateData["ElementalDamage"] = elemdmg;
                         updateData["Attacks"] = [chosenAttack.split("\n")[0].split("**")[1], chosenAttack.split("\n")[1].split("_")[1]];
                       
-                        updateFirebaseData(updateData, "Userdata/" + author.id + "");
+                        updateFirebaseData(updateData, "Userdata/" + author.id + "/Elementals/" + cName, "u");
                     }
                     else
                     {
