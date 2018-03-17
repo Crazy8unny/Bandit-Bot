@@ -1759,12 +1759,15 @@ var elemental = {
             
             let embed = new Embed();
             embed.setTitle("__Choose your Starter Elemental Type__");
+            embed.setColor(data.display_colour.hex);
             embed.setDescription("You need to choose your starter Elemental type. The types are listed below with all their weaknesses and strengths.");
             
-            embed.addField("🔥 Fire Type 🔥", "Fire Type Elementals unlock **fire-type** attacks and moves when leveled up!\n__Strong Against:__ Nature\n__Weak Against:__ Water", true);
-            embed.addField("🌊 Water Type 🌊", "Water Type Elementals unlock **water-type** attacks and moves when leveled up!\n__Strong Against:__ Fire\n__Weak Against:__ Nature", true);
+            embed.addField("🔥 __Fire Type__ 🔥", "Fire Type Elementals unlock **fire-type** attacks and moves when leveled up!\n__Strong Against:__ **Nature**\n__Weak Against:__ **Water**");
+            embed.addBlankField();
+            embed.addField("🌊 __Water Type__ 🌊", "Water Type Elementals unlock **water-type** attacks and moves when leveled up!\n__Strong Against:__ **Fire**\n__Weak Against:__ **Nature**");
+            embed.addBlankField();
+            embed.addField("🍃 __Nature Type__ 🍃", "Nature Type Elementals unlock **nature-type** attacks and moves when leveled up!\n__Strong Against:__ **Water**\n__Weak Against:__ **Fire**");
             //embed.addField("💨 Air Type 💨", "", true);
-            embed.addField("🍃 Nature Type 🍃", "Nature Type Elementals unlock **nature-type** attacks and moves when leveled up!\n__Strong Against:__ Water\n__Weak Against:__ Fire", true);
           
             embed.setFooter("You have 60 seconds to choose your elemental type!", author.avatarURL);
             
