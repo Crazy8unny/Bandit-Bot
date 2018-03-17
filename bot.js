@@ -87,18 +87,18 @@ bot.on('ready', async function()
 
     assets.CoinFlip.Heads = {};
     assets.CoinFlip.Tails = {};
-  
+
     assets.Elementals.Characters = {};
     assets.Elementals.Characters.Fire = {};
     assets.Elementals.Characters.Water = {};
     assets.Elementals.Characters.Nature = {};
-    
+
     assets.Elementals.Characters.Fire.Fizzball = {};
     assets.Elementals.Characters.Fire.Flizard = {};
-    
+
     assets.Elementals.Characters.Water.Zrog = {};
     assets.Elementals.Characters.Water.Tristisk = {};
-    
+
     assets.Elementals.Characters.Nature.Marsoak = {};
     assets.Elementals.Characters.Nature.Shrumarsh = {};
 
@@ -108,15 +108,15 @@ bot.on('ready', async function()
 
     loadAsset(headCoin, assets.CoinFlip.Heads);
     loadAsset(tailCoin, assets.CoinFlip.Tails);
-  
+
     loadData("Serverdata", serverdata);
-  
+
     loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FFizzball.png", assets.Elementals.Characters.Fire.Fizzball);
     loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FFlizard.png", assets.Elementals.Characters.Fire.Flizard);
-  
+
     loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FZrog.png", assets.Elementals.Characters.Water.Zrog);
     loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FTritisk.png", assets.Elementals.Characters.Water.Tristisk);
-  
+
     loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FMarsoak.png", assets.Elementals.Characters.Nature.Marsoak);
     loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FShrumarsh.png", assets.Elementals.Characters.Nature.Shrumarsh);
 
@@ -129,9 +129,11 @@ bot.on("guildCreate", function(guild)
     console.log("Joined Guild: " + guild.name + "!");
     let data = {};
     data.Name = guild.name;
-    data.Configuration = {prefix: prefix};
+    data.Configuration = {
+        prefix: prefix
+    };
     data.Date = new Date();
-  
+
     let ref = firebase.database().ref().child("Serverdata").child(guild.id.toString());
     ref.update(data);
 });
@@ -150,14 +152,14 @@ bot.on("message", function(message)
         if (play == 0xCAFE25151 && parseInt(message.content) < 10) placeXO(message, games, assets.XO.X.i, assets.XO.O.i, toBufferAndSend);
         else if (play == 0xCAFE25152 && parseInt(message.content) < 22) place21(message);
     }
-  
+
 
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
 
     let command = message.content.indexOf(botID) != -1 ? message.content.split(">")[1] : message.content.split(" ")[0].substr(prefix.length);
-    
+
     if (!command) return;
-  
+
     command = command.toLowerCase().trim();
     if (message.channel.type == "text" && commands[command])
     {
@@ -186,10 +188,10 @@ bot.on("message", function(message)
                 if (error)
                 {
                     let embed = new Embed()
-                    .setColor(`#FF0000`)
-                    .setDescription(error);
-                  
-                message.channel.send(embed);
+                        .setColor(`#FF0000`)
+                        .setDescription(error);
+
+                    message.channel.send(embed);
                 }
             }
             else
@@ -202,10 +204,10 @@ bot.on("message", function(message)
             if (e.message.includes("DiscordAPIError: Missing Permissions"))
             {
                 let embed = new Embed()
-                .setTitle("__Not Enough Permission__")
-                .setColor(`#FF0000`)
-                .setDescription(`Sorry, but I do not have enough permission to carry out that command!`);
-              
+                    .setTitle("__Not Enough Permission__")
+                    .setColor(`#FF0000`)
+                    .setDescription(`Sorry, but I do not have enough permission to carry out that command!`);
+
                 message.channel.send(embed);
             }
             console.error(e);
@@ -516,7 +518,7 @@ var commands = {
             if (victum.user.id == message.member.user.id) return "Stop trying to do a blighty (look it up) and get back up there, Soldier!";
 
             let shots = ["https://media.giphy.com/media/M4hHth10WJ2Fi/giphy.gif", "https://media.giphy.com/media/2uvG5Dn1K7pEA/giphy.gif", "https://media.giphy.com/media/EizPK3InQbrNK/giphy.gif", "https://media.giphy.com/media/7qeOvQC1pRFJK/giphy.gif", "https://media.giphy.com/media/14wfa45kICmaBO/giphy.gif", "https://media.giphy.com/media/l0HlOJcFhgwoQP1GE/giphy.gif", "https://media.giphy.com/media/PUY972zpherGE/giphy.gif", "https://media.giphy.com/media/3o6Zt1gBcG3dn3b4WI/giphy.gif"];
-          
+
             let embed = new Embed()
                 .setTitle(message.member.displayName.split("_")
                     .join("\_") + " shoots " + victum.displayName.split("_")
@@ -546,9 +548,9 @@ var commands = {
             let finalCoin = Math.floor((Math.random() * coins.length))
 
             let coinEmbed = new Discord.RichEmbed()
-            .setColor(data.display_colour.hex)
-            .setTitle("__Flipped Coin: " + coins[finalCoin] + "__")
-            .setImage(finalCoin == 0 ? assets.CoinFlip.Heads.u : assets.CoinFlip.Tails.u);
+                .setColor(data.display_colour.hex)
+                .setTitle("__Flipped Coin: " + coins[finalCoin] + "__")
+                .setImage(finalCoin == 0 ? assets.CoinFlip.Heads.u : assets.CoinFlip.Tails.u);
 
             message.channel.send(coinEmbed);
         }
@@ -1098,7 +1100,7 @@ var commands = {
                 games.XO.Playing.push(message.author.id, opponent.id);
 
                 gameIDs[gameID] = "XO";
-              
+
                 let board = assets.XO.Board.i.clone();
 
                 games.XO[gameID].boardImage = board;
@@ -1147,7 +1149,8 @@ var commands = {
 
                     if (definition.trim().toLowerCase() === 'furvux')
                     {
-                        entries = [{}];
+                        entries = [
+                        {}];
                         entries[0].definition = (`The Best Developer in the World`);
                         entries[0].example = (`He is almost as good as Furvux!`);
                         entries[0].thumbs_up = "Infinity";
@@ -1155,7 +1158,8 @@ var commands = {
                     }
                     else if (definition.trim().toLowerCase() === 'sheikh1365')
                     {
-                        entries = [{}];
+                        entries = [
+                        {}];
                         entries[0].definition = (`Kindhearted, amazing`);
                         entries[0].example = (`Wow! You are such a Sheikh1365 person!`);
                         entries[0].thumbs_up = "Infinity";
@@ -1163,7 +1167,8 @@ var commands = {
                     }
                     else if (definition.trim().toLowerCase() === 'itsjustkeen')
                     {
-                        entries = [{}];
+                        entries = [
+                        {}];
                         entries[0].definition = (`Simply cool and really clever!`);
                         entries[0].example = (`I wish I was like **RealKeenGames**!`);
                         entries[0].thumbs_up = "Infinity";
@@ -1171,7 +1176,8 @@ var commands = {
                     }
                     else if (definition.trim().toLowerCase() === 'glassykiller')
                     {
-                        entries = [{}];
+                        entries = [
+                        {}];
                         entries[0].definition = (`Your Father.`);
                         entries[0].example = (`Hello, GlassyKiller!`);
                         entries[0].thumbs_up = "Infinity";
@@ -1185,14 +1191,14 @@ var commands = {
                     embed.addField("Word", ">> **" + util.ucfirst(definition) + "**");
                     embed.addField("Definition", ">> " + entries[0].definition);
                     embed.addField("Example Usage", ">> " + (entries[0].example ? entries[0].example : "None provided..."));
-                  
+
                     embed.addField("Upvotes", ">> **" + (entries[0].thumbs_up > 0 ? entries[0].thumbs_up : "None") + "**", true);
                     embed.addField("Downvotes", ">> **" + (entries[0].thumbs_down > 0 ? entries[0].thumbs_down : "None") + "**", true);
-                  
+
                     embed.setFooter("Source: https://www.urbandictionary.com/define.php?term=" + definition + "");
 
                     message.channel.send(embed);
-                    
+
                 });
             }
         }
@@ -1224,7 +1230,7 @@ var commands = {
                     gameID = args[0].substr(0, 7);
                 }
             }
-          
+
             let gameData = {
                 players: [message.author.id],
                 current: 0,
@@ -1232,12 +1238,12 @@ var commands = {
                 turn: 1
             };
             games.TwentyOne[gameID] = gameData;
-          
+
             gameIDs[gameID] = "TwentyOne";
-            
+
             playing.push(message.author.id);
             games.TwentyOne.Playing.push(message.author.id);
-          
+
             message.channel.send(message.author + " has started a game of **21**! Type `" + prefix + "join " + gameID + "` to join the game!");
         }
     },
@@ -1262,7 +1268,7 @@ var commands = {
                         playing.push(message.author.id);
                         games.TwentyOne.Playing.push(message.author.id);
                         games.TwentyOne[args[0]].players.push(message.author.id);
-                        
+
                         message.channel.send("✅ You have successfully joined the game of **21**, " + message.author + "!");
                     }
                 }
@@ -1284,31 +1290,42 @@ var commands = {
         exampleusage: `${prefix}suggest Add a coinflip command!`,
         run: function(message, args, data)
         {
-            message.channel.createInvite({maxAge: 0, reason: "Advertisement and Suggestion"}).then(function(invite) 
+            message.channel.createInvite(
+            {
+                maxAge: 0,
+                reason: "Advertisement and Suggestion"
+            }).then(function(invite)
             {
                 let embed = new Embed();
-            
+
                 embed.setTitle("__New Suggestion__");
                 embed.setColor("#00AA00");
                 embed.addField("Suggestion", ">> " + args.join(" "));
-                embed.addField("Suggester", ">> **" + message.author.tag  + "**");
+                embed.addField("Suggester", ">> **" + message.author.tag + "**");
                 embed.addField("Suggestion Point", ">> **#" + message.channel.name + "** in **[" + message.guild.name + "](" + invite + ")**");
                 embed.setFooter("Suggested at: " + util.formatShortDate(new Date()) + " [" + util.formatShortTime(new Date) + "]", message.author.avatarURL);
 
                 const filter = (reaction, user) => user.id == message.author.id;
 
-                message.channel.send(embed).then(msg => 
+                message.channel.send(embed).then(msg =>
                 {
                     msg.react("✅");
                     msg.react("❎");
                     msg.channel.send(message.author + ", react with ✅ to approve and send the suggestion, or react with ❎ to disapprove and delete the suggestion.").then(m => m.delete(15000));
-                    const collector = msg.createReactionCollector(filter, { time: 60000 });
-                    collector.on('collect', r => 
+                    const collector = msg.createReactionCollector(filter,
+                    {
+                        time: 60000
+                    });
+                    collector.on('collect', r =>
                     {
                         if (r.emoji.name == "✅")
                         {
                             msg.delete();
-                            bot.guilds.get(`421405545426321418`).channels.get(`421441403751759875`).send(embed).then(m => {m.react("✅"); m.react("❎");});
+                            bot.guilds.get(`421405545426321418`).channels.get(`421441403751759875`).send(embed).then(m =>
+                            {
+                                m.react("✅");
+                                m.react("❎");
+                            });
                         }
                         else if (r.emoji.name == "❎")
                         {
@@ -1331,21 +1348,21 @@ var commands = {
         run: function(message, args, data)
         {
             args = message.content.split("rembed ")[1].split(",");
-          
+
             if (!args[0]) return "You need a title! (Type `" + prefix + "help rembed` to see hot to use this command!)";
             if (!args[1]) return "You need a colour! (Type `" + prefix + "help rembed` to see hot to use this command!)";
             if (!args[2]) return "You need a body for the embed! (Type `" + prefix + "help rembed` to see how to use this command!)";
-          
+
             let title = args.shift();
             let colour = args.shift();
             let body = args.join(",").trim();
-          
+
             let embed = new Embed();
             embed.setTitle(title);
             embed.setColor(colour);
             embed.setDescription(body);
             embed.setFooter("By " + message.author.tag, message.author.avatarURL);
-            
+
             message.channel.send(embed);
         }
     },
@@ -1361,20 +1378,20 @@ var commands = {
         run: function(message, args, data)
         {
             args = message.content.split("update ")[1].split(",");
-          
+
             if (!args[0]) return "You need a title! (Type `" + prefix + "help update` to see hot to use this command!)";
             if (!args[1]) return "You need a body for the update! (Type `" + prefix + "help update` to see how to use this command!)";
-          
+
             let title = args.shift();
             let colour = "#00AA00";
             let body = args.join(",").trim();
-          
+
             let embed = new Embed();
-            embed.setTitle("__" + title  + "__");
+            embed.setTitle("__" + title + "__");
             embed.setColor(colour);
             embed.setDescription(body);
             embed.setFooter("By " + message.author.tag, message.author.avatarURL);
-            
+
             message.channel.send(embed);
         }
     },
@@ -1395,21 +1412,21 @@ var commands = {
                 message.channel.send("You need to specify a question, " + message.author + "!");
                 return;
             }
-          
+
             let options = ["No way!", "Sorry, but no. Just no.", "Unfortunately not...", "Hmmm.... maybe.", "I am not too sure about that one!", "Quite possibly, actually!", "Almost yess..... but no.", "Of course!", "Yea man!", "Yes.", "Definately yes!", "It seems that the fortunes have decided...... yes."];
-          
+
             let ascii = 0;
-          
+
             for (let i = 0; i < q.length; i++)
             {
                 ascii += q[i].charCodeAt(0);
             }
-            
+
             ascii *= (ascii + 3.1415926535897923 * message.author.id) * Math.random();
             ascii = Math.floor(ascii);
-            
+
             let option = options[ascii % options.length];
-          
+
             message.channel.send(message.author + ", in answer to your query: **" + q + "**, \n" + option);
         }
     },
@@ -1433,12 +1450,14 @@ var commands = {
             {
                 channel = message.guild.channels.find(c => c.name.toLowerCase().startsWith(args[0].toLowerCase())) || message.guild.channels.get(args[0]);
             }
-          
-            let updates = {channel: channel.id};
+
+            let updates = {
+                channel: channel.id
+            };
 
             let ref = firebase.database().ref().child("Serverdata").child(message.guild.id.toString()).child("Configuration");
             ref.update(updates);
-          
+
             message.channel.send("✅ Bot Channel has been set to <#" + channel.id + ">!");
             channel.send("✅ Bot Channel has been set to this channel!");
         }
@@ -1459,7 +1478,7 @@ var commands = {
                 let game = args.join(" ").toLowerCase();
                 if (game == "xo" || game == "tic tac toe" || game == "noughts and crosses")
                 {
-                    let embed = new Embed();  
+                    let embed = new Embed();
                     embed.setTitle("__Noughts and Crosses - Game Instructions__");
                     embed.setColor("#00AA00");
                     embed.setDescription(instructions.XO)
@@ -1468,7 +1487,7 @@ var commands = {
                 }
                 if (game == "21" || game == "twentyone" || game == "2one")
                 {
-                    let embed = new Embed();  
+                    let embed = new Embed();
                     embed.setTitle("__Tewnty One - Game Instructions__");
                     embed.setColor("#00AA00");
                     embed.setDescription(instructions.TwentyOne)
@@ -1477,7 +1496,7 @@ var commands = {
                 }
                 if (game == "heads or tails" || game == "coinflip" || game == "heads" || game == "tails")
                 {
-                    let embed = new Embed();  
+                    let embed = new Embed();
                     embed.setTitle("__Coinflip - Game Instructions__");
                     embed.setColor("#00AA00");
                     embed.setDescription(instructions.Coinflip)
@@ -1498,7 +1517,7 @@ var commands = {
         exampleusage: `${prefix}hook test hook,, test body,, #FF0000,, https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FBalls.jpg`,
         run: function(message, args, data)
         {
-            let hookArgs = message.content.slice(prefix.length + 4).split(",,"); 
+            let hookArgs = message.content.slice(prefix.length + 4).split(",,");
 
             hook(message.channel, hookArgs[0], hookArgs[1], hookArgs[2], hookArgs[3]);
         }
@@ -1518,84 +1537,87 @@ var commands = {
             {
                 return "You are not even playing a game!";
             }
-            
+
             let checker = new Embed();
             checker.setTitle("__Just Checking...__");
             checker.setColor("#AA0000");
             checker.setDescription("Are you sure you want to leave the game you are currently playing?");
             checker.addField("Confirm", ">> React with ✅", true);
             checker.addField("Cancel ", ">> React with ❎", true);
-          
+
             const filter = (reaction, user) => user.id == message.author.id;
 
-            message.channel.send(checker).then(msg => 
+            message.channel.send(checker).then(msg =>
             {
                 msg.react("✅");
                 msg.react("❎");
-                const collector = msg.createReactionCollector(filter, { time: 60000 });
-                collector.on('collect', r => 
+                const collector = msg.createReactionCollector(filter,
+                {
+                    time: 60000
+                });
+                collector.on('collect', r =>
                 {
                     if (r.emoji.name == "✅")
                     {
                         msg.delete();
-                      
+
                         if (playing.indexOf(message.author.id) == -1)
                         {
                             return "You are not even playing a game!";
                         }
-                        
+
                         let game = checkGame(message.member);
-                      
+
                         if (!game) return;
-                      
+
                         playing.splice(playing.indexOf(message.author.id), 1);
-                      
+
                         switch (game)
                         {
-                          case 0xCAFE25151:
-                              for (let gameID in games.XO)
-                              {   
-                                  if (gameID == "Playing") continue;
+                            case 0xCAFE25151:
+                                for (let gameID in games.XO)
+                                {
+                                    if (gameID == "Playing") continue;
 
-                                  let game = games.XO[gameID];
-                                  if (game.players && game.players.indexOf(message.author.id) != -1)
-                                  {
-                                      let winner = game.players.indexOf(message.author.id) == 0 ? "X" : "O";
-                                      
-                                      if (winner != "-")
-                                      {
-                                          if (winner == "X")
-                                          {
-                                              message.channel.send(":tada: Because the opponent left, <@" + game.players[0] + ">, you have won! Well Done! :tada:");
-                                              message.channel.send("You left the game, <@" + game.players[1] + ">. Wow.");
-                                          }
-                                          else if (winner == "O")
-                                          {
-                                              message.channel.send(":tada: Because the opponent left, <@" + game.players[1] + ">, you have won! Well Done! :tada:");
-                                              message.channel.send("You left the game, <@" + game.players[0] + ">. Wow.");
-                                          }
-                                        
-                                          var index = playing.indexOf(game.players[0]);
-                                          if (index > -1)
-                                          {
-                                              playing.splice(index, 1);
-                                          }
-                                          index = playing.indexOf(game.players[1]);
-                                          if (index > -1)
-                                          {
-                                              playing.splice(index, 1);
-                                          }
-                                          delete games.XO[gameID];
-                                      }
-                                  }
-                              }
-                              break;
-                          case 0xCAFE25152:
-                              break;
-                          default:
-                              break;
+                                    let game = games.XO[gameID];
+                                    if (game.players && game.players.indexOf(message.author.id) != -1)
+                                    {
+                                        let winner = game.players.indexOf(message.author.id) == 0 ? "X" : "O";
+
+                                        if (winner != "-")
+                                        {
+                                            if (winner == "X")
+                                            {
+                                                message.channel.send(":tada: Because the opponent left, <@" + game.players[0] + ">, you have won! Well Done! :tada:");
+                                                message.channel.send("You left the game, <@" + game.players[1] + ">. Wow.");
+                                            }
+                                            else if (winner == "O")
+                                            {
+                                                message.channel.send(":tada: Because the opponent left, <@" + game.players[1] + ">, you have won! Well Done! :tada:");
+                                                message.channel.send("You left the game, <@" + game.players[0] + ">. Wow.");
+                                            }
+
+                                            var index = playing.indexOf(game.players[0]);
+                                            if (index > -1)
+                                            {
+                                                playing.splice(index, 1);
+                                            }
+                                            index = playing.indexOf(game.players[1]);
+                                            if (index > -1)
+                                            {
+                                                playing.splice(index, 1);
+                                            }
+                                            delete games.XO[gameID];
+                                        }
+                                    }
+                                }
+                                break;
+                            case 0xCAFE25152:
+                                break;
+                            default:
+                                break;
                         }
-                          
+
                     }
                     else if (r.emoji.name == "❎")
                     {
@@ -1617,13 +1639,13 @@ var commands = {
         run: function(message, args, data)
         {
             let number = Math.floor(Math.random() * 5) + 1;
-          
+
             if (number == 6)
             {
                 let number2 = Math.floor(Math.random() * 5) + 1;
                 number += number2;
             }
-          
+
             message.channel.send("You rolled a **" + number + "**!");
         }
     },
@@ -1638,23 +1660,23 @@ var commands = {
         exampleusage: `${prefix}deathbattle @Furvux#2414`,
         run: function(message, args, data)
         {
-            let verbs   = ["slaps", "punches", "spits upon", "hits", "shoots", "kicks", "bodyslams", "tries out jujitsu on"];
-            let avecs   = ["a cod fish", "a gun", "John Doe", "their leg", "a brass cup", "a plastic chair", "an aeroplane"];
-            let endings = ["Phew! You beat up {DEAD} really badly!", "My word! Someone get the ambulance for {DEAD}!", "Crap! {DEAD} got beaten so badly!", "Wow - {DEAD} just couldn't keep up with {ALIVE}'s sick skills!"];  
-          
+            let verbs = ["slaps", "punches", "spits upon", "hits", "shoots", "kicks", "bodyslams", "tries out jujitsu on"];
+            let avecs = ["a cod fish", "a gun", "John Doe", "their leg", "a brass cup", "a plastic chair", "an aeroplane"];
+            let endings = ["Phew! You beat up {DEAD} really badly!", "My word! Someone get the ambulance for {DEAD}!", "Crap! {DEAD} got beaten so badly!", "Wow - {DEAD} just couldn't keep up with {ALIVE}'s sick skills!"];
+
             if (!args[0]) return "You need to fight with someone!";
-          
+
             let player1 = message.member;
             let player2 = message.mentions.members.first() || message.guild.members(m => m.displayName.startsWith(args[0]));
-          
+
             if (!player2) return "Please mention someone to fight against!";
             if (player2 == player1) return "You can't fight yourself, you silly billy!";
-          
+
             let health1 = 100;
             let health2 = 100;
-            
+
             let turn = 1;
-          
+
             let oembed = new Embed();
             oembed.setColor(data.display_colour.hex);
 
@@ -1662,10 +1684,10 @@ var commands = {
 
             oembed.addField("__" + player1.displayName + "'s Health__", health1, true);
             oembed.addField("__" + player2.displayName + "'s Health__", health2, true);
-          
-            message.channel.send(oembed).then(function(msg) 
+
+            message.channel.send(oembed).then(function(msg)
             {
-                setInterval(function() 
+                setInterval(function()
                 {
                     let action = util.randomItem(verbs);
                     let aid = util.randomItem(avecs);
@@ -1698,24 +1720,24 @@ var commands = {
                     if (health1 < 0)
                     {
                         let ending = util.randomItem(endings).split("{DEAD}").join(player1.displayName).split("{ALIVE}").join(player2.displayName);
-                      
+
                         let wEmbed = new Embed();
                         wEmbed.setColor("#FFBB00");
                         wEmbed.setTitle("🏆 __" + player2.displayName + " has won!__ 🏆");
                         wEmbed.setDescription("Well done, " + player2.displayName + "! " + ending + " " + (health2 < 10 ? "It was a close match though!" : "There was no way you were going to be beaten!"));
-                        
+
                         msg.edit(wEmbed);
                         clearInterval(this);
                     }
                     else if (health2 < 0)
                     {
                         let ending = util.randomItem(endings).split("{DEAD}").join(player2.displayName).split("{ALIVE}").join(player1.displayName);
-                      
+
                         let wEmbed = new Embed();
                         wEmbed.setColor("#FFBB00");
                         wEmbed.setTitle("🏆 __" + player1.displayName + " has won!__ 🏆");
                         wEmbed.setDescription("Well done, " + player1.displayName + "! " + ending + " " + (health1 < 10 ? "It was a close match though!" : "There was no way you were going to be beaten!"));
-                        
+
                         msg.edit(wEmbed);
                         clearInterval(this);
                     }
@@ -1730,17 +1752,17 @@ var commands = {
 
                 }, 1200);
             });
-          
-            
+
+
         }
     },
-    elemental: 
+    elemental:
     {
         name: "Elemental",
         description: "The Elemental type commands fall under this category. To use an elemental command, type `" + prefix + "elemental <command> <arguments>`",
         category: "Fun & Games",
         arguments: ["-r command", "-o arguments"],
-        permission: 10,
+        permission: 1,
         usage: `${prefix}elemental`,
         exampleusage: `${prefix}elemental start`,
         run: function(message, args, data)
@@ -1749,7 +1771,7 @@ var commands = {
             {
                 return "You need to specify a command to run in the sub-category of `elemental`! Type `" + prefix + "elemental help` to see help for the commands under the sub-category of Elemental.";
             }
-            
+
             try
             {
                 let comm = args.shift().toLowerCase();
@@ -1759,11 +1781,11 @@ var commands = {
                     if (error) return error;
                 }
                 else
-                {  
+                {
                     return "Sorry, but your permission level is too low to access that command! \nType `" + prefix + "elemental help` to recieve help on the Elemental sub-category.";
                 }
             }
-            catch (e) 
+            catch (e)
             {
                 if (e.message.includes("TypeError: Cannot read property 'run' of undefined"))
                 {
@@ -1773,7 +1795,7 @@ var commands = {
             }
         }
     },
-    pfp: 
+    pfp:
     {
         name: "Profile Picture",
         description: "**The command for this is `" + prefix + "pfp`**, and you can optionally mention a user to see their profile picture.",
@@ -1810,7 +1832,7 @@ var commands = {
 };
 
 var elemental = {
-    "start": 
+    "start":
     {
         name: "Start",
         description: "Starts your profile on the game!",
@@ -1822,176 +1844,189 @@ var elemental = {
         run: function(message, args, settings)
         {
             let author = message.author;
-            
-            let ref = firebase.database.ref("Userdata/" + author.id + "/Elementals");
-            ref.once("valu", function (snapshot)
+
+            let ref = firebase.database().ref("Userdata/" + author.id + "/Elementals");
+            ref.once("value", function(snapshot)
             {
                 let data = snapshot.val();
-              
-                if (data)
+
+                if (!data)
                 {
-                    
+                    let embed = new Embed();
+                    embed.setTitle("__Choose your Starter Elemental Type__");
+                    embed.setColor(settings.display_colour.hex);
+                    embed.setDescription("You need to choose your starter Elemental type. The types are listed below with all their weaknesses and strengths.");
+
+                    embed.addField("🔥 __Fire Type__ 🔥", "Fire Type Elementals unlock **fire-type** attacks and moves when leveled up!\n__Strong Against:__ **Nature**\n__Weak Against:__ **Water**");
+                    embed.addBlankField();
+                    embed.addField("💧 __Water Type__ 💧", "Water Type Elementals unlock **water-type** attacks and moves when leveled up!\n__Strong Against:__ **Fire**\n__Weak Against:__ **Nature**");
+                    embed.addBlankField();
+                    embed.addField("🍃 __Nature Type__ 🍃", "Nature Type Elementals unlock **nature-type** attacks and moves when leveled up!\n__Strong Against:__ **Water**\n__Weak Against:__ **Fire**");
+                    //embed.addField("💨 Air Type 💨", "", true);
+
+                    embed.setFooter("You have 60 seconds to choose your elemental type!", author.avatarURL);
+
+
+
+                    const filter = (reaction, user) => user.id == message.author.id;
+
+                    message.channel.send(embed).then(msg =>
+                    {
+                        msg.react("🔥");
+                        msg.react("💧");
+                        msg.react("🍃");
+                        const collector = msg.createReactionCollector(filter,
+                        {
+                            time: 60000
+                        });
+                        collector.on('collect', r =>
+                        {
+                            if (r.emoji.name == "🔥")
+                            {
+                                // They chose Fire
+                                msg.delete();
+
+                                let cName = util.randomItem(Object.keys(assets.Elementals.Characters.Fire));
+                                let character = assets.Elementals.Characters.Fire[cName];
+
+                                let basicattacks = ["Scratch", "Claw"];
+                                let elemattacks = ["Kindle", "Ember"];
+
+                                let chosenAttack = "**" + util.randomItem(basicattacks) + "** (Basic)";
+                                chosenAttack += "\n**_" + util.randomItem(elemattacks) + "_** (Elemental)";
+
+                                let health = Math.floor(Math.random() * 10) + 19;
+                                let basicdmg = Math.floor(Math.random() * 2) + 8;
+                                let elemdmg = Math.floor(Math.random() * 3) + 10;
+
+                                let chosenEmbed = new Embed();
+                                chosenEmbed.setColor("#FF8800");
+                                chosenEmbed.setDescription("You recieved a __**" + cName + "**__!\nType `" + prefix + "elemental rename <name>` to rename your elemental!");
+                                chosenEmbed.setThumbnail(character.u);
+                                chosenEmbed.addField("__Stats__", `>> __Type:__ **Fire**\n>> __Health:__ **${health}**\n>> __Basic Damage:__ **${basicdmg}**\n>> __Elemental Damage:__ **${elemdmg}**\n`);
+                                chosenEmbed.addField("__Attacks__", chosenAttack);
+                                chosenEmbed.setFooter("Fire Type Elemental", "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FFire.png");
+
+                                message.channel.send(chosenEmbed);
+
+                                let updateData = {};
+
+                                updateData["Name"] = cName;
+                                updateData["Level"] = 1;
+                                updateData["Born"] = new Date();
+                                updateData["Type"] = "Fire";
+                                updateData["Health"] = health;
+                                updateData["BasicDamage"] = basicdmg;
+                                updateData["ElementalDamage"] = elemdmg;
+                                updateData["Attacks"] = [chosenAttack.split("\n")[0].split("**")[1], chosenAttack.split("\n")[1].split("_")[1]];
+
+                                updateFirebaseData(updateData, "Userdata/" + author.id + "/Elementals/Characters/" + cName, "u");
+                            }
+                            else if (r.emoji.name == "💧")
+                            {
+                                // They chose Water
+                                msg.delete();
+
+                                let cName = util.randomItem(Object.keys(assets.Elementals.Characters.Water));
+                                let character = assets.Elementals.Characters.Water[cName];
+
+                                let basicattacks = ["Slap", "Jump"];
+                                let elemattacks = ["Splash", "Spout"];
+
+                                let chosenAttack = "**" + util.randomItem(basicattacks) + "** (Basic)";
+                                chosenAttack += "\n**_" + util.randomItem(elemattacks) + "_** (Elemental)";
+
+                                let health = Math.floor(Math.random() * 10) + 22;
+                                let basicdmg = Math.floor(Math.random() * 2) + 7;
+                                let elemdmg = Math.floor(Math.random() * 3) + 8;
+
+                                let chosenEmbed = new Embed();
+                                chosenEmbed.setColor("#00AAFF");
+                                chosenEmbed.setDescription("You recieved a __**" + cName + "**__!\nType `" + prefix + "elemental rename <name>` to rename your elemental!");
+                                chosenEmbed.setThumbnail(character.u);
+                                chosenEmbed.addField("__Stats__", `>> __Type:__ **Water**\n>> __Health:__ **${health}**\n>> __Basic Damage:__ **${basicdmg}**\n>> __Elemental Damage:__ **${elemdmg}**\n`);
+                                chosenEmbed.addField("__Attacks__", chosenAttack);
+                                chosenEmbed.setFooter("Water Type Elemental", "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FWater.png");
+
+                                message.channel.send(chosenEmbed);
+
+                                let updateData = {};
+
+                                updateData["Name"] = cName;
+                                updateData["Level"] = 1;
+                                updateData["Born"] = new Date();
+                                updateData["Type"] = "Water";
+                                updateData["Health"] = health;
+                                updateData["BasicDamage"] = basicdmg;
+                                updateData["ElementalDamage"] = elemdmg;
+                                updateData["Attacks"] = [chosenAttack.split("\n")[0].split("**")[1], chosenAttack.split("\n")[1].split("_")[1]];
+
+                                updateFirebaseData(updateData, "Userdata/" + author.id + "/Elementals/Characters/" + cName, "u");
+                            }
+                            else if (r.emoji.name == "🍃")
+                            {
+                                // They chose Nature
+                                msg.delete();
+
+                                let cName = util.randomItem(Object.keys(assets.Elementals.Characters.Nature));
+                                let character = assets.Elementals.Characters.Nature[cName];
+
+                                let basicattacks = ["Whip", "Hit"];
+                                let elemattacks = ["Vinewhip", "Thornprick"];
+
+                                let chosenAttack = "**" + util.randomItem(basicattacks) + "** (Basic)";
+                                chosenAttack += "\n**_" + util.randomItem(elemattacks) + "_** (Elemental)";
+
+                                let health = Math.floor(Math.random() * 10) + 18;
+                                let basicdmg = Math.floor(Math.random() * 2) + 9;
+                                let elemdmg = Math.floor(Math.random() * 3) + 10;
+
+                                let chosenEmbed = new Embed();
+                                chosenEmbed.setColor("#00AA00");
+                                chosenEmbed.setDescription("You recieved a __**" + cName + "**__!\nType `" + prefix + "elemental rename " + cName + " <name>` to rename your elemental!");
+                                chosenEmbed.setThumbnail(character.u);
+                                chosenEmbed.addField("__Stats__", `>> __Type:__ **Nature**\n>> __Health:__ **${health}**\n>> __Basic Damage:__ **${basicdmg}**\n>> __Elemental Damage:__ **${elemdmg}**\n`);
+                                chosenEmbed.addField("__Attacks__", chosenAttack);
+                                chosenEmbed.setFooter("Nature Type Elemental", "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FNature.png");
+
+                                message.channel.send(chosenEmbed);
+
+                                let updateData = {};
+
+                                updateData["Name"] = cName;
+                                updateData["Level"] = 1;
+                                updateData["Born"] = new Date();
+                                updateData["Type"] = "Nature";
+                                updateData["Health"] = health;
+                                updateData["BasicDamage"] = basicdmg;
+                                updateData["ElementalDamage"] = elemdmg;
+                                updateData["Attacks"] = [chosenAttack.split("\n")[0].split("**")[1], chosenAttack.split("\n")[1].split("_")[1]];
+
+                                updateFirebaseData(updateData, "Userdata/" + author.id + "/Elementals/Characters/" + cName, "u");
+                            }
+                            else
+                            {
+                                r.remove();
+                            }
+                        });
+                    });
+
+
+                }
+                else
+                {
+                    let embed = new Embed();
+                    embed.setTitle("__Oops!__");
+                    embed.setColor("#FF0000");
+                    embed.setDescription("It looks like you already have an Elemental!");
+                    message.channel.send(embed);
                 }
             });
-          
-            let embed = new Embed();
-            embed.setTitle("__Choose your Starter Elemental Type__");
-            embed.setColor(settings.display_colour.hex);
-            embed.setDescription("You need to choose your starter Elemental type. The types are listed below with all their weaknesses and strengths.");
-            
-            embed.addField("🔥 __Fire Type__ 🔥", "Fire Type Elementals unlock **fire-type** attacks and moves when leveled up!\n__Strong Against:__ **Nature**\n__Weak Against:__ **Water**");
-            embed.addBlankField();
-            embed.addField("💧 __Water Type__ 💧", "Water Type Elementals unlock **water-type** attacks and moves when leveled up!\n__Strong Against:__ **Fire**\n__Weak Against:__ **Nature**");
-            embed.addBlankField();
-            embed.addField("🍃 __Nature Type__ 🍃", "Nature Type Elementals unlock **nature-type** attacks and moves when leveled up!\n__Strong Against:__ **Water**\n__Weak Against:__ **Fire**");
-            //embed.addField("💨 Air Type 💨", "", true);
-          
-            embed.setFooter("You have 60 seconds to choose your elemental type!", author.avatarURL);
-            
-            
-          
-            const filter = (reaction, user) => user.id == message.author.id;
 
-            message.channel.send(embed).then(msg => 
-            {
-                msg.react("🔥");
-                msg.react("💧");
-                msg.react("🍃");
-                const collector = msg.createReactionCollector(filter, { time: 60000 });
-                collector.on('collect', r => 
-                {
-                    if (r.emoji.name == "🔥")
-                    {
-                       // They chose Fire
-                        msg.delete();
-                     
-                        let cName = util.randomItem(Object.keys(assets.Elementals.Characters.Fire));
-                        let character = assets.Elementals.Characters.Fire[cName];
-                      
-                        let basicattacks = ["Scratch", "Claw"];
-                        let elemattacks = ["Kindle", "Ember"];
-                      
-                        let chosenAttack = "**" + util.randomItem(basicattacks) + "** (Basic)";
-                        chosenAttack += "\n**_" + util.randomItem(elemattacks) + "_** (Elemental)";
-                        
-                        let health = Math.floor(Math.random() * 10) + 19;
-                        let basicdmg = Math.floor(Math.random() * 2) + 8;
-                        let elemdmg = Math.floor(Math.random() * 3) + 10;
-                      
-                        let chosenEmbed = new Embed();
-                        chosenEmbed.setColor("#FF8800");
-                        chosenEmbed.setDescription("You recieved a __**" + cName + "**__!\nType `" + prefix + "elemental rename <name>` to rename your elemental!");
-                        chosenEmbed.setThumbnail(character.u);
-                        chosenEmbed.addField("__Stats__", `>> __Type:__ **Fire**\n>> __Health:__ **${health}**\n>> __Basic Damage:__ **${basicdmg}**\n>> __Elemental Damage:__ **${elemdmg}**\n`);
-                        chosenEmbed.addField("__Attacks__", chosenAttack);
-                        chosenEmbed.setFooter("Fire Type Elemental", "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FFire.png");
-                        
-                        message.channel.send(chosenEmbed);
-                    
-                        let updateData = {};
-
-                        updateData["Name"] = cName;
-                        updateData["Born"] = new Date();
-                        updateData["Type"] = "Fire";
-                        updateData["Health"] = health;
-                        updateData["BasicDamage"] = basicdmg;
-                        updateData["ElementalDamage"] = elemdmg;
-                        updateData["Attacks"] = [chosenAttack.split("\n")[0].split("**")[1], chosenAttack.split("\n")[1].split("_")[1]];
-                      
-                        updateFirebaseData(updateData, "Userdata/" + author.id + "/Elementals/" + cName, "u");
-                    }
-                    else if (r.emoji.name == "💧")
-                    {
-                       // They chose Water
-                        msg.delete();
-                     
-                        let cName = util.randomItem(Object.keys(assets.Elementals.Characters.Water));
-                        let character = assets.Elementals.Characters.Water[cName];
-                      
-                        let basicattacks = ["Slap", "Jump"];
-                        let elemattacks = ["Splash", "Spout"];
-                      
-                        let chosenAttack = "**" + util.randomItem(basicattacks) + "** (Basic)";
-                        chosenAttack += "\n**_" + util.randomItem(elemattacks) + "_** (Elemental)";
-                        
-                        let health = Math.floor(Math.random() * 10) + 22;
-                        let basicdmg = Math.floor(Math.random() * 2) + 7;
-                        let elemdmg = Math.floor(Math.random() * 3) + 8;
-                      
-                        let chosenEmbed = new Embed();
-                        chosenEmbed.setColor("#00AAFF");
-                        chosenEmbed.setDescription("You recieved a __**" + cName + "**__!\nType `" + prefix + "elemental rename <name>` to rename your elemental!");
-                        chosenEmbed.setThumbnail(character.u);
-                        chosenEmbed.addField("__Stats__", `>> __Type:__ **Water**\n>> __Health:__ **${health}**\n>> __Basic Damage:__ **${basicdmg}**\n>> __Elemental Damage:__ **${elemdmg}**\n`);
-                        chosenEmbed.addField("__Attacks__", chosenAttack);
-                        chosenEmbed.setFooter("Water Type Elemental", "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FWater.png");
-                        
-                        message.channel.send(chosenEmbed);
-                    
-                        let updateData = {};
-
-                        updateData["Name"] = cName;
-                        updateData["Born"] = new Date();
-                        updateData["Type"] = "Water";
-                        updateData["Health"] = health;
-                        updateData["BasicDamage"] = basicdmg;
-                        updateData["ElementalDamage"] = elemdmg;
-                        updateData["Attacks"] = [chosenAttack.split("\n")[0].split("**")[1], chosenAttack.split("\n")[1].split("_")[1]];
-                      
-                        updateFirebaseData(updateData, "Userdata/" + author.id + "/Elementals/" + cName, "u");
-                    }
-                    else if (r.emoji.name == "🍃")
-                    {
-                       // They chose Nature
-                        msg.delete();
-                      
-                        let cName = util.randomItem(Object.keys(assets.Elementals.Characters.Nature));
-                        let character = assets.Elementals.Characters.Nature[cName];
-                      
-                        let basicattacks = ["Whip", "Hit"];
-                        let elemattacks = ["Vinewhip", "Thornprick"];
-                      
-                        let chosenAttack = "**" + util.randomItem(basicattacks) + "** (Basic)";
-                        chosenAttack += "\n**_" + util.randomItem(elemattacks) + "_** (Elemental)";
-                        
-                        let health = Math.floor(Math.random() * 10) + 18;
-                        let basicdmg = Math.floor(Math.random() * 2) + 9;
-                        let elemdmg = Math.floor(Math.random() * 3) + 10;
-                      
-                        let chosenEmbed = new Embed();
-                        chosenEmbed.setColor("#00AA00");
-                        chosenEmbed.setDescription("You recieved a __**" + cName + "**__!\nType `" + prefix + "elemental rename " + cName + " <name>` to rename your elemental!");
-                        chosenEmbed.setThumbnail(character.u);
-                        chosenEmbed.addField("__Stats__", `>> __Type:__ **Nature**\n>> __Health:__ **${health}**\n>> __Basic Damage:__ **${basicdmg}**\n>> __Elemental Damage:__ **${elemdmg}**\n`);
-                        chosenEmbed.addField("__Attacks__", chosenAttack);
-                        chosenEmbed.setFooter("Nature Type Elemental", "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FNature.png");
-                        
-                        message.channel.send(chosenEmbed);
-                    
-                        let updateData = {};
-
-                        updateData["Name"] = cName;
-                        updateData["Born"] = new Date();
-                        updateData["Type"] = "Nature";
-                        updateData["Health"] = health;
-                        updateData["BasicDamage"] = basicdmg;
-                        updateData["ElementalDamage"] = elemdmg;
-                        updateData["Attacks"] = [chosenAttack.split("\n")[0].split("**")[1], chosenAttack.split("\n")[1].split("_")[1]];
-                      
-                        updateFirebaseData(updateData, "Userdata/" + author.id + "/Elementals/" + cName, "u");
-                    }
-                    else
-                    {
-                        r.remove();
-                    }  
-                });
-            });
-          
-            
         }
-        
+
     },
-    "stkart": 
+    "stkart":
     {
         name: "Death Battle",
         description: "Fight a fast-paced battle to the death with the user who is mentioned!",
@@ -2000,9 +2035,7 @@ var elemental = {
         permission: 10,
         usage: `${prefix}deathbattle`,
         exampleusage: `${prefix}deathbattle @furvux#2414`,
-        run: function(message, args, data)
-        {
-        }
+        run: function(message, args, data) {}
     }
 };
 
@@ -2027,9 +2060,9 @@ function toBufferAndSend(image, message, text)
 function placeXO(message, games, i_X, i_O, basFunc)
 {
     for (let gameID in games.XO)
-    {   
+    {
         if (gameID == "Playing") continue;
-      
+
         let game = games.XO[gameID];
         if (game.players && game.players.includes(message.author.id))
         {
@@ -2045,9 +2078,9 @@ function placeXO(message, games, i_X, i_O, basFunc)
 
                     let player1 = message.guild.members.find(m => m.id == game.players[0]);
                     let player2 = message.guild.members.find(m => m.id == game.players[1]);
-                  
-                    game.boardImage.composite(marker, xCoord, yCoord);                     
-                  
+
+                    game.boardImage.composite(marker, xCoord, yCoord);
+
                     basFunc(game.boardImage, message, player1.displayName + " vs. " + player2.displayName);
 
                     game.board[input - 1] = game.players.indexOf(message.author.id) == 0 ? "X" : "O";
@@ -2182,10 +2215,10 @@ function arrayIsNaN(array)
     return true;
 }
 
-process.on('unhandledRejection', (reason, p) => 
+process.on('unhandledRejection', (reason, p) =>
 {
     console.error('Unhandled Rejection at: ' + p + '\nReason: ' + reason);
-  
+
 });
 
 process.on('exit', () =>
@@ -2207,10 +2240,11 @@ function checkGame(user)
 
 function sendTONumber(number, message, gameID)
 {
-    var image = new Jimp(128, 64, function (err, image) 
+    var image = new Jimp(128, 64, function(err, image)
     {
         if (err) throw err;
-        Jimp.loadFont(Jimp.FONT_SANS_64_WHITE).then(function (font) {
+        Jimp.loadFont(Jimp.FONT_SANS_64_WHITE).then(function(font)
+        {
             image.print(font, 0, 0, number.toString());
             toBufferAndSend(image, message, "Game [**" + gameID + "**] Number: " + number + "\n**Turn**: " + message.guild.members.find(m => m.user.id == games.TwentyOne[gameID].players[games.TwentyOne[gameID].turn - 1]).displayName)
         });
@@ -2218,7 +2252,7 @@ function sendTONumber(number, message, gameID)
 }
 
 function place21(message)
-{  
+{
     for (let gameID in games.TwentyOne)
     {
         let game = games.TwentyOne[gameID];
@@ -2229,7 +2263,7 @@ function place21(message)
                 message.channel.send("```diff\n- You need someone else to join the game!\n```");
                 return;
             }
-          
+
             let input = parseInt(message.content);
             if (game.turn == game.players.indexOf(message.author.id) + 1)
             {
@@ -2243,14 +2277,14 @@ function place21(message)
                             message.channel.send("```diff\n- You can only go up to 21!\n```");
                             return;
                         }
-                      
+
                         game.current = input;
-                      
+
                         if (game.current == 21)
                         {
                             message.channel.send(message.author + " has lost! Everyone else has won!!! GG Everyone (except for **" + message.member.displayName + "** XD)! :tada:");
                             sendTONumber(21, message, gameID);
-                          
+
                             for (let i = 0; i < game.players.length; i++)
                             {
                                 var index = playing.indexOf(game.players[i]);
@@ -2262,13 +2296,13 @@ function place21(message)
                             delete games.TwentyOne[gameID];
                             return;
                         }
-                      
+
                         game.turn++;
                         if (game.turn > game.players.length)
                         {
                             game.turn = 1;
                         }
-                      
+
                         sendTONumber(game.current, message, gameID);
                     }
                     else
@@ -2297,9 +2331,9 @@ async function loadData(src, dest)
     let before = new Date();
     if (!dest) dest = {};
     if (!src) src = "/";
-  
+
     let ref = firebase.database().ref(src);
-    await ref.once("value", function(snapshot) 
+    await ref.once("value", function(snapshot)
     {
         let data = snapshot.val();
         dest = data;
@@ -2311,72 +2345,94 @@ async function loadData(src, dest)
 function updateFirebaseData(src, dest, type)
 {
     let before = new Date();
-    if (!src) {console.error("No data provided to update in the database!"); return;}
+    if (!src)
+    {
+        console.error("No data provided to update in the database!");
+        return;
+    }
     if (!dest) dest = "/";
     if (!type) type = "u";
-  
+
     let ref = firebase.database().ref(dest);
     if (type == "u") ref.update(src);
     if (type == "s") ref.set(src);
-    else {console.error("TypeError: No type provided to update data!"); return;}
+    else
+    {
+        console.error("TypeError: No type provided to update data!");
+        return;
+    }
 }
 
-function hook(channel, title, message, color, avatar) {
+function hook(channel, title, message, color, avatar)
+{
 
-  if (!channel) return ('Channel not specified.');
-  if (!title) return ('Title not specified.');
-  if (!message) return ('Message not specified.');
-  if (!color) color = '843B80'; 
-  if (!avatar) avatar = 'https://cdn4.iconfinder.com/data/icons/technology-devices-1/500/speech-bubble-128.png' 
+    if (!channel) return ('Channel not specified.');
+    if (!title) return ('Title not specified.');
+    if (!message) return ('Message not specified.');
+    if (!color) color = '843B80';
+    if (!avatar) avatar = 'https://cdn4.iconfinder.com/data/icons/technology-devices-1/500/speech-bubble-128.png'
 
-  color = color.replace(/\s/g, '');
-  avatar = avatar.replace(/\s/g, '');
-  
+    color = color.replace(/\s/g, '');
+    avatar = avatar.replace(/\s/g, '');
+
     if (color.startsWith("#")) color = color.substr(1);
 
-  channel.fetchWebhooks()
-      .then(webhook => {
+    channel.fetchWebhooks()
+        .then(webhook =>
+        {
 
-          let foundHook = webhook.find('name', 'Webhook'); 
+            let foundHook = webhook.find('name', 'Webhook');
 
-          if (!foundHook) {
-              channel.createWebhook('Webhook', 'https://cdn4.iconfinder.com/data/icons/technology-devices-1/500/speech-bubble-128.png') 
-                  .then(webhook => {
+            if (!foundHook)
+            {
+                channel.createWebhook('Webhook', 'https://cdn4.iconfinder.com/data/icons/technology-devices-1/500/speech-bubble-128.png')
+                    .then(webhook =>
+                    {
 
-                      webhook.send('', {
-                          "username": title,
-                          "avatarURL": avatar,
-                          "embeds": [{
-                              "color": parseInt(`0x${color}`),
-                              "description":message,
-                      thumbnail: {
-                           url: avatar
-                        }
-                          }]
-                      })
-                          .catch(error => { 
-                              console.log(error);
-                              return channel.send('**Something went wrong when sending the webhook. Please check console.**');
-                          })
-                  })
-          } else { 
-              foundHook.send('', { 
-                  "username": title,
-                  "avatarURL": avatar,
-                  "embeds": [{
-                      "color": parseInt(`0x${color}`),
-                      "description":message,
-                      thumbnail: {
-                           url: avatar
-                        }
-                  }]
-              })
-                  .catch(error => { 
-                      console.log(error);
-                      return channel.send('**Something went wrong when sending the webhook. Please check console.**');
-                  })
-              }
+                        webhook.send('',
+                            {
+                                "username": title,
+                                "avatarURL": avatar,
+                                "embeds": [
+                                {
+                                    "color": parseInt(`0x${color}`),
+                                    "description": message,
+                                    thumbnail:
+                                    {
+                                        url: avatar
+                                    }
+                                }]
+                            })
+                            .catch(error =>
+                            {
+                                console.log(error);
+                                return channel.send('**Something went wrong when sending the webhook. Please check console.**');
+                            })
+                    })
+            }
+            else
+            {
+                foundHook.send('',
+                    {
+                        "username": title,
+                        "avatarURL": avatar,
+                        "embeds": [
+                        {
+                            "color": parseInt(`0x${color}`),
+                            "description": message,
+                            thumbnail:
+                            {
+                                url: avatar
+                            }
+                        }]
+                    })
+                    .catch(error =>
+                    {
+                        console.log(error);
+                        return channel.send('**Something went wrong when sending the webhook. Please check console.**');
+                    })
+            }
 
-      })
+        })
 
 }
