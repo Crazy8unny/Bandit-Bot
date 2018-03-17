@@ -1849,15 +1849,15 @@ var elemental = {
                         let cName = util.randomItem(Object.keys(assets.Elementals.Characters.Fire));
                         let character = assets.Elementals.Characters.Fire[cName];
                       
-                        let attacks = [">> **Scratch** (Basic)", ">> **Claw** (Basic)", ">> _**Ember** (Elemental)_"];
+                        let basicattacks = ["Scratch", "Claw"];
+                        let elemattacks = ["Kindle", "Ember"];
                       
-                        let chosenAttack = util.randomItem(attacks);
-                        attacks.splice(attacks.indexOf(chosenAttack), 1);
-                        chosenAttack += "\n" + util.randomItem(attacks);
+                        let chosenAttack = "**" + util.randomItem(basicattacks) + "** (Basic)";
+                        chosenAttack += "\n**_" + util.randomItem(elemattacks) + "_** (Elemental)";
                         
-                        let health = Math.floor(Math.random() * 10) + 20;
+                        let health = Math.floor(Math.random() * 10) + 19;
                         let basicdmg = Math.floor(Math.random() * 2) + 8;
-                        let elemdmg = Math.floor(Math.random() * 3) + 9;
+                        let elemdmg = Math.floor(Math.random() * 3) + 10;
                       
                         let chosenEmbed = new Embed();
                         chosenEmbed.setColor("#FF8800");
@@ -1877,15 +1877,15 @@ var elemental = {
                         let cName = util.randomItem(Object.keys(assets.Elementals.Characters.Water));
                         let character = assets.Elementals.Characters.Water[cName];
                       
-                        let attacks = [">> **Slap** (Basic)", ">> **Jump** (Basic)", ">> _**Splash** (Elemental)_"];
+                        let basicattacks = ["Slap", "Jump"];
+                        let elemattacks = ["Splash", "Spout"];
                       
-                        let chosenAttack = util.randomItem(attacks);
-                        attacks.splice(attacks.indexOf(chosenAttack), 1);
-                        chosenAttack += "\n" + util.randomItem(attacks);
+                        let chosenAttack = "**" + util.randomItem(basicattacks) + "** (Basic)";
+                        chosenAttack += "\n**_" + util.randomItem(elemattacks) + "_** (Elemental)";
                         
-                        let health = Math.floor(Math.random() * 10) + 20;
-                        let basicdmg = Math.floor(Math.random() * 2) + 8;
-                        let elemdmg = Math.floor(Math.random() * 3) + 9;
+                        let health = Math.floor(Math.random() * 10) + 22;
+                        let basicdmg = Math.floor(Math.random() * 2) + 7;
+                        let elemdmg = Math.floor(Math.random() * 3) + 8;
                       
                         let chosenEmbed = new Embed();
                         chosenEmbed.setColor("#00AAFF");
@@ -1905,11 +1905,11 @@ var elemental = {
                         let cName = util.randomItem(Object.keys(assets.Elementals.Characters.Nature));
                         let character = assets.Elementals.Characters.Nature[cName];
                       
-                        let attacks = [">> **Whip** (Basic)", ">> **Hit** (Basic)", ">> _**Vinewhip** (Elemental)_"];
+                        let basicattacks = ["Whip", "Hit"];
+                        let elemattacks = ["Vinewhip", "Thornprick"];
                       
-                        let chosenAttack = util.randomItem(attacks);
-                        attacks.splice(attacks.indexOf(chosenAttack), 1);
-                        chosenAttack += "\n" + util.randomItem(attacks);
+                        let chosenAttack = "**" + util.randomItem(basicattacks) + "** (Basic)";
+                        chosenAttack += "\n**_" + util.randomItem(elemattacks) + "_** (Elemental)";
                         
                         let health = Math.floor(Math.random() * 10) + 18;
                         let basicdmg = Math.floor(Math.random() * 2) + 9;
@@ -1924,15 +1924,22 @@ var elemental = {
                         chosenEmbed.setFooter("Nature Type Elemental", "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FNature.png");
                         
                         message.channel.send(chosenEmbed);
+                    
+                        let updateData = {};
+
+                        updateData["Name"] = cName;
+                        updateData["Type"] = "Nature";
+                        updateData["Health"] = health;
+                        updateData["BasicDamage"] = basicdmg;
+                        updateData["ElementalDamage"] = elemdmg;
+                        updateData["Attacks"] = [chosenAttack.split("\n")[0].split("**")[1], chosenAttack.split("\n")[1].split("_")[1]];
+                      
+                        updateFirebaseData(updateData, "Userdata/" + author.id + "");
                     }
                     else
                     {
                         r.remove();
                     }  
-                    
-                    let updateData = {};
-                    
-                    updateData[""];
                 });
             });
           
@@ -2257,7 +2264,7 @@ function loadData(src, dest)
     });
 }
 
-function updateData(src, dest, type)
+function updateFirebaseData(src, dest, type)
 {
     let before = new Date();
     if (!src) {console.error("No data provided to update in the database!"); return;}
