@@ -1777,10 +1777,62 @@ var commands = {
 
                     if (!data) {message.channel.send(user.displayName + " does not have any Elementals! They need to type `" + prefix + "elementals start` to start their Elemental career!"); return;}
 
+                    let msg = ``;
+                    let tFire = 0;
+                    let tWater = 0;
+                    let tNature = 0;
+                    let tWind = 0;
+                    for (let name in data)
+                    {
+                        let character = data[name];  
+                      
+                        msg += `>> **${name}** __[${character.Type} Elemental, Level **${character.Level}**]__\n`;
+                        
+                        if (character.Type == "Fire")
+                        {
+                            tFire++;
+                        }
+                        if (character.Type == "Water")
+                        {
+                            tWater++;
+                        }
+                        if (character.Type == "Nature")
+                        {
+                            tNature++;
+                        }
+                        if (character.Type == "Wind")
+                        {
+                            tWind++;
+                        }
+                    }
+                  
+                    let img = "";
+                    if (tFire > tWater && tFire > tNature && tFire > tWind)
+                    {
+                        img = "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FFire.png";
+                    }
+                    else if (tWater > tFire && tWater > tNature && tWater > tWind)
+                    {
+                        img = "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FWater.png";
+                    }
+                    else if (tNature > tWater && tNature > tFire && tNature > tWind)
+                    {
+                        img = "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FNature.png";
+                    }
+                    else if (tWind > tWater && tWind > tNature && tWind > tFire)
+                    {
+                        img = "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FWind.png";
+                    }
+                    else
+                    {
+                        img = "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FCoverimg.png";
+                    }
+                  
                     let embed = new Embed();
                     embed.setTitle("__" + user.displayName + "'s Elementals__");
+                    embed.setThumbnail(img);
                     embed.setColor(settings.display_colour.hex);
-                    embed.setDescription(">> **" + Object.keys(data).join("**\n>> ") + "**\n");
+                    embed.setDescription(msg);
                     embed.setFooter(user.displayName + "'s Elementals", user.user.avatarURL);
 
                     message.channel.send(embed);
@@ -1855,32 +1907,17 @@ var commands = {
         name: "Enable",
         description: "Enables something.",
         category: "Setup",
-        arguments: ["-r "],
+        arguments: ["-r thing"],
         permission: 1,
-        usage: `${prefix}pfp`,
-        exampleusage: `${prefix}pfp @Furvux#2414`,
+        usage: `${prefix}enbale`,
+        exampleusage: `${prefix}enable elementalspawns`,
         run: function(message, args, data)
         {
             if (!args[0])
             {
 
-                const embed = new Embed()
-                    .setTitle('Profile Picture')
-                    .setURL(message.author.avatarURL)
-                    .setColor(message.member.colorRole.color)
-                    .setImage(message.author.avatarURL)
-                message.channel.send(embed)
             }
-            else
-            {
-                let person = message.mentions.members.first() || message.guild.members.find(m => m.user.username.toLowerCase().trim().startsWith(args[0].toLowerCase().trim())) || message.member;
-                const embed = new Embed()
-                    .setTitle('Profile Picture')
-                    .setURL(person.user.avatarURL)
-                    .setColor(message.member.colorRole.color)
-                    .setImage(person.user.avatarURL)
-                message.channel.send(embed)
-            }
+            
         }
     }
 
@@ -2144,10 +2181,62 @@ var elemental = {
 
                 if (!data) {message.channel.send("You do not have any Elementals! Type `" + prefix + "elementals start` to start your Elemental career!"); return;}
               
-                let embed = new Embed();
-                embed.setTitle("__" + message.member.displayName + "'s Elementals__");
-                embed.setColor(settings.display_colour.hex);
-                embed.setDescription(">> **" + Object.keys(data).join("**\n>> ") + "**\n");
+                let msg = ``;
+                    let tFire = 0;
+                    let tWater = 0;
+                    let tNature = 0;
+                    let tWind = 0;
+                    for (let name in data)
+                    {
+                        let character = data[name];  
+                      
+                        msg += `>> **${name}** __[${character.Type} Elemental, Level **${character.Level}**]__\n`;
+                        
+                        if (character.Type == "Fire")
+                        {
+                            tFire++;
+                        }
+                        if (character.Type == "Water")
+                        {
+                            tWater++;
+                        }
+                        if (character.Type == "Nature")
+                        {
+                            tNature++;
+                        }
+                        if (character.Type == "Wind")
+                        {
+                            tWind++;
+                        }
+                    }
+                  
+                    let img = "";
+                    if (tFire > tWater && tFire > tNature && tFire > tWind)
+                    {
+                        img = "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FFire.png";
+                    }
+                    else if (tWater > tFire && tWater > tNature && tWater > tWind)
+                    {
+                        img = "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FWater.png";
+                    }
+                    else if (tNature > tWater && tNature > tFire && tNature > tWind)
+                    {
+                        img = "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FNature.png";
+                    }
+                    else if (tWind > tWater && tWind > tNature && tWind > tFire)
+                    {
+                        img = "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FWind.png";
+                    }
+                    else
+                    {
+                        img = "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FCoverimg.png";
+                    }
+                  
+                    let embed = new Embed();
+                    embed.setTitle("__" + message.member.displayName + "'s Elementals__");
+                    embed.setThumbnail(img);
+                    embed.setColor(settings.display_colour.hex);
+                    embed.setDescription(msg);
                 embed.setFooter(message.member.displayName + "'s Elementals", message.author.avatarURL);
               
                 message.channel.send(embed);
