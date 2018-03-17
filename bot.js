@@ -1808,7 +1808,7 @@ var elemental = {
             
             
           
-            const filter = (reaction, user) => user != null;
+            const filter = (reaction, user) => user.id == message.author.id;
 
             message.channel.send(embed).then(msg => 
             {
@@ -1818,9 +1818,31 @@ var elemental = {
                 const collector = msg.createReactionCollector(filter, { time: 60000 });
                 collector.on('collect', r => 
                 {
-                    
                     if (r.emoji.name == "🔥")
                     {
+                       // They chose Fire
+                        msg.delete();
+                        
+                        let chosenEmbed = new Embed();
+                        embed.setColor("#FF8800");
+                        embed.setThumbnail("https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FFire.png?1521287557154");
+                        embed.setDescription("");
+                        
+                        message.channel.send();
+                    }
+                    else if (r.emoji.name == "💧")
+                    {
+                       // They chose Water
+                        msg.delete();
+                    }
+                    else if (r.emoji.name == "🍃")
+                    {
+                       // They chose Nature
+                        msg.delete();
+                    }
+                    else
+                    {
+                        r.remove();
                     }
                 });
             });
