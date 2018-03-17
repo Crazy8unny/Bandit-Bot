@@ -385,7 +385,7 @@ var commands = {
                     msg.delete(3000)
                 });
         }
-    },
+    }, //Talk via Discord
     slap:
     {
         name: "Slap",
