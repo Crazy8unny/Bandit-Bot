@@ -1739,6 +1739,37 @@ var commands = {
                 return e.message;
             }
         }
+    },
+    pfp: 
+    {
+        name: "Profile P",
+        description: "The Elemental type commands fall under this category. To use an elemental command, type `" + prefix + "elemental <command> <arguments>`",
+        category: "Fun & Games",
+        arguments: ["-r command", "-o arguments"],
+        permission: 10,
+        usage: `${prefix}elemental`,
+        exampleusage: `${prefix}elemental start`,
+        run: function(message, args, data)
+        {
+            if (!args[0])
+            {
+                return "You need to specify a command to run in the sub-category of `elemental`! Type `" + prefix + "elemental help` to see help for the commands under the sub-category of Elemental.";
+            }
+            
+            try
+            {
+                let comm = args.shift();
+                elemental[comm.toLowerCase()].run(message, args, data);
+            }
+            catch (e) 
+            {
+                if (e.message.includes("TypeError: Cannot read property 'run' of undefined"))
+                {
+                    return "No such command found under the sub-category of `elemental`! Ensure correct spelling and make sure the command is avaliable to your level!";
+                }
+                return e.message;
+            }
+        }
     }
 
 };

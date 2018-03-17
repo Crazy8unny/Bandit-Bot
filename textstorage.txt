@@ -1,0 +1,28 @@
+if (!args[0])
+        {
+
+            const embed = new Discord.MessageEmbed()
+                .setTitle('Profile Picture')
+                .setURL(message.author.avatarURL(
+                {
+                    'format': 'png',
+                    'size': 2048
+                }))
+                .setColor(message.member.colorRole.color)
+                .setImage(message.author.avatarURL())
+            message.channel.send(embed)
+        }
+        else
+        {
+            let person = message.mentions.members.first() || message.guild.members.find(m => m.user.username.toLowerCase().trim().startsWith(args[0].toLowerCase().trim())) || message.member;
+            const embed = new Discord.MessageEmbed()
+                .setTitle('Profile Picture')
+                .setURL(person.user.avatarURL(
+                {
+                    'format': 'png',
+                    'size': 2048
+                }))
+                .setColor(message.member.colorRole.color)
+                .setImage(person.user.avatarURL())
+            message.channel.send(embed)
+        }
