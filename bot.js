@@ -1710,6 +1710,11 @@ var commands = {
 
 };
 
+var c = {
+    "start": {
+    }
+};
+
 bot.login(token);
 
 
