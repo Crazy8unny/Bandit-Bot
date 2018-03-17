@@ -110,6 +110,15 @@ bot.on('ready', async function()
     loadAsset(tailCoin, assets.CoinFlip.Tails);
   
     loadData("Serverdata", serverdata);
+  
+    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FFizzball.png", assets.Elementals.Characters.Fire.Fizzball);
+    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FFlizard.png", assets.Elementals.Characters.Fire.Flizard);
+  
+    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FZrog.png", assets.Elementals.Characters.Water.Zrog);
+    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FTritisk.png", assets.Elementals.Characters.Water.Tristisk);
+  
+    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FMarsoak.png", assets.Elementals.Characters.Nature.Marsoak);
+    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FShrumarsh.png", assets.Elementals.Characters.Nature.Shrumarsh);
 
     games.XO.Playing = [];
     games.TwentyOne.Playing = [];
@@ -1836,7 +1845,9 @@ var elemental = {
                     {
                        // They chose Fire
                         msg.delete();
-                        
+                     
+                        let character = assets.Elementals.Characters.Fire[util.randomItem(Object.keys(assets.Elementals.Characters.Fire))];
+                      
                         let chosenEmbed = new Embed();
                         embed.setColor("#FF8800");
                         embed.setThumbnail("https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FFire.png?1521287557154");
