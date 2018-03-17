@@ -1849,15 +1849,23 @@ var elemental = {
                         let cName = util.randomItem(Object.keys(assets.Elementals.Characters.Fire));
                         let character = assets.Elementals.Characters.Fire[cName];
                       
-                        let attacks = [];
+                        let attacks = [">> **Scratch** (Basic)", ">> **Claw** (Basic)", ">> _**Ember** (Elemental)_"];
+                      
+                        let chosenAttack = util.randomItem(attacks);
+                        attacks.splice(attacks.indexOf(chosenAttack), 1);
+                        chosenAttack += "\n" + util.randomItem(attacks);
+                        
+                        let health = Math.floor(Math.random() * 10) + 20;
+                        let basicdmg = Math.floor(Math.random() * 2) + 8;
+                        let elemdmg = Math.floor(Math.random() * 3) + 9;
                       
                         let chosenEmbed = new Embed();
                         chosenEmbed.setColor("#FF8800");
-                        chosenEmbed.setDescription("You recieved a " + cName + "!");
-                        chosenEmbed.setImage(character.u);
-                        chosenEmbed.addField("Stats", `>> __Type:__ **Fire**\n>> __Health:__ **{health}**\n>> __Basic Damage:__ **{basicdmg}**\n>> __Elemental Damage:__ **{elemdmg}**\n`);
-                        chosenEmbed.addField("Attacks", `>> **Scratch** (Basic)\n`);
-                        
+                        chosenEmbed.setDescription("You recieved a __**" + cName + "**__!\nType `" + prefix + "elemental rename <name>` to rename your elemental!");
+                        chosenEmbed.setThumbnail(character.u);
+                        chosenEmbed.addField("__Stats__", `>> __Type:__ **Fire**\n>> __Health:__ **${health}**\n>> __Basic Damage:__ **${basicdmg}**\n>> __Elemental Damage:__ **${elemdmg}**\n`);
+                        chosenEmbed.addField("__Attacks__", chosenAttack);
+                        chosenEmbed.setFooter("Fire Type Elemental", "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FFire.png");
                         
                         message.channel.send(chosenEmbed);
                     }
@@ -1865,6 +1873,29 @@ var elemental = {
                     {
                        // They chose Water
                         msg.delete();
+                     
+                        let cName = util.randomItem(Object.keys(assets.Elementals.Characters.Fire));
+                        let character = assets.Elementals.Characters.Fire[cName];
+                      
+                        let attacks = [">> **Scratch** (Basic)", ">> **Claw** (Basic)", ">> _**Ember** (Elemental)_"];
+                      
+                        let chosenAttack = util.randomItem(attacks);
+                        attacks.splice(attacks.indexOf(chosenAttack), 1);
+                        chosenAttack += "\n" + util.randomItem(attacks);
+                        
+                        let health = Math.floor(Math.random() * 10) + 20;
+                        let basicdmg = Math.floor(Math.random() * 2) + 8;
+                        let elemdmg = Math.floor(Math.random() * 3) + 9;
+                      
+                        let chosenEmbed = new Embed();
+                        chosenEmbed.setColor("#00AAFF");
+                        chosenEmbed.setDescription("You recieved a __**" + cName + "**__!\nType `" + prefix + "elemental rename <name>` to rename your elemental!");
+                        chosenEmbed.setThumbnail(character.u);
+                        chosenEmbed.addField("__Stats__", `>> __Type:__ **Fire**\n>> __Health:__ **${health}**\n>> __Basic Damage:__ **${basicdmg}**\n>> __Elemental Damage:__ **${elemdmg}**\n`);
+                        chosenEmbed.addField("__Attacks__", chosenAttack);
+                        chosenEmbed.setFooter("Fire Type Elemental", "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FFire.png");
+                        
+                        message.channel.send(chosenEmbed);
                     }
                     else if (r.emoji.name == "🍃")
                     {
