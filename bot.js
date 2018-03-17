@@ -28,6 +28,7 @@ var assets = {};
 assets.XO = {};
 assets.CoinFlip = {};
 assets.DeathBattle = {};
+assets.Elementals = {};
 
 var serverdata = {};
 
