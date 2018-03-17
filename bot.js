@@ -1709,6 +1709,23 @@ var commands = {
             
         }
     },
+    elemental: 
+    {
+        name: "Elemental",
+        description: "The Elemental type commands fall under this category. To use an elemental command, type `" + prefix + "elemental <command> <arguments>`",
+        category: "Fun & Games",
+        arguments: ["-r command", "-o arguments"],
+        permission: 10,
+        usage: `${prefix}elemental`,
+        exampleusage: `${prefix}elemental start`,
+        run: function(message, args, data)
+        {
+            if (!args[0])
+            {
+                return "You need to specify a command to run in the sub-category of `elemental`! Type `" + prefix + "elemental help` to see help for the commands under the sub-category of Elemental.";
+            }
+        }
+    }
 
 };
 
@@ -1727,8 +1744,13 @@ var c = {
             let author = message.author;
             
             let embed = new Embed();
-            embed.setTitle("__Choose your Starter __");
-            embed.setDescription("You need to choose your starter . The deat");
+            embed.setTitle("__Choose your Starter Elemental__");
+            embed.setDescription("You need to choose your starter Elemental. The types are listed below with all their weaknesses and strengths.");
+            
+            embed.addField("🔥 Fire Type 🔥", "Fire Type Elementals unlock **fire-type** attacks and moves when leveled up!\n__Strong Against:__ Nature\n__Weak Against:__ Water", true);
+            embed.addField("🌊 Water Type 🌊", "Water Type Elementals unlock **water-type** attacks and moves when leveled up!\n__Strong Against:__ Fire\n__Weak Against:__ Nature", true);
+            //embed.addField("💨 Air Type 💨", "", true);
+            embed.addField("🍂 Nature Type 🍂", "Nature Type Elementals unlock **nature-type** attacks and moves when leveled up!\n__Strong Against:__ Water\n__Weak Against:__ Fire", true);
         }
         
     },
