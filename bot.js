@@ -1775,6 +1775,7 @@ var commands = {
             try
             {
                 let comm = args.shift().toLowerCase();
+                if (!elemental[comm]) return "Sorry, but that command does not exist!";
                 if (data.permission >= elemental[comm].permission)
                 {
                     let error = elemental[comm].run(message, args, data);
@@ -1855,7 +1856,7 @@ var elemental = {
                     let embed = new Embed();
                     embed.setTitle("__Choose your Starter Elemental Type__");
                     embed.setColor(settings.display_colour.hex);
-                    embed.setDescription("You need to choose your starter Elemental type. The types are listed below with all their weaknesses and strengths.");
+                    embed.setDescription("You need to choose your starter Elemental type. The types are listed below with all their weaknesses and strengths. \n\nReact with 🔥 to choose a fire Elemental.\nReact with 💧 to choose a water Elemental.\nReact with 🍃 to choose a nature Elemental!");
 
                     embed.addField("🔥 __Fire Type__ 🔥", "Fire Type Elementals unlock **fire-type** attacks and moves when leveled up!\n__Strong Against:__ **Nature**\n__Weak Against:__ **Water**");
                     embed.addBlankField();
@@ -1901,7 +1902,7 @@ var elemental = {
 
                                 let chosenEmbed = new Embed();
                                 chosenEmbed.setColor("#FF8800");
-                                chosenEmbed.setDescription("You recieved a __**" + cName + "**__!\nType `" + prefix + "elemental rename <name>` to rename your elemental!");
+                                chosenEmbed.setDescription("You recieved a __**" + cName + "**__!\nType `" + prefix + "elemental rename " + cName + " <name>` to rename your elemental!");
                                 chosenEmbed.setThumbnail(character.u);
                                 chosenEmbed.addField("__Stats__", `>> __Type:__ **Fire**\n>> __Health:__ **${health}**\n>> __Basic Damage:__ **${basicdmg}**\n>> __Elemental Damage:__ **${elemdmg}**\n`);
                                 chosenEmbed.addField("__Attacks__", chosenAttack);
@@ -1913,6 +1914,7 @@ var elemental = {
 
                                 updateData["Name"] = cName;
                                 updateData["Level"] = 1;
+                                updateData["XP"] = 0;
                                 updateData["Born"] = new Date();
                                 updateData["Type"] = "Fire";
                                 updateData["Health"] = health;
@@ -1942,7 +1944,7 @@ var elemental = {
 
                                 let chosenEmbed = new Embed();
                                 chosenEmbed.setColor("#00AAFF");
-                                chosenEmbed.setDescription("You recieved a __**" + cName + "**__!\nType `" + prefix + "elemental rename <name>` to rename your elemental!");
+                                chosenEmbed.setDescription("You recieved a __**" + cName + "**__!\nType `" + prefix + "elemental rename " + cName + " <name>` to rename your elemental!");
                                 chosenEmbed.setThumbnail(character.u);
                                 chosenEmbed.addField("__Stats__", `>> __Type:__ **Water**\n>> __Health:__ **${health}**\n>> __Basic Damage:__ **${basicdmg}**\n>> __Elemental Damage:__ **${elemdmg}**\n`);
                                 chosenEmbed.addField("__Attacks__", chosenAttack);
@@ -1954,6 +1956,7 @@ var elemental = {
 
                                 updateData["Name"] = cName;
                                 updateData["Level"] = 1;
+                                updateData["XP"] = 0;
                                 updateData["Born"] = new Date();
                                 updateData["Type"] = "Water";
                                 updateData["Health"] = health;
@@ -1995,6 +1998,7 @@ var elemental = {
 
                                 updateData["Name"] = cName;
                                 updateData["Level"] = 1;
+                                updateData["XP"] = 0;
                                 updateData["Born"] = new Date();
                                 updateData["Type"] = "Nature";
                                 updateData["Health"] = health;
@@ -2026,12 +2030,12 @@ var elemental = {
         }
 
     },
-    "stkart":
+    "rename":
     {
-        name: "Death Battle",
-        description: "Fight a fast-paced battle to the death with the user who is mentioned!",
-        category: "Fun & Games",
-        arguments: ["-r @user"],
+        name: "Rename",
+        description: "Rename the specified elemental to a new name!",
+        category: "General",
+        arguments: ["-r old name", "-r new name"],
         permission: 10,
         usage: `${prefix}deathbattle`,
         exampleusage: `${prefix}deathbattle @furvux#2414`,
