@@ -104,7 +104,8 @@ bot.on('ready', async function()
     assets.Elementals.Characters.Nature.Shrumarsh = {};
   
     assets.Elementals.Inventory = {};
-    assets.Elementals.Characters = {};
+    assets.Elementals.Inventory.Objects = {};
+    assets.Elementals.Inventory.Objects.Carrot = {};
 
     loadAsset(board, assets.XO.Board);
     loadAsset(x, assets.XO.X);
@@ -124,11 +125,14 @@ bot.on('ready', async function()
     loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FMarsoak.png", assets.Elementals.Characters.Nature.Marsoak);
     loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FShrumarsh.png", assets.Elementals.Characters.Nature.Shrumarsh);
 
+    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FInventory.png", assets.Elementals.Inventory);
+    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FCarrot.png", assets.Elementals.Inventory.Objects.Carrot);
+
     games.XO.Playing = [];
     games.TwentyOne.Playing = [];
   
     let after = new Date();
-    console.log("~ Total Loading Time: " + (after - before) + "ms");
+    console.log("~ Total Loading Time: ~" + (after - before) + "ms");
 });
 
 bot.on("guildCreate", function(guild)
@@ -1916,7 +1920,7 @@ var commands = {
         description: "Enables something.",
         category: "Setup",
         arguments: ["-r thing"],
-        permission: 1,
+        permission: 10,
         usage: `${prefix}enbale`,
         exampleusage: `${prefix}enable elementalspawns`,
         run: function(message, args, data)
@@ -1926,6 +1930,20 @@ var commands = {
 
             }
             
+        }
+    },
+    test:
+    {
+        name: "Test",
+        description: "Test Command",
+        category: "Development",
+        arguments: [],
+        permission: 10,
+        usage: `${prefix}test`,
+        exampleusage: `${prefix}test`,
+        run: function(message, args, data)
+        {
+            fillInventory({}, message);            
         }
     }
 
@@ -2664,4 +2682,11 @@ function hook(channel, title, message, color, avatar)
 
         })
 
+}
+
+function fillInventory(data, message)
+{
+    let inventoryBG = assets.Elementals.Inventory.i.clone();
+    let Carrot = assets.Elementals.Inventory.Objects.Carrot.i.clone();
+    toBufferAndSend(inventoryBG, message, "");
 }
