@@ -2033,13 +2033,37 @@ var elemental = {
     "rename":
     {
         name: "Rename",
-        description: "Rename the specified elemental to a new name!",
+        description: "Rename the specified elemental to a new name!\n__Note: The new name cannot contain whitespaces!__",
         category: "General",
         arguments: ["-r old name", "-r new name"],
-        permission: 10,
-        usage: `${prefix}deathbattle`,
-        exampleusage: `${prefix}deathbattle @furvux#2414`,
-        run: function(message, args, data) {}
+        permission: 1,
+        usage: `${prefix}rename`,
+        exampleusage: `${prefix}rename Fizzball MyPet`,
+        run: function(message, args, settings) 
+        {
+            if (!args[0])
+            {
+                return "You need to specify which elemental you want to rename!";
+            }
+            if (!args[1])
+            {
+                return "You need to specify a new name for your Elemental!";
+            }
+            
+            let ref = firebase.database().ref("Userdata/" + message.author.id + "/Elementals/Characters");
+            ref.once("value", function(snapshot)
+            {
+                let data = snapshot.val();
+
+                if (!data) {message.channel.send("You do not have any Elementals! Type `" + prefix + "elemental start` to start your Elemental career!"); return;}
+              
+                if (!data[args[0]])
+                {
+                    message.channel.send("You do not have any Elementals by that name! Type `" + prefix + "elementals mine` too see all your Elementals!"); 
+                    return;
+                }
+            });
+        }
     }
 };
 
