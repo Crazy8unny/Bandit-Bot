@@ -2037,8 +2037,8 @@ var elemental = {
         category: "General",
         arguments: ["-r old name", "-r new name"],
         permission: 1,
-        usage: `${prefix}rename`,
-        exampleusage: `${prefix}rename Fizzball MyPet`,
+        usage: `${prefix} ${creatureCommand} rename`,
+        exampleusage: `${prefix} ${creatureCommand} rename Fizzball MyPet`,
         run: function(message, args, settings) 
         {
             if (!args[0])
@@ -2064,9 +2064,37 @@ var elemental = {
                 }
                 else
                 {
-                    data[args[0]] = args[1];
+                    data[args[1]] = data[args[0]];
+                    delete data[args[0]];
+                    ref.set(data);
                     message.channel.send("✅ Your Elemental **" + args[0] + "** has been renamed to __**" + args[1] + "**__!");
                 }
+            });
+        }
+    },
+    "mine":
+    {
+        name: "Mine",
+        description: "Sends a list of your Elementals!",
+        category: "General",
+        arguments: [],
+        permission: 1,
+        usage: `${prefix} ${creatureCommand} mine`,
+        exampleusage: `${prefix} ${creatureCommand} mine`,
+        run: function(message, args, settings) 
+        {            
+            let ref = firebase.database().ref("Userdata/" + message.author.id + "/Elementals/Characters");
+            ref.once("value", function(snapshot)
+            {
+                let data = snapshot.val();
+
+                if (!data) {message.channel.send("You do not have any Elementals! Type `" + prefix + "elemental start` to start your Elemental career!"); return;}
+              
+                let embed = new Embed();
+                embed.setTitle("__" + message.member.displayName + "'s Elementals__");
+                embed.setColor(settings.display_colour.hex);
+                embed.setDescription(">> " + Object.keys(data).join("\n>> ") + "\n");
+                embed.setFooter(message.member.displayName + "'s Elementals");
             });
         }
     }
