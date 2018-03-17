@@ -2112,6 +2112,7 @@ function place21(message)
 
 function loadData(src, dest)
 {
+    let before = new Date();
     if (!dest) dest = {};
     if (!src) src = "/";
   
@@ -2120,7 +2121,22 @@ function loadData(src, dest)
     {
         let data = snapshot.val();
         dest = data;
+        let after = new Date();
+        console.log("-- Data loaded from database reference \"" + src + "\" [" + (after - before) + "]");
     });
+}
+
+function updateData(src, dest, type)
+{
+    let before = new Date();
+    if (!src) {console.error("No data provided to update in the database!"); return;}
+    if (!dest) dest = "/";
+    if (!type) type = "u";
+  
+    let ref = firebase.database().ref(dest);
+    if (type == "u") ref.update(src);
+    if (type == "s") ref.set(src);
+    else return;
 }
 
 function hook(channel, title, message, color, avatar) {
