@@ -41,6 +41,8 @@ var config = {
     messagingSenderId: "782339524894"
 };
 
+var creatureCommand = "narlia";
+
 bot.on('ready', async function()
 {
     console.log("_____________________");
@@ -942,12 +944,12 @@ var commands = {
                     .then(messages =>
                     {
                         messages = messages.array();
-                        for (let i = 0; i < Math.min(amount + 1, messages.length); i++)
+                        for (let i = 0; i < Math.min(amount, messages.length); i++)
                         {
                             let msg = messages[i];
                             if (msg.author.id == user.id) msg.delete();
                         }
-                        message.channel.send("✅ Cleared [**" + (amount - 1) + "**] messages from <@" + user.id + ">! (__Command requested by _" + message.member.displayName + "___)")
+                        message.channel.send("✅ Cleared [**" + (amount) + "**] messages from <@" + user.id + ">! (__Command requested by _" + message.member.displayName + "___)")
                             .then(msg => msg.delete(6000));
                     });
             }
@@ -1608,7 +1610,7 @@ var commands = {
         arguments: ["-r @user"],
         permission: 10,
         usage: `${prefix}deathbattle`,
-        exampleusage: `${prefix}deathbattle @furvux#2414`,
+        exampleusage: `${prefix}deathbattle @Furvux#2414`,
         run: function(message, args, data)
         {
             let verbs   = ["slaps", "punches", "spits upon", "hits", "shoots", "kicks", "bodyslams", "tries out jujitsu on"];
@@ -1711,7 +1713,32 @@ var commands = {
 };
 
 var c = {
-    "start": {
+    "start": 
+    {
+        name: "Start",
+        description: "Starts your profile on the game!",
+        category: "Fun & Games",
+        arguments: [],
+        permission: 1,
+        usage: `${prefix} ${creatureCommand} start`,
+        exampleusage: `${prefix} ${creatureCommand}start`,
+        run: function(message, args, data)
+        {
+        }
+        
+    },
+    "start": 
+    {
+        name: "Death Battle",
+        description: "Fight a fast-paced battle to the death with the user who is mentioned!",
+        category: "Fun & Games",
+        arguments: ["-r @user"],
+        permission: 10,
+        usage: `${prefix}deathbattle`,
+        exampleusage: `${prefix}deathbattle @furvux#2414`,
+        run: function(message, args, data)
+        {
+        }
     }
 };
 
