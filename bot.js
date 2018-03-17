@@ -1724,6 +1724,11 @@ var c = {
         exampleusage: `${prefix} ${creatureCommand}start`,
         run: function(message, args, data)
         {
+            let author = message.author;
+            
+            let embed = new Embed();
+            embed.setTitle("__Choose your Starter __");
+            embed.setDescription("You need to choose your starter . The deat");
         }
         
     },
