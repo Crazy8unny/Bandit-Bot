@@ -1498,6 +1498,7 @@ var commands = {
             
             let checker = new Embed();
             checker.setTitle("__Just Checking...__");
+            checker.setColor("#AA0000");
             checker.setDescription("Are you sure you want to leave the game you are currently playing?");
             checker.addField("Confirm", ">> React with ✅", true);
             checker.addField("Cancel ", ">> React with ❎", true);
@@ -1798,14 +1799,33 @@ var elemental = {
             
             embed.addField("🔥 __Fire Type__ 🔥", "Fire Type Elementals unlock **fire-type** attacks and moves when leveled up!\n__Strong Against:__ **Nature**\n__Weak Against:__ **Water**");
             embed.addBlankField();
-            embed.addField("🌊 __Water Type__ 🌊", "Water Type Elementals unlock **water-type** attacks and moves when leveled up!\n__Strong Against:__ **Fire**\n__Weak Against:__ **Nature**");
+            embed.addField("💧 __Water Type__ 💧", "Water Type Elementals unlock **water-type** attacks and moves when leveled up!\n__Strong Against:__ **Fire**\n__Weak Against:__ **Nature**");
             embed.addBlankField();
             embed.addField("🍃 __Nature Type__ 🍃", "Nature Type Elementals unlock **nature-type** attacks and moves when leveled up!\n__Strong Against:__ **Water**\n__Weak Against:__ **Fire**");
             //embed.addField("💨 Air Type 💨", "", true);
           
-            embed.setFooter("You have 60 seconds to choose your elemental type!", author.avatarURL);
+            embed.setFooter("You have __60 seconds__ to choose your elemental type!", author.avatarURL);
             
-            message.channel.send(embed);
+            
+          
+            const filter = (reaction, user) => user != null;
+
+            message.channel.send(embed).then(msg => 
+            {
+                msg.react("🔥");
+                msg.react("💧");
+                msg.react("🍃");
+                const collector = msg.createReactionCollector(filter, { time: 60000 });
+                collector.on('collect', r => 
+                {
+                    
+                    if (r.emoji.name == "🔥")
+                    {
+                    }
+                });
+            });
+          
+            
         }
         
     },
@@ -2136,7 +2156,7 @@ function updateData(src, dest, type)
     let ref = firebase.database().ref(dest);
     if (type == "u") ref.update(src);
     if (type == "s") ref.set(src);
-    else return;
+    else {console.error("TypeError: No type provided to update data!"); return;}
 }
 
 function hook(channel, title, message, color, avatar) {
