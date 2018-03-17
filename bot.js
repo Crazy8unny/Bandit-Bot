@@ -42,7 +42,7 @@ var config = {
     messagingSenderId: "782339524894"
 };
 
-var creatureCommand = "elemental";
+var creatureCommand = "elementals";
 
 bot.on('ready', async function()
 {
@@ -1756,41 +1756,62 @@ var commands = {
 
         }
     },
-    elemental:
+    elementals:
     {
-        name: "Elemental",
+        name: "Elementals",
         description: "The Elemental type commands fall under this category. To use an elemental command, type `" + prefix + "elemental <command> <arguments>`",
         category: "Fun & Games",
         arguments: ["-r command", "-o arguments"],
         permission: 1,
-        usage: `${prefix}elemental`,
-        exampleusage: `${prefix}elemental start`,
-        run: function(message, args, data)
+        usage: `${prefix}elementals`,
+        exampleusage: `${prefix}elementals start`,
+        run: function(message, args, settings)
         {
+            let user = message.mentions.members.first();
+            if (user)
+            {
+                let ref = firebase.database().ref("Userdata/" + user.user.id + "/Elementals/Characters");
+                ref.once("value", function(snapshot)
+                {
+                    let data = snapshot.val();
+
+                    if (!data) {message.channel.send(user.displayName + " does not have any Elementals! They need to type `" + prefix + "elementals start` to start their Elemental career!"); return;}
+
+                    let embed = new Embed();
+                    embed.setTitle("__" + user.displayName + "'s Elementals__");
+                    embed.setColor(settings.display_colour.hex);
+                    embed.setDescription(">> **" + Object.keys(data).join("**\n>> ") + "**\n");
+                    embed.setFooter(user.displayName + "'s Elementals", user.user.avatarURL);
+
+                    message.channel.send(embed);
+                });
+                return;
+            }
+          
             if (!args[0])
             {
-                return "You need to specify a command to run in the sub-category of `elemental`! Type `" + prefix + "elemental help` to see help for the commands under the sub-category of Elemental.";
+                return "You need to specify a command to run in the sub-category of `elemental`! Type `" + prefix + "elementals help` to see help for the commands under the sub-category of Elemental.";
             }
 
             try
             {
                 let comm = args.shift().toLowerCase();
                 if (!elemental[comm]) return "Sorry, but that command does not exist!";
-                if (data.permission >= elemental[comm].permission)
+                if (settings.permission >= elemental[comm].permission)
                 {
-                    let error = elemental[comm].run(message, args, data);
+                    let error = elemental[comm].run(message, args, settings);
                     if (error) return error;
                 }
                 else
                 {
-                    return "Sorry, but your permission level is too low to access that command! \nType `" + prefix + "elemental help` to recieve help on the Elemental sub-category.";
+                    return "Sorry, but your permission level is too low to access that command! \nType `" + prefix + "elementals help` to recieve help on the Elemental sub-category.";
                 }
             }
             catch (e)
             {
                 if (e.message.includes("TypeError: Cannot read property 'run' of undefined"))
                 {
-                    return "No such command found under the sub-category of `elemental`! Ensure correct spelling and make sure the command is avaliable to your level!";
+                    return "No such command found under the sub-category of `elementals`! Ensure correct spelling and make sure the command is avaliable to your level!";
                 }
                 return e.message;
             }
@@ -1802,6 +1823,39 @@ var commands = {
         description: "**The command for this is `" + prefix + "pfp`**, and you can optionally mention a user to see their profile picture.",
         category: "Fun & Games",
         arguments: ["-o @user"],
+        permission: 1,
+        usage: `${prefix}pfp`,
+        exampleusage: `${prefix}pfp @Furvux#2414`,
+        run: function(message, args, data)
+        {
+            if (!args[0])
+            {
+
+                const embed = new Embed()
+                    .setTitle('Profile Picture')
+                    .setURL(message.author.avatarURL)
+                    .setColor(message.member.colorRole.color)
+                    .setImage(message.author.avatarURL)
+                message.channel.send(embed)
+            }
+            else
+            {
+                let person = message.mentions.members.first() || message.guild.members.find(m => m.user.username.toLowerCase().trim().startsWith(args[0].toLowerCase().trim())) || message.member;
+                const embed = new Embed()
+                    .setTitle('Profile Picture')
+                    .setURL(person.user.avatarURL)
+                    .setColor(message.member.colorRole.color)
+                    .setImage(person.user.avatarURL)
+                message.channel.send(embed)
+            }
+        }
+    },
+    enable:
+    {
+        name: "Enable",
+        description: "Enables something.",
+        category: "Setup",
+        arguments: ["-r "],
         permission: 1,
         usage: `${prefix}pfp`,
         exampleusage: `${prefix}pfp @Furvux#2414`,
@@ -2055,7 +2109,7 @@ var elemental = {
             {
                 let data = snapshot.val();
 
-                if (!data) {message.channel.send("You do not have any Elementals! Type `" + prefix + "elemental start` to start your Elemental career!"); return;}
+                if (!data) {message.channel.send("You do not have any Elementals! Type `" + prefix + "elementals start` to start your Elemental career!"); return;}
               
                 if (!data[args[0]])
                 {
@@ -2088,13 +2142,15 @@ var elemental = {
             {
                 let data = snapshot.val();
 
-                if (!data) {message.channel.send("You do not have any Elementals! Type `" + prefix + "elemental start` to start your Elemental career!"); return;}
+                if (!data) {message.channel.send("You do not have any Elementals! Type `" + prefix + "elementals start` to start your Elemental career!"); return;}
               
                 let embed = new Embed();
                 embed.setTitle("__" + message.member.displayName + "'s Elementals__");
                 embed.setColor(settings.display_colour.hex);
-                embed.setDescription(">> " + Object.keys(data).join("\n>> ") + "\n");
-                embed.setFooter(message.member.displayName + "'s Elementals");
+                embed.setDescription(">> **" + Object.keys(data).join("**\n>> ") + "**\n");
+                embed.setFooter(message.member.displayName + "'s Elementals", message.author.avatarURL);
+              
+                message.channel.send(embed);
             });
         }
     }
