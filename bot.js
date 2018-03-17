@@ -87,6 +87,20 @@ bot.on('ready', async function()
 
     assets.CoinFlip.Heads = {};
     assets.CoinFlip.Tails = {};
+  
+    assets.Elementals.Characters = {};
+    assets.Elementals.Characters.Fire = {};
+    assets.Elementals.Characters.Water = {};
+    assets.Elementals.Characters.Nature = {};
+    
+    assets.Elementals.Characters.Fire.Fizzball = {};
+    assets.Elementals.Characters.Fire.Flizard = {};
+    
+    assets.Elementals.Characters.Water.Zrog = {};
+    assets.Elementals.Characters.Water.Tristisk = {};
+    
+    assets.Elementals.Characters.Nature.Marsoak = {};
+    assets.Elementals.Characters.Nature.Shrumarsh = {};
 
     loadAsset(board, assets.XO.Board);
     loadAsset(x, assets.XO.X);
