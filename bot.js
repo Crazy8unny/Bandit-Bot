@@ -85,6 +85,9 @@ bot.on('ready', async function()
     let headCoin = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FHeads.png";
     let tailCoin = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FTails.png";
 
+    assets.Fonts.OS8 = {};
+    assets.Fonts.OS16 = {};
+  
     assets.Fonts.OS8.B = {};
     assets.Fonts.OS8.W = {};
     assets.Fonts.OS16.B = {};
@@ -123,7 +126,10 @@ bot.on('ready', async function()
     loadAsset(headCoin, assets.CoinFlip.Heads);
     loadAsset(tailCoin, assets.CoinFlip.Tails);
   
-    loadFont();
+    loadFont(Jimp.FONT_SANS_8_BLACK, assets.Fonts.OS8.B);
+    loadFont(Jimp.FONT_SANS_8_WHITE, assets.Fonts.OS8.W);
+    loadFont(Jimp.FONT_SANS_16_BLACK, assets.Fonts.OS16.B);
+    loadFont(Jimp.FONT_SANS_16_WHITE, assets.Fonts.OS16.W);
 
     loadData("Serverdata", serverdata);
 
@@ -2467,7 +2473,7 @@ async function loadFont(src, dest)
     Jimp.loadFont(src).then(function(font)
     {
         let now = new Date();
-        console.log("-- Font \"" + (src.includes("//") ? util.ucfirst(src.split("%2F")[1].split("?")[0]) : src) + "\" loaded [" + (now - before) + "ms]");
+        console.log("-- Font \"" + (src.includes("//") ? util.ucfirst(src.split("%2F")[1].split("?")[0]) : util.ucfirst(src.split("/")[src.split("/").length - 1].split(".")[0])) + "\" loaded [" + (now - before) + "ms]");
     });
 }
 
@@ -2711,14 +2717,17 @@ function fillInventory(data, message, place)
     const border = 1;
     const boxPadding = 4;
   
+    let amount = 7;
+  
     let n = ((place - 1) % 5);
   
     let xCoord = (n * 128) + (padding * (n + 1)) + border + boxPadding;//287 //(Math.ceil(place / 5) * 128) + (padding * place) + border;
     let yCoord = Math.floor(place / 5) * 128 + (padding * (Math.floor(place / 5) + 1)) + boxPadding;
   
-    let inventoryBG = assets.Elementals.Inventory.i.clone();
+    let inventory = assets.Elementals.Inventory.i.clone();
     let Carrot = assets.Elementals.Inventory.Objects.Carrot.i.clone();
     
-    inventoryBG.composite(Carrot, xCoord, yCoord);
-    toBufferAndSend(inventoryBG, message, "");
+    inventory.composite(Carrot, xCoord, yCoord);
+    inventory.print(assets.Fonts.OS8.W, 0, 0, "a");
+    toBufferAndSend(inventory, message, "");
 }
