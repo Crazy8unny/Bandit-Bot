@@ -2690,10 +2690,10 @@ function fillInventory(data, message)
     const padding = 9;
     const border = 1;
     
-    let place = 1;
+    let place = 3;
   
-    let xCoord = ((place - 1) * 128) + (padding * place) + border;
-    let yCoord = 9;
+    let xCoord = ((place % 5) * 128) + (padding * place) + border;
+    let yCoord = Math.floor(place / 5) * 128 + (padding * (Math.floor(place / 5) + 1)) + border;
   
     let inventoryBG = assets.Elementals.Inventory.i.clone();
     let Carrot = assets.Elementals.Inventory.Objects.Carrot.i.clone();

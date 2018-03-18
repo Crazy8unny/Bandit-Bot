@@ -60,11 +60,6 @@ var listener = app.listen(port, function()
 // Keep server online
 setInterval(() =>
 {
-    if (!instructions.on)
-    {
-
-child_process.fork(__dirname + "/bot.js");
-    }
     var options = {
         host: process.env.PROJECT_DOMAIN + ".glitch.me",
         port: 80,
