@@ -2718,19 +2718,32 @@ function fillInventory(data, message, place)
     const border = 1;
     const boxPadding = 4;
   
-    let amount = 7;
-  
-    let n = ((place - 1) % 5);
-  
-    let xCoord = (n * 128) + (padding * (n + 1)) + border + boxPadding;//287 //(Math.ceil(place / 5) * 128) + (padding * place) + border;
-    let yCoord = Math.floor(place / 5) * 128 + (padding * (Math.floor(place / 5) + 1)) + boxPadding;
-  
     let inventory = assets.Elementals.Inventory.i.clone();
-    let Carrot = assets.Elementals.Inventory.Objects.Carrot.i.clone();
-    
-    inventory.composite(Carrot, xCoord, yCoord);
-    Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function (font) {
-        inventory.print(font, xCoord + 90, yCoord + 90, amount.toString());
-        toBufferAndSend(inventory, message, "");
-    });
+    let dict = {"Carrots" : assets.Elementals.Inventory.Objects.Carrot};
+  
+    for (let object in data)
+    {
+        let amount = data[object];
+      
+        let icon = "";
+      
+        if (dict[object])
+        {
+            
+        }
+
+        let n = ((place - 1) % 5);
+
+        let xCoord = (n * 128) + (padding * (n + 1)) + border + boxPadding;//287 //(Math.ceil(place / 5) * 128) + (padding * place) + border;
+        let yCoord = Math.floor(place / 5) * 128 + (padding * (Math.floor(place / 5) + 1)) + boxPadding;
+        yCoord = place % 5 == 0 ? yCoord - (128 + padding) : yCoord;
+
+        let Carrot = assets.Elementals.Inventory.Objects.Carrot.i.clone();
+        inventory.composite(Carrot, xCoord, yCoord);
+        Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function (font) {
+            inventory.print(font, xCoord + 107, yCoord + 100, amount.toString());
+        });
+    }
+  
+    toBufferAndSend(inventory, message, "");
 }
