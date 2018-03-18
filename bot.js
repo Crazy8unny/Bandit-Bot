@@ -73,7 +73,7 @@ bot.on('ready', async function()
 
     bot.user.setStatus('idle');
 
-    bot.user.setActivity(`${bot.guilds.size} Servers | ~help`,
+    bot.user.setActivity(`${bot.guilds.size} Servers | ${prefix}help`,
     {
         type: "WATCHING"
     });
