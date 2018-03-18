@@ -2457,7 +2457,7 @@ async function loadFont(src, dest)
     Jimp.loadFont(src).then(function(font)
     {
         let now = new Date();
-        console.log("-- Font \"" + util.ucfirst(src.split("%2F")[1].split("?")[0]) + "\" loaded [" + (now - before) + "ms]");
+        console.log("-- Font \"" + (src.includes("//") ? util.ucfirst(src.split("%2F")[1].split("?")[0]) : src) + "\" loaded [" + (now - before) + "ms]");
     });
 }
 
