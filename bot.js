@@ -25,6 +25,8 @@ var playing = [];
 var gameIDs = {};
 
 var assets = {};
+assets.Fonts = {};
+
 assets.XO = {};
 assets.CoinFlip = {};
 assets.DeathBattle = {};
@@ -83,6 +85,12 @@ bot.on('ready', async function()
     let headCoin = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FHeads.png";
     let tailCoin = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FTails.png";
 
+    assets.Fonts.OS8.B = {};
+    assets.Fonts.OS8.W = {};
+    assets.Fonts.OS8.B = {};
+    assets.Fonts.OS8.W = {};
+  
+  
     assets.XO.Board = {};
     assets.XO.X = {};
     assets.XO.O = {};
@@ -114,6 +122,8 @@ bot.on('ready', async function()
 
     loadAsset(headCoin, assets.CoinFlip.Heads);
     loadAsset(tailCoin, assets.CoinFlip.Tails);
+  
+    loadFont();
 
     loadData("Serverdata", serverdata);
 
