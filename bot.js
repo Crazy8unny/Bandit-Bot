@@ -2729,7 +2729,7 @@ function fillInventory(data, message, place)
       
         if (dict[object])
         {
-            
+            icon = dict[object];
         }
 
         let n = ((place - 1) % 5);
