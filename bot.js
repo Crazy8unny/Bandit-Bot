@@ -127,7 +127,7 @@ bot.on('ready', async function()
     loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FShrumarsh.png", assets.Elementals.Characters.Nature.Shrumarsh);
 
     loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FInventory.png", assets.Elementals.Inventory);
-    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FCarrot.png?1521365409160", assets.Elementals.Inventory.Objects.Carrot);
+    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FCarrot.png?1521366687180", assets.Elementals.Inventory.Objects.Carrot);
 
     games.XO.Playing = [];
     games.TwentyOne.Playing = [];
@@ -2618,7 +2618,7 @@ function hook(channel, title, message, color, avatar)
     if (!title) return ('Title not specified.');
     if (!message) return ('Message not specified.');
     if (!color) color = '843B80';
-    if (!avatar) avatar = 'https://cdn4.iconfinder.com/data/icons/technology-devices-1/500/speech-bubble-128.png'
+    if (!avatar) avatar = 'https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FCoverimg.png?1521142277136'
 
     color = color.replace(/\s/g, '');
     avatar = avatar.replace(/\s/g, '');
@@ -2633,7 +2633,7 @@ function hook(channel, title, message, color, avatar)
 
             if (!foundHook)
             {
-                channel.createWebhook('Webhook', 'https://cdn4.iconfinder.com/data/icons/technology-devices-1/500/speech-bubble-128.png')
+                channel.createWebhook('Webhook', avatar)
                     .then(webhook =>
                     {
 
@@ -2692,8 +2692,8 @@ function fillInventory(data, message)
     
     let place = 3;
   
-    let xCoord = 291 //(Math.ceil(place / 5) * 128) + (padding * place) + border;
-    let yCoord = 9//Math.floor(place / 5) * 128 + (padding * (Math.floor(place / 5) + 1)) + border;
+    let xCoord = //287 //(Math.ceil(place / 5) * 128) + (padding * place) + border;
+    let yCoord = 13//Math.floor(place / 5) * 128 + (padding * (Math.floor(place / 5) + 1)) + border;
   
     let inventoryBG = assets.Elementals.Inventory.i.clone();
     let Carrot = assets.Elementals.Inventory.Objects.Carrot.i.clone();
