@@ -87,8 +87,8 @@ bot.on('ready', async function()
 
     assets.Fonts.OS8.B = {};
     assets.Fonts.OS8.W = {};
-    assets.Fonts.OS8.B = {};
-    assets.Fonts.OS8.W = {};
+    assets.Fonts.OS16.B = {};
+    assets.Fonts.OS16.W = {};
   
   
     assets.XO.Board = {};
