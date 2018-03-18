@@ -1944,7 +1944,7 @@ var commands = {
         exampleusage: `${prefix}test`,
         run: function(message, args, data)
         {
-            fillInventory({}, message);            
+            fillInventory({}, message, args[0] || 1);            
         }
     }
 
@@ -2685,15 +2685,16 @@ function hook(channel, title, message, color, avatar)
 
 }
 
-function fillInventory(data, message)
+function fillInventory(data, message, place)
 {
     const padding = 9;
     const border = 1;
-    
-    let place = 3;
+    const boxPadding = 4;
   
-    let xCoord = //287 //(Math.ceil(place / 5) * 128) + (padding * place) + border;
-    let yCoord = 13//Math.floor(place / 5) * 128 + (padding * (Math.floor(place / 5) + 1)) + border;
+    let n = ((place - 1) % 5);
+  
+    let xCoord = (n * 128) + (padding * (n + 1)) + border + boxPadding;//287 //(Math.ceil(place / 5) * 128) + (padding * place) + border;
+    let yCoord = Math.floor(place / 5) * 128 + (padding * (Math.floor(place / 5) + 1)) + boxPadding;
   
     let inventoryBG = assets.Elementals.Inventory.i.clone();
     let Carrot = assets.Elementals.Inventory.Objects.Carrot.i.clone();
