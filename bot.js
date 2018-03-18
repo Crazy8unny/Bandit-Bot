@@ -2692,7 +2692,7 @@ function fillInventory(data, message)
     
     let place = 3;
   
-    let xCoord = 283 //(Math.ceil(place / 5) * 128) + (padding * place) + border;
+    let xCoord = 291 //(Math.ceil(place / 5) * 128) + (padding * place) + border;
     let yCoord = 9//Math.floor(place / 5) * 128 + (padding * (Math.floor(place / 5) + 1)) + border;
   
     let inventoryBG = assets.Elementals.Inventory.i.clone();
