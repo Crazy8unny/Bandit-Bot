@@ -2473,6 +2473,7 @@ async function loadFont(src, dest)
     Jimp.loadFont(src).then(function(font)
     {
         let now = new Date();
+        dest = font;
         console.log("-- Font \"" + (src.includes("//") ? util.ucfirst(src.split("%2F")[1].split("?")[0]) : util.ucfirst(src.split("/")[src.split("/").length - 1].split(".")[0])) + "\" loaded [" + (now - before) + "ms]");
     });
 }
@@ -2728,6 +2729,8 @@ function fillInventory(data, message, place)
     let Carrot = assets.Elementals.Inventory.Objects.Carrot.i.clone();
     
     inventory.composite(Carrot, xCoord, yCoord);
-    inventory.print(assets.Fonts.OS8.W, 0, 0, "a");
-    toBufferAndSend(inventory, message, "");
+    Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function (font) {
+        inventory.print(font, xCoord + 90, yCoord + 90, amount.toString());
+        toBufferAndSend(inventory, message, "");
+    });
 }
