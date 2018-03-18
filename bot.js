@@ -2451,6 +2451,16 @@ async function loadAsset(src, dest)
     });
 }
 
+async function loadFont(src, dest)
+{
+    let before = new Date();
+    Jimp.loadFont(src).then(function(font)
+    {
+        let now = new Date();
+        console.log("-- Font \"" + util.ucfirst(src.split("%2F")[1].split("?")[0]) + "\" loaded [" + (now - before) + "ms]");
+    });
+}
+
 function arrayIsNaN(array)
 {
     for (let i = 0; i < array.length; i++)
