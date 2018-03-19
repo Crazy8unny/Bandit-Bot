@@ -48,7 +48,6 @@ var creatureCommand = "elementals";
 
 bot.on('ready', async function()
 {
-    instructions.on = true;
     let before = new Date();
     console.log("_____________________");
     console.log("Connected to Discord!");
