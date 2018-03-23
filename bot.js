@@ -1791,7 +1791,7 @@ var commands = {
         category: "Fun & Games",
         arguments: ["-r command", "-o arguments"],
         permission: 1,
-        usage: `${prefix}elementals`,
+        usage: `${prefix}elementals <command> <arguments>`,
         exampleusage: `${prefix}elementals start`,
         run: function(message, args, settings)
         {
@@ -1904,7 +1904,7 @@ var commands = {
         category: "Fun & Games",
         arguments: ["-o @user"],
         permission: 1,
-        usage: `${prefix}pfp`,
+        usage: `${prefix}pfp <@user>`,
         exampleusage: `${prefix}pfp @Furvux#2414`,
         run: function(message, args, data)
         {
@@ -1937,7 +1937,7 @@ var commands = {
         category: "Setup",
         arguments: ["-r thing"],
         permission: 10,
-        usage: `${prefix}enbale`,
+        usage: `${prefix}enbale <thing>`,
         exampleusage: `${prefix}enable elementalspawns`,
         run: function(message, args, data)
         {
@@ -1958,8 +1958,7 @@ var commands = {
         usage: `${prefix}test`,
         exampleusage: `${prefix}test`,
         run: function(message, args, data)
-        {
-            fillInventory({"Carrot": 5}, message, args[0] || 1);            
+        {         
         }
     }
 
@@ -2297,7 +2296,12 @@ var elemental = {
         exampleusage: `${prefix} ${creatureCommand} inventory`,
         run: function(message, args, settings) 
         {
-            
+            let ref = firebase.database().ref("Userdata/" + message.author.id + "/Elementals/Inventory");
+            ref.once("value", function(snapshot)
+            {
+                let data = snapshot.val();
+                fillInventory(data, message, args[0] || 1);   
+            });
         }
     },
     "info":
@@ -2784,8 +2788,8 @@ function fillInventory(data, message, place)
 
             console.log();
 
-            let Carrot = assets.Elementals.Inventory.Objects.Carrot.i.clone();
-            inventory.composite(Carrot, xCoord, yCoord);
+            let obj = icon.i.clone();
+            inventory.composite(obj, xCoord, yCoord);
             inventory.print(font, xCoord + 100, yCoord + 87, amount.toString());
         }
   
