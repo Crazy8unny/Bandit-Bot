@@ -2171,7 +2171,7 @@ var elemental = {
         category: "General",
         arguments: ["-r old name", "-r new name"],
         permission: 1,
-        usage: `${prefix} ${creatureCommand} rename`,
+        usage: `${prefix} ${creatureCommand} rename <old name> <new name>`,
         exampleusage: `${prefix} ${creatureCommand} rename Fizzball MyPet`,
         run: function(message, args, settings) 
         {
@@ -2293,11 +2293,45 @@ var elemental = {
         category: "General",
         arguments: [],
         permission: 10,
-        usage: `${prefix} ${creatureCommand} rename`,
-        exampleusage: `${prefix} ${creatureCommand} rename Fizzball MyPet`,
+        usage: `${prefix} ${creatureCommand} inventory`,
+        exampleusage: `${prefix} ${creatureCommand} inventory`,
         run: function(message, args, settings) 
         {
             
+        }
+    },
+    "info":
+    {
+        name: "Info",
+        description: "Gives information about an elemental.",
+        category: "General",
+        arguments: ["-r @user", "-r elemental"],
+        permission: 10,
+        usage: `${prefix} ${creatureCommand} info <@user> <elemental>`,
+        exampleusage: `${prefix} ${creatureCommand} info @Furvux#2414 Marsoak`,
+        run: function(message, args, settings) 
+        {
+            let user = message.mentions.members.first();
+            if (!user)
+            {
+                return "You need to mention the owner of the elemental!";
+            }
+            if (!args[1])
+            {
+                return "You need to provide both the elemental name and the owner of the elemental to get info on it! Type `" + prefix + "elementals help info` to see more info about the command.";
+            }
+            
+            let elemental = args[0].includes("<@") ? args[1] : args[0];
+          
+            let ref = firebase.database().ref("Userdata/" + user.user.id + "/Elementals/Characters");
+            ref.once("value", function(snapshot)
+            {
+                let data = snapshot.val();
+              
+                if (!data) {message.channel.send(user.displayName + " does not have any Elementals! They need to type `" + prefix + "elementals start` to start their Elemental life!"); return;}
+              
+                data = 
+            });
         }
     },
 };
