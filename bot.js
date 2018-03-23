@@ -1959,7 +1959,7 @@ var commands = {
         exampleusage: `${prefix}test`,
         run: function(message, args, data)
         {
-            fillInventory({}, message, args[0] || 1);            
+            fillInventory({"Carrot": 5}, message, args[0] || 1);            
         }
     }
 
@@ -2765,29 +2765,30 @@ function fillInventory(data, message, place)
     let inventory = assets.Elementals.Inventory.i.clone();
     let dict = {"Carrots" : assets.Elementals.Inventory.Objects.Carrot};
   
-    for (let object in data)
-    {
-        let amount = data[object];
-      
-        let icon = "";
-      
-        if (dict[object])
+    Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function (font) {
+        for (let object in data)
         {
-            icon = dict[object];
+            let amount = data[object];
+            let icon = "";
+
+            if (dict[object])
+            {
+                icon = dict[object];
+            }
+
+            let n = ((place - 1) % 5);
+
+            let xCoord = (n * 128) + (padding * (n + 1)) + border + boxPadding;//287 //(Math.ceil(place / 5) * 128) + (padding * place) + border;
+            let yCoord = Math.floor(place / 5) * 128 + (padding * (Math.floor(place / 5) + 1)) + boxPadding;
+            yCoord = place % 5 == 0 ? yCoord - (128 + padding) : yCoord;
+
+            console.log();
+
+            let Carrot = assets.Elementals.Inventory.Objects.Carrot.i.clone();
+            inventory.composite(Carrot, xCoord, yCoord);
+            inventory.print(font, xCoord + 100, yCoord + 87, amount.toString());
         }
-
-        let n = ((place - 1) % 5);
-
-        let xCoord = (n * 128) + (padding * (n + 1)) + border + boxPadding;//287 //(Math.ceil(place / 5) * 128) + (padding * place) + border;
-        let yCoord = Math.floor(place / 5) * 128 + (padding * (Math.floor(place / 5) + 1)) + boxPadding;
-        yCoord = place % 5 == 0 ? yCoord - (128 + padding) : yCoord;
-
-        let Carrot = assets.Elementals.Inventory.Objects.Carrot.i.clone();
-        inventory.composite(Carrot, xCoord, yCoord);
-        Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function (font) {
-            inventory.print(font, xCoord + 107, yCoord + 100, amount.toString());
-        });
-    }
   
-    toBufferAndSend(inventory, message, "");
+        toBufferAndSend(inventory, message, "");
+    });
 }
