@@ -2330,7 +2330,18 @@ var elemental = {
               
                 if (!data) {message.channel.send(user.displayName + " does not have any Elementals! They need to type `" + prefix + "elementals start` to start their Elemental life!"); return;}
               
-                data = 
+                data = data[elemental];
+                if (!data) {message.channel.send(user.displayName + " does not have any Elementals by that name! Type `" + prefix + "elementals @" + user.displayName + "` to see which elementals they have!"); return;}
+              
+                let embed = new Embed();
+                embed.setColor("#00AA00");
+                embed.setDescription("Here is some information about __" + user.displayName + "__'s elemental **" + elemental + "**!");
+                embed.setThumbnail(assets.Elementals.Characters[data.Type][data.Name]);
+                embed.addField("__Stats__", `>> __Type:__ **${data.Type}**\n>> __Health:__ **${data.Health}**\n>> __Basic Damage:__ **${data.BasicDamage}**\n>> __Elemental Damage:__ **${data.ElementalDamage}**\n`);
+                embed.addField("__Attacks__", data.Attacks.join("\n"));
+                embed.setFooter(data.Type + " Type Elemental", "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FNature.png");
+
+                message.channel.send(embed);
             });
         }
     },
