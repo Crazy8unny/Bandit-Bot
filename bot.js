@@ -1796,7 +1796,7 @@ var commands = {
         run: function(message, args, settings)
         {
             let user = message.mentions.members.first();
-            if (user)
+            if (user && !args[1])
             {
                 let ref = firebase.database().ref("Userdata/" + user.user.id + "/Elementals/Characters");
                 ref.once("value", function(snapshot)
@@ -2336,7 +2336,7 @@ var elemental = {
                 let embed = new Embed();
                 embed.setColor("#00AA00");
                 embed.setDescription("Here is some information about __" + user.displayName + "__'s elemental **" + elemental + "**!");
-                embed.setThumbnail(assets.Elementals.Characters[data.Type][data.Name]);
+                embed.setThumbnail(assets.Elementals.Characters[data.Type][data.Name].u);
                 embed.addField("__Stats__", `>> __Type:__ **${data.Type}**\n>> __Health:__ **${data.Health}**\n>> __Basic Damage:__ **${data.BasicDamage}**\n>> __Elemental Damage:__ **${data.ElementalDamage}**\n`);
                 embed.addField("__Attacks__", data.Attacks.join("\n"));
                 embed.setFooter(data.Type + " Type Elemental", "https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FNature.png");
