@@ -95,7 +95,7 @@ bot.on("message", function(message)
         {
             let data = {};
 
-            data["permission"] = permission.getPermissionLevel(bot, message.guild, message.author.id);
+            data["permission"] = 15;//permission.getPermissionLevel(bot, message.guild, message.author.id);
 
             data["display_name"] = message.guild.members.find(m => m.id == botID)
                 .displayName;
