@@ -13,20 +13,23 @@ exports.getPermissionLevel = function(bot, guild, ID)
         {
             switch (role.id)
             {
+                  // Chairman
+                case "430326200574148608":
+                    return 15;
                   // Developer
                 case "430326238070964224":
-                    return 15;
-                // Administrator
+                    return 14;
+                // Field Marshall
                 case "430344480428916737":
                     return 12;
                 
-                //Contributor
+                // Officer
                 case "430326267485749252":
                     fP = 4;
-                // Member
+                // JNCO
                 case "430346468436475915":
                     fP = 3;
-                // Member
+                // idk
                 case "430343157524201482":
                     fP = 2;
                 default:
