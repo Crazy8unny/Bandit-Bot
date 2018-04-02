@@ -70,6 +70,8 @@ bot.on("guildCreate", function(guild)
 bot.on("guildDelete", function(guild)
 {
     console.log("Left Guild: " + guild.name + "!");
+    let ref = firebase.database().ref().child("Serverdata").child(guild.id.toString());
+    ref.set({});
 });
 
 bot.on("message", function(message)
@@ -97,14 +99,11 @@ bot.on("message", function(message)
                 dec: message.guild.members.find(m => m.id == botID)
                     .displayColor
             };
-            data["server"] = bot.guilds.get(`421405545426321418`);
-            data["developers"] = data.server.roles.get(`421405858736373760`)
-                .members.array();
+            data["server"] = bot.guilds.get(`430326116805246976`);
 
             if (data.permission >= commands[command].permission)
             {
-                let error = commands[command].run(message, message.content.split(" ")
-                    .splice(1), data);
+                let error = commands[command].run(message, message.content.split(" ").splice(1), data);
                 if (error)
                 {
                     let embed = new Embed()
@@ -139,10 +138,6 @@ bot.on("message", function(message)
         try
         {
             let data = {};
-
-            data["server"] = bot.guilds.get(`421405545426321418`);
-            data["developers"] = data.server.roles.get(`421405858736373760`)
-                .members.array();
             data["permission"] = 1;
 
             DMCommands[command].run(message, message.content.split(" ")
@@ -156,161 +151,7 @@ bot.on("message", function(message)
     }
 });
 
-var DMCommands = {
-    ping:
-    {
-        name: "Ping",
-        description: "A simple command to check the latency of the bot.",
-        category: "General",
-        arguments: [],
-        permission: 1,
-        usage: `${prefix}ping`,
-        exampleusage: `${prefix}ping`,
-        run: function(message, args, data)
-        {
-            message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``)
-                .then(msg =>
-                {
-                    msg.delete(3000)
-                });
-        }
-    },
-    help:
-    {
-        name: "Help",
-        description: "Displays a help message. If a command is specified, it will give information on the command.",
-        category: "General",
-        arguments: ["-o command"],
-        permission: 1,
-        usage: `${prefix}help\` or \`${prefix}help <command>`,
-        exampleusage: `${prefix}help ping`,
-        run: function(message, args, data)
-        {
-
-            let embed = new Embed();
-            if (DMCommands[args[0]])
-            {
-                let spec = DMCommands[args[0].toLowerCase()];
-                embed.setTitle("__" + spec.name + " - DM Command Information" + "__");
-                embed.addField("Category", spec.category);
-                embed.addField("Description", spec.description);
-                embed.addField("Permission Level", ">> " + spec.permission);
-
-                let command_args = "";
-
-                for (let i = 0; i < spec.arguments.length; i++)
-                {
-                    let tempArg = spec.arguments[i];
-
-                    if (tempArg.startsWith("-o "))
-                    {
-                        tempArg = tempArg.substr(3);
-                        command_args += `(__Optional__) \`<${tempArg}>\`\n`;
-                    }
-                    else if (tempArg.startsWith("-r "))
-                    {
-                        tempArg = tempArg.substr(3);
-                        command_args += `(__Required__) \`<${tempArg}>\`\n`;
-                    }
-                    else if (tempArg.startsWith("-e "))
-                    {
-                        tempArg = tempArg.substr(3);
-                        let option1 = tempArg.split("||")[0];
-                        let option2 = tempArg.split("||")[1];
-                        command_args += `(__Choose__) \`<${option1}>\` or \`<${option2}>\`\n`;
-                    }
-                    else
-                    {
-                        command_args += `(**Uncategorised**) \`${tempArg}\`\n`;
-                    }
-                }
-
-                embed.addField("Arguments", command_args.trim()
-                    .length < 1 ? "None" : command_args.trim());
-                embed.addField("Usage", `\`${spec.usage}\``);
-                embed.addField("Example Usage", `\`\`\`${spec.exampleusage}\`\`\``);
-                embed.setFooter("Requested by " + message.author.tag);
-                message.channel.send(embed);
-            }
-            else
-            {
-                embed.setTitle("__" + bot.user.tag + " - DM Help__");
-                embed.setThumbnail(bot.user.avatarURL);
-
-                embed.setDescription("**Hello! I am " + bot.user.username + "!** I am a bot designed for fun and games!");
-                embed.addField("Getting Started", "Type `" + prefix + "commands` to see my commands\nType `" + prefix + "stats` to see some of my statistics");
-                embed.addField("Support", "Visit our Official Website: [https://tilde.glitch.me/](https://tilde.glitch.me/)\nJoin our Discord Dojo: [https://tilde.glitch.me/join](https://tilde.glitch.me/join) \n");
-
-                embed.setFooter("Requested by " + message.author.tag, message.author.avatarURL);
-                message.channel.send(embed);
-            }
-
-        }
-    },
-    commands:
-    {
-        name: "Commands",
-        description: "Lists all avaliable commands to your DM channel.",
-        category: "General",
-        arguments: ["-o category"],
-        permission: 1,
-        usage: `${prefix}commands\` or  \`${prefix}commands <category>`,
-        exampleusage: `${prefix}commands General`,
-        run: function(message, args, data)
-        {
-            let permission_level = 1;
-
-            let categories = {};
-
-            for (let command in DMCommands)
-            {
-                if (DMCommands[command].permission <= permission_level)
-                {
-                    if (!categories[DMCommands[command].category])
-                    {
-                        categories[DMCommands[command].category] = [];
-                    }
-                    categories[DMCommands[command].category].push(DMCommands[command]);
-                }
-            }
-
-            if (args[0] && categories[util.ucfirst(args[0])])
-            {
-                let category = util.ucfirst(args[0]);
-                let embed = new Embed();
-
-                embed.setTitle("__" + bot.user.tag + " - " + category + " DM Commands__");
-                embed.setColor("#9C39FF");
-                for (let i = 0; i < categories[category].length; i++)
-                {
-                    embed.addField(categories[category][i].name, categories[category][i].description);
-                }
-
-                embed.setFooter("Type " + prefix + "help `<command>` to get more information about a command (usage, arguments, etc.)");
-
-                message.author.send(embed);
-            }
-            else
-            {
-                for (let category in categories)
-                {
-                    let embed = new Embed();
-
-                    embed.setTitle("__" + bot.user.username + " - " + category + " DM Commands__");
-                    embed.setColor("#9C39FF");
-                    for (let i = 0; i < categories[category].length; i++)
-                    {
-                        embed.addField("_" + categories[category][i].name + " DM Command_", categories[category][i].description);
-                    }
-
-                    message.author.send(embed);
-                    embed.setFooter("Type " + prefix + "help `<command>` to get more information about a command (usage, arguments, etc.)");
-                }
-            }
-
-        }
-    }
-};
+var DMCommands = {};
 
 var commands = {
     ping:
@@ -331,183 +172,6 @@ var commands = {
                     msg.delete(3000)
                 });
         }
-    }, //Talk via Discord
-    slap:
-    {
-        name: "Slap",
-        description: "Slap a user!",
-        category: "Fun & Games",
-        arguments: ["-r @user"],
-        permission: 1,
-        usage: `${prefix}slap`,
-        exampleusage: `${prefix}slap @Furvux#2414`,
-        run: function(message, args, data)
-        {
-            let slappedUser = (message.mentions.members.first());
-            if (!slappedUser) return message.channel.send("You must mention a user!");
-            if (slappedUser.user.id == message.member.user.id) return "Self Harm is not permitted!";
-
-            let slaps = ["https://media1.giphy.com/media/uG3lKkAuh53wc/giphy.gif", "https://media.giphy.com/media/vxvNnIYFcYqEE/giphy.gif", "https://media.giphy.com/media/xULW8nNDLNVlBY77dm/giphy.gif", "https://media.giphy.com/media/gSIz6gGLhguOY/giphy.gif", "https://media.giphy.com/media/10KJUgvMoiSVSo/giphy.gif", "https://media.giphy.com/media/8cD5U8FgIcOQ/giphy.gif", "https://media.giphy.com/media/3vDS40HZxJwFGTbXoI/giphy.gif", "https://media.giphy.com/media/3oEdvdHf6n0US87Tri/giphy.gif", "https://media.giphy.com/media/1J8vRWb8xUByw/giphy.gif"];
-
-            let slappedEmbed = new Embed()
-                .setTitle(message.member.displayName.split("_")
-                    .join("\_") + " slaps " + slappedUser.displayName.split("_")
-                    .join("\_") + "!")
-                .setColor(data.display_colour.hex)
-                .setDescription(message.author + ' slapped ' + slappedUser + '!')
-                .setImage(util.randomItem(slaps));
-
-            message.channel.send(slappedEmbed);
-            return;
-
-        }
-    },
-    hug:
-    {
-        name: "Hug",
-        description: "Hug a member!",
-        category: "Fun & Games",
-        arguments: ["-r @user"],
-        permission: 1,
-        usage: `${prefix}hug`,
-        exampleusage: `${prefix}hug @Furvux#2414`,
-        run: function(message, args, data)
-        {
-            let hugged = (message.mentions.members.first());
-            if (!hugged) return ("You must mention a user to hug!");
-            if (hugged.user.id == message.member.user.id) return "Please do not be that lonely!";
-
-            let hugs = ["https://i.imgur.com/6rxDiFS.gif", "https://i.imgur.com/c3WzMZu.gif", "https://i.imgur.com/V5G9LMz.mp4", "https://media.giphy.com/media/2FayVoBQ0oxVel3aM/giphy.gif", "https://media.giphy.com/media/IuCSOHcDlooPm/giphy.gif", "https://media.giphy.com/media/EvYHHSntaIl5m/giphy.gif", "https://media.giphy.com/media/3M4NpbLCTxBqU/giphy.gif", "https://media.giphy.com/media/lXiRKBj0SAA0EWvbG/giphy.gif", "https://media.giphy.com/media/llmZp6fCVb4ju/giphy.gif", "https://media.giphy.com/media/16bJmyPvRbCDu/giphy.gif", "https://media.giphy.com/media/3oEjI72YdcYarva98I/giphy.gif", "https://media.giphy.com/media/Bj9k1U69GZ8Iw/giphy.gif"];
-
-            let embed = new Embed()
-                .setTitle(message.member.displayName.split("_")
-                    .join("\_") + " hugs " + hugged.displayName.split("_")
-                    .join("\_") + "!")
-                .setColor(data.display_colour.hex)
-                .setDescription(":heart_decoration:" + message.author + ' hugged ' + hugged + '! :heart_decoration:')
-                .setImage(util.randomItem(hugs));
-
-            message.channel.send(embed);
-            return;
-
-        }
-    },
-    punch:
-    {
-        name: "Punch",
-        description: "Punch someone who is being annoying or stupid!",
-        category: "Fun & Games",
-        arguments: ["-r @user"],
-        permission: 1,
-        usage: `${prefix}punch`,
-        exampleusage: `${prefix}punch @Furvux#2414`,
-        run: function(message, args, data)
-        {
-            let victum = (message.mentions.members.first());
-            if (!victum) return message.channel.send("You must mention a user!");
-            if (victum.user.id == message.member.user.id) return "Self Harm is not permitted!";
-
-            let punches = ["https://media.giphy.com/media/3o7WTBPWWzcjDyTlGU/giphy.gif", "https://media.giphy.com/media/EYD7OzuuTfRVC/giphy.gif", "https://media.giphy.com/media/GoN89WuFFqb2U/giphy.gif", "https://media.giphy.com/media/3oEhn4mIrTuCf0bn1u/giphy.gif", "https://media.giphy.com/media/DViGV8rfVjw6Q/giphy.gif", "https://media.giphy.com/media/pLnxbpVosgjE4/giphy.gif", "https://media.giphy.com/media/zPfWFc6ZUWGQM/giphy.gif"];
-
-            let embed = new Embed()
-                .setTitle(message.member.displayName.split("_")
-                    .join("\_") + " punches " + victum.displayName.split("_")
-                    .join("\_") + "!")
-                .setColor(data.display_colour.hex)
-                .setDescription(message.author + ' punched ' + victum + '!')
-                .setImage(util.randomItem(punches));
-
-            message.channel.send(embed);
-            return;
-
-        }
-    },
-    shoot:
-    {
-        name: "Shoot",
-        description: "Shoot someone (because why not?)!",
-        category: "Fun & Games",
-        arguments: ["-r @user"],
-        permission: 1,
-        usage: `${prefix}shoot`,
-        exampleusage: `${prefix}shoot @Furvux#2414`,
-        run: function(message, args, data)
-        {
-            let victum = (message.mentions.members.first());
-            if (!victum) return message.channel.send("You must mention a user!");
-            if (victum.user.id == message.member.user.id) return "Stop trying to do a blighty (look it up) and get back up there, Soldier!";
-
-            let shots = ["https://media.giphy.com/media/M4hHth10WJ2Fi/giphy.gif", "https://media.giphy.com/media/2uvG5Dn1K7pEA/giphy.gif", "https://media.giphy.com/media/EizPK3InQbrNK/giphy.gif", "https://media.giphy.com/media/7qeOvQC1pRFJK/giphy.gif", "https://media.giphy.com/media/14wfa45kICmaBO/giphy.gif", "https://media.giphy.com/media/l0HlOJcFhgwoQP1GE/giphy.gif", "https://media.giphy.com/media/PUY972zpherGE/giphy.gif", "https://media.giphy.com/media/3o6Zt1gBcG3dn3b4WI/giphy.gif"];
-
-            let embed = new Embed()
-                .setTitle(message.member.displayName.split("_")
-                    .join("\_") + " shoots " + victum.displayName.split("_")
-                    .join("\_") + "!")
-                .setColor(data.display_colour.hex)
-                .setDescription(message.author + ' shot ' + victum + '!')
-                .setImage(util.randomItem(shots));
-
-            message.channel.send(embed);
-            return;
-
-        }
-    },
-    coinflip:
-    {
-        name: "Coin Flip",
-        description: "Flip a coin!",
-        category: "Fun & Games",
-        arguments: [],
-        permission: 1,
-        usage: `${prefix}coinflip`,
-        exampleusage: `${prefix}coinflip`,
-        run: function(message, args, data)
-        {
-            let coins = ["Heads", "Tails"];
-
-            let finalCoin = Math.floor((Math.random() * coins.length))
-
-            let coinEmbed = new Discord.RichEmbed()
-                .setColor(data.display_colour.hex)
-                .setTitle("__Flipped Coin: " + coins[finalCoin] + "__")
-                .setImage(finalCoin == 0 ? assets.CoinFlip.Heads.u : assets.CoinFlip.Tails.u);
-
-            message.channel.send(coinEmbed);
-        }
-    },
-    invite:
-    {
-        name: "Invite",
-        description: "Sends the bot's invite link to your DM channel!",
-        category: "General",
-        arguments: [],
-        permission: 1,
-        usage: `${prefix}invite`,
-        exampleusage: `${prefix}invite`,
-        run: function(message, args, data)
-        {
-            message.delete(15000);
-            message.author.send(`Visit my Website: https://${process.env.PROJECT_DOMAIN}.glitch.me/ \nInvite me to a server: <https://${process.env.PROJECT_DOMAIN}.glitch.me/invite>\nJoin my Discord Dojo: <https://${process.env.PROJECT_DOMAIN}.glitch.me/join>\n\nWhen inviting me, please ensure you allow all the permissions I request for otherwise I will not work correctly!`);
-            message.channel.send(`✅ A Message containing my invite link has been sent to your DMs!`)
-                .then(msg => msg.delete(15000));
-        }
-    },
-    server:
-    {
-        name: "Server",
-        description: `An invitation link to the ${OFFICIAL_GUILD_NAME} will be sent to your DMs!`,
-        category: "General",
-        arguments: [],
-        permission: 1,
-        usage: `${prefix}server`,
-        exampleusage: `${prefix}server`,
-        run: function(message, args, data)
-        {
-            message.delete(15000);
-            message.author.send(`Visit my Website: https://${process.env.PROJECT_DOMAIN}.glitch.me/ \nJoin my Discord Dojo: <https://${process.env.PROJECT_DOMAIN}.glitch.me/join>\nInvite me to a server: <https://${process.env.PROJECT_DOMAIN}.glitch.me/invite>\n\nWhen inviting me, please ensure you allow all the permissions I request for otherwise I will not work correctly!`);
-            message.channel.send(`✅ A Message containing my server link has been sent to your DMs!`)
-                .then(msg => msg.delete(15000));
-        }
     },
     help:
     {
@@ -516,7 +180,7 @@ var commands = {
         category: "General",
         arguments: ["-o command"],
         permission: 1,
-        usage: `${prefix}help\` or \`${prefix}help <command>`,
+        usage: `${prefix}help <command>`,
         exampleusage: `${prefix}help ping`,
         run: function(message, args, data)
         {
@@ -599,14 +263,6 @@ var commands = {
         {
             let embed = new Embed();
 
-            let developers = [];
-            for (let i = 0; i < data.developers.length; i++)
-            {
-                let developer = data.developers[i];
-
-                developers.push(">> " + developer.user.tag);
-            }
-
             let bd = bot.user.createdAt;
             let birthdate = bd.toString()
                 .split(' ');
@@ -629,25 +285,14 @@ var commands = {
                 totalUsers += members;
             }
 
-            embed.setTitle("__" + bot.user.tag + " Statistics__");
+            embed.setTitle("__" + bot.user.username + " Statistics__");
             embed.setColor(data.display_colour.hex);
             embed.setThumbnail(bot.user.avatarURL);
 
             embed.addField("🎂 __Birthday__ 🎂", ">> " + botBirthdate);
-            embed.addField("🛡️ __Guilds__ 🛡️", ">> **" + guilds.length + "** Guilds");
             embed.addField(":hash: __Channels__ :hash:", ">> **" + totalChannels + "** Channels");
             embed.addField("👥 __Users__ 👥", ">> **" + totalUsers + "** Unique Discord Users");
-            embed.addField("✳️ __Commands__ ✳️", ">> **" + (Object.keys(commands)
-                .length + Object.keys(DMCommands)
-                .length + Object.keys(elemental)
-                .length) + "** Different Commands");
-
-            embed.addBlankField();
-
-            embed.addField("🔨 Bot Developers 🔧", developers.join(",\n"));
-            embed.addField("📮 Official Server 📮", ">> **[Tilde Dojo](<https://discord.gg/D7REjnU>)**");
-            embed.addBlankField();
-            embed.addField("__Help us Out__", "Help us out by [upvoting Tilde](https://discordbots.org/bot/421403753976037376/vote)!");
+            embed.addField("✳️ __Commands__ ✳️", ">> **" + (Object.keys(commands).length) + "** Different Commands");
 
             embed.setFooter("Requested by " + message.member.displayName, message.author.avatarURL);
 
@@ -661,7 +306,7 @@ var commands = {
         category: "General",
         arguments: ["-o category"],
         permission: 1,
-        usage: `${prefix}commands\` or  \`${prefix}commands <category>`,
+        usage: `${prefix}commands <category>`,
         exampleusage: `${prefix}commands General`,
         run: function(message, args, data)
         {
@@ -734,9 +379,9 @@ var commands = {
                 .split("env")
                 .join("BANNED_WORD")
                 .split("process")
-                .join("PROCESS_IS_NOT_ALLOWED_LOL")
+                .join("PROCESS_IS_NOT_ALLOWED")
                 .split("token")
-                .join("STOP_TRYING_TO_HACK_LOL");
+                .join("INVALID");
             try
             {
                 console.log(code);
@@ -759,12 +404,12 @@ var commands = {
     restart:
     {
         name: "Restart",
-        description: "Restarts the bot. Timeout can be in seconds (if s is suffixed at end of timeout) or milliseconds if no timeframe is specified.\n\n**__WARNING: BOT WILL NOT WORK UNTIL RESTART IS COMPLETE!__**",
+        description: "Restarts the bot. Timeout can be in seconds (if s is suffixed at end of timeout), minutes (if m is suffixed at the end of the timeout), hours (if h is suffixed at the end of the timeout) or milliseconds if no timeframe is specified. If no timeout is specified, the bot will restart immediately.\n\n**__WARNING: BOT WILL NOT WORK UNTIL RESTART IS COMPLETE!__**",
         category: "Development",
         arguments: ["-o timeout"],
         permission: 10,
         usage: `${prefix}restart <timeout>`,
-        exampleusage: `${prefix}restart 60s`,
+        exampleusage: `${prefix}restart 30s`,
         run: function(message, args, data)
         {
             // Timeout exists
@@ -797,32 +442,6 @@ var commands = {
                 let total = (timeout * timeframes[timeframe]);
 
                 let messageTo = [message.channel];
-                if (args[1])
-                {
-                    if (args[1] == "all")
-                    {
-                        messageTo = bot.guilds.array();
-                    }
-                    else if (!isNaN(args[1]))
-                    {
-                        if (parseInt(args[1]) > 10000)
-                        {
-                            messageTo.push(bot.guilds.get(args[1]));
-                        }
-                    }
-                    /*
-                                        else if (args[1].split(",").length > 1 && !arrayIsNaN(args[1].split(",")))
-                                        {
-                                            for (let i = 0; i < bot.guilds.array().length; i++)
-                                            {
-                                                console.log(args[1].split(","));
-                                                if (args[1].split(",").indexOf(bot.guilds.array()[i].id) != -1)
-                                                {
-                                                    messageTo.push(bot.guilds.array()[i].channels.find(c => c.type == "text"));
-                                                }
-                                            }
-                                        }*/
-                }
 
                 for (let x = 0; x < messageTo.length; x++)
                 {
@@ -966,249 +585,15 @@ var commands = {
             message.channel.send(user.displayName + "'s permission level is **" + perm + "**");
         }
     },
-    xo:
-    {
-        name: "XO",
-        description: "Initiate a game of noughts and crosses (tic tac toe) with the mentioned opponent!",
-        category: "Fun & Games",
-        arguments: ["-r @opponent"],
-        permission: 1,
-        usage: `${prefix}xo <@opponent>`,
-        exampleusage: `${prefix}xo @Furvux#2414`,
-        run: function(message, args, data)
-        {
-            let opponent = message.mentions.members.first();
-
-            if (!opponent)
-            {
-                message.channel.send("Woops! You forgot to mention someone to play against, " + message.author + "!");
-                return;
-            }
-            else if (opponent == message.member)
-            {
-                message.channel.send("You cannot play against yourself, " + message.author + "!");
-                return;
-            }
-
-            if (playing.includes(message.author.id))
-            {
-                message.channel.send("You are already in a game, " + message.author + "! Finish the game you are in before you start a new one!");
-                return;
-            }
-
-            if (playing.includes(opponent.user.id))
-            {
-                message.channel.send("The opponent, " + opponent.user + " is already playing a game! Wait untill they finish or choose a different opponent!");
-                return;
-            }
-            try
-            {
-
-                let gameID = util.generateUID(16, true);
-
-                let gameData = {
-                    players: [message.author.id, opponent.user.id],
-                    board: [
-                        "-", "-", "-",
-                        "-", "-", "-",
-                        "-", "-", "-"
-                    ],
-                    turn: 1
-                };
-
-                games.XO[gameID] = gameData;
-                playing.push(message.author.id, opponent.id);
-                games.XO.Playing.push(message.author.id, opponent.id);
-
-                gameIDs[gameID] = "XO";
-
-                let board = assets.XO.Board.i.clone();
-
-                games.XO[gameID].boardImage = board;
-
-                message.channel.send(message.author + " **(__X__)** vs. " + opponent.user + " **(__O__)**",
-                {
-                    file: assets.XO.Board.b
-                });
-            }
-            catch (e)
-            {
-                if (e.message.includes("DiscordAPIError: Missing Permissions"))
-                {
-                    message.channel.send("```diff\n- Sorry, but I do not have enough permission to carry out that command!```");
-                }
-            }
-        }
-    },
-    define:
-    {
-        name: "Define",
-        description: "Defines a specified word using Urban Dictionary",
-        category: "Fun & Games",
-        arguments: ["-r word"],
-        permission: 1,
-        usage: `${prefix}define`,
-        exampleusage: `${prefix}define peak`,
-        run: function(message, args, data)
-        {
-            let definition = args.join(" ");
-            if (!definition) return "You need to specify a word to look up!";
-
-            else
-            {
-                urbandict.term(definition, function(error, entries, tags, sounds)
-                {
-                    if (error)
-                    {
-                        if (definition.trim().toLowerCase() != 'furvux' && definition.trim().toLowerCase() != 'sheikh1365' && definition.trim().toLowerCase() != 'glassykiller' && definition.trim().toLowerCase() != 'realkeengames')
-                        {
-                            console.error(error);
-                            message.channel.send(`Couldn't find **${definition}** on Urban Dictionary.`);
-                            return;
-                        }
-                    }
-
-                    if (definition.trim().toLowerCase() === 'furvux')
-                    {
-                        entries = [
-                        {}];
-                        entries[0].definition = (`The Best Developer in the World`);
-                        entries[0].example = (`He is almost as good as Furvux!`);
-                        entries[0].thumbs_up = "Infinity";
-                        entries[0].thumbs_down = "None";
-                    }
-                    else if (definition.trim().toLowerCase() === 'sheikh1365')
-                    {
-                        entries = [
-                        {}];
-                        entries[0].definition = (`Kindhearted, amazing`);
-                        entries[0].example = (`Wow! You are such a Sheikh1365 person!`);
-                        entries[0].thumbs_up = "Infinity";
-                        entries[0].thumbs_down = "None";
-                    }
-                    else if (definition.trim().toLowerCase() === 'itsjustkeen')
-                    {
-                        entries = [
-                        {}];
-                        entries[0].definition = (`Simply cool and really clever!`);
-                        entries[0].example = (`I wish I was like **RealKeenGames**!`);
-                        entries[0].thumbs_up = "Infinity";
-                        entries[0].thumbs_down = "None";
-                    }
-                    else if (definition.trim().toLowerCase() === 'glassykiller')
-                    {
-                        entries = [
-                        {}];
-                        entries[0].definition = (`Your Father.`);
-                        entries[0].example = (`Hello, GlassyKiller!`);
-                        entries[0].thumbs_up = "Infinity";
-                        entries[0].thumbs_down = "None";
-                    }
-                    let embed = new Embed();
-
-                    embed.setTitle("__" + definition + " - Urban Definition__");
-                    embed.setColor(data.display_colour.hex);
-                    embed.setThumbnail("https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2Fimage.png?1520797098652");
-                    embed.addField("Word", ">> **" + util.ucfirst(definition) + "**");
-                    embed.addField("Definition", ">> " + entries[0].definition);
-                    embed.addField("Example Usage", ">> " + (entries[0].example ? entries[0].example : "None provided..."));
-
-                    embed.addField("Upvotes", ">> **" + (entries[0].thumbs_up > 0 ? entries[0].thumbs_up : "None") + "**", true);
-                    embed.addField("Downvotes", ">> **" + (entries[0].thumbs_down > 0 ? entries[0].thumbs_down : "None") + "**", true);
-
-                    embed.setFooter("Source: https://www.urbandictionary.com/define.php?term=" + definition + "");
-
-                    message.channel.send(embed);
-
-                });
-            }
-        }
-    },
-    "21":
-    {
-        name: "21",
-        description: "Starts a game of **21**! For others to join, they need to type `" + prefix + "join <gameID>`. If you do not specify a gameID, one will be created for you! \n__Note: Game ID must be 7 characters in length!__",
-        category: "Fun & Games",
-        arguments: ["-o gameID"],
-        permission: 1,
-        usage: `${prefix}21`,
-        exampleusage: `${prefix}21 F51X632`,
-        run: function(message, args, data)
-        {
-            let gameID = util.generateUID(7, true);
-            if (args[0])
-            {
-                if (args[0].length == 7)
-                {
-                    gameID = args[0];
-                }
-                else if (args[0].length < 7)
-                {
-                    gameID = args[0] + util.generateUID(7 - args[0].length, true);
-                }
-                else if (args[0].length > 7)
-                {
-                    gameID = args[0].substr(0, 7);
-                }
-            }
-
-            let gameData = {
-                players: [message.author.id],
-                current: 0,
-                accepting: true,
-                turn: 1
-            };
-            games.TwentyOne[gameID] = gameData;
-
-            gameIDs[gameID] = "TwentyOne";
-
-            playing.push(message.author.id);
-            games.TwentyOne.Playing.push(message.author.id);
-
-            message.channel.send(message.author + " has started a game of **21**! Type `" + prefix + "join " + gameID + "` to join the game!");
-        }
-    },
-    join:
-    {
-        name: "Join",
-        description: "Joins the game with the specified ID.",
-        category: "Fun & Games",
-        arguments: ["-r ID"],
-        permission: 1,
-        usage: `${prefix}join`,
-        exampleusage: `${prefix}join F51X632`,
-        run: function(message, args, data)
-        {
-            if (!args[0]) return "You need to specify the ID of the game you want to join!";
-            if (gameIDs[args[0]])
-            {
-                if (gameIDs[args[0]] == "TwentyOne")
-                {
-                    if (games.TwentyOne[args[0]] && games.TwentyOne[args[0]].accepting != false)
-                    {
-                        playing.push(message.author.id);
-                        games.TwentyOne.Playing.push(message.author.id);
-                        games.TwentyOne[args[0]].players.push(message.author.id);
-
-                        message.channel.send("✅ You have successfully joined the game of **21**, " + message.author + "!");
-                    }
-                }
-            }
-            else
-            {
-                message.channel.send("Oh dear! I cannot find a game with that ID, " + message.author + "! Make sure you have the ID correct (capital letters are capitalized, etc.)!");
-            }
-        }
-    },
     suggest:
     {
         name: "Suggest",
-        description: "Suggest a new feature for the bot!",
+        description: "Suggest a new feature for the server or the armed forces!",
         category: "General",
         arguments: ["-r suggestion"],
         permission: 1,
-        usage: `${prefix}suggest`,
-        exampleusage: `${prefix}suggest Add a coinflip command!`,
+        usage: `${prefix}suggest <suggestion>`,
+        exampleusage: `${prefix}suggest Add JF-17 Thunder jets to the airfield!`,
         run: function(message, args, data)
         {
             message.channel.createInvite(
@@ -1242,7 +627,7 @@ var commands = {
                         if (r.emoji.name == "✅")
                         {
                             msg.delete();
-                            bot.guilds.get(`421405545426321418`).channels.get(`421441403751759875`).send(embed).then(m =>
+                            bot.guilds.get(process.env.OFFICIAL_GUILD).channels.get(`430326116805246976`).send(embed).then(m =>
                             {
                                 m.react("✅");
                                 m.react("❎");
