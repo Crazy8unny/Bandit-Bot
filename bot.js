@@ -2,50 +2,24 @@ var Discord = require('discord.js');
 var firebase = require('firebase');
 var child_process = require("child_process");
 var Jimp = require('jimp');
-var urbandict = require("urban-dictionary");
 
 var util = require(__dirname + '/util/util.js');
-var instructions = require(__dirname + '/util/instructions.js');
 var permission = require(__dirname + '/util/permissions.js');
 var config = require(__dirname + '/settings/configuration.json');
 
 var bot = new Discord.Client();
 var Embed = Discord.RichEmbed;
 var prefix = config.prefix;
-var OFFICIAL_GUILD_NAME = "Tilde Dojo";
 
-var botID = 421403753976037376;
+var botID = 430356528093069330;
 
 var token = process.env.TOKEN || -1;
-
-var games = {};
-games["XO"] = {};
-games["TwentyOne"] = {};
-var playing = [];
-var gameIDs = {};
-
-var assets = {};
-assets.Fonts = {};
-
-assets.XO = {};
-assets.CoinFlip = {};
-assets.DeathBattle = {};
-assets.Elementals = {};
 
 var serverdata = {};
 
 // Initialize Firebase
 var config = {
-    apiKey: "AIzaSyBnKrLqwldnRRryvqUdUH5lidilH3gDTG0",
-    authDomain: "tilde-discord.firebaseapp.com",
-    databaseURL: "https://tilde-discord.firebaseio.com",
-    projectId: "tilde-discord",
-    storageBucket: "",
-    messagingSenderId: "782339524894"
 };
-
-var creatureCommand = "elementals";
-
 bot.on('ready', async function()
 {
     let before = new Date();
@@ -55,7 +29,7 @@ bot.on('ready', async function()
     console.log('Bot is online - ' + bot.user.tag);
     try
     {
-        let link = await bot.generateInvite(["MANAGE_MESSAGES", "SEND_MESSAGES", "READ_MESSAGES", "READ_MESSAGE_HISTORY", "ADD_REACTIONS", "EMBED_LINKS", "CREATE_INSTANT_INVITE", "ATTACH_FILES", "MANAGE_WEBHOOKS"])
+        let link = await bot.generateInvite(["ADMINISTRATOR"])
         console.log("Invite: " + link);
     }
     catch (e)
@@ -77,78 +51,6 @@ bot.on('ready', async function()
         type: "WATCHING"
     });
 
-    let x = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FX.png";
-    let o = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FO.png";
-    let board = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FNoughtsAndCrossesBoard.png";
-
-    let headCoin = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FHeads.png";
-    let tailCoin = "https://cdn.glitch.com/7cb13e4a-c822-4516-a784-952f82478aa0%2FTails.png";
-
-    assets.Fonts.OS8 = {};
-    assets.Fonts.OS16 = {};
-  
-    assets.Fonts.OS8.B = {};
-    assets.Fonts.OS8.W = {};
-    assets.Fonts.OS16.B = {};
-    assets.Fonts.OS16.W = {};
-  
-  
-    assets.XO.Board = {};
-    assets.XO.X = {};
-    assets.XO.O = {};
-
-    assets.CoinFlip.Heads = {};
-    assets.CoinFlip.Tails = {};
-
-    assets.Elementals.Characters = {};
-    assets.Elementals.Characters.Fire = {};
-    assets.Elementals.Characters.Water = {};
-    assets.Elementals.Characters.Nature = {};
-
-    assets.Elementals.Characters.Fire.Fizzball = {};
-    assets.Elementals.Characters.Fire.Flizard = {};
-
-    assets.Elementals.Characters.Water.Zrog = {};
-    assets.Elementals.Characters.Water.Tristisk = {};
-
-    assets.Elementals.Characters.Nature.Marsoak = {};
-    assets.Elementals.Characters.Nature.Shrumarsh = {};
-  
-    assets.Elementals.Inventory = {};
-    assets.Elementals.Inventory.Objects = {};
-    assets.Elementals.Inventory.Objects.Carrot = {};
-
-    loadAsset(board, assets.XO.Board);
-    loadAsset(x, assets.XO.X);
-    loadAsset(o, assets.XO.O);
-
-    loadAsset(headCoin, assets.CoinFlip.Heads);
-    loadAsset(tailCoin, assets.CoinFlip.Tails);
-  
-    loadFont(Jimp.FONT_SANS_8_BLACK, assets.Fonts.OS8.B);
-    loadFont(Jimp.FONT_SANS_8_WHITE, assets.Fonts.OS8.W);
-    loadFont(Jimp.FONT_SANS_16_BLACK, assets.Fonts.OS16.B);
-    loadFont(Jimp.FONT_SANS_16_WHITE, assets.Fonts.OS16.W);
-
-    loadData("Serverdata", serverdata);
-
-    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FFizzball.png", assets.Elementals.Characters.Fire.Fizzball);
-    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FFlizard.png", assets.Elementals.Characters.Fire.Flizard);
-
-    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FZrog.png", assets.Elementals.Characters.Water.Zrog);
-    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FTritisk.png", assets.Elementals.Characters.Water.Tristisk);
-
-    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FMarsoak.png", assets.Elementals.Characters.Nature.Marsoak);
-    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FShrumarsh.png", assets.Elementals.Characters.Nature.Shrumarsh);
-
-    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FInventory.png", assets.Elementals.Inventory);
-    loadAsset("https://cdn.glitch.com/eb55e3ce-5de5-4ea2-89a0-eefe4fd28eaf%2FCarrot.png?1521366687180", assets.Elementals.Inventory.Objects.Carrot);
-
-    games.XO.Playing = [];
-    games.TwentyOne.Playing = [];
-  
-    let after = new Date();
-    console.log("~ Total Loading Time: ~" + (after - before) + "ms");
 });
 
 bot.on("guildCreate", function(guild)
@@ -172,15 +74,6 @@ bot.on("guildDelete", function(guild)
 
 bot.on("message", function(message)
 {
-    // Game Command
-    if (!isNaN(message.content) && parseInt(message.content) > 0 && playing.includes(message.author.id))
-    {
-        let play = checkGame(message.member);
-        if (play == 0xCAFE25151 && parseInt(message.content) < 10) placeXO(message, games, assets.XO.X.i, assets.XO.O.i, toBufferAndSend);
-        else if (play == 0xCAFE25152 && parseInt(message.content) < 22) place21(message);
-    }
-
-
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
 
     let command = message.content.indexOf(botID) != -1 ? message.content.split(">")[1] : message.content.split(" ")[0].substr(prefix.length);

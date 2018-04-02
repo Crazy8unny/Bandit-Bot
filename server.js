@@ -2,8 +2,7 @@ var express = require('express');
 var http = require("http");
 var app = express();
 var util = require(__dirname + '/util/util.js');
-var child_process = require("child_process");
-var instructions = require(__dirname + '/util/instructions.js');
+var child_process = require("child_process")
 
 var port = process.env.PORT || 3000;
 
@@ -16,31 +15,24 @@ app.use(sassMiddleware({
   //outputStyle: 'compressed',
 }));
 
+
+var pingoptions = {
+    host: process.env.PROJECT_DOMAIN + ".glitch.me",
+    port: 80,
+    path: '/ping'
+};
+
 app.use(express.static('/tmp'));
 app.use(express.static('public'));
 
 app.get("/", function(request, response)
 {
     let datetime = new Date();
-    console.log("Ping recieved [" + util.formatShortDate(datetime) + ", " + util.formatShortTime(datetime) + "]");
-});
 
-app.get("/join", function(request, response)
-{
-    console.log("A user visited the [Join] page!");
-    response.sendFile(__dirname + "/views/join/index.html");
-});
-
-app.get("/joinheads", function(request, response)
-{
-    console.log("A user visited the [Join Heads] page!");
-    response.sendFile(__dirname + "/views/joinheads/index.html");
-});
-
-app.get("/invite", function(request, response)
-{
-    console.log("A user visited the [Invite] page!");
-    response.sendFile(__dirname + "/views/invite/index.html");
+    http.get(pingoptions, function(res) {}).on('error', function(e)
+    {
+        console.error("Got error: " + e.message);
+    });
 });
 
 app.get("/ping", function(request, response)
@@ -66,7 +58,7 @@ setInterval(() =>
         path: '/ping'
     };
 
-    http.get(options, function(res) {}).on('error', function(e)
+    http.get(pingoptions, function(res) {}).on('error', function(e)
     {
         console.error("Got error: " + e.message);
     });
