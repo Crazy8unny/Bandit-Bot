@@ -19,7 +19,14 @@ var serverdata = {};
 
 // Initialize Firebase
 var config = {
+  apiKey: "AIzaSyC58QexScqzbFifg5xBg0vgv6KIi8BOYQ0",
+  authDomain: "heads-discord.firebaseapp.com",
+  databaseURL: "https://heads-discord.firebaseio.com",
+  projectId: "heads-discord",
+  storageBucket: "heads-discord.appspot.com",
+  messagingSenderId: "949986113980"
 };
+
 bot.on('ready', async function()
 {
     let before = new Date();
