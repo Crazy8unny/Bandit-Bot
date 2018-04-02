@@ -48,12 +48,11 @@ bot.on('ready', async function()
 
     botID = bot.user.id;
 
-    let guilds = bot.guilds.array()
-        .length;
+    let users = bot.guilds.first().members.size();
 
     bot.user.setStatus('idle');
 
-    bot.user.setActivity(`${bot.guilds.size} Servers | ${prefix}help`,
+    bot.user.setActivity(`${bot.guilds.size} ${prefix}help | `,
     {
         type: "WATCHING"
     });
