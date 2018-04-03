@@ -18,6 +18,14 @@ var serverdata = {};
 
 // Initialize Firebase
 var config = {
+  
+    apiKey: "AIzaSyCP3QFzPm1IDo63PPdtNbmruf0JpYR8PAo",
+    authDomain: "theautumntree-discord.firebaseapp.com",
+    databaseURL: "https://theautumntree-discord.firebaseio.com",
+    projectId: "theautumntree-discord",
+    storageBucket: "theautumntree-discord.appspot.com",
+    messagingSenderId: "828062499325"
+
 };
 
 bot.on('ready', async function()
@@ -71,6 +79,15 @@ bot.on("guildCreate", function(guild)
 bot.on("guildDelete", function(guild)
 {
     console.log("Left Guild: " + guild.name + "!");
+});
+
+bot.on("guildMemberAdd", function(member)
+{
+    if (serverdata[member.guild.id.toString()].Configuration.autonick)
+    {
+        let nick = serverdata[member.guild.id.toString()].Configuration.autonick;
+        nick.split("{USERNAME}").join(member.user.username);
+    }
 });
 
 bot.on("message", function(message)
@@ -845,13 +862,35 @@ var commands = {
         name: "Set Prefix",
         description: "Note: The command for this is: `@V0YD_Manager#3466 setprefix <prefix>`\nThis command sets the prefix for the server",
         category: "Setup",
-        arguments: [],
+        arguments: ["-r prefix"],
         permission: 5,
-        usage: `@V0YD_Manager#3466 setprefi`,
-        exampleusage: `@V0YD_Manager#3466 prefix`,
+        usage: `@V0YD_Manager#3466 setprefix <prefix>`,
+        exampleusage: `@V0YD_Manager#3466 setprefix +`,
         run: function(message, args, data)
-        {
-            let dara            
+        {   
+            data = [];
+            data.Configuration = {
+                prefix: args.join(" ")
+            };
+            firebase.database().ref(message.guild.id.toString()).update(data);
+        }
+    },
+    autonick:
+    {
+        name: "Autonick",
+        description: "The nickname the bot will rename everyone to when they join.\nVariables: \n - {USERNAME} => Discord Username\n - {DESCRIMINATOR} => Discord Descriminator\n - {ID} => Discord ID",
+        category: "Setup",
+        arguments: ["-r name"],
+        permission: 5,
+        usage: `@V0YD_Manager#3466 autonick <name>`,
+        exampleusage: `@V0YD_Manager#3466 autonick V0YD_{USERNAME}`,
+        run: function(message, args, data)
+        {   
+            data = [];
+            data.Configuration = {
+                autonick: args.join(" ")
+            };
+            firebase.database().ref(message.guild.id.toString()).update(data);
         }
     }
 
@@ -889,7 +928,7 @@ async function loadData(src, dest)
     if (!src) src = "/";
 
     let ref = firebase.database().ref(src);
-    await ref.once("value", function(snapshot)
+    await ref.on("value", function(snapshot)
     {
         let data = snapshot.val();
         dest = data;
