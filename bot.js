@@ -246,11 +246,10 @@ var commands = {
                 embed.setColor(data.display_colour.hex);
                 embed.setThumbnail(bot.user.avatarURL);
 
-                embed.setDescription("**Hello! I am " + bot.user.username + "!** I am a bot designed for fun and games!");
+                embed.setDescription("Salaam! I am **" + bot.user.username + "**!");
                 embed.addField("Getting Started", "Type `" + prefix + "commands` to see my commands\nType `" + prefix + "stats` to see some of my statistics");
-                embed.addField("Support", "Visit our Official Website: [https://tilde.glitch.me/](https://tilde.glitch.me/)\nJoin our Discord Dojo: [https://tilde.glitch.me/join](https://tilde.glitch.me/join) \nInvite me to your server: [https://tilde.glitch.me/invite](https://tilde.glitch.me/invite) \n");
-                embed.addField("__Help us Out__", "Help us out by [upvoting Tilde](https://discordbots.org/bot/421403753976037376/vote)!");
-
+                embed.addField("Support", "Visit our Official Website: [https://paf.glitch.me/](https://paf.glitch.me/)");
+                
                 embed.setFooter("Requested by " + message.member.displayName, message.author.avatarURL);
                 message.channel.send(embed);
             }
@@ -452,7 +451,7 @@ var commands = {
                 for (let x = 0; x < messageTo.length; x++)
                 {
                     let channel = messageTo[x];
-                    channel.send(`✅ Tilder will restart in __${(total / 1000)} second${(total / 1000) > 1 ? "s" : ""}__!`);
+                    channel.send(`✅ ${bot.user.tag} will restart in __${(total / 1000)} second${(total / 1000) > 1 ? "s" : ""}__!`);
 
                     console.log("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     console.log(`Bot will restart in ${(total / 1000)} second${(total / 1000) == 1 ? "s" : ""}.`);
@@ -561,7 +560,7 @@ var commands = {
             }
 
             let embed = new Embed();
-            embed.setTitle(`__Tilde - Command Categories__`);
+            embed.setTitle(`__${bot.user.username} - Command Categories__`);
             embed.setColor(data.display_colour.hex);
 
             for (let category in categories)
@@ -597,7 +596,7 @@ var commands = {
         description: "Suggest a new feature for the server or the armed forces!",
         category: "General",
         arguments: ["-r suggestion"],
-        permission: 1,
+        permission: 100,
         usage: `${prefix}suggest <suggestion>`,
         exampleusage: `${prefix}suggest Add JF-17 Thunder jets to the airfield!`,
         run: function(message, args, data)
@@ -681,8 +680,8 @@ var commands = {
     "8ball":
     {
         name: "8Ball",
-        description: "The Magic 8Ball command!",
-        category: "Fun & Games",
+        description: "The Cool 8Ball command!",
+        category: "Miscellaneous",
         arguments: ["-r question"],
         permission: 1,
         usage: `${prefix}8ball`,
@@ -733,7 +732,7 @@ var commands = {
     {
         name: "Roll",
         description: "Rolls a dice for you.",
-        category: "Fun & Games",
+        category: "Miscellaneous",
         arguments: [],
         permission: 1,
         usage: `${prefix}roll`,
@@ -755,7 +754,7 @@ var commands = {
     {
         name: "Death Battle",
         description: "Fight a fast-paced battle to the death with the user who is mentioned!",
-        category: "Fun & Games",
+        category: "Miscellaneous",
         arguments: ["-r @user"],
         permission: 10,
         usage: `${prefix}deathbattle`,
@@ -862,7 +861,7 @@ var commands = {
     {
         name: "Profile Picture",
         description: "**The command for this is `" + prefix + "pfp`**, and you can optionally mention a user to see their profile picture.",
-        category: "Fun & Games",
+        category: "Miscellaneous",
         arguments: ["-o @user"],
         permission: 1,
         usage: `${prefix}pfp <@user>`,
