@@ -6,39 +6,6 @@ exports.getPermissionLevel = function(bot, guild, ID)
     let fP = -1;
     let sP = -1;
 
-    if (bot.guilds.get(officialGuild).members.get(ID))
-    {
-        let role = bot.guilds.get(officialGuild).members.get(ID).highestRole;
-
-        if (role)
-        {
-            switch (role.id)
-            {
-                  // Chairman
-                case "430326200574148608":
-                    return 15;
-                  // Developer
-                case "430326238070964224":
-                    return 14;
-                // Field Marshall
-                case "430344480428916737":
-                    return 12;
-                
-                // Officer
-                case "430326267485749252":
-                    fP = 4;
-                // JNCO
-                case "430346468436475915":
-                    fP = 3;
-                // idk
-                case "430343157524201482":
-                    fP = 2;
-                default:
-                    break;
-            }
-        }
-    }
-
     let member = guild.members.get(ID);
 
 

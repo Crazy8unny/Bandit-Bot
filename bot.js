@@ -58,7 +58,7 @@ bot.on('ready', async function()
         type: "STREAMING"
     });
   
-    loadData(null, serverdata);
+    loadData("/", serverdata);
 
 });
 
@@ -98,7 +98,8 @@ bot.on("guildMemberAdd", function(member)
 
 bot.on("message", function(message)
 {
-    //if (serverdata[message.guild.id.toString()].Configuration.prefix) prefix = serverdata[message.guild.id.toString()].Configuration.prefix;
+  console.log(serverdata)
+    if (serverdata[message.guild.id.toString()] && serverdata[message.guild.id.toString()].Configuration.prefix) prefix = serverdata[message.guild.id.toString()].Configuration.prefix;
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
 
     let command = message.content.indexOf(botID) != -1 ? message.content.split(">")[1] : message.content.split(" ")[0].substr(prefix.length);
@@ -860,8 +861,7 @@ var commands = {
         usage: `@V0YD_Manager#3466 prefix`,
         exampleusage: `@V0YD_Manager#3466 prefix`,
         run: function(message, args, data)
-        {
-            let dara            
+        {         
         }
     },
     setprefix:
@@ -874,18 +874,14 @@ var commands = {
         usage: `@V0YD_Manager#3466 setprefix <prefix>`,
         exampleusage: `@V0YD_Manager#3466 setprefix +`,
         run: function(message, args, data)
-        {   
-            data = [];
-            data.Configuration = {
-                prefix: args.join(" ")
-            };
-            firebase.database().ref(message.guild.id.toString()).update(data);
+        {
+            firebase.database().ref(message.guild.id.toString()).child("Configuration/prefix").set(args.join(" "));
         }
     },
     autonick:
     {
         name: "Autonick",
-        description: "The nickname the bot will rename everyone to when they join.\nVariables: \n - {USERNAME} => Discord Username\n - {DESCRIMINATOR} => Discord Descriminator\n - {ID} => Discord ID",
+        description: "The nickname the bot will rename everyone to when they join.\nVariables: \n - **{USERNAME}** => __Discord Username__\n - **{DESCRIMINATOR}** => __Discord Descriminator__\n - **{ID}** => __Discord ID__",
         category: "Setup",
         arguments: ["-r name"],
         permission: 5,
@@ -939,6 +935,7 @@ async function loadData(src, dest)
     {
         let data = snapshot.val();
         dest = data;
+      console.log(data);
         let after = new Date();
         console.log("-- Data loaded from database reference \"" + src + "\" [" + (after - before) + "ms]");
     });
