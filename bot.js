@@ -93,7 +93,8 @@ bot.on("guildMemberAdd", function(member)
     if (serverdata[member.guild.id.toString()].Configuration.autonick)
     {
         let nick = serverdata[member.guild.id.toString()].Configuration.autonick;
-        nick.split("{USERNAME}").join(member.user.username).split("{ID}").join(member.user.id).split("{DESCRIMINATOR}").join(member.user.descrimintor);
+        nick = nick.split("{USERNAME}").join(member.user.username).split("{ID}").join(member.user.id).split("{DESCRIMINATOR}").join(member.user.descrimintor);
+        
         member.setNickname(nick);
     }
     if (serverdata[member.guild.id.toString()].Configuration.autorole)
