@@ -48,13 +48,13 @@ bot.on('ready', async function()
 
     botID = bot.user.id;
 
-    let users = bot.guilds.first().members.size();
+    let users = bot.guilds.first().members.array().length;
 
-    bot.user.setStatus('idle');
+    bot.user.setStatus('streaming');
 
-    bot.user.setActivity(`${bot.guilds.size} ${prefix}help | `,
+    bot.user.setActivity(`${prefix}help | ${bot.guilds.size} Users`,
     {
-        type: "WATCHING"
+        type: "STREAMING"
     });
 
 });
