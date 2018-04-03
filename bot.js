@@ -911,8 +911,26 @@ var commands = {
         exampleusage: `@V0YD_Manager#3466 autorole Clan_Members`,
         run: function(message, args, data)
         {   
-            firebase.database().ref("Serverdata/" + message.guild.id.toString()).child("Configuration/autonick").set(args.join(" "));
-            message.channel.send("✅ The autonickname for this server has been set to: `" + args.join(" ") + "`!");
+            let role = message.mentions.roles.first() || message.guild.roles.find(r => r.name.toLowerCase() == args.join(" ").toLowerCase());
+          console.log(args.join(" "));
+            if (!role) return "Sorry, but I couldn't find that role!"
+            firebase.database().ref("Serverdata/" + message.guild.id.toString()).child("Configuration/autorole").set(role.id);
+            message.channel.send("✅ The autorole for this server has been set to: `" + args.join(" ").toUpperCase() + "`!");
+        }
+    },
+    config:
+    {
+        name: "Config",
+        description: "Displays the configuration for the server",
+        category: "Setup",
+        arguments: [],
+        permission: 1,
+        usage: `@V0YD_Manager#3466 config`,
+        exampleusage: `@V0YD_Manager#3466 config`,
+        run: function(message, args, data)
+        {   
+            data = serverdata[message.guild.id.toString()].Configuration;
+          
         }
     }
 
