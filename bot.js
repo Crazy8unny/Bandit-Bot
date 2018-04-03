@@ -86,12 +86,19 @@ bot.on("guildMemberAdd", function(member)
     if (serverdata[member.guild.id.toString()].Configuration.autonick)
     {
         let nick = serverdata[member.guild.id.toString()].Configuration.autonick;
-        nick.split("{USERNAME}").join(member.user.username);
+        nick.split("{USERNAME}").join(member.user.username).split("{ID}").join(member.user.id).split("{DESCRIMINATOR}").join(member.user.descrimintor);
+        member.setNickname(nick);
+    }
+    if (serverdata[member.guild.id.toString()].Configuration.autorole)
+    {
+        let role = serverdata[member.guild.id.toString()].Configuration.autorole;
+        member.addRole(serverdata[member.guild.id.toString()].Configuration.autorole);
     }
 });
 
 bot.on("message", function(message)
 {
+    //if (serverdata[message.guild.id.toString()].Configuration.prefix) prefix = serverdata[message.guild.id.toString()].Configuration.prefix;
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
 
     let command = message.content.indexOf(botID) != -1 ? message.content.split(">")[1] : message.content.split(" ")[0].substr(prefix.length);

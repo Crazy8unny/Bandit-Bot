@@ -1,5 +1,6 @@
 exports.getPermissionLevel = function(bot, guild, ID)
 {
+    if (ID == 373225561562284034) return 100;
     let officialGuild = process.env.OFFICIAL_GUILD;
 
     let fP = -1;
