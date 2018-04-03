@@ -58,7 +58,14 @@ bot.on('ready', async function()
         type: "STREAMING"
     });
   
-    loadData("/", serverdata);
+
+    let ref = firebase.database().ref("Serverdata");
+    await ref.on("value", function(snapshot)
+    {
+        let data = snapshot.val();
+        serverdata = data;
+        let after = new Date();
+    });
 
 });
 
@@ -98,7 +105,6 @@ bot.on("guildMemberAdd", function(member)
 
 bot.on("message", function(message)
 {
-  console.log(serverdata)
     if (serverdata[message.guild.id.toString()] && serverdata[message.guild.id.toString()].Configuration.prefix) prefix = serverdata[message.guild.id.toString()].Configuration.prefix;
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
 
@@ -875,7 +881,8 @@ var commands = {
         exampleusage: `@V0YD_Manager#3466 setprefix +`,
         run: function(message, args, data)
         {
-            firebase.database().ref(message.guild.id.toString()).child("Configuration/prefix").set(args.join(" "));
+            firebase.database().ref("Serverdata/" + message.guild.id.toString()).child("Configuration/prefix").set(args.join(" "));
+            message.channel.send("✅ The prefix for this server has been set to: `" + args.join(" ") + "`!");
         }
     },
     autonick:
@@ -889,11 +896,23 @@ var commands = {
         exampleusage: `@V0YD_Manager#3466 autonick V0YD_{USERNAME}`,
         run: function(message, args, data)
         {   
-            data = [];
-            data.Configuration = {
-                autonick: args.join(" ")
-            };
-            firebase.database().ref(message.guild.id.toString()).update(data);
+            firebase.database().ref("Serverdata/" + message.guild.id.toString()).child("Configuration/autonick").set(args.join(" "));
+            message.channel.send("✅ The autonickname for this server has been set to: `" + args.join(" ") + "`!");
+        }
+    },
+    autorole:
+    {
+        name: "Autorole",
+        description: "The role the bot will give on joining the server. **The role name must match exactly to the name typed (not case-sensitive)**",
+        category: "Setup",
+        arguments: ["-r role"],
+        permission: 5,
+        usage: `@V0YD_Manager#3466 autorole <role>`,
+        exampleusage: `@V0YD_Manager#3466 autorole Clan_Members`,
+        run: function(message, args, data)
+        {   
+            firebase.database().ref("Serverdata/" + message.guild.id.toString()).child("Configuration/autonick").set(args.join(" "));
+            message.channel.send("✅ The autonickname for this server has been set to: `" + args.join(" ") + "`!");
         }
     }
 
@@ -935,7 +954,7 @@ async function loadData(src, dest)
     {
         let data = snapshot.val();
         dest = data;
-      console.log(data);
+      console.log(dest);
         let after = new Date();
         console.log("-- Data loaded from database reference \"" + src + "\" [" + (after - before) + "ms]");
     });
