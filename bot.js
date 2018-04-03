@@ -930,7 +930,7 @@ var commands = {
         run: function(message, args, data)
         {   
             data = serverdata[message.guild.id.toString()].Configuration;
-          
+            
         }
     }
 
