@@ -1,7 +1,6 @@
 var Discord = require('discord.js');
 var firebase = require('firebase');
 var child_process = require("child_process");
-var Jimp = require('jimp');
 
 var util = require(__dirname + '/util/util.js');
 var permission = require(__dirname + '/util/permissions.js');
@@ -11,20 +10,14 @@ var bot = new Discord.Client();
 var Embed = Discord.RichEmbed;
 var prefix = config.prefix;
 
-var botID = 430356528093069330;
+var botID = -1;
 
-var token = process.env.TOKEN || -1;
+var token = process.env.TOKEN || `NDMwNzk0MTkzODA4NTIzMjY3.DaVYIw.Gv1cedI66ETmtMIjXlIx5t5kAws`;
 
 var serverdata = {};
 
 // Initialize Firebase
 var config = {
-  apiKey: "AIzaSyC58QexScqzbFifg5xBg0vgv6KIi8BOYQ0",
-  authDomain: "heads-discord.firebaseapp.com",
-  databaseURL: "https://heads-discord.firebaseio.com",
-  projectId: "heads-discord",
-  storageBucket: "heads-discord.appspot.com",
-  messagingSenderId: "949986113980"
 };
 
 bot.on('ready', async function()
@@ -48,7 +41,7 @@ bot.on('ready', async function()
 
     botID = bot.user.id;
 
-    let users = bot.guilds.first().members.array().length;
+    let users = bot.guilds.first().members.size;
 
     bot.user.setStatus('streaming');
 
@@ -56,6 +49,8 @@ bot.on('ready', async function()
     {
         type: "STREAMING"
     });
+  
+    loadData(null, serverdata);
 
 });
 
@@ -76,8 +71,6 @@ bot.on("guildCreate", function(guild)
 bot.on("guildDelete", function(guild)
 {
     console.log("Left Guild: " + guild.name + "!");
-    let ref = firebase.database().ref().child("Serverdata").child(guild.id.toString());
-    ref.set({});
 });
 
 bot.on("message", function(message)
@@ -375,7 +368,7 @@ var commands = {
         description: "Runs the code specified.",
         category: "Development",
         arguments: ["-r code"],
-        permission: 12,
+        permission: 8,
         usage: `${prefix}eval <code>`,
         exampleusage: `${prefix}eval message.reply(103 * 513);`,
         run: function(message, args, data)
@@ -412,7 +405,7 @@ var commands = {
         description: "Restarts the bot. Timeout can be in seconds (if s is suffixed at end of timeout), minutes (if m is suffixed at the end of the timeout), hours (if h is suffixed at the end of the timeout) or milliseconds if no timeframe is specified. If no timeout is specified, the bot will restart immediately.\n\n**__WARNING: BOT WILL NOT WORK UNTIL RESTART IS COMPLETE!__**",
         category: "Development",
         arguments: ["-o timeout"],
-        permission: 10,
+        permission: 8,
         usage: `${prefix}restart <timeout>`,
         exampleusage: `${prefix}restart 30s`,
         run: function(message, args, data)
@@ -590,63 +583,6 @@ var commands = {
             message.channel.send(user.displayName + "'s permission level is **" + perm + "**");
         }
     },
-    suggest:
-    {
-        name: "Suggest",
-        description: "Suggest a new feature for the server or the armed forces!",
-        category: "General",
-        arguments: ["-r suggestion"],
-        permission: 100,
-        usage: `${prefix}suggest <suggestion>`,
-        exampleusage: `${prefix}suggest Add JF-17 Thunder jets to the airfield!`,
-        run: function(message, args, data)
-        {
-            message.channel.createInvite(
-            {
-                maxAge: 0,
-                reason: "Advertisement and Suggestion"
-            }).then(function(invite)
-            {
-                let embed = new Embed();
-
-                embed.setTitle("__New Suggestion__");
-                embed.setColor("#00AA00");
-                embed.addField("Suggestion", ">> " + args.join(" "));
-                embed.addField("Suggester", ">> **" + message.author.tag + "**");
-                embed.addField("Suggestion Point", ">> **#" + message.channel.name + "** in **[" + message.guild.name + "](" + invite + ")**");
-                embed.setFooter("Suggested at: " + util.formatShortDate(new Date()) + " [" + util.formatShortTime(new Date) + "]", message.author.avatarURL);
-
-                const filter = (reaction, user) => user.id == message.author.id;
-
-                message.channel.send(embed).then(msg =>
-                {
-                    msg.react("✅");
-                    msg.react("❎");
-                    msg.channel.send(message.author + ", react with ✅ to approve and send the suggestion, or react with ❎ to disapprove and delete the suggestion.").then(m => m.delete(15000));
-                    const collector = msg.createReactionCollector(filter,
-                    {
-                        time: 60000
-                    });
-                    collector.on('collect', r =>
-                    {
-                        if (r.emoji.name == "✅")
-                        {
-                            msg.delete();
-                            bot.guilds.get(process.env.OFFICIAL_GUILD).channels.get(`430326116805246976`).send(embed).then(m =>
-                            {
-                                m.react("✅");
-                                m.react("❎");
-                            });
-                        }
-                        else if (r.emoji.name == "❎")
-                        {
-                            msg.delete();
-                        }
-                    });
-                });
-            });
-        }
-    },
     rembed:
     {
         name: "Rembed",
@@ -718,7 +654,7 @@ var commands = {
         description: "Creates a Webhook",
         category: "General",
         arguments: ["-r title", "-r message", "-o colour", "-o thumbnail"],
-        permission: 10,
+        permission: 7,
         usage: `${prefix}hook`,
         exampleusage: `${prefix}hook test hook,, test body,, #FF0000,, https://cdn.glitch.com/b4a9f84f-f609-4b97-897f-66f24c1d3d7e%2FBalls.jpg`,
         run: function(message, args, data)
@@ -756,7 +692,7 @@ var commands = {
         description: "Fight a fast-paced battle to the death with the user who is mentioned!",
         category: "Miscellaneous",
         arguments: ["-r @user"],
-        permission: 10,
+        permission: 1,
         usage: `${prefix}deathbattle`,
         exampleusage: `${prefix}deathbattle @Furvux#2414`,
         run: function(message, args, data)
@@ -890,94 +826,38 @@ var commands = {
             }
         }
     },
-    enable:
+    prefix:
     {
-        name: "Enable",
-        description: "Enables something.",
+        name: "Prefix",
+        description: "Replies with the bot prefix for the server.",
         category: "Setup",
-        arguments: ["-r thing"],
-        permission: 10,
-        usage: `${prefix}enbale <thing>`,
-        exampleusage: `${prefix}enable elementalspawns`,
+        arguments: [],
+        permission: 1,
+        usage: `@V0YD_Manager#3466 prefix`,
+        exampleusage: `@V0YD_Manager#3466 prefix`,
         run: function(message, args, data)
         {
-            if (!args[0])
-            {
-
-            }
-            
+            let dara            
         }
     },
-    test:
+    setprefix:
     {
-        name: "Test",
-        description: "Test Command",
-        category: "Development",
+        name: "Set Prefix",
+        description: "Note: The command for this is: `@V0YD_Manager#3466 setprefix <prefix>`\nThis command sets the prefix for the server",
+        category: "Setup",
         arguments: [],
-        permission: 10,
-        usage: `${prefix}test`,
-        exampleusage: `${prefix}test`,
+        permission: 5,
+        usage: `@V0YD_Manager#3466 setprefi`,
+        exampleusage: `@V0YD_Manager#3466 prefix`,
         run: function(message, args, data)
-        {         
+        {
+            let dara            
         }
     }
 
 };
 
 bot.login(token);
-
-
-function toBufferAndSend(image, message, text)
-{
-    image.getBuffer(Jimp.MIME_PNG, function(e, buffer)
-    {
-        if (e)
-        {
-            console.error(e);
-        }
-        message.channel.send(text,
-        {
-            file: (buffer)
-        });
-    });
-}
-
-async function loadAsset(src, dest)
-{
-    let before = new Date();
-    Jimp.read(src, function(err, img)
-    {
-        if (err) console.error(err);
-
-        if (!dest) dest = {};
-
-        dest.i = img;
-        dest.u = src;
-
-        img.getBuffer(Jimp.MIME_PNG, function(e, buffer)
-        {
-            if (e)
-            {
-                console.error(e);
-            }
-            dest.b = buffer
-        });
-
-        let now = new Date();
-        console.log("-- Asset \"" + util.ucfirst(src.split("%2F")[1].split("?")[0]) + "\" loaded [" + (now - before) + "ms]");
-    });
-}
-
-async function loadFont(src, dest)
-{
-    let before = new Date();
-    Jimp.loadFont(src).then(function(font)
-    {
-        let now = new Date();
-        dest = font;
-        console.log("-- Font \"" + (src.includes("//") ? util.ucfirst(src.split("%2F")[1].split("?")[0]) : util.ucfirst(src.split("/")[src.split("/").length - 1].split(".")[0])) + "\" loaded [" + (now - before) + "ms]");
-    });
-}
 
 function arrayIsNaN(array)
 {
