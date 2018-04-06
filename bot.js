@@ -53,7 +53,7 @@ bot.on('ready', async function()
 
     bot.user.setStatus('streaming');
 
-    bot.user.setActivity(`${prefix}help | ${bot.guilds.size} Users`,
+    bot.user.setActivity(`${prefix}help | ${users} Users`,
     {
         type: "STREAMING"
     });
@@ -869,7 +869,10 @@ var commands = {
         usage: `@V0YD_Manager#3466 prefix`,
         exampleusage: `@V0YD_Manager#3466 prefix`,
         run: function(message, args, data)
-        {         
+        {   
+          let p = config.prefix;
+          if (serverdata[message.guild.id.toString()] && serverdata[message.guild.id.toString()].Configuration.prefix) p = serverdata[message.guild.id.toString()].Configuration.prefix;
+            message.channel.send("My prefix for this server is: `" + p + "`")
         }
     },
     setprefix:
