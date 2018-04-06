@@ -10,7 +10,7 @@ var bot = new Discord.Client();
 var Embed = Discord.RichEmbed;
 var prefix = config.prefix;
 
-var botID = -1;
+var botID = 430794193808523267;
 
 var token = process.env.TOKEN || `NDMwNzk0MTkzODA4NTIzMjY3.DaVYIw.Gv1cedI66ETmtMIjXlIx5t5kAws`;
 
@@ -106,6 +106,7 @@ bot.on("guildMemberAdd", function(member)
 
 bot.on("message", function(message)
 {
+    if (!message.guild) return;
     if (serverdata[message.guild.id.toString()] && serverdata[message.guild.id.toString()].Configuration.prefix) prefix = serverdata[message.guild.id.toString()].Configuration.prefix;
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
 
@@ -262,7 +263,7 @@ var commands = {
                     .length < 1 ? "None" : command_args.trim());
                 embed.addField("Usage", `\`${spec.usage}\``);
                 embed.addField("Example Usage", `\`\`\`${spec.exampleusage}\`\`\``);
-                embed.setFooter("Requested by " + message.member.displayName);
+                embed.setFooter("Requested by " + message.member.displayName.split("_").join("\\_"));
                 message.channel.send(embed);
             }
             else
@@ -271,11 +272,11 @@ var commands = {
                 embed.setColor(data.display_colour.hex);
                 embed.setThumbnail(bot.user.avatarURL);
 
-                embed.setDescription("Salaam! I am **" + bot.user.username + "**!");
+                embed.setDescription("Hello! I am **" + bot.user.username + "**!");
                 embed.addField("Getting Started", "Type `" + prefix + "commands` to see my commands\nType `" + prefix + "stats` to see some of my statistics");
-                embed.addField("Support", "Visit our Official Website: [https://paf.glitch.me/](https://paf.glitch.me/)");
                 
-                embed.setFooter("Requested by " + message.member.displayName, message.author.avatarURL);
+                
+                embed.setFooter("Requested by " + message.member.displayName.split("_").join("\\_"), message.author.avatarURL);
                 message.channel.send(embed);
             }
         }
@@ -324,7 +325,7 @@ var commands = {
             embed.addField("👥 __Users__ 👥", ">> **" + totalUsers + "** Unique Discord Users");
             embed.addField("✳️ __Commands__ ✳️", ">> **" + (Object.keys(commands).length) + "** Different Commands");
 
-            embed.setFooter("Requested by " + message.member.displayName, message.author.avatarURL);
+            embed.setFooter("Requested by " + message.member.displayName.split("_").join("\\_"), message.author.avatarURL);
 
             message.channel.send(embed);
         }
@@ -545,7 +546,7 @@ var commands = {
                             let msg = messages[i];
                             if (msg.author.id == user.id) msg.delete();
                         }
-                        message.channel.send("✅ Cleared [**" + (amount) + "**] messages from <@" + user.id + ">! (__Command requested by _" + message.member.displayName + "___)")
+                        message.channel.send("✅ Cleared [**" + (amount) + "**] messages from <@" + user.id + ">! (__Command requested by _" + message.member.displayName.split("_").join("\\_") + "___)")
                             .then(msg => msg.delete(6000));
                     });
             }
@@ -557,7 +558,7 @@ var commands = {
                     message.channel.bulkDelete(99);
                 }
                 message.channel.bulkDelete(amount % 99);
-                message.channel.send("✅ Cleared [**" + (amount - 1) + "**] messages! (__Requested by _" + message.member.displayName + "___)")
+                message.channel.send("✅ Cleared [**" + (amount - 1) + "**] messages! (__Requested by _" + message.member.displayName.split("_").join("\\_") + "___)")
                     .then(msg => msg.delete(3000));
             }
         }
@@ -593,7 +594,7 @@ var commands = {
                 embed.addField(category, `>> **${categories[category]}** command${categories[category] > 1 ? "s" : ""}`);
             }
 
-            embed.setFooter(`Requested by ${message.member.displayName} | Permission Level: ${data.permission}`);
+            embed.setFooter(`Requested by ${message.member.displayName.split("_").join("\\_")} | Permission Level: ${data.permission}`);
             message.channel.send(embed);
         }
     },
@@ -628,8 +629,8 @@ var commands = {
         {
             args = message.content.split("rembed ")[1].split(",");
 
-            if (!args[0]) return "You need a title! (Type `" + prefix + "help rembed` to see hot to use this command!)";
-            if (!args[1]) return "You need a colour! (Type `" + prefix + "help rembed` to see hot to use this command!)";
+            if (!args[0]) return "You need a title! (Type `" + prefix + "help rembed` to see how to use this command!)";
+            if (!args[1]) return "You need a colour! (Type `" + prefix + "help rembed` to see how to use this command!)";
             if (!args[2]) return "You need a body for the embed! (Type `" + prefix + "help rembed` to see how to use this command!)";
 
             let title = args.shift();
