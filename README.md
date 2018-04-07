@@ -23,11 +23,13 @@ commands = {
         arguments: ["-o command"],
         permission: 1,
         usage: `${prefix}help`,
-        exampleusage: `${prefix}help`,
+        exampleusage: `${prefix}help ping`,
         run: function(message, args, data)
         {
             message.delete();
-            message.channel.send("Hello! Type ");
+            message.channel.send("Hello! Type `" + prefix + "commands` to see all of my commands!");
         }
     }
 }
+```
+
