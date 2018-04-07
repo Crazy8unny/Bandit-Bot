@@ -1,9 +1,3 @@
-// Made by Sheikh1365, if you have  questions than ask me!
-
-/*
-
-*/
-
 exports.getRandomNumber = (min, max) =>
 {
     return Math.floor(((Math.random() * max) + min));

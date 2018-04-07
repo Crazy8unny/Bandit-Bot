@@ -12,19 +12,12 @@ var prefix = config.prefix;
 
 var botID = 430794193808523267;
 
-var token = process.env.TOKEN || `NDMwNzk0MTkzODA4NTIzMjY3.DaVYIw.Gv1cedI66ETmtMIjXlIx5t5kAws`;
+var token = process.env.TOKEN || -1;
 
 var serverdata = {};
 
 // Initialize Firebase
 var config = {
-  
-    apiKey: "AIzaSyCP3QFzPm1IDo63PPdtNbmruf0JpYR8PAo",
-    authDomain: "theautumntree-discord.firebaseapp.com",
-    databaseURL: "https://theautumntree-discord.firebaseio.com",
-    projectId: "theautumntree-discord",
-    storageBucket: "theautumntree-discord.appspot.com",
-    messagingSenderId: "828062499325"
 
 };
 
@@ -55,7 +48,7 @@ bot.on('ready', async function()
 
     bot.user.setActivity(`${prefix}help | ${users} Users`,
     {
-        type: "STREAMING"
+        type: "WATCHING"
     });
   
 
