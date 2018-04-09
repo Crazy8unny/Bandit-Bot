@@ -23,9 +23,8 @@ If the argument name begins with `-o `, the argument is optional. If the argumen
 ```
 clear: 
 {
-    name: "Clear",
     arguments: ["-o user", "-r amount"],
-    run(message, args, data) {...}
+    run: function(message, args, data) {...}
 }
 ```
 As you can see, the user argument is optional - the command can still work correctly without the user parameter, whereas the amount is mandatory - the command cannot and will not work without an amount to clear!
@@ -41,3 +40,13 @@ help:
     name: "Help"
 }
 ```
+
+The command Description should describe clearly the function of the command and, if the command has any arguments (required _or_ optional), the description should clarify what these are for. Here is an example description:
+```
+description: "The **Ping** command is a simple command that responds with the latency of the bot in milliseconds."
+```
+_________________________________________________________
+
+Permission Level
+--------------------------
+Certain commands should only be accessed by users with certain permisions. For example
