@@ -62,4 +62,4 @@ _________________________________________________________
 
 Overview
 --------
-In conclusion, this is a simple bot template which allows you to make amazing discord bots! Th
+In conclusion, this is a simple bot template which allows you to make amazing discord bots! The 
