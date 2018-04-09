@@ -1,14 +1,15 @@
-Discordbot Template
+Discord Bot Template
 ===================
 A simple boilerplate template for a discord bot!
 
 Instructions
 ------------
-1) Put your bot token in _.env_ where it says **TOKEN**
-2) Put the prefix of the bot in _settings/configuration.json_
-3) Put the ID of the official Support Guild for the bot in _.env_ where it says **OFFICIAL_GUILD**
-4) Configure _util/permissions.js_ with the role IDs of the server if you want. Otherwise, simply delete that section.
-5) In _bot.js_, fill the _commands_ object with commands for your bot. The template command is the `ping` command, which has already been done.
+1) [Remix this project on Glitch](https://glitch.com/edit/#!/remix/discordbot-template)
+2) Put your bot token in _.env_ where it says **TOKEN**
+3) Put the prefix of the bot in _settings/configuration.json_
+4) Put the ID of the official Support Guild for the bot in _.env_ where it says **OFFICIAL_GUILD**
+5) Configure _util/permissions.js_ with the role IDs of the server if you want. Otherwise, simply delete that section.
+6) In _bot.js_, fill the _commands_ object with commands for your bot. The template command is the `ping` command, which has already been done.
 _________________________________________________________
 
 Run Function
@@ -49,4 +50,16 @@ _________________________________________________________
 
 Permission Level
 --------------------------
-Certain commands should only be accessed by users with certain permisions. For example
+Certain commands should only be accessed by users with certain permisions. For example, if the bot had a clear command, we would only want that available to users who have access to the `MANAGE_MESSAGES` permission (which is configured to be permission level 4 by default. See `util/permissions.js` to change or review the permission level setup). To make a command permission-level restricted, add the `permission` attribute to the command. E.g.:
+```
+clear
+{
+    permission: 4,
+    run: function(message, args, data) {...}
+}
+```
+_________________________________________________________
+
+Overview
+--------
+In conclusion, this is a simple bot template which allows you to make amazing discord bots! Th

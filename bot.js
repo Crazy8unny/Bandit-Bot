@@ -124,8 +124,9 @@ bot.on("message", function(message)
                 dec: message.guild.members.find(m => m.id == botID)
                     .displayColor
             };
-            data["server"] = bot.guilds.get(`430326116805246976`);
 
+            if (!commands[command].permission) commands[command].permission = 1;
+          
             if (data.permission >= commands[command].permission)
             {
                 let error = commands[command].run(message, message.content.split(" ").splice(1), data);
