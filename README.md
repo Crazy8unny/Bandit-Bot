@@ -1,7 +1,7 @@
 Discord Bot Template
 ===================
 A simple boilerplate template for a discord bot!
-The template was build with [discord.js](discord.)
+The template was build with [discord.js](https://discord.js.org/) and uses [Firebase](https://firebase.google.com/) as a database.
 
 Instructions
 ------------
@@ -15,7 +15,7 @@ _________________________________________________________
 
 Run Function
 ------------
-The run function of a command takes three parameters: `message`, `args` and `data` (or `settings`). The `message` is the [discord.js](https://discord.js.org/#/) [message object](https://discord.js.org/#/docs/main/stable/class/Message). You can find the contents of the message by using `message.content`. `args`, on the other hand, is an array of all the arguments of the command (the words after the command word seperated by spaces). For example, if someone wrote the command `shoot gun car`, the command would be `shoot`, `args[0]` would be _gun_ and `args[1]` would be _car_. The final parameter, `data` or `settings`, is an array of some miscellaneous data about the message, bot or anything else!
+The run function of a command takes three parameters: `message`, `args` and `data` (or `settings`). The `message` is the discord.js [message object](https://discord.js.org/#/docs/main/stable/class/Message). You can find the contents of the message by using `message.content`. `args`, on the other hand, is an array of all the arguments of the command (the words after the command word seperated by spaces). For example, if someone wrote the command `shoot gun car`, the command would be `shoot`, `args[0]` would be _gun_ and `args[1]` would be _car_. The final parameter, `data` or `settings`, is an array of some miscellaneous data about the message, bot or anything else!
 _________________________________________________________
 
 Arguments
