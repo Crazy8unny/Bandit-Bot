@@ -1,6 +1,7 @@
 Discord Bot Template
 ===================
 A simple boilerplate template for a discord bot!
+The template was build with [discord.js](discord.)
 
 Instructions
 ------------
@@ -60,6 +61,20 @@ clear
 ```
 _________________________________________________________
 
+Categories
+----------
+You will find that in the commands of the template, a command would have a property `category`. This is simply for organization purposes and could be very useful when creating a `commands` command (a command that displays all the commands of the bot).
+```
+clear
+{
+    category: "Moderation",
+    run: function(message, args, data) {...}
+}
+```
+The category names can be whatever you want, and you can use them in any way you want too!
+
+_________________________________________________________
+
 Aliases
 -------
 For convention, the template has a few aliases. This is so that when a library updates, you only need to edit 1 line, rather than many, _many_ more!
@@ -97,3 +112,9 @@ help:
     }
 }
 ```
+_____________________________________________________________
+_____________________________________________________________
+
+Firebase
+--------
+This bot template allows the developer to hook up to a [Firebase](https://firebase.google.com/) database easily!
