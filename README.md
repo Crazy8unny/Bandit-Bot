@@ -83,7 +83,7 @@ _________________________________________________________
 
 Overview
 --------
-In conclusion, this is a simple bot template which allows you to make amazing discord bots! The possibilities are endless with this template and I hope you make some amazing things with this!
+In conclusion, this is a simple bot template which allows you to make amazing discord bots! The possibilities are endless with this template and I hope you make some amazing things with this! The template has 4 defualt commands to be used in guilds and 1 DM command. You can delete these, re-write them or leave them - the
 
 Here is a complete command example: 
 ```
