@@ -75,6 +75,12 @@ The category names can be whatever you want, and you can use them in any way you
 
 _________________________________________________________
 
+DM Commands
+-----------
+The template supports executing commands from DM channels as well - these commands are located in the `DMCommand` object. There is already 1 command there (the `ping` command). All DM commands will be executed at permission level 1, so if your command requires a higher permission level, then it will not work.
+
+_________________________________________________________
+
 Aliases
 -------
 For convention, the template has a few aliases. This is so that when a library updates, you only need to edit 1 line, rather than many, _many_ more!
@@ -83,7 +89,7 @@ _________________________________________________________
 
 Overview
 --------
-In conclusion, this is a simple bot template which allows you to make amazing discord bots! The possibilities are endless with this template and I hope you make some amazing things with this! The template has 4 defualt commands to be used in guilds and 1 DM command. You can delete these, re-write them or leave them - the
+In conclusion, this is a simple bot template which allows you to make amazing discord bots! The possibilities are endless with this template and I hope you make some amazing things with this!
 
 Here is a complete command example: 
 ```
@@ -111,7 +117,8 @@ help:
         message.channel.send(embed);
     }
 }
-```
+``` 
+The template has 4 defualt commands to be used in guilds and 1 DM command. You can delete these, re-write them or leave them - the bot is not dependant on them so you can do what ever you want with them!
 _____________________________________________________________
 _____________________________________________________________
 

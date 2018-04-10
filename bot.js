@@ -107,6 +107,7 @@ bot.on("message", function(message)
     if (!command) return;
 
     command = command.toLowerCase().trim();
+    let args = message.content.split(" ").splice(1);
     if (message.channel.type == "text" && commands[command])
     {
         try
@@ -128,7 +129,7 @@ bot.on("message", function(message)
           
             if (data.permission >= commands[command].permission)
             {
-                let error = commands[command].run(message, message.content.split(" ").splice(1), data);
+                let error = commands[command].run(message, args, data);
                 if (error)
                 {
                     let embed = new Embed()
@@ -165,8 +166,7 @@ bot.on("message", function(message)
             let data = {};
             data["permission"] = 1;
 
-            DMCommands[command].run(message, message.content.split(" ")
-                .splice(1, 1), data);
+            DMCommands[command].run(message, args, data);
         }
         catch (e)
         {
@@ -176,7 +176,27 @@ bot.on("message", function(message)
     }
 });
 
-var DMCommands = {};
+var DMCommands = {
+    ping:
+    {
+        name: "Ping",
+        description: "A simple command to check the latency of the bot.",
+        category: "General",
+        arguments: [],
+        permission: 1,
+        usage: `${prefix}ping`,
+        exampleusage: `${prefix}ping`,
+        run: function(message, args, data)
+        {
+            message.delete();
+            message.channel.send(`:ping_pong: Pong! \`${(new Date().getTime() - message.createdTimestamp)}ms\``)
+                .then(msg =>
+                {
+                    msg.delete(3000)
+                });
+        }
+    }
+};
 
 var commands = {
     ping:
