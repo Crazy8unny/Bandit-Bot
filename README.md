@@ -117,4 +117,4 @@ _____________________________________________________________
 
 Firebase
 --------
-This bot template allows the developer to hook up to a [Firebase](https://firebase.google.com/) database easily! Si
+This bot template allows the developer to hook up to a [Firebase](https://firebase.google.com/) database easily! Simply paste the `config` data in the `config` object in `bot.js` (line 20)!
