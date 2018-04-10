@@ -23,7 +23,6 @@ var config = {
 
 bot.on('ready', async function()
 {
-    let before = new Date();
     console.log("_____________________");
     console.log("Connected to Discord!");
     console.log("---------------------");
@@ -42,11 +41,11 @@ bot.on('ready', async function()
 
     botID = bot.user.id;
 
-    let users = bot.guilds.first().members.size;
+    let guilds = bot.guilds.size;
 
-    bot.user.setStatus('streaming');
+    bot.user.setStatus('idle');
 
-    bot.user.setActivity(`${prefix}help | ${users} Users`,
+    bot.user.setActivity(`${guilds} Servers | ${prefix}help`,
     {
         type: "WATCHING"
     });
@@ -57,7 +56,6 @@ bot.on('ready', async function()
     {
         let data = snapshot.val();
         serverdata = data;
-        let after = new Date();
     });
 
 });
@@ -860,8 +858,8 @@ var commands = {
         category: "Setup",
         arguments: [],
         permission: 1,
-        usage: `@V0YD_Manager#3466 prefix`,
-        exampleusage: `@V0YD_Manager#3466 prefix`,
+        usage: `${prefix} prefix`,
+        exampleusage: `${prefix} prefix`,
         run: function(message, args, data)
         {   
           let p = config.prefix;
@@ -872,12 +870,12 @@ var commands = {
     setprefix:
     {
         name: "Set Prefix",
-        description: "Note: The command for this is: `@V0YD_Manager#3466 setprefix <prefix>`\nThis command sets the prefix for the server",
+        description: "Note: The command for this is: `${prefix} setprefix <prefix>`\nThis command sets the prefix for the server",
         category: "Setup",
         arguments: ["-r prefix"],
         permission: 5,
-        usage: `@V0YD_Manager#3466 setprefix <prefix>`,
-        exampleusage: `@V0YD_Manager#3466 setprefix +`,
+        usage: `${prefix} setprefix <prefix>`,
+        exampleusage: `${prefix} setprefix +`,
         run: function(message, args, data)
         {
             firebase.database().ref("Serverdata/" + message.guild.id.toString()).child("Configuration/prefix").set(args.join(" "));
@@ -891,8 +889,8 @@ var commands = {
         category: "Setup",
         arguments: ["-r name"],
         permission: 5,
-        usage: `@V0YD_Manager#3466 autonick <name>`,
-        exampleusage: `@V0YD_Manager#3466 autonick V0YD_{USERNAME}`,
+        usage: `${prefix} autonick <name>`,
+        exampleusage: `${prefix} autonick V0YD_{USERNAME}`,
         run: function(message, args, data)
         {   
             firebase.database().ref("Serverdata/" + message.guild.id.toString()).child("Configuration/autonick").set(args.join(" "));
@@ -906,8 +904,8 @@ var commands = {
         category: "Setup",
         arguments: ["-r role"],
         permission: 5,
-        usage: `@V0YD_Manager#3466 autorole <role>`,
-        exampleusage: `@V0YD_Manager#3466 autorole Clan_Members`,
+        usage: `${prefix} autorole <role>`,
+        exampleusage: `${prefix} autorole Clan_Members`,
         run: function(message, args, data)
         {   
             let role = message.mentions.roles.first() || message.guild.roles.find(r => r.name.toLowerCase() == args.join(" ").toLowerCase());
@@ -924,8 +922,8 @@ var commands = {
         category: "Setup",
         arguments: [],
         permission: 1,
-        usage: `@V0YD_Manager#3466 config`,
-        exampleusage: `@V0YD_Manager#3466 config`,
+        usage: `${prefix} config`,
+        exampleusage: `${prefix} config`,
         run: function(message, args, data)
         {   
             data = serverdata[message.guild.id.toString()].Configuration;
@@ -936,18 +934,6 @@ var commands = {
 };
 
 bot.login(token);
-
-function arrayIsNaN(array)
-{
-    for (let i = 0; i < array.length; i++)
-    {
-        if (!isNaN(array[i]))
-        {
-            return false;
-        }
-    }
-    return true;
-}
 
 process.on('unhandledRejection', (reason, p) =>
 {
@@ -960,44 +946,7 @@ process.on('exit', () =>
 
 });
 
-async function loadData(src, dest)
-{
-    let before = new Date();
-    if (!dest) dest = {};
-    if (!src) src = "/";
-
-    let ref = firebase.database().ref(src);
-    await ref.on("value", function(snapshot)
-    {
-        let data = snapshot.val();
-        dest = data;
-      console.log(dest);
-        let after = new Date();
-        console.log("-- Data loaded from database reference \"" + src + "\" [" + (after - before) + "ms]");
-    });
-}
-
-function updateFirebaseData(src, dest, type)
-{
-    let before = new Date();
-    if (!src)
-    {
-        console.error("No data provided to update in the database!");
-        return;
-    }
-    if (!dest) dest = "/";
-    if (!type) type = "u";
-
-    let ref = firebase.database().ref(dest);
-    if (type == "u") ref.update(src);
-    if (type == "s") ref.set(src);
-    else
-    {
-        console.error("TypeError: No type provided to update data!");
-        return;
-    }
-}
-
+// Function for making a webhook. Bot must have MANAGE_WEBHOOKS or ADMINISTRATOR permission for this
 function hook(channel, title, message, color, avatar)
 {
 
