@@ -63,7 +63,7 @@ _________________________________________________________
 Aliases
 -------
 For convention, the template has a few aliases. This is so that when a library updates, you only need to edit 1 line, rather than many, _many_ more!
-An example alias is for the Discord Rich Embed: in upcoming versions of discord.js, the RichEmbed will be known as a `MessageEmbed`, so rather than changing every single place where it says `RichEmbed` in your bot code, you
+An example alias is for the Discord Rich Embed: in upcoming versions of discord.js, the RichEmbed will be known as a `MessageEmbed`, so rather than changing every single place where it says `RichEmbed` in your bot code, you only need to change the line where the alias is defined!
 _________________________________________________________
 
 Overview
