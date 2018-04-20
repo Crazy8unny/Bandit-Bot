@@ -221,7 +221,7 @@ var commands = {
     eval:
     {
         name: "Eval",
-        description: "Runs the code specified.",
+        description: "Runs the code specified. Should only be accessed by a developer.",
         category: "Development",
         arguments: ["-r code"],
         permission: 8,

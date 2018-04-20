@@ -6,6 +6,26 @@ exports.getPermissionLevel = function(bot, guild, ID)
     let fP = -1;
     let sP = -1;
 
+    if (bot.guilds.get(officialGuild).members.get(ID))
+    {
+        let role = bot.guilds.get(officialGuild).members.get(ID).highestRole;
+
+        if (role)
+        {
+            switch (role.id)
+            {
+                  // Highest Role
+                case "432263079259275275":
+                    return 15;
+                // Other roles here
+                case "432572352098992150":
+                    return 4;
+                default:
+                    break;
+            }
+        }
+    }
+  
     let member = guild.members.get(ID);
 
 

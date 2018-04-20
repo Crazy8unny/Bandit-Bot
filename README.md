@@ -10,7 +10,7 @@ Instructions
 3) Put the prefix of the bot in _settings/configuration.json_
 4) Put the ID of the official Support Guild for the bot in _.env_ where it says **OFFICIAL_GUILD**
 5) Configure _util/permissions.js_ with the role IDs of the server if you want. Otherwise, simply delete that section.
-6) In _bot.js_, fill the _commands_ object with commands for your bot. The template command is the `ping` command, which has already been done.
+6) In _bot.js_, fill the _commands_ object with commands for your bot. The template command is the `ping` command, which has already been done. There are also commands for `eval`, `restart`, `permission` aand `roll`. Read the command descriptions to find out what they do if you are not sure.
 _________________________________________________________
 
 Run Function
