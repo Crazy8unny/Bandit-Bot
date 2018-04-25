@@ -100,7 +100,7 @@ bot.on("message", function(message)
     if (!command) return;
 
     command = command.toLowerCase().trim();
-    let args = message.content.indexOf(botID) != -1 ? message.content.split(">")[1].trim().split(" ") : message.content.split(prefix)[1].split(" ");
+    let args = message.content.split(command)[1].trim().split(" ");
     if (message.channel.type == "text" && commands[command])
     {
         try
