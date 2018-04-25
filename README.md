@@ -5,7 +5,8 @@ The template was build with [discord.js](https://discord.js.org/) and uses [Fire
 
 Instructions
 ------------
-1) [Remix this project on Glitch](https://glitch.com/edit/#!/remix/discordbot-template)
+1) [Remix this project on Glitch  (Click here)](https://glitch.com/edit/#!/remix/discordbot-template)
+2) Create a bot user from the [Discord Developer Applications Console](https://discordapp.com/developers/applications/me)
 2) Put your bot token in _.env_ where it says **TOKEN**
 3) Put the prefix of the bot in _settings/configuration.json_
 4) Put the ID of the official Support Guild for the bot in _.env_ where it says **OFFICIAL_GUILD**
