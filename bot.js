@@ -82,13 +82,6 @@ bot.on("guildDelete", function(guild)
 bot.on("guildMemberAdd", function(member)
 {
     if (!serverdata[member.guild.id.toString()]) return;
-    if (serverdata[member.guild.id.toString()].Configuration.autonick)
-    {
-        let nick = serverdata[member.guild.id.toString()].Configuration.autonick;
-        nick = nick.split("{USERNAME}").join(member.user.username).split("{ID}").join(member.user.id).split("{DESCRIMINATOR}").join(member.user.descrimintor);
-        
-        member.setNickname(nick);
-    }
     if (serverdata[member.guild.id.toString()].Configuration.autorole)
     {
         let role = serverdata[member.guild.id.toString()].Configuration.autorole;
@@ -102,12 +95,12 @@ bot.on("message", function(message)
     if (serverdata && serverdata[message.guild.id.toString()] && serverdata[message.guild.id.toString()].Configuration.prefix) prefix = serverdata[message.guild.id.toString()].Configuration.prefix;
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
 
-    let command = message.content.indexOf(botID) != -1 ? message.content.split(">")[1] : message.content.split(" ")[0].substr(prefix.length);
+    let command = message.content.indexOf(botID) != -1 ? message.content.split(">")[1] : message.content.split(prefix)[1].split(" ")[0];
 
     if (!command) return;
 
     command = command.toLowerCase().trim();
-    let args = message.content.split(" ").splice(1);
+    let args = message.content.indexOf(botID) != -1 ? message.content.split(">")[1].trim().split(" ") : message.content.split(prefix)[1].split(" ");
     if (message.channel.type == "text" && commands[command])
     {
         try
