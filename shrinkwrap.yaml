@@ -867,6 +867,7 @@ packages:
     dev: false
     engines:
       node: '>=4'
+    requiresBuild: true
     resolution:
       integrity: sha512-xmhA11h2XhqpSVzDAmoQAYdNQ+swILXpKOiRpAEQ2kX55ioxVADc6v7SkS4zQBxm4klhQHgGqpGKvoL6LGx4VQ==
   /har-schema/2.0.0:
@@ -1327,6 +1328,10 @@ packages:
     resolution:
       integrity: sha1-m/vlRWIoYoSDjnUOrAUpWFP6HGA=
   /node-opus/0.2.7:
+    cpu:
+      - x64
+      - arm
+      - ia32
     dependencies:
       bindings: 1.2.1
       commander: 2.15.0
@@ -1336,6 +1341,12 @@ packages:
       node: '>=0.10.0'
     optionalDependencies:
       ogg-packet: 1.0.0
+    os:
+      - linux
+      - darwin
+      - win32
+      - freebsd
+    requiresBuild: true
     resolution:
       integrity: sha1-W3JuKXlbCxJ7TIfmYtTegWhAV5w=
   /node-sass-middleware/0.11.0:
@@ -1371,6 +1382,7 @@ packages:
     dev: false
     engines:
       node: '>=0.10.0'
+    requiresBuild: true
     resolution:
       integrity: sha512-3fUkFCkgOPUD7YjFiRDO/oAcyjlT8HeN4u1CacfMKVjZTsDXvAjk0CdmjZIJ1MYvGuHJpye00wbIkecsmux2kA==
   /nopt/3.0.6:
@@ -1655,6 +1667,7 @@ packages:
       nan: 2.9.2
     dev: false
     optional: true
+    requiresBuild: true
     resolution:
       integrity: sha512-2cBCniTtxcGUjDpvFfVpw323a83/0RLSGJJY5l5lcomZWhYpU2cuLdsvYqMixvsdLJ9+sTdzEkju8J8ZHDM2nA==
   /repeating/2.0.1:
@@ -2024,6 +2037,7 @@ packages:
     dev: false
     engines:
       node: '>=4'
+    requiresBuild: true
     resolution:
       integrity: sha512-HNMztPP5A1sKuVFmdZ6BPVpBQd5bUjNC8EFMFiICK+oho/OQsAJy5hnIx4btMHiOk8j04f/DbIlqnEZ9d72dqg==
   /validate-npm-package-license/3.0.3:
@@ -2167,7 +2181,7 @@ packages:
     resolution:
       integrity: sha1-a6MY6xaWFyf10oT46gA+jWFU0Mg=
 registry: 'https://registry.npmjs.org/'
-shrinkwrapMinorVersion: 4
+shrinkwrapMinorVersion: 5
 shrinkwrapVersion: 3
 specifiers:
   discord.js: ^11.3.2
