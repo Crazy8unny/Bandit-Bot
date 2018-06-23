@@ -4,6 +4,24 @@ var app = express();
 var util = require(__dirname + '/util/util.js');
 var child_process = require("child_process")
 
+let domain = "planet-manager.glitch.me"
+let opts = 
+{
+    host: domain,
+    port: 80,
+    path: "/ping"
+};
+
+http.get(opts, function(res) 
+{
+    res.on('data', (html) => {
+      console.log(html);
+    });
+}).on('error', function(e)
+{
+    console.error("[" + domain + "] Got error: " + e.message);
+});
+
 var port = process.env.PORT || 3000;
 
 var sassMiddleware = require("node-sass-middleware");
@@ -63,3 +81,24 @@ setInterval(() =>
         console.error("Got error: " + e.message);
     });
 }, 280000);
+
+/*
+How to get website html from a page:
+let domain = "[insert domain here]"
+let options = 
+{
+    host: domain,
+    port: 80,
+    path: "[insert path to web page]"
+};
+
+http.get(options, function(res) 
+{
+    res.on('data', (html) => {
+      console.log(html);
+    });
+}).on('error', function(e)
+{
+    console.error("[" + domain + "] Got error: " + e.message);
+});
+*/
