@@ -4,24 +4,6 @@ var app = express();
 var util = require(__dirname + '/util/util.js');
 var child_process = require("child_process")
 
-let domain = "planet-manager.glitch.me"
-let opts = 
-{
-    host: domain,
-    port: 80,
-    path: "/ping"
-};
-
-http.get(opts, function(res) 
-{
-    res.on('data', (html) => {
-      console.log(html);
-    });
-}).on('error', function(e)
-{
-    console.error("[" + domain + "] Got error: " + e.message);
-});
-
 var port = process.env.PORT || 3000;
 
 var sassMiddleware = require("node-sass-middleware");
