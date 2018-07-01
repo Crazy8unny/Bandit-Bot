@@ -91,8 +91,7 @@ bot.on("guildMemberAdd", function(member)
 
 bot.on("message", function(message)
 {
-    if (!message.guild) return;
-    if (serverdata && serverdata[message.guild.id.toString()] && serverdata[message.guild.id.toString()].Configuration.prefix) prefix = serverdata[message.guild.id.toString()].Configuration.prefix;
+    if (message.guild && serverdata && serverdata[message.guild.id.toString()] && serverdata[message.guild.id.toString()].Configuration.prefix) prefix = serverdata[message.guild.id.toString()].Configuration.prefix;
     if (!message.content.startsWith(prefix) && message.content.indexOf(botID) > 5 || !message.content.startsWith(prefix) && message.content.indexOf(botID) <= -1) return;
 
     let command = message.content.indexOf(botID) != -1 ? message.content.split(">")[1] : message.content.split(prefix)[1].split(" ")[0];
@@ -100,7 +99,14 @@ bot.on("message", function(message)
     if (!command) return;
 
     command = command.toLowerCase().trim();
-    let args = message.content.split(command)[1] ? message.content.split(command)[1].trim().split(" ") : [];
+    let args = [];
+    if (message.content.split(command)[1]) 
+    {
+        let cbits = message.content.split(command);
+        cbits.shift();
+        args = cbits.join(command).trim().split(" ");
+        
+    }
     if (message.channel.type == "text" && commands[command])
     {
         try
