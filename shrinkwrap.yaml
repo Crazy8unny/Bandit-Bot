@@ -885,6 +885,7 @@ packages:
     dev: false
     engines:
       node: '>=0.10'
+    hasBin: true
     resolution:
       integrity: sha1-zcvAgYgmWtEZtqWnyKtw7s+10n0=
   /har-validator/5.0.3:
@@ -993,6 +994,7 @@ packages:
       integrity: sha512-oTZqweIP51xaGPI4uPa56/Pri/480R+mo7SeU+YETByQNhDG55ycFyNLIgta9vXhILrxXDmF7ZGhqZIcuN0gJQ==
   /in-publish/2.0.0:
     dev: false
+    hasBin: true
     resolution:
       integrity: sha1-4g/146KvwmkDILbcVSaCqcf631E=
   /indent-string/2.1.0:
@@ -1260,6 +1262,7 @@ packages:
       integrity: sha512-lc/aahn+t4/SWV/qcmumYjymLsWfN3ELhpmVuUFjgsORruuZPVSwAQryq+HHGvO/SI2KVX26bx+En+zhM8g8hQ==
   /mime/1.4.1:
     dev: false
+    hasBin: true
     resolution:
       integrity: sha512-KI1+qOZu5DcW6wayYHSzR/tXKCDC5Om4s1z2QJjDULzLcmf3DvzS7oluY4HCTrc+9FiKmWUgeNLg7W3uIQvxtQ==
   /minimatch/3.0.4:
@@ -1280,6 +1283,7 @@ packages:
     dependencies:
       minimist: 0.0.8
     dev: false
+    hasBin: true
     resolution:
       integrity: sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   /ms/2.0.0:
@@ -1325,6 +1329,7 @@ packages:
     dev: false
     engines:
       node: '>= 0.8.0'
+    hasBin: true
     resolution:
       integrity: sha1-m/vlRWIoYoSDjnUOrAUpWFP6HGA=
   /node-opus/0.2.7:
@@ -1382,6 +1387,7 @@ packages:
     dev: false
     engines:
       node: '>=0.10.0'
+    hasBin: true
     requiresBuild: true
     resolution:
       integrity: sha512-3fUkFCkgOPUD7YjFiRDO/oAcyjlT8HeN4u1CacfMKVjZTsDXvAjk0CdmjZIJ1MYvGuHJpye00wbIkecsmux2kA==
@@ -1389,6 +1395,7 @@ packages:
     dependencies:
       abbrev: 1.1.1
     dev: false
+    hasBin: true
     resolution:
       integrity: sha1-xkZdvwirzU2zWTF/eaxopkayj/k=
   /normalize-package-data/2.4.0:
@@ -1564,6 +1571,7 @@ packages:
     dev: false
     engines:
       node: '>=0.8'
+    hasBin: true
     resolution:
       integrity: sha1-WXSNfc8D0tsiwT2p/rAk4Wq4DJE=
   /proxy-addr/2.0.3:
@@ -1748,6 +1756,7 @@ packages:
     dependencies:
       glob: 7.1.2
     dev: false
+    hasBin: true
     resolution:
       integrity: sha512-lreewLK/BlghmxtfH36YYVg1i8IAce4TI7oao75I1g245+6BctqTVQiBP3YUJ9C6DQOXJmkYR9X9fCLtCOJc5w==
   /safe-buffer/5.1.1:
@@ -1761,6 +1770,7 @@ packages:
       scss-tokenizer: 0.2.3
       yargs: 7.1.0
     dev: false
+    hasBin: true
     resolution:
       integrity: sha1-E/vWPNHK8JCLn9k0dq1DpR0eC0k=
   /scss-tokenizer/0.2.3:
@@ -1772,10 +1782,12 @@ packages:
       integrity: sha1-jrBtualyMzOCTT9VMGQRSYR85dE=
   /semver/5.3.0:
     dev: false
+    hasBin: true
     resolution:
       integrity: sha1-myzl094C0XxgEq0yaqa00M9U+U8=
   /semver/5.5.0:
     dev: false
+    hasBin: true
     resolution:
       integrity: sha512-4SJ3dm0WAwWy/NVeioZh5AntkdJoWKxHxcmyP622fOkgHa4z3R0TdBJICINyaSDE6uNwVc8gZr+ZinwZAH4xIA==
   /send/0.16.2:
@@ -1884,6 +1896,7 @@ packages:
     dev: false
     engines:
       node: '>=0.10.0'
+    hasBin: true
     optionalDependencies:
       bcrypt-pbkdf: 1.0.1
       ecc-jsbn: 0.1.1
@@ -1945,6 +1958,7 @@ packages:
     dev: false
     engines:
       node: '>=0.10.0'
+    hasBin: true
     resolution:
       integrity: sha1-DHlipq3vp7vUrDZkYKY4VSrhoKI=
   /supports-color/2.0.0:
@@ -2031,6 +2045,7 @@ packages:
       integrity: sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
   /uuid/3.2.1:
     dev: false
+    hasBin: true
     resolution:
       integrity: sha512-jZnMwlb9Iku/O3smGWvZhauCf6cvvpKi4BKRiliS3cxnI+Gz9j5MEpTz2UFuXiKPJocb7gnsLHwiS05ige5BEA==
   /uws/9.14.0:
@@ -2090,6 +2105,7 @@ packages:
     dependencies:
       isexe: 2.0.0
     dev: false
+    hasBin: true
     resolution:
       integrity: sha512-xcJpopdamTuY5duC/KnTTNBraPK54YwpenP4lzxU8H91GudWpFv38u0CKjclE1Wi2EH2EDz5LRcHcKbCIzqGyg==
   /wide-align/1.1.2:
@@ -2102,6 +2118,7 @@ packages:
     dev: false
     engines:
       node: '>= 0.10.0'
+    hasBin: true
     resolution:
       integrity: sha1-+OGqHuWlPsW/FR/6CXQqatdpeHY=
   /wrap-ansi/2.1.0:
@@ -2181,7 +2198,7 @@ packages:
     resolution:
       integrity: sha1-a6MY6xaWFyf10oT46gA+jWFU0Mg=
 registry: 'https://registry.npmjs.org/'
-shrinkwrapMinorVersion: 7
+shrinkwrapMinorVersion: 8
 shrinkwrapVersion: 3
 specifiers:
   discord.js: ^11.3.2
