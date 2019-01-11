@@ -98,7 +98,7 @@ bot.on("message", function(message)
 
     if (!command) return;
 
-    command = command.toLowerCase().trim();
+    command = command.toLowerCase().trim().split(" ")[0];
     let args = [];
     if (message.content.split(command)[1]) 
     {
