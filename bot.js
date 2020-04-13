@@ -12,7 +12,7 @@ var prefix = config.prefix;
 
 var botID = 430794193808523267;
 
-var token = process.env.TOKEN || -1;
+var token = process.env.token || -1;
 
 var serverdata = {};
 
