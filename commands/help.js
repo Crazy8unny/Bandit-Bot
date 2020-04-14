@@ -40,7 +40,7 @@ class Help extends Command {
           output += `\u200b\n== ${cat} ==\n`;
           currentCategory = cat;
         }
-        output += `${" ".repeat(longest - c.help.name.length)} :: ${c.help.description}${settings.prefix}\n`;
+        output += `${c.help.name}${" ".repeat(longest - c.help.name.length)} :: ${c.help.description}\n`;
       });
       message.channel.send(output, {code:"asciidoc", split: { char: "\u200b" }});
     } else {
@@ -49,7 +49,7 @@ class Help extends Command {
       if (this.client.commands.has(command)) {
         command = this.client.commands.get(command);
         if (level < this.client.levelCache[command.conf.permLevel]) return;
-        message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage:: ${command.help.usage}\nalises:: ${command.conf.aliases.join(", ")}`, {code:"asciidoc"});
+        message.channel.send(`= ${command.help.name} = \n${command.help.description}\nשימוש:: ${command.help.usage}\nקיצורים:: ${command.conf.aliases.join(", ")}`, {code:"asciidoc"});
       }
     }
   }

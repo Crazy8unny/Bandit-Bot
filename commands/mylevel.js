@@ -8,13 +8,14 @@ class MyLevel extends Command {
       usage: "הרמהשלי",
       guildOnly: true,
       category: "מידע",
-      aliases: ["mylevel", "level", "הרמה שלי", "רמה"]
+      aliases: ["mylevel", "level", "הרמה שלי", "רמה"],
+      permLevel: "Bot Admin"
     });
   }
 
   async run (message, args, level) {
     const friendly = this.client.config.permLevels.find(l => l.level === level).name;
-    message.reply(`${level} - ${friendly}רמת ההרשאות שלך היא: `);
+    message.reply(`${level} - ${friendly} :רמת ההרשאות שלך היא`);
   }
 }
 

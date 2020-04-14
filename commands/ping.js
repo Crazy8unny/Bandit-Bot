@@ -13,8 +13,8 @@ class Ping extends Command {
 
   async run (message, args, level) { // eslint-disable-line no-unused-vars
     try {
-      const msg = await message.channel.send("🏓 פינג!");
-      msg.edit(`🏓 פונג! (זמן תגובה: ${msg.createdTimestamp - message.createdTimestamp}ms. 💙: ${Math.round(this.client.ping)}ms.)`);
+      const msg = await message.channel.send("🏓 פינג !");
+      msg.edit(`פונג ! :ping_pong: \n (זמן תגובה:  ${msg.createdTimestamp - message.createdTimestamp}ms)`)
     } catch (e) {
       console.log(e);
     }
