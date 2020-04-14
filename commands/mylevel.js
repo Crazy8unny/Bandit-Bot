@@ -5,9 +5,10 @@ class MyLevel extends Command {
     super(client, {
       name: "הרמה שלי",
       description: "הצג את רמת ההרשאות שלך על הבוט",
-      usage: "mylevel",
+      usage: "הרמה שלי",
       guildOnly: true,
-      Category: "מידע"
+      Category: "מידע",
+      aliases: ["mylevel", "level", "הרמהשלי", "רמה"]
     });
   }
 
