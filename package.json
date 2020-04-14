@@ -1,27 +1,46 @@
 {
-  "name": "Discordbot_Boilerplate",
-  "version": "0.0.1",
-  "description": "A boilerplate discord bot template",
-  "main": "server.js",
+  "name": "Bandit-Bot",
+  "version": "6.1.0",
+  "description": "My own Discord bot",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "^4.16.4",
-    "discord.js": "^11.5.1",
-    "uws": "^99.0.0",
-    "node-opus": "^0.3.2",
-    "firebase": "^6.1.0",
-    "node-sass-middleware": "^0.11.0"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "prepublish": "node util/setup.js"
   },
   "engines": {
-    "node": "10.x"
+    "node": ">=12"
   },
-  "license": "MIT",
-  "keywords": [
-    "node",
-    "discord",
-    "express",
-    "template"
-  ]
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Crazy8unny/Bandit-Bot.git"
+  },
+  "author": "CrazyBunny",
+  "contributors": [
+    "Eitan"
+  ],
+  "license": "CB",
+  "bugs": {
+    "url": "https://www.google.com"
+  },
+  "homepage": "https://github.com/Crazy8unny/Bandit-Bot.git",
+  "dependencies": {
+    "better-sqlite3": "^5.4.1",
+    "chalk": "^2.4.1",
+    "discord.js": "^12.1.1",
+    "enmap": "^5.0.1",
+    "klaw": "^2.1.1",
+    "moment": "^2.22.2",
+    "moment-duration-format": "^2.2.2",
+    "readline-sync": "^1.4.9"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.1",
+    "eslint-config-airbnb-base": "^11.3.2",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.18.1",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0"
+  }
 }

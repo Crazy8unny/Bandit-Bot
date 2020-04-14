@@ -1,130 +1,55 @@
-Discord Bot Template
-===================
-A simple boilerplate template for a discord bot!
-The template was build with [discord.js](https://discord.js.org/) and uses [Firebase](https://firebase.google.com/) as a database.
+# Bandit Bot
 
-Instructions
-------------
-1) [Remix this project on Glitch  (Click here)](https://glitch.com/edit/#!/remix/discordbot-template)
-2) Create a bot user from the [Discord Developer Applications Console](https://discordapp.com/developers/applications/me)
-2) Put your bot token in _.env_ where it says **TOKEN**
-3) Put the prefix of the bot in _settings/configuration.json_
-4) Put the ID of the official Support Guild for the bot in _.env_ where it says **OFFICIAL_GUILD**
-5) Configure _util/permissions.js_ with the role IDs of the server if you want. Otherwise, simply delete that section.
-6) In _bot.js_, fill the _commands_ object with commands for your bot. The template command is the `ping` command, which has already been done. There are also commands for `eval`, `restart`, `permission` aand `roll`. Read the command descriptions to find out what they do if you are not sure.
-_________________________________________________________
+An boilerplate of a Discord.js Bot Handler.
+Updated and Maintained by the [Idiot's Bandit Community](https://discord.gg/4NE4bk7).
 
-Run Function
-------------
-The run function of a command takes three parameters: `message`, `args` and `data` (or `settings`). The `message` is the discord.js [message object](https://discord.js.org/#/docs/main/stable/class/Message). You can find the contents of the message by using `message.content`. `args`, on the other hand, is an array of all the arguments of the command (the words after the command word seperated by spaces). For example, if someone wrote the command `shoot gun car`, the command would be `shoot`, `args[0]` would be _gun_ and `args[1]` would be _car_. The final parameter, `data` or `settings`, is an array of some miscellaneous data about the message, bot or anything else!
-_________________________________________________________
+Banditbot is an attempt to show the basics of command and event handling, in clear, concise,
+and commented code. Banditbot can be used as the template for any type of bot, and contains
+most of the basic features you would need: 
 
-Arguments
----------
-The `arguments` property of a command is an array of all the commands arguments, displayed as strings.
-If the argument name begins with `-o `, the argument is optional. If the argument name starts with `-r ` then the argument is required. For example, here is a clear command:
-```
-clear: 
-{
-    arguments: ["-o user", "-r amount"],
-    run: function(message, args, data) {...}
-}
-```
-As you can see, the user argument is optional - the command can still work correctly without the user parameter, whereas the amount is mandatory - the command cannot and will not work without an amount to clear!
-_________________________________________________________
+- A command handler
+- A basic permission system
+- An event handler
+- Basic useful commands
+- Per-server configuration system
+- A logging system
 
-Command Name & Description
---------------------------
-The command name should match the key for the command, but with a capital letter to begin with (this is just common convention). 
-Here is an example: 
-```
-help:
-{
-    name: "Help"
-}
-```
+Banditbot-Class differs from [Banditbot](https://github.com/AnIdiotsBandit/Banditbot/) in one thing and one thing only: 
+it's built using *Classes* and not functions. That's it, the rest should be functionally identical.
 
-The command Description should describe clearly the function of the command and, if the command has any arguments (required _or_ optional), the description should clarify what these are for. Here is an example description:
-```
-description: "The **Ping** command is a simple command that responds with the latency of the bot in milliseconds."
-```
-_________________________________________________________
+Need support? Join the [Idiot's Bandit Community](https://discord.gg/4NE4bk7)!
 
-Permission Level
-----------------
-Certain commands should only be accessed by users with certain permisions. For example, if the bot had a clear command, we would only want that available to users who have access to the `MANAGE_MESSAGES` permission (which is configured to be permission level 4 by default. See `util/permissions.js` to change or review the permission level setup). To make a command permission-level restricted, add the `permission` attribute to the command. E.g.:
-```
-clear
-{
-    permission: 4,
-    run: function(message, args, data) {...}
-}
-```
-_________________________________________________________
+## Requirements
 
-Categories
-----------
-You will find that in the commands of the template, a command would have a property `category`. This is simply for organization purposes and could be very useful when creating a `commands` command (a command that displays all the commands of the bot).
-```
-clear
-{
-    category: "Moderation",
-    run: function(message, args, data) {...}
-}
-```
-The category names can be whatever you want, and you can use them in any way you want too!
+- `git` command line ([Windows](https://git-scm.com/download/win) | [Linux](https://git-scm.com/download/linux) | [MacOS](https://git-scm.com/download/mac)) installed
+- `node` [Version 10.X - current node 11 does not work!](https://nodejs.org)
+- The node-gyp build tools. This is a pre-requisite for Enmap, but also for a **lot** of other modules. See [The Enmap Bandit](https://enmap.evie.codes/install#pre-requisites) for details and requirements for your OS. Just follow what's in the tabbed block only, then come back here!
 
-_________________________________________________________
+You also need your bot's token. This is obtained by creating an application in
+the Developer section of discordapp.com. Check the [first section of this page](https://anidiots.Bandit/getting-started/the-long-version.html)
+for more info.
 
-DM Commands
------------
-The template supports executing commands from DM channels as well - these commands are located in the `DMCommand` object. There is already 1 command there (the `ping` command). All DM commands will be executed at permission level 1, so if your command requires a higher permission level, then it will not work.
+## Downloading
 
-_________________________________________________________
+In a command prompt in your projects folder (wherever that may be) run the following:
 
-Aliases
--------
-For convention, the template has a few aliases. This is so that when a library updates, you only need to edit 1 line, rather than many, _many_ more!
-An example alias is for the Discord Rich Embed: in upcoming versions of discord.js, the RichEmbed will be known as a `MessageEmbed`, so rather than changing every single place where it says `RichEmbed` in your bot code, you only need to change the line where the alias is defined!
-_________________________________________________________
+`git clone https://github.com/An-Idiots-Bandit/Banditbot-class.git`
 
-Overview
---------
-In conclusion, this is a simple bot template which allows you to make amazing discord bots! The possibilities are endless with this template and I hope you make some amazing things with this!
+Once finished:
 
-Here is a complete command example: 
-```
-help:
-{
-    name: "Help",
-    description: "Displays a simple help message! If a command is specified, it will give information on the command.",
-    category: "General",
-    arguments: ["-o command"],
-    permission: 1,
-    usage: `${prefix}help <command>`,
-    exampleusage: `${prefix}help ping`,
-    run: function(message, args, data)
-    {
-        let embed = new Embed();
-        embed.setTitle("__" + data.display_name + "__");
-        embed.setColor(data.display_colour.hex);
-        embed.setThumbnail(bot.user.avatarURL);
+- In the folder from where you ran the git command, run `cd Banditbot-class` and then run `npm install`, which will install the required packages,
+and it will then run the installer, make sure you have your token at hand to paste into the console.
+- **If you get any error about python or msibuild.exe or binding, read the requirements section again!**
+- The installer will create the `config.js` file for you.
 
-        embed.setDescription("Hello! I am **" + bot.user.username + "**!");
-        embed.addField("Getting Started", "Type `" + prefix + "commands` to see my commands\nType `" + prefix + "stats` to see some of my statistics");
+## Starting the bot
 
+To start the bot, in the command prompt, run the following command:
+`node index.js`
 
-        embed.setFooter("Requested by " + message.member.displayName.split("_").join("\\_"), message.author.avatarURL);
-        message.channel.send(embed);
-    }
-}
-``` 
-The template has 4 defualt commands to be used in guilds and 1 DM command. You can delete these, re-write them or leave them - the bot is not dependant on them so you can do what ever you want with them!
-_____________________________________________________________
-_____________________________________________________________
+## Inviting to a guild
 
-Firebase
---------
-This bot template allows the developer to hook up to a [Firebase](https://firebase.google.com/) database easily! Simply paste the `config` data in the `config` object in `bot.js` (line 20)!
+To add the bot to your guild, you have to get an oauth link for it.
 
-_If you aren't going to use Firebase, you need to remove all the firebase stuff to make the bot faster_
+You can use this site to help you generate a full OAuth Link, which includes a calculator for the permissions:
+[https://finitereality.github.io/permissions-calculator/?v=0](https://finitereality.github.io/permissions-calculator/?v=0)
