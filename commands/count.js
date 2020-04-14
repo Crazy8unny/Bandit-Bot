@@ -13,7 +13,7 @@ class Count extends Command {
 
   async run (message, args, level) { 
     let countdown = args[0];
-    let printLion = true;
+    let printLion = false;
     if (!args[0] || countdown == 5) {
       countdown = 5;
       printLion = true;
