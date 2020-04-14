@@ -16,12 +16,11 @@ class Choose extends Command {
     let optionsString = msg.substring(3, msg.length);
     let options = optionsString.split(' או ');
     if (options.length > 1) {
-        res = options[Math.floor(Math.random() * options.length)];
+        message.channel.send((options[Math.floor(Math.random() * options.length)]).toString());
     }
     else {
-        res = "אתה צריך לשלוח מספר אפשרויות עם `או` מפריד ביניהם אורי"
+        message.channel.send("אתה צריך לשלוח מספר אפשרויות עם `או` מפריד ביניהם אורי");
     }
-    message.channel.send(res.toString());
   }
 }
 
