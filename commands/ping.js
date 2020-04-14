@@ -7,7 +7,7 @@ class Ping extends Command {
       description: "מציג את כמות הזמן לתגובה לפקודה",
       usage: "פינג",
       aliases: ["pong", "פונג", "ping"],
-      Cetogory: "מידע"
+      category: "מידע"
     });
   }
 
