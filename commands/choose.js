@@ -18,4 +18,4 @@ class Choose extends Command {
   }
 }
 
-module.exports = Count;
+module.exports = Choose;
