@@ -27,7 +27,7 @@ module.exports = class {
     // Checks if the bot was mentioned, with no message after it, returns the prefix.
     const prefixMention = new RegExp(`^<@!?${this.client.user.id}> ?$`);
     if (message.content.match(prefixMention)) {
-      return message.reply(`\`${settings.prefix}\` דבר אליי ככה אחי`);
+      return message.reply(`דבר אליי עם \`${settings.prefix}\` אחי`);
     }
 
     // Also good practice to ignore any message that does not start with our prefix,
