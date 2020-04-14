@@ -3,7 +3,7 @@ const Command = require("../base/Command.js");
 class MyLevel extends Command {
   constructor (client) {
     super(client, {
-      name: "הרמה שלי",
+      name: "הרמהשלי",
       description: "הצג את רמת ההרשאות שלך על הבוט",
       usage: "הרמהשלי",
       guildOnly: true,

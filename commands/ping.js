@@ -6,7 +6,7 @@ class Ping extends Command {
       name: "פינג",
       description: "מציג את כמות הזמן לתגובה לפקודה",
       usage: "פינג",
-      aliases: ["pong", "פונג", "ping"],
+      aliases: ["ping", "pong", "פונג"],
       category: "מידע"
     });
   }
