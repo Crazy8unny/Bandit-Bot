@@ -7,7 +7,7 @@ class Stats extends Command {
   constructor (client) {
     super(client, {
       name: "סטטיסטיקה",
-      description: "מציג נתונים שימושיים על הבוט.",
+      description: "מציג נתונים שימושיים על הבוט",
       usage: "סטטיסטיקה",
       category: "מידע",
       aliases: ["stats", "נתונים", "סטטיסטיקות"]

@@ -11,7 +11,7 @@ class Help extends Command {
   constructor (client) {
     super(client, {
       name: "עזרה",
-      description: "מציג את כל הפקודות האפשריות עבורך.",
+      description: "מציג את כל הפקודות האפשריות עבורך",
       category: "מערכת",
       usage: "עזרה [פקודה]",
       aliases: ["h", "halp", "help", "הצילו"]
@@ -40,7 +40,7 @@ class Help extends Command {
           output += `\u200b\n== ${cat} ==\n`;
           currentCategory = cat;
         }
-        output += `${settings.prefix}${c.help.name}${" ".repeat(longest - c.help.name.length)} :: ${c.help.description}\n`;
+        output += `${c.help.name}${settings.prefix}${" ".repeat(longest - c.help.name.length)} :: ${c.help.description}\n`;
       });
       message.channel.send(output, {code:"asciidoc", split: { char: "\u200b" }});
     } else {
