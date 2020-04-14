@@ -6,7 +6,8 @@ class MyLevel extends Command {
       name: "הרמה שלי",
       description: "הצג את רמת ההרשאות שלך על הבוט",
       usage: "mylevel",
-      guildOnly: true
+      guildOnly: true,
+      Category: "מידע"
     });
   }
 
