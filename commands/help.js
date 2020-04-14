@@ -43,7 +43,7 @@ class Help extends Command {
         output += `${c.help.name}${" ".repeat(longest - c.help.name.length)} :: ${c.help.description}\n`;
       });
       message.author.send(output, {code:"asciidoc", split: { char: "\u200b" }});
-      message.react(":e_mail:");
+      message.react("📧");
     } else {
       // Show individual command's help.
       let command = args[0];
