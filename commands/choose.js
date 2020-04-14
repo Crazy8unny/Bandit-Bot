@@ -12,13 +12,13 @@ class Choose extends Command {
   }
 
   async run (message, args, level) { 
-    let optionsString = msg.substring(3, msg.length);
+    let optionsString = message.substring(3, msg.length);
     let options = optionsString.split(' או ');
     if (options.length > 1) {
         res = options[Math.floor(Math.random() * options.length)];
     }
     else {
-        res = "אתה צריך לשלוח מספר אפשרויות עם `או` מפריד ביניהם אחינו"
+        res = "אתה צריך לשלוח מספר אפשרויות עם `או` מפריד ביניהם אורי"
     }
     message.channel.send(res.toString());
   }
