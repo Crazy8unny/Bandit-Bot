@@ -12,7 +12,8 @@ class Choose extends Command {
   }
 
   async run (message, args, level) { 
-    let optionsString = message.substring(3, message.length);
+    let msg = message.toString();
+    let optionsString = msg.substring(3, msg.length);
     let options = optionsString.split(' או ');
     if (options.length > 1) {
         res = options[Math.floor(Math.random() * options.length)];
