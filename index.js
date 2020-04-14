@@ -219,7 +219,7 @@ const init = async () => {
   }
 
   // Here we login the client.
-  client.logger.log(`Loading Token: ${client.config.token}`);
+  client.logger.log(`Loading Token: Shhh It's a secret`);
   client.login(client.config.token);
 
   // End top-level async/await function.

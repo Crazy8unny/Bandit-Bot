@@ -10,11 +10,11 @@ const Command = require("../base/Command.js");
 class Help extends Command {
   constructor (client) {
     super(client, {
-      name: "help",
-      description: "Displays all the available commands for you.",
+      name: "עזרה",
+      description: "מציג את כל הפקודות האפשריות עבורך.",
       category: "System",
-      usage: "help [command]",
-      aliases: ["h", "halp"]
+      usage: "עזרה [פקודה]",
+      aliases: ["h", "halp", "help", "הצילו"]
     });
   }
 
@@ -32,7 +32,7 @@ class Help extends Command {
       const commandNames = myCommands.keyArray();
       const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
       let currentCategory = "";
-      let output = `= Command List =\n\n[Use ${this.client.config.defaultSettings.prefix}help <commandname> for details]\n`;
+      let output = `= רשימת פקודות =\n\n[השתמש בפקודה ${this.client.config.defaultSettings.prefix}עזרה <שםהפקודה> בשביל פרטים נוספים]\n`;
       const sorted = myCommands.array().sort((p, c) => p.help.category > c.help.category ? 1 :  p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1 );
       sorted.forEach( c => {
         const cat = c.help.category.toProperCase();

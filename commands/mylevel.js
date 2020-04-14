@@ -3,8 +3,8 @@ const Command = require("../base/Command.js");
 class MyLevel extends Command {
   constructor (client) {
     super(client, {
-      name: "mylevel",
-      description: "Displays your permission level for your location.",
+      name: "הרמה שלי",
+      description: "הצג את רמת ההרשאות שלך על הבוט",
       usage: "mylevel",
       guildOnly: true
     });
@@ -12,7 +12,7 @@ class MyLevel extends Command {
 
   async run (message, args, level) {
     const friendly = this.client.config.permLevels.find(l => l.level === level).name;
-    message.reply(`Your permission level is: ${level} - ${friendly}`);
+    message.reply(`${level} - ${friendly}רמת ההרשאות שלך היא: `);
   }
 }
 
