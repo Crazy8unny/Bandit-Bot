@@ -42,8 +42,14 @@ class Help extends Command {
         }
         output += `${c.help.name}${" ".repeat(longest - c.help.name.length)} :: ${c.help.description}\n`;
       });
-      message.author.send(output, {code:"asciidoc", split: { char: "\u200b" }});
-      message.react("📧");
+      if (level > 5) {
+        message.author.send("סליחה אחי אתה מסווג טיפה...")
+        message.author.send(output, {code:"asciidoc", split: { char: "\u200b" }});
+        message.react("📧");
+      }
+      else {
+        message.channel.send(output, {code:"asciidoc", split: { char: "\u200b" }});
+      }
     } else {
       // Show individual command's help.
       let command = args[0];
