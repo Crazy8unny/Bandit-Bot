@@ -9,7 +9,7 @@ class Stats extends Command {
       name: "סטטיסטיקה",
       description: "מציג נתונים שימושיים על הבוט.",
       usage: "סטטיסטיקה",
-      Category: "מידע",
+      category: "מידע",
       aliases: ["stats", "נתונים", "סטטיסטיקות"]
     });
   }
