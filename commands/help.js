@@ -14,7 +14,7 @@ class Help extends Command {
       description: "מציג את כל הפקודות האפשריות עבורך",
       category: "מערכת",
       usage: "עזרה [פקודה]",
-      aliases: ["h", "halp", "help", "הצילו"]
+      aliases: ["הצילו"]
     });
   }
 

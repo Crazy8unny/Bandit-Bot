@@ -8,7 +8,7 @@ class MyLevel extends Command {
       usage: "הרמהשלי",
       guildOnly: true,
       category: "מידע",
-      aliases: ["mylevel", "level", "הרמה שלי", "רמה"],
+      aliases: ["הרמה שלי", "רמה"],
       permLevel: "Bot Admin"
     });
   }
