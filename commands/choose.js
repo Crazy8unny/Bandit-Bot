@@ -12,9 +12,9 @@ class Choose extends Command {
   }
 
   async run (message, args, level) { 
-    client.logger.log(message.toString());
-    client.logger.log(args.toString());
-    client.logger.log(level.toString());
+    this.client.logger.log(message.toString());
+    this.client.logger.log(args.toString());
+    this.client.logger.log(level.toString());
   }
 }
 
