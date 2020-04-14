@@ -1,7 +1,7 @@
 # Bandit Bot
 
 An boilerplate of a Discord.js Bot Handler.
-Updated and Maintained by the [Idiot's Bandit Community](https://discord.gg/4NE4bk7).
+Updated and Maintained by the [Bandit Community](https://discord.gg/4NE4bk7).
 
 Banditbot is an attempt to show the basics of command and event handling, in clear, concise,
 and commented code. Banditbot can be used as the template for any type of bot, and contains
@@ -14,10 +14,10 @@ most of the basic features you would need:
 - Per-server configuration system
 - A logging system
 
-Banditbot-Class differs from [Banditbot](https://github.com/AnIdiotsBandit/Banditbot/) in one thing and one thing only: 
+Banditbot-Class differs from [Banditbot](https://github.com/AnBandit/Banditbot/) in one thing and one thing only: 
 it's built using *Classes* and not functions. That's it, the rest should be functionally identical.
 
-Need support? Join the [Idiot's Bandit Community](https://discord.gg/4NE4bk7)!
+Need support? Join the [Bandit Community](https://discord.gg/4NE4bk7)!
 
 ## Requirements
 
@@ -26,14 +26,14 @@ Need support? Join the [Idiot's Bandit Community](https://discord.gg/4NE4bk7)!
 - The node-gyp build tools. This is a pre-requisite for Enmap, but also for a **lot** of other modules. See [The Enmap Bandit](https://enmap.evie.codes/install#pre-requisites) for details and requirements for your OS. Just follow what's in the tabbed block only, then come back here!
 
 You also need your bot's token. This is obtained by creating an application in
-the Developer section of discordapp.com. Check the [first section of this page](https://anidiots.Bandit/getting-started/the-long-version.html)
+the Developer section of discordapp.com. Check the [first section of this page](https://an.Bandit/getting-started/the-long-version.html)
 for more info.
 
 ## Downloading
 
 In a command prompt in your projects folder (wherever that may be) run the following:
 
-`git clone https://github.com/An-Idiots-Bandit/Banditbot-class.git`
+`git clone https://github.com/Crazy8unny/Bandit-Bot`
 
 Once finished:
 
