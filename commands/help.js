@@ -12,7 +12,7 @@ class Help extends Command {
     super(client, {
       name: "עזרה",
       description: "מציג את כל הפקודות האפשריות עבורך.",
-      category: "System",
+      category: "מערכת",
       usage: "עזרה [פקודה]",
       aliases: ["h", "halp", "help", "הצילו"]
     });
