@@ -40,6 +40,7 @@ class Help extends Command {
           output += `\u200b\n== ${cat} ==\n`;
           currentCategory = cat;
         }
+        output += `${c.help.name}${" ".repeat(longest - c.help.name.length)}:: ${c.help.description}\n`
         output += `${c.help.description}::${" ".repeat(longest - c.help.name.length)}${c.help.name}\n`;
       });
       if (level > 5) {
