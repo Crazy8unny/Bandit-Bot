@@ -12,19 +12,17 @@ class Random extends Command {
   }
 
   async run (message, args, level) { 
-    let msg = message.toString();
-    let numberString = msg.substring(6, msg.length);
-    let numbers = numberString.split('-');
-    if (numbers.length == 2) {
-        res = Math.floor(Math.random() * parseInt(numbers[1]) + parseInt(numbers[0]));
+    let res;
+    if (args[1] != '-' || args[3] != null) {
+        res = "אתה צריך לשלוח  שתי מספרים עם `-` מפריד ביניהם אורי";
+    }
+    else {
+        res = Math.floor(Math.random() * parseInt(args[1]) + parseInt(args[2]));
         if (res.toString() == 'NaN') {
             res = "אורי מה זה השטויות האלה ששמת פה"
         }
     }
-    else {
-        res = "אתה צריך לשלוח  שתי מספרים עם - מפריד ביניהם אורי"
-    }
-        message.channel.send("אתה צריך לשלוח מספר אפשרויות עם `או` מפריד ביניהם אורי");
+    message.channel.send(res.toString());
   }
 }
 
