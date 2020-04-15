@@ -17,7 +17,7 @@ class Random extends Command {
         res = "אתה צריך לשלוח  שתי מספרים עם `-` מפריד ביניהם אורי";
     }
     else {
-        res = Math.floor(Math.random() * parseInt(args[1]) + parseInt(args[2]));
+        res = Math.floor(Math.random() * parseInt(args[0]) + parseInt(args[2]));
         if (res.toString() == 'NaN') {
             res = "אורי מה זה השטויות האלה ששמת פה"
         }
