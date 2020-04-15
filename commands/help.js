@@ -40,7 +40,7 @@ class Help extends Command {
           output += `\u200b\n== ${cat} ==\n`;
           currentCategory = cat;
         }
-        output += `${c.help.description} :: ${" ".repeat(longest - c.help.name.length)} ${c.help.name}\n`;
+        output += `${c.help.description}::${" ".repeat(longest - c.help.name.length)}${c.help.name}\n`;
       });
       if (level > 5) {
         message.author.send("סליחה אחי אתה מסווג טיפה...")
