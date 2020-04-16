@@ -20,9 +20,9 @@ class Avatar extends Command {
     sharp("../assets/basePhoto.png").composite([{ input: member.displayAvatarURL()}])
     .toBuffer({ resolveWithObject: true })
     .then(({ data, info }) => {
-      let embed = new Discord.MessageEmbed().setImage(data).setAuthor( message.author).setColor('#1E2023');
+      // let embed = new Discord.MessageEmbed().setImage(data).setAuthor( message.author).setColor('#1E2023');
       message.channel.send("בדיקה");    
-      message.channel.send(embed);    
+      // message.channel.send(embed);    
     })
     .catch(err => {
     });
