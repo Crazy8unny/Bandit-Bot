@@ -23,11 +23,11 @@ class Avatar extends Command {
     .then(function(outputBuffer) {
       // let embed = new Discord.MessageEmbed().setImage(data).setAuthor( message.author).setColor('#1E2023');
       message.channel.send("בדיקה");    
-      message.channel.send(outputBuffer);    
+      // message.channel.send(outputBuffer);    
     })
     .catch(err => {
       message.channel.send(" 2בדיקה");    
-      message.channel.send(err);    
+      message.channel.send(err.toString());    
     });
   }
 }
