@@ -31,6 +31,7 @@
   "homepage": "https://github.com/Crazy8unny/Bandit-Bot#readme",
   "dependencies": {
     "better-sqlite3": "^5.4.1",
+    "canvas": "^2.6.1",
     "chalk": "^2.4.1",
     "discord.js": "^12.1.1",
     "enmap": "^5.0.1",
@@ -47,5 +48,5 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0"
-  },
+  }
 }
