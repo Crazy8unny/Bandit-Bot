@@ -1,6 +1,6 @@
 {
   "name": "Bandit-Bot",
-  "version": "6.1.0",
+  "version": "1.0.0",
   "description": "My own Discord bot",
   "main": "index.js",
   "scripts": {
@@ -15,19 +15,22 @@
     "type": "git",
     "url": "git+https://github.com/Crazy8unny/Bandit-Bot.git"
   },
+  "keywords": [
+    "Discord",
+    "Bandit",
+    "Bot"
+  ],
   "author": "CrazyBunny",
   "contributors": [
     "Eitan"
   ],
-  "license": "CB",
+  "license": "ISC",
   "bugs": {
     "url": "https://www.google.com"
   },
-  "homepage": "https://github.com/Crazy8unny/Bandit-Bot.git",
+  "homepage": "https://github.com/Crazy8unny/Bandit-Bot#readme",
   "dependencies": {
     "better-sqlite3": "^5.4.1",
-    "canvas": "^2.6.1",
-    "canvas-constructor": "^3.2.0",
     "chalk": "^2.4.1",
     "discord.js": "^12.1.1",
     "enmap": "^5.0.1",
@@ -44,5 +47,5 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0"
-  }
+  },
 }
