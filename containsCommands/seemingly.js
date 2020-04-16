@@ -12,7 +12,7 @@ class Seemingly extends ContainsCommand {
   async run (message, args, level) {
     let responses =  [];
     responses.push("אין פה הוצאת דיבה !"); 
-    message.channel.send(responses.random());
+    message.channel.send(responses[0]);
   }
 }
 
