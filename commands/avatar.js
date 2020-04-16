@@ -14,10 +14,16 @@ class Avatar extends Command {
     });
   }
 
-  async run (message, args, level) { 
-    message.channel.send(message.author.avatar);
-    let embed = new Discord.MessageEmbed().setImage(message.author.avatar).setColor('#1E2023');
+  async run (message, args, level) {
+    let member = message.mentions.users.first() 
+    message.channel.send(member.avatarURL);
+    let embed = new Discord.MessageEmbed().setImage(member.avatarURL).setColor('#1E2023');
     message.channel.send(embed);
+    message.channel.send("--------");
+    message.channel.send(message.author.avatarURL);
+    let embed = new Discord.MessageEmbed().setImage(message.author.avatarURL).setColor('#1E2023');
+    message.channel.send(embed);
+    
   }
 }
 
