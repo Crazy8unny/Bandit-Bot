@@ -15,7 +15,7 @@ class Avatar extends Command {
   }
 
   async run (message, args, level) { 
-    let embed = Discord.MessageEmbed().setImage(message.author.avatar).setColor('#1E2023');
+    let embed = new Discord.MessageEmbed().setImage(message.author.avatar).setColor('#1E2023');
     message.channel.send(embed);
   }
 }
