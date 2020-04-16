@@ -21,7 +21,7 @@ class Avatar extends Command {
     message.channel.send(embed);
     message.channel.send("--------");
     message.channel.send(message.author.avatarURL);
-    let embed = new Discord.MessageEmbed().setImage(message.author.avatarURL).setColor('#1E2023');
+    embed = new Discord.MessageEmbed().setImage(message.author.avatarURL).setColor('#1E2023');
     message.channel.send(embed);
     
   }
