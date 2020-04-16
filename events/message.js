@@ -92,7 +92,7 @@ module.exports = class {
       let msg = message.content.toString();
       const args = msg.split(' ');
       for (let word = 0; word < args.length; word++) {
-        cmd = this.client.containsCommands.get(args[word]);
+        cmd = this.client.containsCommands.get(args[word]) || this.client.containsCommands.get(this.client.containsCommandsAliases.get(args[word]));
         if (cmd) {
           cmd.run(message, args, level);
           break;

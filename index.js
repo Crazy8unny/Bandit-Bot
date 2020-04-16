@@ -26,6 +26,7 @@ class BanditBot extends Client {
     // catalogued, listed, etc.
     this.commands = new Collection();
     this.containsCommands = new Collection();
+    this.containsCommandsAliases = new Collection();
     this.aliases = new Collection();
 
     // Now we integrate the use of Evie's awesome Enhanced Map module, which
@@ -83,7 +84,7 @@ class BanditBot extends Client {
     }
     this.containsCommands.set(props.help.name, props);
     props.conf.contains.forEach(alias => {
-      this.containsCommands.set(alias, props.help.name);
+      this.containsCommandsAliases.set(alias, props.help.name);
     });
     return false;
   } catch (e) {
