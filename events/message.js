@@ -90,7 +90,7 @@ module.exports = class {
       for (let word = 0; word < args.length; word++) {
          cmd = this.client.containsCommands.get(args[word]);
          if (cmd) {
-          cmd.run(message, args, level);
+            cmd.run(message, args, level);
           return;
          }
       }
