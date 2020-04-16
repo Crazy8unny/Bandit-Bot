@@ -11,7 +11,6 @@ const readdir = promisify(require("fs").readdir);
 const Enmap = require("enmap");
 const klaw = require("klaw");
 const path = require("path");
-const Canvas = require('canvas');
 
 class BanditBot extends Client {
   constructor (options) {
@@ -28,7 +27,7 @@ class BanditBot extends Client {
     this.containsCommands = new Collection();
     this.containsCommandsAliases = new Collection();
     this.aliases = new Collection();
-    this.canvas = Canvas.createCanvas(125, 125);
+    // this.canvas = Canvas.createCanvas(125, 125);
 
     // Now we integrate the use of Evie's awesome Enhanced Map module, which
     // essentially saves a collection to disk. This is great for per-server configs,
