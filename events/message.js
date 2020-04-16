@@ -92,7 +92,7 @@ module.exports = class {
          cmd = this.client.containsCommands.get(args[word]);
          if (cmd) {
             cmd.run(message, args, level);
-          return;
+            break;
          }
       }
     }
