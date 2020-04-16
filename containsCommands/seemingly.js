@@ -19,7 +19,7 @@ class Seemingly extends ContainsCommand {
     let msg = message.toString();
     let curse = curses.some(substring=>msg.includes(substring));
     if (curse) {
-        if (msg.contains(seemingly)) {
+        if (msg.includes(seemingly)) {
             res = "איזה מלך שאמרת לכאורה !"
             message.react("👑");
         } else {
