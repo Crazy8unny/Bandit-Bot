@@ -85,7 +85,8 @@ module.exports = class {
 
     // Check if the message contains one of our special words
     else {
-      const args = message.split(' ');
+      let msg = message.content.toString();
+      const args = msg.split(' ');
       for (let word = 0; word < args.length; word++) {
          cmd = this.client.containsCommands.get(args[word]);
          if (cmd) {
