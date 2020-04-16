@@ -25,6 +25,7 @@ class BanditBot extends Client {
     // Aliases and commands are put in collections where they can be read from,
     // catalogued, listed, etc.
     this.commands = new Collection();
+    this.containsCommands = new Collection();
     this.aliases = new Collection();
 
     // Now we integrate the use of Evie's awesome Enhanced Map module, which
@@ -71,6 +72,23 @@ class BanditBot extends Client {
   including the index.js load loop, and the reload function, these 2 ensure
   that unloading happens in a consistent manner across the board.
   */
+
+ loadContainsCommand (commandPath, commandName) {
+  try {
+    const props = new (require(`${commandPath}${path.sep}${commandName}`))(this);
+    this.logger.log(`Loading Contains Command: ${props.help.name}. 👌`, "log");
+    props.conf.location = commandPath;
+    if (props.init) {
+      props.init(this);
+    }
+    props.conf.contains.forEach(alias => {
+      this.containsCommands.set(alias, props.help.name);
+    });
+    return false;
+  } catch (e) {
+    return `Unable to load command ${commandName}: ${e}`;
+  }
+}
 
   loadCommand (commandPath, commandName) {
     try {
@@ -194,6 +212,13 @@ const init = async () => {
   // Here we load **commands** into memory, as a collection, so they're accessible
   // here and everywhere else.
   klaw("./commands").on("data", (item) => {
+    const cmdFile = path.parse(item.path);
+    if (!cmdFile.ext || cmdFile.ext !== ".js") return;
+    const response = client.loadCommand(cmdFile.dir, `${cmdFile.name}${cmdFile.ext}`);
+    if (response) client.logger.error(response);
+  });
+
+  klaw("./containsCommands").on("data", (item) => {
     const cmdFile = path.parse(item.path);
     if (!cmdFile.ext || cmdFile.ext !== ".js") return;
     const response = client.loadCommand(cmdFile.dir, `${cmdFile.name}${cmdFile.ext}`);

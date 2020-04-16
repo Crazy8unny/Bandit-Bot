@@ -34,7 +34,7 @@ module.exports = class {
 
     // Also good practice to ignore any message that does not start with our prefix,
     // which is set in the configuration file.
-    if (message.content.indexOf(settings.prefix) !== 0) return;
+    if (message.content.indexOf(settings.prefix) !== 0) {
 
     // Here we separate our "command" name, and our "arguments" for the command.
     // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
@@ -81,5 +81,19 @@ module.exports = class {
     // If the command exists, **AND** the user has permission, run it.
     this.client.logger.log(`${this.client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`, "cmd");
     cmd.run(message, args, level);
+    }
+
+    // Check if the message contains one of our special words
+    else {
+      const args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
+      let cmd;
+      for (let word = 0; word < args.length; word++) {
+         cmd = this.client.containsCommands.get(args[word]);
+         if (cmd) {
+          cmd.run(message, args, level);
+          return;
+         }
+      }
+    }
   }
 };
