@@ -82,7 +82,7 @@ class BanditBot extends Client {
       props.init(this);
     }
     this.containsCommands.set(props.help.name, props);
-    props.help.contains.forEach(alias => {
+    props.conf.contains.forEach(alias => {
       this.containsCommands.set(alias, props.help.name);
     });
     return false;

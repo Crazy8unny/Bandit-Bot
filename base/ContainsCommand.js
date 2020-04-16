@@ -3,7 +3,7 @@ class ContainsCommand {
     constructor (client, {
       name = null,
       description = "No description provided.",
-      contains = null,
+      contains = new Array(),
       permLevel = "User"
     }) {
       this.client = client;
