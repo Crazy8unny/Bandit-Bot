@@ -32,6 +32,9 @@ module.exports = class {
       return message.reply(`דבר אליי עם \`${settings.prefix}\` אחי`);
     }
 
+    // Get the user or member's permission level from the elevation
+    const level = this.client.permlevel(message);
+
     // Also good practice to ignore any message that does not start with our prefix,
     // which is set in the configuration file.
     if (message.content.indexOf(settings.prefix) !== 0) {
@@ -45,9 +48,6 @@ module.exports = class {
 
     // If the member on a guild is invisible or not cached, fetch them.
     if (message.guild && !message.member) await message.guild.fetchMember(message.author);
-
-    // Get the user or member's permission level from the elevation
-    const level = this.client.permlevel(message);
 
     // Check whether the command, or alias, exist in the collections defined
     // in app.js.
