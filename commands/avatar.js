@@ -21,10 +21,10 @@ class Avatar extends Command {
     .toBuffer({ resolveWithObject: true })
     .then(({ data, info }) => {
       let embed = new Discord.MessageEmbed().setImage(data).setAuthor( message.author).setColor('#1E2023');
+      message.channel.send("בדיקה");    
       message.channel.send(embed);    
     })
     .catch(err => {
-      this.logger.log(`Error ${err}`);
     });
   }
 }
