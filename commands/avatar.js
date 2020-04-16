@@ -16,7 +16,8 @@ class Avatar extends Command {
 
   async run (message, args, level) {
     // const image = require('../assets/basePhoto.png').toBuffer();
-    sharp('basePhoto.jpg').resize(200, 200).toBuffer().then(data => {
+    const image = sharp('../asseets/basePhoto.png')
+    image.resize(200, 200).toBuffer().then(data => {
       message.channel.send(data);
       message.channel.send("בדיקה");
     }).catch(err => {
