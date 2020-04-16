@@ -3,7 +3,7 @@ const ContainsCommand = require("../base/ContainsCommand.js");
 class Seemingly extends ContainsCommand {
   constructor (client) {
     super(client, {
-      name: "לכאורה",
+      name: "לכאדורה",
       description: "אין פה הוצאת דיבה",
       contains: ["לכאורה"]
     });

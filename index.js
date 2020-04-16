@@ -82,9 +82,9 @@ class BanditBot extends Client {
       props.init(this);
     }
     this.containsCommands.set(props.help.name, props);
-    // props.conf.contains.forEach(alias => {
-    //   this.containsCommands.set(alias, props.help.name);
-    // });
+    props.conf.contains.forEach(alias => {
+      this.containsCommands.set(alias, props.help.name);
+    });
     return false;
   } catch (e) {
       return `Unable to load command ${commandName}: ${e}`;
