@@ -11,7 +11,7 @@ class Seemingly extends ContainsCommand {
 
   async run (message, args, level) {
     let responses =  [];
-    responses += "אין פה הוצאת דיבה !"; 
+    responses.push("אין פה הוצאת דיבה !"); 
     message.channel.send(responses.random());
   }
 }
