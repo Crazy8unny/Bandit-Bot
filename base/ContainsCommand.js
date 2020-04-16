@@ -7,7 +7,7 @@ class ContainsCommand {
       permLevel = "User"
     }) {
       this.client = client;
-      this.conf = { permLevel };
+      this.conf = { permLevel, contains };
       this.help = { name, description };
     }
   }
