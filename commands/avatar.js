@@ -26,7 +26,11 @@ class Avatar extends Command {
     })
       .png()
       .toBuffer();
-      let embed = new Discord.MessageEmbed().setImage(semiTransparentRedPng).setAuthor(message.author.username, message.author.avatar).setColor('#1E2023');
+      let embed = new Discord.MessageEmbed()
+      .attachFiles([{name: "image.png", attachment:semiTransparentRedPng}])
+      .setImage('attachment://image.png')
+      .setAuthor(message.author.username, message.author.avatar)
+      .setColor('#1E2023');
       message.channel.send(embed);
   }
 }
