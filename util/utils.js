@@ -1,3 +1,5 @@
+const request = require('request');
+
 class utils {
     static getImage(url) {
         let options = {
