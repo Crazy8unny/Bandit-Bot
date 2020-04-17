@@ -1,5 +1,5 @@
 class utils {
-    getImage(url) {
+    static getImage(url) {
         let options = {
             url: url,
             method: "get",

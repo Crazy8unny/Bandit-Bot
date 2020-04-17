@@ -1,7 +1,7 @@
 const Command = require("../base/Command.js");
 const sharp = require('sharp');
 const Discord = require('discord.js');
-const util = require('../util/utils');
+const util = require('../util/utils.js');
 
 class Avatar extends Command {
   constructor (client) {
