@@ -1,5 +1,3 @@
-import request from 'request';
-
 function getImage (url) {
     let options = {
         url: url,
