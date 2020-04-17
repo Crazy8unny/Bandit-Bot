@@ -16,18 +16,12 @@ class Avatar extends Command {
   }
 
   async run (message, args, level) {
-    const semiTransparentRedPng = await sharp({
-      create: {
-        width: 48,
-        height: 48,
-        channels: 4,
-        background: { r: 255, g: 0, b: 0, alpha: 0.5 }
-      }
-    })
-      .png()
-      .toBuffer();
+      const basePhoto = util.getImage("https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png")
+      const avatar = util.getImage("https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png");
+      const photo = sharp(basePhoto).composite(avatar).toBuffer();
+
       let embed = new Discord.MessageEmbed()
-      .attachFiles([{name: "image.png", attachment:semiTransparentRedPng}])
+      .attachFiles([{name: "image.png", attachment:photo}])
       .setImage('attachment://image.png')
       .setAuthor(message.author.username)
       .setColor('#1E2023');
