@@ -18,7 +18,7 @@ class Avatar extends Command {
   async run (message, args, level) {
       const basePhoto = util.getImage("https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png")
       const avatar = util.getImage("https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png");
-      const photo = sharp(basePhoto).composite([{input: avatar}]).toBuffer();
+      const photo = await sharp(basePhoto).composite([{input: avatar}]).toBuffer();
 
       let embed = new Discord.MessageEmbed()
       .attachFiles([{name: "image.png", attachment:photo}])
