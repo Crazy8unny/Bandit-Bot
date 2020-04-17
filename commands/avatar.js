@@ -17,17 +17,20 @@ class Avatar extends Command {
   async run (message, args, level) {
     let member = message.mentions.users.first() || message.author; 
     const basePhoto = "https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png";
-    let embed = new Discord.MessageEmbed().setImage(basePhoto).setAuthor(message.author.username).setColor('#1E2023');
+    const avatar = member.displayAvatarURL();
+    // let embed = new Discord.MessageEmbed().setImage().setAuthor(message.author.username).setColor('#1E2023');
     message.channel.send(embed);
-    // const image = require('../assets/basePhoto.png').toBuffer();
-    // const image = sharp('..\asseets\basePhoto.png')
-    // image.resize(200, 200).toBuffer().then(data => {
-    //   message.channel.send(data);
-    //   message.channel.send("בדיקה");
-    // }).catch(err => {
-    //   message.channel.send("בדיקה 2");
-    //   message.channel.send(err.toString());
-    // })
+    sharp(basePhoto).composite([{ input: avatar}]).toBuffer()
+    .then(function(outputBuffer) {
+      // let embed = new Discord.MessageEmbed().setImage(data).setAuthor( message.author).setColor('#1E2023');
+      message.channel.send("בדיקה");    
+      message.channel.send(outputBuffer);    
+    })
+    .catch(err => {
+      message.channel.send(" 2בדיקה");    
+      message.channel.send(err.toString());    
+    });
+
   }
 }
 
