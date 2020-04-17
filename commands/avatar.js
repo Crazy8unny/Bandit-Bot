@@ -16,8 +16,8 @@ class Avatar extends Command {
 
   async run (message, args, level) {
     let member = message.mentions.users.first() || message.author; 
-    const attachment = new Discord.Attachment('../assets/basePhoto.png', 'basePhoto.png');
-    let embed = new Discord.MessageEmbed().setImage(attachmenttr).setAuthor(message.author.username).setColor('#1E2023');
+    const basePhoto = "https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png";
+    let embed = new Discord.MessageEmbed().setImage(basePhoto).setAuthor(message.author.username).setColor('#1E2023');
     message.channel.send(embed);
     // const image = require('../assets/basePhoto.png').toBuffer();
     // const image = sharp('..\asseets\basePhoto.png')
