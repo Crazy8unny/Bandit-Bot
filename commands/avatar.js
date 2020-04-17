@@ -18,8 +18,20 @@ class Avatar extends Command {
   async run (message, args, level) {
       // const basePhoto = util.getImage("https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png")
       // const avatar = util.getImage("https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png");
-      const photo = await sharp(util.getImage("https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png")).resize(200, 200).png().toBuffer();
-
+      const photo = await sharp(util.getImage("https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png"))
+      .resize(200, 300)
+      .background({r: 0, g: 0, b: 0, a: 0})
+      .embed()
+      .toFormat(sharp.format.webp)
+      .toBuffer(function(err, outputBuffer) {
+        if (err) {
+          throw err;
+        } else {
+          return outputBuffer;
+        }
+      });
+      
+      sharp('input.gif')
       let embed = new Discord.MessageEmbed()
       .attachFiles([{name: "image.png", attachment:photo}])
       .setImage('attachment://image.png')
