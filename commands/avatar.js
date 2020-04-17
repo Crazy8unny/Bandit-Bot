@@ -28,7 +28,8 @@ class Avatar extends Command {
     })
     .catch(err => {
       message.channel.send(" 2בדיקה");    
-      message.channel.send(err.toString());    
+      message.channel.send(err.toString()); 
+      console.log(err);   
     });
 
   }
