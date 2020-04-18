@@ -31,6 +31,7 @@
   "homepage": "https://github.com/Crazy8unny/Bandit-Bot#readme",
   "dependencies": {
     "better-sqlite3": "^5.4.1",
+    "caman": "^4.1.2",
     "chalk": "^2.4.1",
     "discord.js": "^12.1.1",
     "enmap": "^5.0.1",
