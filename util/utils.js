@@ -9,7 +9,7 @@ class utils {
                 console.log('Response: StatusCode:', response && response.statusCode);
                 console.log('Response: Body: Length: %d. Is buffer: %s', body.length, (body instanceof Buffer));
                 console.log(body);
-                return Buffer.from(body);
+                return body;
             }
         }));
     }

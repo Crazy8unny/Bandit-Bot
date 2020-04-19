@@ -17,7 +17,7 @@ class Avatar extends Command {
 
   async run(message, args, level) {
     let inputBuffer = util.request({ url: "https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png", method: "get", encoding: null });
-    sharp(inputBuffer)
+    sharp({input: inputBuffer})
       .resize(160, 160)
       .toBuffer()
       .then(data => {
