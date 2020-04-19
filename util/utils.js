@@ -1,13 +1,8 @@
-const request = require('request');
+const req = require('request');
 
 class utils {
-    static getImage(url) {
-        let options = {
-            url: url,
-            method: "get",
-            encoding: null
-        };
-        return(request(options, function (error, response, body) {
+    static request(options) {
+        return(req(options, function (error, response, body) {
             if (error) {
                 console.error('error:', error);
             } else {
