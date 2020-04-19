@@ -28,7 +28,8 @@ class Avatar extends Command {
       }
     }
 
-    console.log("https://cdn.discordapp.com/avatars/"+ member.id +  "/" + member.avatar +".png");
+    console.log("https://cdn.discordapp.com/avatars/"+ member.id +  "/" + member.avatar +".png")
+    let response = util.request(options);
 
     let embed = new Discord.MessageEmbed()
       .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: response }])
