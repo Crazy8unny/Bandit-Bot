@@ -29,8 +29,8 @@ class Avatar extends Command {
     }
 
     console.log("https://cdn.discordapp.com/avatars/"+ member.id +  "/" + member.avatar +".png")
-    let response = JSON.parse(util.request(options));
-    console.log(response.output_image);
+    let response = util.request(options);
+    console.log(response.toString());
 
     message.channel.send("ברוך הבא לגאנג אח שלי");
     let embed = new Discord.MessageEmbed()
