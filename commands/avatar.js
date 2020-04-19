@@ -24,11 +24,11 @@ class Avatar extends Command {
         method: "POST",
         encoding: null,
         json: {
-          "foreground_url" : photo,
-          "background_url" : basePhoto
+          "foreground_url" : basePhoto,
+          "background_url" : photo
         }
       };
-      let output = util.request(options);
+      let output = util.req(options);
 
       let embed = new Discord.MessageEmbed()
       .attachFiles([{name: "image.png", attachment:output}])
