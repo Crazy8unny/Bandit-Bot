@@ -17,7 +17,7 @@ class Avatar extends Command {
 
   async run (message, args, level) {
     const semiTransparentRedPng = await sharp(new Buffer(util.request(
-      {url: "https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png", method: "get", encoding: 'base64'})))
+      {url: "https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png", method: "get", encoding: null}), 'base64'))
       .resize({width: 200, height: 200})
       .png()
       .toBuffer();
