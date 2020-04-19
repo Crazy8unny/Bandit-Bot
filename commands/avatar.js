@@ -18,16 +18,13 @@ class Avatar extends Command {
   async run(message, args, level) {
     let member = message.mentions.users.first() || message.author; 
     let basePhoto = "https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png";
-    let photo = member.displayAvatarURL();
-
-    console.log(photo)
     
     let options = {
       url: "http://image-merger.herokuapp.com/api/v1.0/",
       method: "Post",
       json: {
         "foreground_url": basePhoto,
-        "background_url": "https://cdn.discordapp.com/avatars/"+ member.id +  "/" + member.Avatar +".png"
+        "background_url": "https://cdn.discordapp.com/avatars/"+ member.id +  "/" + member.avatar +".png"
       }
     }
 
