@@ -10,27 +10,22 @@ class Avatar extends Command {
       description: "הופך אותך לבאנדיט אפל",
       usage: "אווטאר",
       category: "שימושי",
-      aliases: []
+      aliases: [],
+      permLevel: "Bot Owner"
     });
   }
 
   async run (message, args, level) {
-      let member = message.mentions.users.first() || message.author; 
-      const basePhoto = "https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png";
-      const photo = member.displayAvatarURL();
-      let options = {
-        url: "http://image-merger.herokuapp.com/api/v1.0/",
-        method: "POST",
-        encoding: null,
-        json: {
-          "foreground_url" : basePhoto,
-          "background_url" : photo
-        }
-      };
-      let output = util.req(options);
+    const semiTransparentRedPng = await sharp(util.getImage("https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png"))
+      .resize({width: 200, height: 200})
+      .png()
+      .toBuffer();
+      // const basePhoto = util.getImage("https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png")
+      // const photo = util.getImage("https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png");
+    
 
       let embed = new Discord.MessageEmbed()
-      .attachFiles([{name: "image.png", attachment:output}])
+      .attachFiles([{name: "image.png", attachment:semiTransparentRedPng}])
       .setImage('attachment://image.png')
       .setAuthor(message.author.username, message.author.displayAvatarURL())
       .setColor('#1E2023');
