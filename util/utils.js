@@ -1,8 +1,8 @@
 const req = require('request');
 
 class utils {
-    static request(options) {
-        return(req(options, function (error, response, body) {
+    async static request(options) {
+        return(await req(options, function (error, response, body) {
             if (error) {
                 console.error('error:', error);
             } else {
