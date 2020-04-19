@@ -16,20 +16,27 @@ class Avatar extends Command {
   }
 
   async run(message, args, level) {
-    let inputBuffer = util.request({ url: "https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png", method: "get", encoding: null });
-    sharp(inputBuffer)
-      .resize(160, 160)
-      .toBuffer({ resolveWithObject: true })
-      .then(data => {
-        let embed = new Discord.MessageEmbed()
-          .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: data }])
-          .setImage('attachment://' + 'Bandit' + member.username + '.png')
-          .setAuthor(message.author.username, message.author.displayAvatarURL())
-          .setColor('#1E2023');
-        message.channel.send(embed);
-      }).catch(err => {
-        console.log(err);
-      });
+    let basePhoto = "https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png";
+    let photo = member.displayAvatarURL();
+
+    let options = {
+      url: "http://image-merger.herokuapp.com/api/v1.0/",
+      method: "Post",
+      json: {
+        "foreground_url": basePhoto,
+        "background_url": photo
+      }
+    }
+
+    let response = util.request(options);
+    console.log(response.toString());
+
+    let embed = new Discord.MessageEmbed()
+      .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: response }])
+      .setImage('attachment://' + 'Bandit' + member.username + '.png')
+      .setAuthor(message.author.username, message.author.displayAvatarURL())
+      .setColor('#1E2023');
+    message.channel.send(embed);
   }
 }
 
