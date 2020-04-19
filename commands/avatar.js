@@ -20,6 +20,8 @@ class Avatar extends Command {
     let basePhoto = "https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png";
     let photo = member.displayAvatarURL();
 
+    console.log(photo)
+    
     let options = {
       url: "http://image-merger.herokuapp.com/api/v1.0/",
       method: "Post",
