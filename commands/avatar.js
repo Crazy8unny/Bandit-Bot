@@ -26,12 +26,12 @@ class Avatar extends Command {
     })
       .png()
       .toBuffer();
-      // const basePhoto = util.getImage("https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png")
+      const basePhoto = util.getImage("https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png")
       // const photo = util.getImage("https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png");
     
 
       let embed = new Discord.MessageEmbed()
-      .attachFiles([{name: "image.png", attachment:semiTransparentRedPng}])
+      .attachFiles([{name: "image.png", attachment:basePhoto}])
       .setImage('attachment://image.png')
       .setAuthor(message.author.username)
       .setColor('#1E2023');
