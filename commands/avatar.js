@@ -10,8 +10,7 @@ class Avatar extends Command {
       description: "הופך אותך לבאנדיט אפל",
       usage: "אווטאר",
       category: "שימושי",
-      aliases: [],
-      permLevel: "Bot Owner"
+      aliases: []
     });
   }
 
@@ -33,7 +32,7 @@ class Avatar extends Command {
       let embed = new Discord.MessageEmbed()
       .attachFiles([{name: "image.png", attachment:output}])
       .setImage('attachment://image.png')
-      .setAuthor(message.author.username)
+      .setAuthor(message.author.username, message.author.displayAvatarURL())
       .setColor('#1E2023');
       message.channel.send(embed);
   }
