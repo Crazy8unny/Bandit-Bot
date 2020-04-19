@@ -33,9 +33,10 @@ class Avatar extends Command {
 
     message.channel.send("ברוך הבא לגאנג אח שלי");
     let embed = new Discord.MessageEmbed()
-      .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: response }])
+      .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: response.output_image.url }])
       .setImage('attachment://' + 'Bandit' + member.username + '.png')
       .setAuthor(message.author.username, message.author.displayAvatarURL())
+      .setDescription("ברוך הבא לגאנג אח שלי")
       .setColor('#1E2023');
     message.channel.send(embed);
   }
