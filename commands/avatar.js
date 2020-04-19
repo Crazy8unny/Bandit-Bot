@@ -2,6 +2,7 @@ const Command = require("../base/Command.js");
 const sharp = require('sharp');
 const Discord = require('discord.js');
 const util = require('../util/utils.js');
+const images = require("images");
 
 class Avatar extends Command {
   constructor(client) {
@@ -16,29 +17,16 @@ class Avatar extends Command {
   }
 
   async run(message, args, level) {
-    let semiTransparentRedPng;
-    await sharp(util.request(
-      { url: "https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png", method: "get", encoding: null }))
-      .resize({ width: 200, height: 200 })
-      .png()
-      .toBuffer()
-      .then(image => {
-        semiTransparentRedPng = image;
-        let embed = new Discord.MessageEmbed()
-          .attachFiles([{ name: "image.png", attachment: semiTransparentRedPng }])
-          .setImage('attachment://image.png')
-          .setAuthor(message.author.username, message.author.displayAvatarURL())
-          .setColor('#1E2023');
-        message.channel.send(embed);
-      })
+    const output = images("../assets/basePhoto.png")
+      .draw(images({ url: message.author.displayAvatarURL(), method: "get", encoding: null }))
+      .encode("png")
 
-    //   let options = {
-    //     url: url,
-    //     method: "get",
-    //     encoding: null
-    // };
-    // const basePhoto = util.getImage("https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png")
-    // const photo = util.getImage("https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png");
+    let embed = new Discord.MessageEmbed()
+      .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: output }])
+      .setImage('attachment://' + 'Bandit' + member.username + '.png')
+      .setAuthor(message.author.username, message.author.displayAvatarURL())
+      .setColor('#1E2023');
+    message.channel.send(embed);
   }
 }
 
