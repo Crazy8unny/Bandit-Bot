@@ -17,16 +17,20 @@ class Avatar extends Command {
   }
 
   async run(message, args, level) {
-    const output = images("../assets/basePhoto.png")
-      .draw(images({ url: message.author.displayAvatarURL(), method: "get", encoding: null }))
-      .encode("png")
-
-    let embed = new Discord.MessageEmbed()
-      .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: output }])
-      .setImage('attachment://' + 'Bandit' + member.username + '.png')
-      .setAuthor(message.author.username, message.author.displayAvatarURL())
-      .setColor('#1E2023');
-    message.channel.send(embed);
+    let inputBuffer = util.request({ url: "https://cdn.discordapp.com/attachments/699235141134057492/700626850983968768/basePhoto.png", method: "get", encoding: null });
+    sharp(inputBuffer)
+      .resize(160, 160)
+      .toBuffer()
+      .then(data => {
+        let embed = new Discord.MessageEmbed()
+          .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: data }])
+          .setImage('attachment://' + 'Bandit' + member.username + '.png')
+          .setAuthor(message.author.username, message.author.displayAvatarURL())
+          .setColor('#1E2023');
+        message.channel.send(embed);
+      }).catch(err => {
+        console.log(err);
+      });
   }
 }
 
