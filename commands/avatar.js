@@ -27,7 +27,7 @@ class Avatar extends Command {
       method: "Post",
       json: {
         "foreground_url": basePhoto,
-        "background_url": photo
+        "background_url": "https://cdn.discordapp.com/avatars/"+ member.id +  "/" + member.Avatar +".png"
       }
     }
 
