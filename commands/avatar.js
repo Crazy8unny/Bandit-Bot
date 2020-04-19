@@ -30,11 +30,11 @@ class Avatar extends Command {
 
     console.log("https://cdn.discordapp.com/avatars/"+ member.id +  "/" + member.avatar +".png")
     let response = util.request(options);
-    console.log(response.toString());
-
+    console.log(JSON.stringify(response.toString()));
+    
     message.channel.send("ברוך הבא לגאנג אח שלי");
     let embed = new Discord.MessageEmbed()
-      .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: response.output_image.url }])
+      .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: response.url }])
       .setImage('attachment://' + 'Bandit' + member.username + '.png')
       .setAuthor(message.author.username, message.author.displayAvatarURL())
       .setDescription("ברוך הבא לגאנג אח שלי")
