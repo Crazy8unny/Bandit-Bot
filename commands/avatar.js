@@ -31,7 +31,7 @@ class Avatar extends Command {
       //   .setColor('#1E2023');
       // message.channel.send(embed);
       this.client.uploadFile({
-        to: channelID,
+        to: message.channelID,
         file: image
       }).catch(console.error);
     })
