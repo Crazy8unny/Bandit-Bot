@@ -20,7 +20,7 @@ class Avatar extends Command {
     let member = message.mentions.users.first() || message.author;
     let basePhoto = "https://cdn.discordapp.com/attachments/699235141134057492/701537065745121382/basePhoto.png";
     Jimp.read(basePhoto).then(base => {
-      Jimp.read("https://cdn.discordapp.com/attachments/699235141134057492/704779148970819755/BanditCrazyBunny.png").then(image => {
+      Jimp.read(member.displayAvatarURL()).then(image => {
         image.composite(base, 0, 0, {
           mode: Jimp.BLEND_SOURCE_OVER
         });
