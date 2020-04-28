@@ -19,8 +19,8 @@ class Avatar extends Command {
   async run(message, args, level) {
     let member = message.mentions.users.first() || message.author;
     let basePhoto = "https://cdn.discordapp.com/attachments/699235141134057492/701537065745121382/basePhoto.png";
-    Jimp.read(basePhoto).then(base => {
-      Jimp.read(member.displayAvatarURL()).then(image => {
+    (await Jimp.read(basePhoto)).resize(150, 150).then(base => {
+      (await Jimp.read("https://cdn.discordapp.com/avatars/"+ member.id +  "/" + member.avatar +".png")).resize(150, 150).then(image => {
         image.composite(base, 0, 0, {
           mode: Jimp.BLEND_SOURCE_OVER
         });
