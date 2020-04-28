@@ -23,13 +23,13 @@ class Avatar extends Command {
     Jimp.read('https://www.israelhayom.co.il/sites/default/files/styles/566x349/public/images/articles/2016/05/04/14623178569657_b.jpg')
     .then(image => {
       message.channel.send("ברוך הבא לגאנג אח שלי");
-      let embed = new Discord.MessageEmbed()
-        .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: image }])
-        .setImage('attachment://' + 'Bandit' + member.username + '.png')
-        .setAuthor(message.author.username, message.author.displayAvatarURL())
-        .setDescription("ברוך הבא לגאנג אח שלי")
-        .setColor('#1E2023');
-      message.channel.send(embed);
+      // let embed = new Discord.MessageEmbed()
+      //   .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: image }])
+      //   .setImage('attachment://' + 'Bandit' + member.username + '.png')
+      //   .setAuthor(message.author.username, message.author.displayAvatarURL())
+      //   .setDescription("ברוך הבא לגאנג אח שלי")
+      //   .setColor('#1E2023');
+      // message.channel.send(embed);
     })
     .catch(err => {
       console.log(err);
