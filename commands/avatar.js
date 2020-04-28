@@ -30,7 +30,7 @@ class Avatar extends Command {
       //   .setDescription("ברוך הבא לגאנג אח שלי")
       //   .setColor('#1E2023');
       // message.channel.send(embed);
-      bot.uploadFile({
+      this.client.uploadFile({
         to: channelID,
         file: image
       }).catch(console.error);
