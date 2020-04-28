@@ -32,6 +32,7 @@ class Avatar extends Command {
       // message.channel.send(embed);
       image.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
         message.channel.send(buffer);
+        console.log(err);
       });
     })
     .catch(err => {
