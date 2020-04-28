@@ -32,7 +32,6 @@ class Avatar extends Command {
             .setAuthor(message.author.username, message.author.displayAvatarURL())
             .setColor('#1E2023');
           message.channel.send(embed);
-          console.log(err);
         });
       })
     })
