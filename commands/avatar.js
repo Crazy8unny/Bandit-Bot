@@ -19,12 +19,9 @@ class Avatar extends Command {
   async run(message, args, level) {
     let member = message.mentions.users.first() || message.author; 
     let basePhoto = "https://cdn.discordapp.com/attachments/699235141134057492/701537065745121382/basePhoto.png";
-    let image;
-    image = util.request({ url: basePhoto, method: "get", encoding: null });
-    while (image == null) {
-      await this.client.wait(100);
-    }
-    jimp.read(image).then(image => {
+    
+    Jimp.read('http://www.example.com/path/to/lenna.jpg')
+    .then(image => {
       message.channel.send("ברוך הבא לגאנג אח שלי");
       let embed = new Discord.MessageEmbed()
         .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: image }])
@@ -34,6 +31,9 @@ class Avatar extends Command {
         .setColor('#1E2023');
       message.channel.send(embed);
     })
+    .catch(err => {
+      console.log(err);
+    });
     
     // let options = {
     //   url: "http://image-merger.herokuapp.com/api/v1.0/",
