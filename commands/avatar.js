@@ -30,7 +30,9 @@ class Avatar extends Command {
       //   .setDescription("ברוך הבא לגאנג אח שלי")
       //   .setColor('#1E2023');
       // message.channel.send(embed);
-      message.channel.send(image)
+      image.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+        message.channel.send(buffer);
+      });
     })
     .catch(err => {
       console.log(err);
