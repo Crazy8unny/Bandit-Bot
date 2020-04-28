@@ -18,9 +18,9 @@ class Avatar extends Command {
 
   async run(message, args, level) {
     let member = message.mentions.users.first() || message.author; 
-    let basePhoto = "https://images.pexels.com/photos/296282/pexels-photo-296282.jpeg?auto=compress&cs=tinysrgb&h=350";
+    let basePhoto = "https://cdn.discordapp.com/attachments/699235141134057492/701537065745121382/basePhoto.png";
 
-    jimp.read(basePhoto).then(image => {
+    jimp.read(util.request({ url: basePhoto, method: "get", encoding: null })).then(image => {
       message.channel.send("ברוך הבא לגאנג אח שלי");
       let embed = new Discord.MessageEmbed()
         .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: image }])
