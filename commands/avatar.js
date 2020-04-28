@@ -11,8 +11,7 @@ class Avatar extends Command {
       description: "הופך אותך לבאנדיט אפל",
       usage: "אווטאר",
       category: "שימושי",
-      aliases: [],
-      permLevel: "Bot Owner"
+      aliases: []
     });
   }
 
@@ -20,7 +19,7 @@ class Avatar extends Command {
     let member = message.mentions.users.first() || message.author;
     let basePhoto = "https://cdn.discordapp.com/attachments/699235141134057492/701537065745121382/basePhoto.png";
     Jimp.read(basePhoto).then(base => {
-      Jimp.read("https://cdn.discordapp.com/avatars/"+ member.id +  "/" + member.avatar +".png").then(image => {
+      Jimp.read("https://cdn.discordapp.com/avatars/" + member.id + "/" + member.avatar + ".png").then(image => {
         image.composite(base, 0, 0, {
           mode: Jimp.BLEND_SOURCE_OVER
         });
@@ -38,20 +37,6 @@ class Avatar extends Command {
       .catch(err => {
         console.log(err);
       });
-
-
-    // let options = {
-    //   url: "http://image-merger.herokuapp.com/api/v1.0/",
-    //   method: "Post",
-    //   json: {
-    //     "foreground_url": basePhoto,
-    //     "background_url": "https://cdn.discordapp.com/avatars/"+ member.id +  "/" + member.avatar +".png"
-    //   }
-    // }
-
-    // console.log("https://cdn.discordapp.com/avatars/"+ member.id +  "/" + member.avatar +".png")
-    // let response = util.request(options);
-    // console.log(response);
   }
 }
 
