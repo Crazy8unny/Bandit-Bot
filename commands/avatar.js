@@ -20,14 +20,13 @@ class Avatar extends Command {
     let member = message.mentions.users.first() || message.author; 
     let basePhoto = "https://cdn.discordapp.com/attachments/699235141134057492/701537065745121382/basePhoto.png";
     
-    Jimp.read(basePhoto)
-    .then(image => {
+    Jimp.read(member.displayAvatarURL()).then(image => {
+      message.channel.send("ברוך הבא לגאנג אח שלי");
       image.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
       let embed = new Discord.MessageEmbed()
         .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: buffer }])
         .setImage('attachment://' + 'Bandit' + member.username + '.png')
         .setAuthor(message.author.username, message.author.displayAvatarURL())
-        .setDescription("ברוך הבא לגאנג אח שלי")
         .setColor('#1E2023');
       message.channel.send(embed);
         console.log(err);
