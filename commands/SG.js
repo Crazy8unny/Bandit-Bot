@@ -25,6 +25,8 @@ class SG extends Command {
         }
     }
     message.channel.send(res.toString());
+    message.channel.send("לא לשכוח incognito אחי");
+    message.channel.send("צפייה נעימה ! 🍿");
   }
 }
 
