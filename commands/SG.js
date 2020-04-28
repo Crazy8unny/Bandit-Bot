@@ -4,7 +4,7 @@ class SG extends Command {
     constructor(client) {
         super(client, {
             name: "סטארגייט",
-            description: "מביא את הלינק של סטארגייט בסדרות, ניתן לקבל גם מספר פרק על ידי כתיבת <עונה> - <פרק>",
+            description: "מביא את הלינק של סטארגייט בסדרות",
             usage: "סטארגייט",
             category: "פנאי",
             aliases: []
