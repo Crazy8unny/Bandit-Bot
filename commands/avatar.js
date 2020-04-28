@@ -17,29 +17,30 @@ class Avatar extends Command {
   }
 
   async run(message, args, level) {
-    let member = message.mentions.users.first() || message.author; 
+    let member = message.mentions.users.first() || message.author;
     let basePhoto = "https://cdn.discordapp.com/attachments/699235141134057492/701537065745121382/basePhoto.png";
-
-    Jimp.read("https://cdn.discordapp.com/attachments/699235141134057492/704779148970819755/BanditCrazyBunny.png").then(image => {
-      image.composite(basePhoto, 0, 0, {
-        mode: Jimp.BLEND_SOURCE_OVER
-      });
-      message.channel.send("ברוך הבא לגאנג אח שלי");
-      image.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
-      let embed = new Discord.MessageEmbed()
-        .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: buffer }])
-        .setImage('attachment://' + 'Bandit' + member.username + '.png')
-        .setAuthor(message.author.username, message.author.displayAvatarURL())
-        .setColor('#1E2023');
-      message.channel.send(embed);
+    Jimp.read(basePhoto).then(basePhoto => {
+      Jimp.read("https://cdn.discordapp.com/attachments/699235141134057492/704779148970819755/BanditCrazyBunny.png").then(image => {
+        image.composite(basePhoto, 0, 0, {
+          mode: Jimp.BLEND_SOURCE_OVER
+        });
+        message.channel.send("ברוך הבא לגאנג אח שלי");
+        image.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+          let embed = new Discord.MessageEmbed()
+            .attachFiles([{ name: 'Bandit' + member.username + '.png', attachment: buffer }])
+            .setImage('attachment://' + 'Bandit' + member.username + '.png')
+            .setAuthor(message.author.username, message.author.displayAvatarURL())
+            .setColor('#1E2023');
+          message.channel.send(embed);
+          console.log(err);
+        });
+      })
+    })
+      .catch(err => {
         console.log(err);
       });
-    })
-    .catch(err => {
-      console.log(err);
-    });
 
-    
+
     // let options = {
     //   url: "http://image-merger.herokuapp.com/api/v1.0/",
     //   method: "Post",
