@@ -15,7 +15,7 @@ class SG extends Command {
         let res = "https://www.sdarot.today/watch/92-stargate-sg-1-%D7%A1%D7%98%D7%90%D7%A8%D7%92%D7%99%D7%99%D7%98-%D7%90%D7%A1-%D7%92%D7%99-1";
         let popcorn = false;
         if (args[0] != null && (args[1] != '-' || args[3] != null)) {
-            res = "שימוש שגוי בפקודה, גש לעזרה למידע נוסף"
+            res = "שימוש שגוי בפקודה, שלח ללא פרמטרים או עם <עונה> - <פרק>"
         }
         else {
             if (args[0] == null) {
