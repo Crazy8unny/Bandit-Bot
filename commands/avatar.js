@@ -19,8 +19,11 @@ class Avatar extends Command {
   async run(message, args, level) {
     let member = message.mentions.users.first() || message.author; 
     let basePhoto = "https://cdn.discordapp.com/attachments/699235141134057492/701537065745121382/basePhoto.png";
-    
+
     Jimp.read(member.displayAvatarURL()).then(image => {
+      image.composite(basePhoto, 0, 0, {
+        mode: Jimp.BLEND_SOURCE_OVER
+      });
       message.channel.send("ברוך הבא לגאנג אח שלי");
       image.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
       let embed = new Discord.MessageEmbed()
