@@ -31,6 +31,8 @@ class Avatar extends Command {
       //   .setColor('#1E2023');
       // message.channel.send(embed);
       image.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+        console.log(buffer)
+        console.log("##############")
         message.channel.send(buffer);
         console.log(err);
       });
