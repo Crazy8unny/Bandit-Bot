@@ -28,7 +28,7 @@ class ForumNotification {
       }
     }
     let page = util.request(settings);
-    let document = new JSDOM(page);
+    let document = (new JSDOM(page)).window.document;
     let last = document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1]
     console.log(last);
   }
