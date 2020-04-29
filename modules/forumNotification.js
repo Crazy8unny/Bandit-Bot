@@ -28,9 +28,9 @@ class ForumNotification {
     }
     let page = util.request(settings);
     let jsdom = (new JSDOM(page))
-    let { window } = document;
+    let { window } = jsdom;
 
-    console.log(document);
+    console.log(jsdom);
     console.log(window);
     let last = jsdom.window.document.getElementsByTagName("tbody");
     console.log(last);
