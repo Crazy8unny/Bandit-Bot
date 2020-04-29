@@ -9,7 +9,7 @@ class ForumNotification {
   static listen (client) {
     const timestamp = `[${moment().format("YYYY-MM-DD HH:mm:ss")}]:`;
     // console.log(timestamp); 
-    const channel = client.channels.find('forum-notification');
+    const channel = client.channels.get('forum-notification');
     const prevName = client.lastThread.get("name");
     chennel.send("test name: " + prevName);
   }
