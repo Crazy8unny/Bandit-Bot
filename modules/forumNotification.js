@@ -30,7 +30,7 @@ class ForumNotification {
     let jsdom = (new JSDOM(page));
     let { window } = jsdom;
 
-    let last = jsdom.window.document.getElementsByTagName("tbody").item[6];
+    let last = jsdom.window.document.getElementsByTagName("tbody").item(0);
     console.log(last);
   }
 }
