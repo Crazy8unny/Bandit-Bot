@@ -6,12 +6,11 @@ const moment = require("moment");
 const Discord = require('discord.js');
 
 class ForumNotification {
-  static listen (client) {
+  static listen (lastThread, channel) {
     const timestamp = `[${moment().format("YYYY-MM-DD HH:mm:ss")}]:`;
     // console.log(timestamp); 
-    const channel = client.channels.get('forum-notification');
-    const prevName = client.lastThread.get("name");
-    chennel.send("test name: " + prevName);
+    const prevName = lastThread.get("name");
+    channel.send("test name: " + prevName);
   }
 }
 

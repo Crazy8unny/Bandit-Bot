@@ -23,7 +23,7 @@ module.exports = class {
     }, 60000);
 
     setInterval(async () => {
-      this.client.FN.listen(this.client);
+      this.client.FN.listen(this.client.lastThread, this.client.channels("name", "forum-notification"));
     }, 5000)
 
     // Check whether the "Default" guild settings are loaded in the enmap.
