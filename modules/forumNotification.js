@@ -5,7 +5,7 @@ const chalk = require("chalk");
 const moment = require("moment");
 const Discord = require('discord.js');
 const util = require('../util/utils');
-const JSDOM = require("jsdom").jsdom
+const JSDOM = require("jsdom").JSDOM
 
 class ForumNotification {
   static listen(lastThread) {
