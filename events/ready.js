@@ -10,6 +10,9 @@ module.exports = class {
     // for all of them to be loaded.
     // NOTE: client.wait is added by ./modules/functions.js!
     await this.client.wait(1000);
+    if (!this.client.lastThread.has("name")) {
+      this.client.settings.set("name", "first run");
+    }
 
     // This loop ensures that client.appInfo always contains up to date data
     // about the app's status. This includes whether the bot is public or not,
@@ -20,7 +23,7 @@ module.exports = class {
     }, 60000);
 
     setInterval(async () => {
-      this.client.FN.listen();
+      this.client.FN.listen(this.client);
     }, 5000)
 
     // Check whether the "Default" guild settings are loaded in the enmap.

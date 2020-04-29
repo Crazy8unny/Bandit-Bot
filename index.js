@@ -33,7 +33,8 @@ class BanditBot extends Client {
     // essentially saves a collection to disk. This is great for per-server configs,
     // and makes things extremely easy for this purpose.
     this.settings = new Enmap({ name: "settings", cloneLevel: "deep", fetchAll: false, autoFetch: true });
-
+    this.lastThread = new Enmap({ name: "lastThread", cloneLevel: "deep", fetchAll: false, autoFetch: true})
+    
     //requiring the Logger class for easy console logging
     this.logger = require("./modules/Logger");
     this.FN = require("./modules/forumNotification")
