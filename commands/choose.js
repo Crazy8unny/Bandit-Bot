@@ -13,7 +13,8 @@ class Choose extends Command {
 
   async run (message, args, level) { 
     let msg = message.toString();
-    let optionsString = msg.substring(4, msg.length);
+    let position = msg.search("בחר");
+    let optionsString = msg.substring(position + 3, msg.length);
     let options = optionsString.split(' או ');
     if (options.length > 1) {
         message.channel.send((options[Math.floor(Math.random() * options.length)]).toString());

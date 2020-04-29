@@ -5,8 +5,7 @@ const chalk = require("chalk");
 const moment = require("moment");
 const Discord = require('discord.js');
 const util = require('../util/utils');
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
+const JSDOM = require("jsdom").jsdom
 
 class ForumNotification {
   static listen(lastThread) {
@@ -28,9 +27,12 @@ class ForumNotification {
       }
     }
     let page = util.request(settings);
-    let document = (new JSDOM(page)).window.document;
+    let jsdom = (new JSDOM(page))
+    let { window } = document;
+
     console.log(document);
-    let last = document.querySelector("tbody")
+    console.log(window);
+    let last = jsdom.window.document.getElementsByTagName("tbody");
     console.log(last);
   }
 }
