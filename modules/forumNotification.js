@@ -12,7 +12,7 @@ class ForumNotification {
     // console.log(timestamp); 
     const prevName = lastThread.get("name");
     // console.log("test name: " + prevName);
-    let settings = {
+    const settings = {
       "async": true,
       "crossDomain": true,
       "url": "https://lf2.co.il/forum/index.php",
@@ -25,7 +25,11 @@ class ForumNotification {
         jqXHR.overrideMimeType('text/html;charset=iso-8859-8');
       }
     }
-    console.log(util.request(settings));
+    let page = util.request(settings);
+    const parser = new DOMParser();
+    let document = parser.parseFromString(page, "text/html");
+    let last = document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1]
+    console.log(last);
   }
 }
 
