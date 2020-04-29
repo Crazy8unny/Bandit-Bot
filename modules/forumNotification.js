@@ -27,12 +27,10 @@ class ForumNotification {
       }
     }
     let page = util.request(settings);
-    let jsdom = (new JSDOM(page))
+    let jsdom = (new JSDOM(page));
     let { window } = jsdom;
 
-    console.log(jsdom);
-    console.log(window);
-    let last = jsdom.window.document.getElementsByTagName("tbody");
+    let last = jsdom.window.document.getElementsByTagName("tbody")[6];
     console.log(last);
   }
 }
