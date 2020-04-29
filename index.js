@@ -36,6 +36,7 @@ class BanditBot extends Client {
 
     //requiring the Logger class for easy console logging
     this.logger = require("./modules/Logger");
+    this.FN = require("./modules/forumNotification")
 
     // Basically just an async shortcut to using a setTimeout. Nothing fancy!
     this.wait = require("util").promisify(setTimeout);
