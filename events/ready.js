@@ -11,7 +11,7 @@ module.exports = class {
     // NOTE: client.wait is added by ./modules/functions.js!
     await this.client.wait(1000);
     if (!this.client.lastThread.has("name")) {
-      this.client.settings.set("name", "first run");
+      this.client.lastThread.set("name", "first run");
     }
 
     // This loop ensures that client.appInfo always contains up to date data
