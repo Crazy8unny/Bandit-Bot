@@ -7,7 +7,7 @@ const moment = require("moment");
 class ForumNotification {
   static listen () {
     const timestamp = `[${moment().format("YYYY-MM-DD HH:mm:ss")}]:`;
-    console.log(timestamp); 
+    // console.log(timestamp); 
   }
 }
 
