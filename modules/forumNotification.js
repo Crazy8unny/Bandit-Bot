@@ -31,7 +31,7 @@ class ForumNotification {
     let { window } = jsdom;
 
     let last = jsdom.window.document.getElementsByTagName("tbody").item(0);
-    console.log(last);
+    // console.log(last);
   }
 }
 
