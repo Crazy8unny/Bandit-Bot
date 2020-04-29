@@ -5,6 +5,8 @@ const chalk = require("chalk");
 const moment = require("moment");
 const Discord = require('discord.js');
 const util = require('../util/utils');
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 
 class ForumNotification {
   static listen(lastThread) {
@@ -26,8 +28,7 @@ class ForumNotification {
       }
     }
     let page = util.request(settings);
-    let parser = new DOMParser();
-    let document = parser.parseFromString(page, "text/html");
+    let document = new JSDOM(page);
     let last = document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1]
     console.log(last);
   }
