@@ -26,7 +26,7 @@ class ForumNotification {
       }
     }
     let page = util.request(settings);
-    const parser = new DOMParser();
+    let parser = new DOMParser();
     let document = parser.parseFromString(page, "text/html");
     let last = document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1]
     console.log(last);
