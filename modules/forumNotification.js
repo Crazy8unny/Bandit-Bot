@@ -27,7 +27,7 @@ class ForumNotification {
     }
 
     // let page = util.request(settings);
-    // let jsdom = (new JSDOM(page));
+    let jsdom = (new JSDOM(page));
     // let { window } = jsdom;
 
     // let last = jsdom.window.document.getElementsByTagName("tbody");
@@ -35,7 +35,7 @@ class ForumNotification {
 
     
 // Create a new DOM with jsdom and get the window element;
-const jsdom = new JSDOM("<!doctype html><html><body><div>Hello World</div></body></html>");
+// const jsdom = new JSDOM("<!doctype html><html><body><div>Hello World</div></body></html>");
 const { window } = jsdom;
 
 // Check to ensure that our jsdom looks like what was serialized.
