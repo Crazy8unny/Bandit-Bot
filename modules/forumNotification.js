@@ -26,7 +26,7 @@ class ForumNotification {
       }
     }
 
-    // let page = util.request(settings);
+    let page = util.request(settings);
     let jsdom = (new JSDOM(page));
     // let { window } = jsdom;
 
