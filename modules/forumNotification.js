@@ -10,7 +10,6 @@ const JSDOM = require("jsdom").JSDOM
 class ForumNotification {
   static listen(lastThread) {
     const timestamp = `[${moment().format("YYYY-MM-DD HH:mm:ss")}]:`;
-    // console.log(timestamp); 
     const prevName = lastThread.get("name");
     // console.log("test name: " + prevName);
     const settings = {
@@ -26,11 +25,13 @@ class ForumNotification {
         jqXHR.overrideMimeType('text/html;charset=iso-8859-8');
       }
     }
+
     let page = util.request(settings);
     let jsdom = (new JSDOM(page));
     let { window } = jsdom;
 
-    let last = jsdom.window.document.getElementsByTagName("tbody").item(0);
+    console.log(`CONSTRUCTED DOM: ${jsdom.serialize()}`); 
+    // let last = jsdom.window.document.getElementsByTagName("tbody");
     // console.log(last);
   }
 }
