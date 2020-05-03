@@ -1,20 +1,17 @@
 /*
-Logger class for easy and aesthetically pleasing console logging
+  Get forum notifications
 */
+
 // const chalk = require("chalk");
 const moment = require("moment");
 // const Discord = require('discord.js');
 const util = require('../util/utils');
-// const JSDOM = require("jsdom").JSDOM;
-// const HTMLParser = require("node-html-parser");
-let DomParser = require("dom-parser");
 
 class ForumNotification {
   static listen(lastThread) {
     const timestamp = `[${moment().format("YYYY-MM-DD HH:mm:ss")}]:`;
     const prevName = lastThread.get("name");
     // console.log("test name: " + prevName);
-    const parser = new DomParser();
     const settings = {
       "async": true,
       "crossDomain": true,
@@ -30,9 +27,6 @@ class ForumNotification {
     }
 
     let page = util.request(settings);
-    let table = (parser.parseFromString(page));
-
-    console.log(table.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1]);
   }
 }
 
