@@ -33,6 +33,7 @@
     "better-sqlite3": "^5.4.1",
     "chalk": "^2.4.1",
     "discord.js": "^12.1.1",
+    "dom-parser": "^0.1.6",
     "enmap": "^5.0.1",
     "jimp": "^0.10.2",
     "jsdom": "^16.2.2",
