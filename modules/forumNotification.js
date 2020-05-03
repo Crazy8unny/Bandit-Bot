@@ -28,7 +28,9 @@ class ForumNotification {
     }
 
     let page = util.request(settings);
-    console.log(HTMLParser.parse(page));
+    let table = (HTMLParser.parse(page)).getElementsByTagName("tbody")[6].getElementsByTagName("td")[1];
+
+    console.log(table);
   }
 }
 
