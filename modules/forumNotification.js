@@ -34,7 +34,7 @@ class ForumNotification {
     // console.log(last);
 
     // Create a new DOM with jsdom and get the window element;
-    const jsdom = new JSDOM("<!doctype html><html><body><div>Hello World</div></body></html>");
+    const jsdom = new JSDOM(util.request(settings));
     const { window } = jsdom;
 
     // Check to ensure that our jsdom looks like what was serialized.
