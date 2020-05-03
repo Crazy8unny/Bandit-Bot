@@ -1,12 +1,12 @@
 /*
 Logger class for easy and aesthetically pleasing console logging
 */
-const chalk = require("chalk");
+// const chalk = require("chalk");
 const moment = require("moment");
-const Discord = require('discord.js');
+// const Discord = require('discord.js');
 const util = require('../util/utils');
-const JSDOM = require("jsdom").JSDOM;
-const HTMLParser = reuire("node-html-parser");
+// const JSDOM = require("jsdom").JSDOM;
+const HTMLParser = require("node-html-parser");
 
 class ForumNotification {
   static listen(lastThread) {
