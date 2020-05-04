@@ -14,9 +14,8 @@ class SG extends Command {
     async run(message, args, level) {
         let res = "https://www.sdarot.today/watch/92-stargate-sg-1-%D7%A1%D7%98%D7%90%D7%A8%D7%92%D7%99%D7%99%D7%98-%D7%90%D7%A1-%D7%92%D7%99-1";
         let popcorn = false;
-        let settings = this.client.getSettings(message.guild.id);
+        let settings = this.client.getSettings(message.guild);
         if (args[0] == null || (args[0] == "הקודם" && args[1] == null)) {
-            console.log(settings.lastEpisode);
             res = settings.lastEpisode;
             popcorn = true;
         }
