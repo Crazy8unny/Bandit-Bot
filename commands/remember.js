@@ -15,7 +15,10 @@ class Remember extends Command {
         let msg = message.toString();
         let res;
         let settings = this.client.getSettings(message.guild);
-        if (msg.includes("אנחנו אנחנו")) {
+        if (args[0] == null) {
+            res = "`שימוש שגוי בפקודה, שלח`אנחנו ב` או `איפה אנחנו"
+        }
+        else if (msg.includes("אנחנו אנחנו")) {
             res = "אנחנו אנחנו ? מה זה בכלל ?";
         }
         else if (args[0] == "אנחנו" && args[1] == null) {
@@ -28,7 +31,7 @@ class Remember extends Command {
             this.client.writeSettings(message.guild.id, settings);
         }
         else {
-            res = "שימוש שגוי בפקודה, שלח`אנחנו ב` או `איפה אנחנו``>"
+            res = "`שימוש שגוי בפקודה, שלח`אנחנו ב` או `איפה אנחנו"
         }
         message.channel.send(res.toString());
     }
