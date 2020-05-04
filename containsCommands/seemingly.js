@@ -32,10 +32,11 @@ class Seemingly extends ContainsCommand {
     }
     let curseNum = this.client.settings.get("EitanCurse");
     console.log(message.author.id);
-    if (message.author.id == "300324644932681728") {
-      this.client.lastThread.set("EitanCurse", curseNum++);
+    if (message.author.id.toString() == "300324644932681728") {
+      curseNum++;
+      this.client.lastThread.set("EitanCurse", curseNum);
     }
-    if (this.client.settings.has("EitanCurse") % 4 == true) {
+    if (curseNum % 4 == true) {
       let PM = "";
       let num = Math.floor(Math.random() * 4 + 1);
       if (num == 4) {
