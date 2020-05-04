@@ -30,9 +30,9 @@ class Seemingly extends ContainsCommand {
     if (!this.client.settings.has("EitanCurse")) {
       this.client.lastThread.set("EitanCurse", 0);
     }
-    let curse = this.client.settings.get("EitanCurse");
+    let curseNum = this.client.settings.get("EitanCurse");
     if (message.author.id == "300324644932681728") {
-      this.client.lastThread.set("EitanCurse", curse++);
+      this.client.lastThread.set("EitanCurse", curseNum++);
     }
     if (this.client.settings.has("EitanCurse") % 4 == true) {
       let PM = "";
