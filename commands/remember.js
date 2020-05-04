@@ -16,9 +16,10 @@
 //         let popcorn = false;
 //         let settings = this.client.getSettings(message.guild);
 //         if (args[0] == null) {
+//             res = "שימוש שגוי בפקודה, שלח`אנחנו ב` או `איפה אנחנו``>"
 //         }
-//         else if (args[0] == "הקודם" && args[1] == null) {
-//             res = settings.lastEpisode;
+//         else if (args[0] == "אנחנו" && args[1] == null) {
+//             res = settings.where;
 //         }
 //         else if (args[1] != '-' || args[3] != null) {
 //             res = "שימוש שגוי בפקודה, שלח ללא פרמטרים או עם <עונה> - <פרק>";

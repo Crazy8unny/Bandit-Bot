@@ -28,13 +28,13 @@ class Seemingly extends ContainsCommand {
     }
 
     if (!this.client.settings.has("EitanCurse")) {
-      this.client.lastThread.set("EitanCurse", 0);
+      this.client.settings.set("EitanCurse", 0);
     }
     let curseNum = this.client.settings.get("EitanCurse");
     console.log(message.author.id);
     if (message.author.id.toString() == "300324644932681728") {
       curseNum++;
-      this.client.lastThread.set("EitanCurse", curseNum);
+      this.client.settings.set("EitanCurse", curseNum);
     }
     if (curseNum % 4 == true) {
       let PM = "";
