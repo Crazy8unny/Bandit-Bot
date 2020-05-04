@@ -24,7 +24,8 @@ const config = {
     "welcomeEnabled": "false",
     "welcomeChannel": "welcome",
     "welcomeMessage": "Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D",
-    "lastEpisode": "וואלה לא יודע אח שלי"
+    "lastEpisode": "וואלה לא יודע אח שלי",
+    "where": "וואלה לא יודע איפה הייתם"
   },
 
   // PERMISSION LEVEL DEFINITIONS.

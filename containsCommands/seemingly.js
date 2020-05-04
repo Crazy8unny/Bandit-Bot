@@ -31,6 +31,7 @@ class Seemingly extends ContainsCommand {
       this.client.lastThread.set("EitanCurse", 0);
     }
     let curseNum = this.client.settings.get("EitanCurse");
+    console.log(message.author.id);
     if (message.author.id == "300324644932681728") {
       this.client.lastThread.set("EitanCurse", curseNum++);
     }
