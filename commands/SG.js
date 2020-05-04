@@ -12,11 +12,10 @@ class SG extends Command {
     }
 
     async run(message, args, level) {
-        let res;
+        let res = "https://www.sdarot.today/watch/92-stargate-sg-1-%D7%A1%D7%98%D7%90%D7%A8%D7%92%D7%99%D7%99%D7%98-%D7%90%D7%A1-%D7%92%D7%99-1";
         let popcorn = false;
         let settings = this.client.getSettings(message.guild);
         if (args[0] == null) {
-            res = "https://www.sdarot.today/watch/92-stargate-sg-1-%D7%A1%D7%98%D7%90%D7%A8%D7%92%D7%99%D7%99%D7%98-%D7%90%D7%A1-%D7%92%D7%99-1";
         }
         else if (args[0] == "הקודם" && args[1] == null) {
             res = settings.lastEpisode;
@@ -30,7 +29,7 @@ class SG extends Command {
         else {
             res += "-stargate-sg-1/season/" + args[0] + "/episode/" + args[2];
             popcorn = true;
-            settings.lastEpisode = args[0] + ' - ' + args[2];
+            settings.lastEpisode = `אתם בעונה ${args[0]} פרק ${args[2]}`;
             this.client.writeSettings(message.guild.id, settings);
         }
         message.channel.send(res.toString());
