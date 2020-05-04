@@ -24,6 +24,7 @@ const config = {
     "welcomeEnabled": "false",
     "welcomeChannel": "welcome",
     "welcomeMessage": "Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D",
+    "lastEpisode": "https://www.sdarot.today/watch/92-stargate-sg-1-%D7%A1%D7%98%D7%90%D7%A8%D7%92%D7%99%D7%99%D7%98-%D7%90%D7%A1-%D7%92%D7%99-1"
   },
 
   // PERMISSION LEVEL DEFINITIONS.
