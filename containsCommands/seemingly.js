@@ -12,6 +12,7 @@ class Seemingly extends ContainsCommand {
   }
 
   async run (message, args, level) {
+    let valid = false;
     let res = "אין פה הוצאת דיבה !";
     let curses = ["טיפש", "טיפשה", "מטומטם", "מטומטמת", "כלב", "כלבה", "חרא", "קקי", "אידיוט", "אידיוטית", "מפגר"
     , "מפגרת", "סתום", "סתומה", "דביל", "דבילית", "שמן", "שמנה", "מכוער", "מכוערת", "בן זונה", "בת זונה"];
@@ -20,6 +21,7 @@ class Seemingly extends ContainsCommand {
     let curse = curses.some(substring=>msg.includes(substring));
     if (curse) {
         if (msg.includes(seemingly)) {
+            valid = true;
             res = "איזה מלך שאמרת לכאורה !"
             message.react("👑");
         } else {
@@ -32,7 +34,7 @@ class Seemingly extends ContainsCommand {
     }
     let curseNum = this.client.settings.get("EitanCurse");
     console.log(message.author.id);
-    if (message.author.id.toString() == "300324644932681728") {
+    if (message.author.id.toString() == "300332593881153547" && (curse && !valid)) {
       curseNum++;
       this.client.settings.set("EitanCurse", curseNum);
     }
