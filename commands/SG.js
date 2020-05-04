@@ -18,15 +18,24 @@ class SG extends Command {
             res = "שימוש שגוי בפקודה, שלח ללא פרמטרים או עם <עונה> - <פרק>"
         }
         else {
-            if (args[0] == null) {
-                popcorn = true;
-            }
-            else if (parseInt(args[0]).toString() == 'NaN' || parseInt(args[2]).toString() == 'NaN') {
+            if (parseInt(args[0]).toString() == 'NaN' || parseInt(args[2]).toString() == 'NaN') {
                 res = "אורי מה זה השטויות האלה ששמת פה"
             }
-            else {
-                res += "-stargate-sg-1/season/" + args[0] + "/episode/" + args[2];
+            else if (args[0] = "הקודם") {
+                if (!this.client.settings.has("lastEpisode")) {
+                    this.client.lastEpisode.set("lastEpisode", res);
+                  }
+                else {
+                    res = this.client.settings.get("lastEpisode");
+                }
                 popcorn = true;
+            }
+            else {
+                if (args[0] != null) {
+                    res += "-stargate-sg-1/season/" + args[0] + "/episode/" + args[2];
+                } 
+                popcorn = true;
+                this.client.settings.set("lastEpisode", res);
             }
         }
         message.channel.send(res.toString());
