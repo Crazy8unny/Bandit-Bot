@@ -16,7 +16,7 @@ class Bamerang extends Command {
     try {
         let embed = new Discord.MessageEmbed()
         .setImage("https://i.imgur.com/2CPxx0k.gif")
-        .setDescription("<@" + message.author.id + ">" + " באמרנגגגגגג")
+        .setDescription("! <@" + message.author.id + ">" + " באמרנגגגגגג")
         .setColor('#1E2023');
     } catch (e) {
       console.log(e);
