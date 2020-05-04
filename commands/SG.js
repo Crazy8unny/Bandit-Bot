@@ -16,6 +16,7 @@ class SG extends Command {
         let popcorn = false;
         let settings = this.client.getSettings(message.guild.id);
         if (args[0] == null || (args[0] == "הקודם" && args[1] == null)) {
+            console.log(settings.lastEpisode);
             res = settings.lastEpisode;
             popcorn = true;
         }
