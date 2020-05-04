@@ -30,7 +30,7 @@ class SG extends Command {
         else {
             res += "-stargate-sg-1/season/" + args[0] + "/episode/" + args[2];
             popcorn = true;
-
+            this.client.settings.set("lastEpisode", res);
         }
         message.channel.send(res.toString());
         if (popcorn) {
