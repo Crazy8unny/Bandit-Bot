@@ -18,10 +18,7 @@ class SG extends Command {
             res = "שימוש שגוי בפקודה, שלח ללא פרמטרים או עם <עונה> - <פרק>"
         }
         else {
-            if (parseInt(args[0]).toString() == 'NaN' || parseInt(args[2]).toString() == 'NaN') {
-                res = "אורי מה זה השטויות האלה ששמת פה"
-            }
-            else if (args[0] = "הקודם") {
+            if (args[0] == "הקודם") {
                 if (!this.client.settings.has("lastEpisode")) {
                     this.client.lastEpisode.set("lastEpisode", res);
                   }
@@ -29,6 +26,9 @@ class SG extends Command {
                     res = this.client.settings.get("lastEpisode");
                 }
                 popcorn = true;
+            }
+            else if (parseInt(args[0]).toString() == 'NaN' || parseInt(args[2]).toString() == 'NaN') {
+                res = "אורי מה זה השטויות האלה ששמת פה"
             }
             else {
                 if (args[0] != null) {
