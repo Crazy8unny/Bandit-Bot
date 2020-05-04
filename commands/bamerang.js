@@ -18,6 +18,7 @@ class Bamerang extends Command {
         .setImage("https://i.imgur.com/2CPxx0k.gif")
         .setDescription("! <@" + message.author.id + ">" + " באמרנגגגגגג")
         .setColor('#1E2023');
+        message.channel.send(embed);
     } catch (e) {
       console.log(e);
     }
