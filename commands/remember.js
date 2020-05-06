@@ -22,7 +22,7 @@ class Remember extends Command {
             res = "אנחנו אנחנו ? מה זה בכלל ?";
         }
         else if (args[0] == "אנחנו" && args[1] == null) {
-            res = "אתם  ב" + settings.where;
+            res = "אתם ב" + settings.where;
         }
         else if (args[0].startsWith('ב') && msg.includes("אנחנו ב")) {
             let position = msg.search("אנחנו ב");
