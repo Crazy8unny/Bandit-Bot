@@ -34,8 +34,8 @@ class Seemingly extends ContainsCommand {
     }
     let curseNum = this.client.settings.get("EitanCurse");
     console.log(message.author.id);
-    if (message.author.id.toString() == "300332593881153547") {
-      if (curse && !valid) {
+    if (message.author.id.toString() == "300332593881153547" && !valid) {
+      if (curse) {
         curseNum++;
         this.client.settings.set("EitanCurse", curseNum);
       }

@@ -15,7 +15,7 @@ class ForumNotification {
     const prevName = lastThread.get("name");
     // console.log("test name: " + prevName);
     const request = require('request');
-    const settings = {
+    let settings = {
       "async": true,
       "crossDomain": true,
       "url": "https://lf2.co.il/forum/index.php",
@@ -28,13 +28,20 @@ class ForumNotification {
         jqXHR.overrideMimeType('text/html;charset=iso-8859-8');
       }
     }
-    
-    request.get(settings, function (err, res, data) {
+
+    request.get(settings, function (error, response, data) {
       // const $ = cheerio.load(data);
       const jsdom = new JSDOM(data);
       const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
-      const subject = body[body.length - 4].href;
-      console.log(subject);
+      settings.url = body[body.length - 4].href;
+        request.get(settings, function (err, res, dat) {
+          // const $ = cheerio.load(data);
+          const jsdom = new JSDOM(dat);
+          const table = jsdom.window.document.getElementsByTagName("tbody")[8];
+          let time = table.getElementsByClassName("postdetails");
+          time = time[time.length - 2];
+          console.log(time.innerText);
+       });
     });
   }
 }
