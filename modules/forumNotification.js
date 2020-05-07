@@ -13,6 +13,7 @@ class ForumNotification {
     const timestamp = `[${moment().format("YYYY-MM-DD HH:mm:ss")}]:`;
     const prevName = lastThread.get("name");
     // console.log("test name: " + prevName);
+    const request = require('request');
     const settings = {
       "async": true,
       "crossDomain": true,
@@ -27,10 +28,10 @@ class ForumNotification {
       }
     }
     
-    let page = util.request(settings);
-    const $ = cheerio.load(page);
-
-    console.log($.html());
+    request.get(settings, function (err, res, data) {
+      const $ = cheerio.load(data);
+      console.log($.html());
+    });
   }
 }
 
