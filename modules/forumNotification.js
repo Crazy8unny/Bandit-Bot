@@ -4,7 +4,7 @@
 
 // const chalk = require("chalk");
 const moment = require("moment");
-// const Discord = require('discord.js');
+const Discord = require('discord.js');
 // const cheerio = require('cheerio')
 const util = require('../util/utils');
 const JSDOM = require('jsdom').JSDOM;
@@ -33,10 +33,10 @@ class ForumNotification {
       // const $ = cheerio.load(data);
       const jsdom = new JSDOM(data);
       const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
-      return (body[body.length - 4].href);
-    }).then(link => {
-        console.log(link);
-    })
+      return (body[body.length - 6].href);
+    });
+
+    // console.log(link);
   //   request.get(settings, function (err, res, dat) {
   //     // const $ = cheerio.load(data);
   //     const jsdom = new JSDOM(dat);
