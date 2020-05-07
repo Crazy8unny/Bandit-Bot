@@ -5,8 +5,9 @@
 // const chalk = require("chalk");
 const moment = require("moment");
 // const Discord = require('discord.js');
-const cheerio = require('cheerio')
+// const cheerio = require('cheerio')
 const util = require('../util/utils');
+const JSDOM = require('jsdom').JSDOM;
 
 class ForumNotification {
   static listen(lastThread) {
@@ -29,8 +30,11 @@ class ForumNotification {
     }
     
     request.get(settings, function (err, res, data) {
-      const $ = cheerio.load(data);
-      console.log($("tbody")[6].children("td"));
+      // const $ = cheerio.load(data);
+      const jsdom = new JSDOM(data);
+      const { window } = jsdom;
+      const bodyElements = jsdom.window.document.getElementsByTagName("tbody");
+      console.log(`# OF BODIES IN CONSTRUCTED DOM: ${bodyElements.length}`);
     });
   }
 }
