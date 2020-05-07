@@ -32,9 +32,8 @@ class ForumNotification {
     request.get(settings, function (err, res, data) {
       // const $ = cheerio.load(data);
       const jsdom = new JSDOM(data);
-      const { window } = jsdom;
-      const bodyElements = jsdom.window.document.getElementsByTagName("tbody");
-      console.log(`# OF BODIES IN CONSTRUCTED DOM: ${bodyElements.length}`);
+      const body = jsdom.window.document.getElementsByTagName("tbody")[6];
+      console.log(body);
     });
   }
 }
