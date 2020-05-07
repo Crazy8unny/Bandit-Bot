@@ -29,13 +29,14 @@ class ForumNotification {
       }
     }
 
-    let link = request.get(settings, function (error, response, data) {
+    request.get(settings, function (error, response, data) {
       // const $ = cheerio.load(data);
       const jsdom = new JSDOM(data);
       const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
       return (body[body.length - 4].href);
-    });
-    console.log(link);
+    }).then(link => {
+        console.log(link);
+    })
   //   request.get(settings, function (err, res, dat) {
   //     // const $ = cheerio.load(data);
   //     const jsdom = new JSDOM(dat);
