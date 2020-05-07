@@ -10,10 +10,10 @@ const util = require('../util/utils');
 const JSDOM = require('jsdom').JSDOM;
 
 class ForumNotification {
-  static listen(lastThread) {
+  static listen(lastThread, client) {
     const timestamp = `[${moment().format("YYYY-MM-DD HH:mm:ss")}]:`;
     const prevName = lastThread.get("name");
-    // console.log("test name: " + prevName);
+    console.log("test name: " + prevName);
     const request = require('request');
     let settings = {
       "async": true,
@@ -33,7 +33,17 @@ class ForumNotification {
       // const $ = cheerio.load(data);
       const jsdom = new JSDOM(data);
       const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
-      return (body[body.length - 6].href);
+      let name = body[body.length - 6];
+      if (name.innerText != prevName) {
+        let embed = {
+          color: 0x0099ff,
+          title: name.innerText,
+          url: name.href
+        };
+        console.log(name.innerText);
+        client.channels.get(`307240691229261835`).send(embed);
+        lastThread.set("name", name.innerText);
+      }
     });
 
     // console.log(link);
