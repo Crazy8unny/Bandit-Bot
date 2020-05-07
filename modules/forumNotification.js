@@ -29,21 +29,22 @@ class ForumNotification {
       }
     }
 
-    request.get(settings, function (error, response, data) {
+    let link = await request.get(settings, function (error, response, data) {
       // const $ = cheerio.load(data);
       const jsdom = new JSDOM(data);
       const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
-      settings.url = body[body.length - 4].href;
-        request.get(settings, function (err, res, dat) {
-          // const $ = cheerio.load(data);
-          const jsdom = new JSDOM(dat);
-          const table = jsdom.window.document.getElementsByTagName("tbody");
-          // const table = jsdom.window.document.getElementsByTagName("tbody")[8];
-          // let time = table.getElementsByClassName("postdetails");
-          // time = time[time.length - 2];
-          console.log(table.length);
-       });
+      return (body[body.length - 4].href);
     });
+    console.log(link);
+  //   request.get(settings, function (err, res, dat) {
+  //     // const $ = cheerio.load(data);
+  //     const jsdom = new JSDOM(dat);
+  //     const table = jsdom.window.document.getElementsByTagName("tbody");
+  //     // const table = jsdom.window.document.getElementsByTagName("tbody")[8];
+  //     // let time = table.getElementsByClassName("postdetails");
+  //     // time = time[time.length - 2];
+  //     console.log(table.length);
+  //  });
   }
 }
 
