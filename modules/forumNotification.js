@@ -37,10 +37,11 @@ class ForumNotification {
         request.get(settings, function (err, res, dat) {
           // const $ = cheerio.load(data);
           const jsdom = new JSDOM(dat);
-          const table = jsdom.window.document.getElementsByTagName("tbody")[8];
-          let time = table.getElementsByClassName("postdetails");
-          time = time[time.length - 2];
-          console.log(time.innerText);
+          const table = jsdom.window.document.getElementsByTagName("tbody");
+          // const table = jsdom.window.document.getElementsByTagName("tbody")[8];
+          // let time = table.getElementsByClassName("postdetails");
+          // time = time[time.length - 2];
+          console.log(table.length);
        });
     });
   }
