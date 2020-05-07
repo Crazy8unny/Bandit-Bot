@@ -5,6 +5,7 @@
 // const chalk = require("chalk");
 const moment = require("moment");
 // const Discord = require('discord.js');
+const cheerio = require('cheerio')
 const util = require('../util/utils');
 
 class ForumNotification {
@@ -25,8 +26,11 @@ class ForumNotification {
         jqXHR.overrideMimeType('text/html;charset=iso-8859-8');
       }
     }
-
+    
     let page = util.request(settings);
+    const $ = cheerio.load(page);
+
+    console.log($("tbody")[6].html());
   }
 }
 
