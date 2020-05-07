@@ -6,7 +6,7 @@ class utils {
             if (error) {
                 console.error('error:', error);
             } else {
-                return response;
+                return body;
             }
         }));
     }
