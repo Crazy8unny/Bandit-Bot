@@ -30,7 +30,7 @@ class ForumNotification {
     
     request.get(settings, function (err, res, data) {
       const $ = cheerio.load(data);
-      console.log($("tbody").get(6).html());
+      console.log($("tbody")[6]);
     });
   }
 }
