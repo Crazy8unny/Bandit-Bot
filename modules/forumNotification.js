@@ -38,7 +38,7 @@ class ForumNotification {
         let embed = {
           color: 0x0099ff,
           title: name.innerText,
-          url: name.href
+          url: "https://lf2.co.il/" + name.href
         };
         // console.log(name.innerText);
         client.lastThread.set("name", name.innerText);
