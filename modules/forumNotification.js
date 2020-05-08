@@ -29,33 +29,33 @@ class ForumNotification {
       }
     }
 
-    // request.get(settings, function (error, response, data) {
-    //   // const $ = cheerio.load(data);
-    //   const jsdom = new JSDOM(data);
-    //   const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
-    //   let name = body[body.length - 6];
-    //   if (name.innerText != prevName) {
-    //     let embed = {
-    //       color: 0x0099ff,
-    //       title: name.innerText,
-    //       url: name.href
-    //     };
-    //     // console.log(name.innerText);
-    //     client.channels.get(`307240691229261835`).send(embed);
-    //     lastThread.set("name", name.innerText);
-    //   }
-    // });
+    return (request.get(settings, function (error, response, data) {
+      // const $ = cheerio.load(data);
+      const jsdom = new JSDOM(data);
+      const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
+      let name = body[body.length - 6];
+      if (name.innerText != prevName) {
+        let embed = {
+          color: 0x0099ff,
+          title: name.innerText,
+          url: name.href
+        };
+        // console.log(name.innerText);
+        lastThread.set("name", name.innerText);
+        return (embed);
 
-    // console.log(link);
-  //   request.get(settings, function (err, res, dat) {
-  //     // const $ = cheerio.load(data);
-  //     const jsdom = new JSDOM(dat);
-  //     const table = jsdom.window.document.getElementsByTagName("tbody");
-  //     // const table = jsdom.window.document.getElementsByTagName("tbody")[8];
-  //     // let time = table.getElementsByClassName("postdetails");
-  //     // time = time[time.length - 2];
-  //     console.log(table.length);
-  //  });
+        // console.log(link);
+        // request.get(settings, function (err, res, dat) {
+        //   // const $ = cheerio.load(data);
+        //   const jsdom = new JSDOM(dat);
+        //   const table = jsdom.window.document.getElementsByTagName("tbody");
+        //   // const table = jsdom.window.document.getElementsByTagName("tbody")[8];
+        //   // let time = table.getElementsByClassName("postdetails");
+        //   // time = time[time.length - 2];
+        //   console.log(table.length);
+      }
+      return null;
+    }));
   }
 }
 

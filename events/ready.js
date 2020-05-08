@@ -23,7 +23,10 @@ module.exports = class {
     }, 60000);
 
     setInterval(async () => {
-      this.client.FN.run(this.client.lastThread);
+      let embed = this.client.FN.listen(this.client.lastThread);
+      if (embed != null) {
+        this.client.channels.get(`307240691229261835`).send(embed);
+      }
     }, 5000)
 
     // Check whether the "Default" guild settings are loaded in the enmap.
