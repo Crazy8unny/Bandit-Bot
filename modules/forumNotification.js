@@ -33,16 +33,16 @@ class ForumNotification {
       // const $ = cheerio.load(data);
       const jsdom = new JSDOM(data);
       const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
-      let name = body[body.length - 5];
-      // if (name.innerText != prevName) {
-        // let embed = {
-          // color: 0x0099ff,
-          // title: name.innerText,
-          // url: "https://lf2.co.il/" + name.href
-        // };
+      let name = body[body.length - 6];
+      if (name.innerText != prevName) {
+        let embed = {
+          color: 0x0099ff,
+          title: name.innerHTML,
+          url: "https://lf2.co.il/" + name.href
+        };
         console.log(name.innerHTML);
-        // client.lastThread.set("name", name.innerText);
-        // client.channels.cache.find(c => c.name === 'forum-notifications').send({embed}).catch(console.error);
+        client.lastThread.set("name", name.innerText);
+        client.channels.cache.find(c => c.name === 'forum-notifications').send({embed}).catch(console.error);
 
         // console.log(link);
         // request.get(settings, function (err, res, dat) {
@@ -53,7 +53,7 @@ class ForumNotification {
         //   // let time = table.getElementsByClassName("postdetails");
         //   // time = time[time.length - 2];
         //   console.log(table.length);
-      // }
+      }
     });
   }
 }
