@@ -30,7 +30,7 @@ class ForumNotification {
       }
     }
 
-    $.ajax(settings).done(function (data) {
+    request.get(settings, function (error, response, data) {
       // const $ = cheerio.load(data);
       const jsdom = new JSDOM(data);
       const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
