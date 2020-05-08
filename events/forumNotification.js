@@ -50,7 +50,6 @@ module.exports = class {
         this.client.channels.get(`704981301572403211`).send(embed);
         lastThread.set("name", name.innerText);
       }
-    });
 
     // console.log(link);
     // request.get(settings, function (err, res, dat) {
