@@ -42,7 +42,7 @@ class ForumNotification {
         };
         // console.log(name.innerText);
         client.lastThread.set("name", name.innerText);
-        client.channels.cache.find(c => c.name === 'forum-notifications').send(embed).catch(console.error);
+        client.channels.cache.find(c => c.name === 'forum-notifications').send({embed}).catch(console.error);
 
         // console.log(link);
         // request.get(settings, function (err, res, dat) {
