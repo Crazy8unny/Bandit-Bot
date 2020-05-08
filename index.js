@@ -251,6 +251,13 @@ const init = async () => {
   client.logger.log(`Loading Token: Shhh It's a secret`);
   client.login(client.config.token);
 
+  setInterval(async () => {
+    let embed = this.client.FN.listen(this.client.lastThread);
+    if (embed != null) {
+      this.client.channels.cache.find(c => c.name === 'forum-notifications').send(embed).catch(console.error);
+    }
+  }, 5000)
+
   // End top-level async/await function.
 };
 
