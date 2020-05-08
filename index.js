@@ -252,10 +252,7 @@ const init = async () => {
   client.login(client.config.token);
 
   setInterval(async () => {
-    let embed = client.FN.listen(client.lastThread);
-    if (embed != null) {
-      client.channels.cache.find(c => c.name === 'forum-notifications').send(embed).catch(console.error);
-    }
+    client.FN.listen(client);
   }, 5000)
 
   // End top-level async/await function.

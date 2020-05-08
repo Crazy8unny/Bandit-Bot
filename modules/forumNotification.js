@@ -10,9 +10,9 @@ const util = require('../util/utils');
 const JSDOM = require('jsdom').JSDOM;
 
 class ForumNotification {
-  static listen(lastThread) {
+  static listen(client) {
     const timestamp = `[${moment().format("YYYY-MM-DD HH:mm:ss")}]:`;
-    const prevName = lastThread.get("name");
+    const prevName = client.lastThread.get("name");
     // console.log("test name: " + prevName);
     const request = require('request');
     let settings = {
@@ -29,7 +29,7 @@ class ForumNotification {
       }
     }
 
-    return (request.get(settings, function (error, response, data) {
+    request.get(settings, function (error, response, data) {
       // const $ = cheerio.load(data);
       const jsdom = new JSDOM(data);
       const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
@@ -41,8 +41,8 @@ class ForumNotification {
           url: name.href
         };
         // console.log(name.innerText);
-        lastThread.set("name", name.innerText);
-        return (embed);
+        client.lastThread.set("name", name.innerText);
+        client.channels.cache.find(c => c.name === 'forum-notifications').send(embed).catch(console.error);
 
         // console.log(link);
         // request.get(settings, function (err, res, dat) {
@@ -54,8 +54,7 @@ class ForumNotification {
         //   // time = time[time.length - 2];
         //   console.log(table.length);
       }
-      return null;
-    }));
+    });
   }
 }
 
