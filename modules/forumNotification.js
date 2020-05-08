@@ -40,7 +40,7 @@ class ForumNotification {
           // title: name.innerText,
           // url: "https://lf2.co.il/" + name.href
         // };
-        console.log(name.innerText);
+        console.log(name.innerHTML);
         // client.lastThread.set("name", name.innerText);
         // client.channels.cache.find(c => c.name === 'forum-notifications').send({embed}).catch(console.error);
 
