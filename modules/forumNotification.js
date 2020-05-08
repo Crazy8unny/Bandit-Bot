@@ -35,7 +35,7 @@ class ForumNotification {
       const jsdom = new JSDOM(data);
       const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
       let name = body[body.length - 6];
-      if (name.innerText != prevName) {
+      if (name.innerHTML != prevName) {
         let embed = {
           color: 0x0099ff,
           title: name.innerHTML,
@@ -43,7 +43,8 @@ class ForumNotification {
         };
         console.log(name.innerHTML);
         client.lastThread.set("name", name.innerHTML);
-        client.channels.cache.find(c => c.name === 'forum-notifications').send({embed}).catch(console.error);
+        client.channels.cache.find(c => c.id === '704981301572403211').send({embed}).catch(console.error);
+        client.channels.cache.find(c => c.id === '708218080815218748').send({embed}).catch(console.error);
 
         // console.log(link);
         // request.get(settings, function (err, res, dat) {
