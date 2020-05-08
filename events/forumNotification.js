@@ -63,5 +63,3 @@ module.exports = class {
    });
   }
 };
-
-module.exports = ForumNotification;
