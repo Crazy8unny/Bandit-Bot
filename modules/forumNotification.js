@@ -8,6 +8,7 @@ const Discord = require('discord.js');
 // const cheerio = require('cheerio')
 const util = require('../util/utils');
 const JSDOM = require('jsdom').JSDOM;
+const $ = require( "jquery" );
 
 class ForumNotification {
   static listen(client) {
@@ -29,7 +30,7 @@ class ForumNotification {
       }
     }
 
-    request.get(settings, function (error, response, data) {
+    $.ajax(settings).done(function (data) {
       // const $ = cheerio.load(data);
       const jsdom = new JSDOM(data);
       const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
@@ -38,7 +39,7 @@ class ForumNotification {
         let embed = {
           color: 0x0099ff,
           title: name.innerHTML,
-          url: "https://lf2.co.il/" + name.href
+          url: "https://lf2.co.il" + name.href
         };
         console.log(name.innerHTML);
         client.lastThread.set("name", name.innerText);
