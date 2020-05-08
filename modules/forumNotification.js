@@ -53,7 +53,7 @@ class ForumNotification {
         //   // let time = table.getElementsByClassName("postdetails");
         //   // time = time[time.length - 2];
         //   console.log(table.length);
-      }
+      // }
     });
   }
 }
