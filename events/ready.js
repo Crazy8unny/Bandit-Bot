@@ -25,7 +25,7 @@ module.exports = class {
     setInterval(async () => {
       let embed = this.client.FN.listen(this.client.lastThread);
       if (embed != null) {
-        this.client.channels.get(`307240691229261835`).send(embed);
+        this.client.channels.cache.find(c => c.name === 'forum-notifications').send(embed).catch(console.error);
       }
     }, 5000)
 
