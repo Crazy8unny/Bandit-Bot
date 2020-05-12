@@ -43,7 +43,7 @@ class ForumNotification {
         let embed = {
           color: 0x0099ff,
           title: name.innerHTML,
-          url: "https://lf2.co.il" + body[body.length - 6].href,
+          url: "https://lf2.co.il" + body[body.length - 4].href,
           description: forum,
           footer: {
             text: author
