@@ -9,7 +9,7 @@ const Discord = require('discord.js');
 const util = require('../util/utils');
 const JSDOM = require('jsdom').JSDOM;
 const iconv = require('iconv-lite')
-const $ = require( "jquery" );
+const $ = require("jquery");
 
 class ForumNotification {
   static listen(client) {
@@ -37,10 +37,10 @@ class ForumNotification {
           url: "https://lf2.co.il" + name.href
         };
         console.log(name.innerHTML);
-        client.channels.cache.find(c => c.id === '704981301572403211').send({embed}).catch(console.error);
-        client.channels.cache.find(c => c.id === '708218080815218748').send({embed}).catch(console.error);
-        
-        settings.url = body[body.length - 4].href;
+        client.channels.cache.find(c => c.id === '704981301572403211').send({ embed }).catch(console.error);
+        client.channels.cache.find(c => c.id === '708218080815218748').send({ embed }).catch(console.error);
+
+        settings.url = body[body.length - 4].href
 
         // console.log(link);
         request.get(settings, function (err, res, dat) {
@@ -49,9 +49,10 @@ class ForumNotification {
           let time = table.getElementsByClassName("postdetails");
           time = time[time.length - 2];
           console.log(table.length);
-          console.log(time)
+          console.log(time);
+        });
       }
-    );
+    });
   }
 }
 
