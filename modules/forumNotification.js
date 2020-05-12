@@ -8,6 +8,7 @@ const Discord = require('discord.js');
 // const cheerio = require('cheerio')
 const util = require('../util/utils');
 const JSDOM = require('jsdom').JSDOM;
+const iconv = require('iconv-lite')
 const $ = require( "jquery" );
 
 class ForumNotification {
@@ -17,32 +18,25 @@ class ForumNotification {
     // console.log("test name: " + prevName);
     const request = require('request');
     let settings = {
-      "async": true,
-      "crossDomain": true,
       "url": "https://lf2.co.il/forum/index.php",
       "method": "GET",
-      "headers": {
-        "cache-control": "no-cache",
-        "Content-Type": "text/html; charset=iso-8859-8"
-      },
-      "beforeSend": function (jqXHR) {
-        jqXHR.overrideMimeType('text/html;charset=iso-8859-8');
-      }
+      "encoding": null
     }
 
     request.get(settings, function (error, response, data) {
+
       // const $ = cheerio.load(data);
-      const jsdom = new JSDOM(data);
+      const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
       const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
       let name = body[body.length - 6];
       if (name.innerHTML != prevName) {
+        client.lastThread.set("name", name.innerHTML);
         let embed = {
           color: 0x0099ff,
           title: name.innerHTML,
           url: "https://lf2.co.il" + name.href
         };
         console.log(name.innerHTML);
-        client.lastThread.set("name", name.innerHTML);
         client.channels.cache.find(c => c.id === '704981301572403211').send({embed}).catch(console.error);
         client.channels.cache.find(c => c.id === '708218080815218748').send({embed}).catch(console.error);
 

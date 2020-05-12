@@ -35,6 +35,7 @@
     "cheerio": "^1.0.0-rc.3",
     "discord.js": "^12.1.1",
     "enmap": "^5.0.1",
+    "iconv-lite": "^0.5.1",
     "jimp": "^0.10.2",
     "jquery": "^3.5.1",
     "jsdom": "^16.2.2",
