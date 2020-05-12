@@ -51,7 +51,7 @@ class ForumNotification {
           console.log(table.length);
           console.log(time)
       }
-    });
+    );
   }
 }
 
