@@ -28,15 +28,15 @@ class ForumNotification {
       // const $ = cheerio.load(data);
       const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
       const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
-      let name = body[body.length - 6];
-      if (name.innerText != prevName) {
-        client.lastThread.set("name", name.innerText);
+      let name = body[body.length - 6].getElementsByTagName("b")[1];
+      if (name.innerHTML != prevName) {
+        client.lastThread.set("name", name.innerHTML);
         let embed = {
           color: 0x0099ff,
-          title: name.innerText,
+          title: name.innerHTML,
           url: "https://lf2.co.il" + name.href
         };
-        console.log(name.innerText);
+        console.log(name.innerHTML);
         client.channels.cache.find(c => c.id === '704981301572403211').send({embed}).catch(console.error);
         client.channels.cache.find(c => c.id === '708218080815218748').send({embed}).catch(console.error);
 
