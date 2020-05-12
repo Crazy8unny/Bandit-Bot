@@ -39,16 +39,17 @@ class ForumNotification {
         console.log(name.innerHTML);
         client.channels.cache.find(c => c.id === '704981301572403211').send({embed}).catch(console.error);
         client.channels.cache.find(c => c.id === '708218080815218748').send({embed}).catch(console.error);
+        
+        settings.url = body[body.length - 4].href;
 
         // console.log(link);
-        // request.get(settings, function (err, res, dat) {
-        //   // const $ = cheerio.load(data);
-        //   const jsdom = new JSDOM(dat);
-        //   const table = jsdom.window.document.getElementsByTagName("tbody");
-        //   // const table = jsdom.window.document.getElementsByTagName("tbody")[8];
-        //   // let time = table.getElementsByClassName("postdetails");
-        //   // time = time[time.length - 2];
-        //   console.log(table.length);
+        request.get(settings, function (err, res, dat) {
+          const jsdom = new JSDOM(dat);
+          const table = jsdom.window.document.getElementsByTagName("tbody");
+          const table = jsdom.window.document.getElementsByTagName("tbody")[8];
+          let time = table.getElementsByClassName("postdetails");
+          time = time[time.length - 2];
+          console.log(table.length);
       }
     });
   }
