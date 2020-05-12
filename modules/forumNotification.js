@@ -45,7 +45,6 @@ class ForumNotification {
         // console.log(link);
         request.get(settings, function (err, res, dat) {
           const jsdom = new JSDOM(dat);
-          const table = jsdom.window.document.getElementsByTagName("tbody");
           const table = jsdom.window.document.getElementsByTagName("tbody")[8];
           let time = table.getElementsByClassName("postdetails");
           time = time[time.length - 2];
