@@ -32,7 +32,6 @@
   "dependencies": {
     "better-sqlite3": "^5.4.1",
     "chalk": "^2.4.1",
-    "cheerio": "^1.0.0-rc.3",
     "discord.js": "^12.1.1",
     "enmap": "^5.0.1",
     "iconv-lite": "^0.5.1",
