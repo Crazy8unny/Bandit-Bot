@@ -48,7 +48,7 @@ class ForumNotification {
           const table = jsdom.window.document.getElementsByTagName("tbody")[8];
           let time = table.getElementsByClassName("postdetails");
           time = time[time.length - 2];
-          console.log(table.length);
+          console.log(table);
           console.log(time);
         });
       }
