@@ -35,7 +35,7 @@ class Avatar extends Command {
       Jimp.read(basePhoto).then(base => {
         Jimp.read("https://cdn.discordapp.com/avatars/" + member.id + "/" + member.avatar + ".png").then(image => {
           image.composite(base, x, y, {
-            mode: Jimp.BLEND_SOURCE_OVER
+            mode: Jimp.BLEND_DESTINATION_OVER
           });
           message.channel.send("ברוך הבא לגאנג אח שלי");
           image.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
