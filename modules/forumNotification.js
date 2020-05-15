@@ -70,7 +70,7 @@ class ForumNotification {
         request.get(settings, function (error, response, data) {
           const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
           let table = jsdom.window.document.getElementsByClassName("forumline");
-          console.log(table.length);
+          console.log("topic something wierd length:" + table.length);
           if (table.length <= 2) {
             table = table[0];
           } else {
@@ -85,6 +85,8 @@ class ForumNotification {
           MD.rank = "https://www.lf2.co.il/forum/" + MD.rank;
           MD.rank = MD.rank.replace("\\", "/");
 
+          console.log("avatar: " + MD.avatar);
+          console.log("rank: " + MD.rank);
           if (MD.avatar.startsWith("images\\")) {
             MD.avatar = "https://www.lf2.co.il/forum/" + MD.avatar;
             MD.avatar = MD.avatar.replace("\\", "/");
