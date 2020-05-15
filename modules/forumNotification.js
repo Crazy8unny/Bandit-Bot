@@ -57,7 +57,7 @@ class ForumNotification {
           title: name.innerHTML,
           url: "https://lf2.co.il" + body[body.length - 4].href,
           footer: {
-            text: forum + `(${number} תגובות)`
+            text: forum + ` (${number} תגובות) `
           }
         };
         client.lastThread.set("name", name.innerHTML);
