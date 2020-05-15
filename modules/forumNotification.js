@@ -43,6 +43,7 @@ class ForumNotification {
         settings.url = "https://lf2.co.il" + body[body.length - 4].href
         console.log("test");
         let MD = getMessageDetails(settings);
+        this.client.await(2000);
         client.lastThread.set("name", name.innerHTML);
         client.lastThread.set("author", author);
         let embed = {
