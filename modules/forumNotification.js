@@ -77,6 +77,8 @@ class ForumNotification {
           MD.avatar = MD.avatar.getElementsByTagName("img")
           MD.rank = MD.avatar.getElementsByTagName("img")[0];
           MD.avatar = MD.avatar.getElementsByTagName("img")[1];
+          console.log(MD.avatar);
+          console.log(MD.rank);
           return MD;
         });
       }
