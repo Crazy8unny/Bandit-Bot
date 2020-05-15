@@ -67,6 +67,13 @@ class ForumNotification {
           MD.avatar = MD.avatar.getElementsByTagName("img");
           MD.rank = MD.avatar[0].src;
           MD.avatar = MD.avatar[1].src;
+          MD.rank += "https://www.lf2.co.il/forum/";
+          MD.rank = MD.rank.replace("\\", "/");
+
+          if (MD.avatar.startsWith("images\\")) {
+            MD.avatar = "https://www.lf2.co.il/forum/" + MD.avatar;
+            MD.avatar = MD.avatar.replace("\\", "/");
+          }
 
           console.log(MD.avatar);
 
