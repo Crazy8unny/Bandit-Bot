@@ -65,20 +65,21 @@ class ForumNotification {
 
 
       }
-    });
-  }
 
-  getMessageDetails(settings) {
-    request.get(settings, function (error, response, data) {
-      const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
-      const table = jsdom.window.document.getElementsByTagName("tbody")[8];
-      let MD = {};
-      MD.avatar = table.getElementsByClassName("row2")
-      MD.avatar = MD.avatar[MD.avatar.length - 3];
-      MD.avatar = MD.avatar.getElementsByTagName("img")
-      MD.rank = MD.avatar.getElementsByTagName("img")[0];
-      MD.avatar = MD.avatar.getElementsByTagName("img")[1];
-      return MD;
+      // request to the message page
+      function getMessageDetails(settings) {
+        request.get(settings, function (error, response, data) {
+          const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
+          const table = jsdom.window.document.getElementsByTagName("tbody")[8];
+          let MD = {};
+          MD.avatar = table.getElementsByClassName("row2")
+          MD.avatar = MD.avatar[MD.avatar.length - 3];
+          MD.avatar = MD.avatar.getElementsByTagName("img")
+          MD.rank = MD.avatar.getElementsByTagName("img")[0];
+          MD.avatar = MD.avatar.getElementsByTagName("img")[1];
+          return MD;
+        });
+      }
     });
   }
 }
