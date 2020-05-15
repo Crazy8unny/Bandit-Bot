@@ -43,7 +43,6 @@ class ForumNotification {
         settings.url = "https://lf2.co.il" + body[body.length - 4].href
         console.log("test");
         let MD = getMessageDetails(settings);
-        this.client.await(2000);
         client.lastThread.set("name", name.innerHTML);
         client.lastThread.set("author", author);
         let embed = {
@@ -73,7 +72,7 @@ class ForumNotification {
 
 // request to the message page
 function getMessageDetails(settings) {
-  request.get(settings, function (error, response, data) {
+  return request.get(settings, function (error, response, data) {
     const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
     const table = jsdom.window.document.getElementsByTagName("tbody")[8];
     let MD = {};
