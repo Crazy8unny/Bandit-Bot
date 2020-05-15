@@ -74,13 +74,14 @@ class ForumNotification {
           const table = jsdom.window.document.getElementsByTagName("tbody")[8];
           let MD = {};
           let avatar = table.getElementsByClassName("row2")
+          console.log(avatar);
           avatar = avatar[avatar.length - 3];
+          console.log(avatar);
           avatar = avatar.getElementsByTagName("img")
           let rank = avatar.getElementsByTagName("img")[0];
           avatar = avatar.getElementsByTagName("img")[1];
           MD.avatar = avatar;
           MD.rank = rank;
-          console.log(avatar);
           console.log(rank);
           return MD;
         });
