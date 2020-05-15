@@ -65,23 +65,23 @@ class ForumNotification {
 
 
       }
-
-      // request to the message page
-      function getMessageDetails(settings) {
-        request.get(settings, function (error, response, data) {
-          const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
-          const table = jsdom.window.document.getElementsByTagName("tbody")[8];
-          let MD = {};
-          MD.avatar = table.getElementsByClassName("row2")
-          MD.avatar = MD.avatar[MD.avatar.length - 3];
-          MD.avatar = MD.avatar.getElementsByTagName("img")
-          MD.avatar = MD[1].src;
-          MD.rank = MD[0].src;
-          return MD;
-        });
-      }
     });
   }
+}
+
+// request to the message page
+function getMessageDetails(settings) {
+  request.get(settings, function (error, response, data) {
+    const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
+    const table = jsdom.window.document.getElementsByTagName("tbody")[8];
+    let MD = {};
+    MD.avatar = table.getElementsByClassName("row2")
+    MD.avatar = MD.avatar[MD.avatar.length - 3];
+    MD.avatar = MD.avatar.getElementsByTagName("img")
+    MD.avatar = MD[1].src;
+    MD.rank = MD[0].src;
+    return MD;
+  });
 }
 
 module.exports = ForumNotification;
