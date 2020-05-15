@@ -80,6 +80,8 @@ class ForumNotification {
           avatar = avatar.getElementsByTagName("img")[1];
           MD.avatar = avatar;
           MD.rank = rank;
+          console.log(avatar);
+          console.log(rank);
           return MD;
         });
       }
