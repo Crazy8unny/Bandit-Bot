@@ -36,7 +36,7 @@ class ForumNotification {
       let author = bodyWords.substring(position, bodyWords.length);
       position = author.search(",");
       author = author.substring(20, position);
-      let position = bodyWords.search("תגובות\\)");
+      position = bodyWords.search("תגובות\\)");
       number = bodyWords.substring(0, position);
       position = number.search(new RegExp( '\\(' + '[' + '1234567890' + ']', 'g'));
       number = bodyWords.substring(position + 1, number.length);
@@ -45,7 +45,7 @@ class ForumNotification {
       if (number == 0) {
         color = 0x0099ff;
       }
-      
+
       // check if its a new message
       if (name.innerHTML != prevName || author != prevAuthor) {
         // get message info
