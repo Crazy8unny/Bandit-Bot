@@ -69,7 +69,8 @@ class ForumNotification {
       function getMessageDetails(settings, embed) {
         request.get(settings, function (error, response, data) {
           const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
-          const table = jsdom.window.document.getElementsByTagName("tbody")[8];
+          let table = jsdom.window.document.getElementsByClassName("forumline");
+          table = table[table.length - 1];
           let MD = {};
           MD.avatar = table.getElementsByClassName("postdetails");
           MD.avatar = MD.avatar[MD.avatar.length - 3];
