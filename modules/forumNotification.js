@@ -70,7 +70,7 @@ class ForumNotification {
         request.get(settings, function (error, response, data) {
           const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
           let table = jsdom.window.document.getElementsByClassName("forumline");
-          table = table[table.length - 1];
+          table = table[table.length - 2];
           let MD = {};
           MD.avatar = table.getElementsByClassName("postdetails");
           MD.avatar = MD.avatar[MD.avatar.length - 3];
