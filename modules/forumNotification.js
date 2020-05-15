@@ -42,47 +42,57 @@ class ForumNotification {
         // get message info
         settings.url = "https://lf2.co.il" + body[body.length - 4].href
         console.log("test");
-        let MD = getMessageDetails(settings);
-        client.lastThread.set("name", name.innerHTML);
-        client.lastThread.set("author", author);
         let embed = {
           author: {
-            name: author,
-            icon_url: MD.avatar,
+            name: author
           },
-          color: 0x0099ff,
           title: name.innerHTML,
           url: "https://lf2.co.il" + body[body.length - 4].href,
-          description: "כאן יוכנס התוכן של ההודעה",
           footer: {
             text: forum
-          },
-          thumbnail: {
-            url: MD.avatar,
           }
         };
-        client.channels.cache.find(c => c.id === '704981301572403211').send({ embed }).catch(console.error);
-        client.channels.cache.find(c => c.id === '708218080815218748').send({ embed }).catch(console.error);
-
-
+        client.lastThread.set("name", name.innerHTML);
+        client.lastThread.set("author", author);
+        let MD = getMessageDetails(settings, embed);
       }
+
+      // request to the message page
+      function getMessageDetails(settings, embed) {
+        request.get(settings, function (error, response, data) {
+          const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
+          const table = jsdom.window.document.getElementsByTagName("tbody")[8];
+          let MD = {};
+          MD.avatar = table.getElementsByClassName("row2")
+          MD.avatar = MD.avatar[MD.avatar.length - 3];
+          MD.avatar = MD.avatar.getElementsByTagName("img")
+          MD.avatar = MD[1].src;
+          MD.rank = MD[0].src;
+
+          embed = {
+            author: {
+              name: embed.author.name,
+              icon_url: MD.avatar,
+            },
+            color: 0x0099ff,
+            title: embed.title,
+            url: embed.url,
+            description: "כאן יוכנס התוכן של ההודעה",
+            footer: {
+              text: embed.footer.text
+            },
+            thumbnail: {
+              url: MD.avatar,
+            }
+          };
+          
+          client.channels.cache.find(c => c.id === '704981301572403211').send({ embed }).catch(console.error);
+          client.channels.cache.find(c => c.id === '708218080815218748').send({ embed }).catch(console.error);
+        });
+      }
+
     });
   }
-}
-
-// request to the message page
-function getMessageDetails(settings) {
-  return request.get(settings, function (error, response, data) {
-    const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
-    const table = jsdom.window.document.getElementsByTagName("tbody")[8];
-    let MD = {};
-    MD.avatar = table.getElementsByClassName("row2")
-    MD.avatar = MD.avatar[MD.avatar.length - 3];
-    MD.avatar = MD.avatar.getElementsByTagName("img")
-    MD.avatar = MD[1].src;
-    MD.rank = MD[0].src;
-    return MD;
-  });
 }
 
 module.exports = ForumNotification;
