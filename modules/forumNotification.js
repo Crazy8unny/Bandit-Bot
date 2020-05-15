@@ -66,8 +66,8 @@ class ForumNotification {
           MD.avatar = table.getElementsByClassName("row2")
           MD.avatar = MD.avatar[MD.avatar.length - 3];
           MD.avatar = MD.avatar.getElementsByTagName("img")
-          MD.avatar = MD[1].src;
-          MD.rank = MD[0].src;
+          MD.rank = MD.avatar[0].src;
+          MD.avatar = MD.avatar[1].src;
 
           embed = {
             author: {
@@ -85,7 +85,7 @@ class ForumNotification {
               url: MD.avatar,
             }
           };
-          
+
           client.channels.cache.find(c => c.id === '704981301572403211').send({ embed }).catch(console.error);
           client.channels.cache.find(c => c.id === '708218080815218748').send({ embed }).catch(console.error);
         });
