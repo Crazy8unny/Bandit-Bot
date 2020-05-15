@@ -41,7 +41,6 @@ class ForumNotification {
       if (name.innerHTML != prevName || author != prevAuthor) {
         // get message info
         settings.url = "https://lf2.co.il" + body[body.length - 4].href
-        console.log("test");
         let embed = {
           author: {
             name: author
@@ -68,11 +67,8 @@ class ForumNotification {
           MD.avatar = MD.avatar.getElementsByTagName("img");
           MD.rank = MD.avatar[0].src;
           MD.avatar = MD.avatar[1].src;
-          MD.rank += "https://www.lf2.co.il/forum/";
 
-          if (!MD.avatar.startsWith("http")) {
-            MD.avatar += "https://www.lf2.co.il/forum/";
-          }
+          console.log(MD.avatar);
 
           let comment = table.getElementsByClassName("postbody");
           comment = comment[comment.length - 1]
