@@ -71,7 +71,11 @@ class ForumNotification {
           const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
           let table = jsdom.window.document.getElementsByClassName("forumline");
           console.log(table.length);
-          table = table[table.length - 1];
+          if (table.length <= 2) {
+            table = table[0];
+          } else {
+            table = table[table.length - 2];
+          }
           let MD = {};
           MD.avatar = table.getElementsByClassName("postdetails");
           MD.avatar = MD.avatar[MD.avatar.length - 3];
