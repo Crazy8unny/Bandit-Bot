@@ -39,7 +39,7 @@ class ForumNotification {
       position = bodyWords.search("תגובות\\)");
       let number = bodyWords.substring(0, position);
       position = number.search(new RegExp( '\\(' + '[' + '1234567890' + ']', 'g'));
-      number = bodyWords.substring(position + 1, number.length);
+      number = number.substring(position + 1, number.length);
       number = parseInt(number);
       let color = "#1E2023";
       if (number == 0) {
