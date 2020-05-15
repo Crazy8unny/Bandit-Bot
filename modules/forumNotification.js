@@ -63,7 +63,7 @@ class ForumNotification {
           const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
           const table = jsdom.window.document.getElementsByTagName("tbody")[8];
           let MD = {};
-          MD.avatar = table.getElementsByClassName("row2");
+          MD.avatar = table.getElementsByClassName("postdetails");
           MD.avatar = MD.avatar[MD.avatar.length - 3];
           MD.avatar = MD.avatar.getElementsByTagName("img");
           MD.rank = MD.avatar[0].src;
@@ -72,9 +72,9 @@ class ForumNotification {
           let comment = table.getElementsByClassName("postbody");
           comment = comment[comment.length - 1]
           comment = comment.innerHTML;
-          comment.replace("<br>", "\n");
+          comment = comment.replace("<br>", "\n");
           let regex = new RegExp('[^' + '\nאבגדהוזחטיכלמנסעפצקרשת!? ' + ']', 'g');
-          comment.replace(regex, '');
+          comment = comment.replace(regex, '');
 
           embed = {
             author: {
