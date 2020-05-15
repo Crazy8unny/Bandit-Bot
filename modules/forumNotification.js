@@ -41,6 +41,7 @@ class ForumNotification {
       if (name.innerHTML != prevName || author != prevAuthor) {
         // get message info
         settings.url = "https://lf2.co.il" + body[body.length - 4].href
+        console.log("test");
         let MD = getMessageDetails(settings);
         client.lastThread.set("name", name.innerHTML);
         client.lastThread.set("author", author);
