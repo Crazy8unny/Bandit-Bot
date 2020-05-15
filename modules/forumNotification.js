@@ -84,13 +84,13 @@ class ForumNotification {
             MD.avatar = MD.avatar.replace("\\", "/");
           }
 
-          console.log(MD.avatar);
+          // console.log(MD.avatar);
 
           let comment = table.getElementsByClassName("postbody");
           comment = comment[comment.length - 1]
           comment = comment.innerHTML;
           comment = comment.replace("<br>", "\n");
-          let regex = new RegExp('[^' + '\n\,\.אבגדהוזחטיכלמנסעפצקרשתךםןץף!? ' + ']', 'g');
+          let regex = new RegExp('[^' + '\nאבגדהוזחטיכלמנסעפצקרשתךםןץף ' + ']', 'g');
           comment = comment.replace(regex, '');
 
           embed = {
