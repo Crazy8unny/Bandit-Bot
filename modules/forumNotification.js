@@ -68,6 +68,11 @@ class ForumNotification {
           MD.avatar = MD.avatar.getElementsByTagName("img");
           MD.rank = MD.avatar[0].src;
           MD.avatar = MD.avatar[1].src;
+          MD.rank += "https://www.lf2.co.il/forum/";
+
+          if (MD.avatar.startsWith("http")!) {
+            MD.avatar += "https://www.lf2.co.il/forum/";
+          }
 
           let comment = table.getElementsByClassName("postbody");
           comment = comment[comment.length - 1]
