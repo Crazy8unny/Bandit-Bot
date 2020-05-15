@@ -26,7 +26,7 @@ class ForumNotification {
 
     request.get(settings, function (error, response, data) {
 
-      //find message author and title in forum general page
+      // find message author and title in forum general page
       const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
       const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
       let name = body[body.length - 6].getElementsByTagName("b")[0];
@@ -44,24 +44,24 @@ class ForumNotification {
         let MD = getMessageDetails(settings);
         client.lastThread.set("name", name.innerHTML);
         client.lastThread.set("author", author);
-        // let embed = {
-        //   author: {
-        //     name: author,
-        //     icon_url: avatar,
-        //   },
-        //   color: 0x0099ff,
-        //   title: name.innerHTML,
-        //   url: "https://lf2.co.il" + body[body.length - 4].href,
-        //   description: "כאן יוכנס התוכן של ההודעה",
-        //   footer: {
-        //     text: forum
-        //   },
-        //   thumbnail: {
-        //     url: avatar,
-        //   }
-        // };
-        // client.channels.cache.find(c => c.id === '704981301572403211').send({ embed }).catch(console.error);
-        // client.channels.cache.find(c => c.id === '708218080815218748').send({ embed }).catch(console.error);
+        let embed = {
+          author: {
+            name: author,
+            icon_url: MD.avatar,
+          },
+          color: 0x0099ff,
+          title: name.innerHTML,
+          url: "https://lf2.co.il" + body[body.length - 4].href,
+          description: "כאן יוכנס התוכן של ההודעה",
+          footer: {
+            text: forum
+          },
+          thumbnail: {
+            url: MD.avatar,
+          }
+        };
+        client.channels.cache.find(c => c.id === '704981301572403211').send({ embed }).catch(console.error);
+        client.channels.cache.find(c => c.id === '708218080815218748').send({ embed }).catch(console.error);
 
 
       }
@@ -69,20 +69,14 @@ class ForumNotification {
       // request to the message page
       function getMessageDetails(settings) {
         request.get(settings, function (error, response, data) {
-          console.log("hi I am here")
           const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
           const table = jsdom.window.document.getElementsByTagName("tbody")[8];
           let MD = {};
-          let avatar = table.getElementsByClassName("row2")
-          console.log(avatar);
-          avatar = avatar[avatar.length - 3];
-          console.log(avatar);
-          avatar = avatar.getElementsByTagName("img")
-          let rank = avatar.getElementsByTagName("img")[0];
-          avatar = avatar.getElementsByTagName("img")[1];
-          MD.avatar = avatar;
-          MD.rank = rank;
-          console.log(rank);
+          MD.avatar = table.getElementsByClassName("row2")
+          MD.avatar = MD.avatar[MD.avatar.length - 3];
+          MD.avatar = MD.avatar.getElementsByTagName("img")
+          MD.avatar = MD[1].src;
+          MD.rank = MD[0].src;
           return MD;
         });
       }
