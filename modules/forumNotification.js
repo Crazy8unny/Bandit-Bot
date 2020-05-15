@@ -37,7 +37,7 @@ class ForumNotification {
       position = author.search(",");
       author = author.substring(20, position);
       position = bodyWords.search("תגובות\\)");
-      number = bodyWords.substring(0, position);
+      let number = bodyWords.substring(0, position);
       position = number.search(new RegExp( '\\(' + '[' + '1234567890' + ']', 'g'));
       number = bodyWords.substring(position + 1, number.length);
       number = parseInt(number);
