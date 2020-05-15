@@ -90,7 +90,7 @@ class ForumNotification {
           comment = comment[comment.length - 1]
           comment = comment.innerHTML;
           comment = comment.replace("<br>", "\n");
-          let regex = new RegExp('[^' + '\nאבגדהוזחטיכלמנסעפצקרשת!? ' + ']', 'g');
+          let regex = new RegExp('[^' + '\nאבגדהוזחטיכלמנסעפצקרשתךםןץף!? ' + ']', 'g');
           comment = comment.replace(regex, '');
 
           embed = {
