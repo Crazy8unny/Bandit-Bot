@@ -36,7 +36,16 @@ class ForumNotification {
       let author = bodyWords.substring(position, bodyWords.length);
       position = author.search(",");
       author = author.substring(20, position);
-
+      let position = bodyWords.search("תגובות\\)");
+      number = bodyWords.substring(0, position);
+      position = number.search(new RegExp( '\\(' + '[' + '1234567890' + ']', 'g'));
+      number = bodyWords.substring(position + 1, number.length);
+      number = parseInt(number);
+      let color = "#1E2023";
+      if (number == 0) {
+        color = 0x0099ff;
+      }
+      
       // check if its a new message
       if (name.innerHTML != prevName || author != prevAuthor) {
         // get message info
@@ -48,7 +57,7 @@ class ForumNotification {
           title: name.innerHTML,
           url: "https://lf2.co.il" + body[body.length - 4].href,
           footer: {
-            text: forum
+            text: forum + `(${number} תגובות)`
           }
         };
         client.lastThread.set("name", name.innerHTML);
@@ -87,9 +96,9 @@ class ForumNotification {
           embed = {
             author: {
               name: embed.author.name,
-              icon_url: MD.avatar,
+              icon_url: MD.rank,
             },
-            color: 0x0099ff,
+            color: color,
             title: embed.title,
             url: embed.url,
             description: comment,
