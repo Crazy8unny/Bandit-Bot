@@ -26,7 +26,7 @@ class ForumNotification {
 
     request.get(settings, function (error, response, data) {
 
-      // const $ = cheerio.load(data);
+      //find message author and title in forum general page
       const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
       const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
       let name = body[body.length - 6].getElementsByTagName("b")[0];
@@ -37,35 +37,48 @@ class ForumNotification {
       position = author.search(",");
       author = author.substring(20, position);
 
+      // check if its a new message
       if (name.innerHTML != prevName || author != prevAuthor) {
+        // get message info
+        settings.url = "https://lf2.co.il" + body[body.length - 4].href
+        let MD = getMessageDetails(settings);
         client.lastThread.set("name", name.innerHTML);
         client.lastThread.set("author", author);
         let embed = {
+          author: {
+            name: author,
+            icon_url: MD.avatar,
+          },
           color: 0x0099ff,
           title: name.innerHTML,
           url: "https://lf2.co.il" + body[body.length - 4].href,
-          description: forum,
+          description: "כאן יוכנס התוכן של ההודעה",
           footer: {
-            text: author
+            text: forum
+          },
+          thumbnail: {
+            url: MD.avatar,
           }
         };
-        console.log(name.innerHTML);
         client.channels.cache.find(c => c.id === '704981301572403211').send({ embed }).catch(console.error);
         client.channels.cache.find(c => c.id === '708218080815218748').send({ embed }).catch(console.error);
 
-        settings.url = "https://lf2.co.il" + body[body.length - 4].href
 
-        // // console.log(link);
-        // request.get(settings, function (err, res, dat) {
-        //   console.log(dat)
-        //   // const jsdom = new JSDOM(dat);
-        //   // const table = jsdom.window.document.getElementsByTagName("tbody")[8];
-        //   // let time = table.getElementsByClassName("postdetails");
-        //   // time = time[time.length - 2];
-        //   // console.log(table);
-        //   // console.log(time);
-        // });
       }
+    });
+  }
+
+  getMessageDetails(settings) {
+    request.get(settings, function (error, response, data) {
+      const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
+      const table = jsdom.window.document.getElementsByTagName("tbody")[8];
+      let MD = {};
+      MD.avatar = table.getElementsByClassName("row2")
+      MD.avatar = MD.avatar[MD.avatar.length - 3];
+      MD.avatar = MD.avatar.getElementsByTagName("img")
+      MD.rank = MD.avatar.getElementsByTagName("img")[0];
+      MD.avatar = MD.avatar.getElementsByTagName("img")[1];
+      return MD;
     });
   }
 }
