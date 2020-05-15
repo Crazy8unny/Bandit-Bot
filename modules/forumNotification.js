@@ -70,7 +70,7 @@ class ForumNotification {
           MD.avatar = MD.avatar[1].src;
           MD.rank += "https://www.lf2.co.il/forum/";
 
-          if (MD.avatar.startsWith("http")!) {
+          if (!MD.avatar.startsWith("http")) {
             MD.avatar += "https://www.lf2.co.il/forum/";
           }
 
