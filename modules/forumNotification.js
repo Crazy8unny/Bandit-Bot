@@ -47,7 +47,7 @@ class ForumNotification {
         // let embed = {
         //   author: {
         //     name: author,
-        //     icon_url: MD.avatar,
+        //     icon_url: avatar,
         //   },
         //   color: 0x0099ff,
         //   title: name.innerHTML,
@@ -57,7 +57,7 @@ class ForumNotification {
         //     text: forum
         //   },
         //   thumbnail: {
-        //     url: MD.avatar,
+        //     url: avatar,
         //   }
         // };
         // client.channels.cache.find(c => c.id === '704981301572403211').send({ embed }).catch(console.error);
@@ -73,13 +73,13 @@ class ForumNotification {
           const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
           const table = jsdom.window.document.getElementsByTagName("tbody")[8];
           let MD = {};
-          MD.avatar = table.getElementsByClassName("row2")
-          MD.avatar = MD.avatar[MD.avatar.length - 3];
-          MD.avatar = MD.avatar.getElementsByTagName("img")
-          MD.rank = MD.avatar.getElementsByTagName("img")[0];
-          MD.avatar = MD.avatar.getElementsByTagName("img")[1];
-          console.log(MD.avatar);
-          console.log(MD.rank);
+          let avatar = table.getElementsByClassName("row2")
+          avatar = avatar[avatar.length - 3];
+          avatar = avatar.getElementsByTagName("img")
+          let rank = avatar.getElementsByTagName("img")[0];
+          avatar = avatar.getElementsByTagName("img")[1];
+          MD.avatar = avatar;
+          MD.rank = rank;
           return MD;
         });
       }
