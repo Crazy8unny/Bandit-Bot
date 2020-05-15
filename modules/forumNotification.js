@@ -87,7 +87,7 @@ class ForumNotification {
 
           console.log("avatar: " + MD.avatar);
           console.log("rank: " + MD.rank);
-          if (MD.avatar.startsWith("images\\")) {
+          if (MD.avatar.startsWith("images")) {
             MD.avatar = "https://www.lf2.co.il/forum/" + MD.avatar;
             MD.avatar = MD.avatar.replace("\\", "/");
           }
