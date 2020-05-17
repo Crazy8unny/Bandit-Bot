@@ -61,8 +61,8 @@ class ForumNotification {
           };
           client.lastThread.set("name", name.innerHTML);
           client.lastThread.set("author", author);
-          let MD = getMessageDetails(settings, embed);
           client.works = false;
+          let MD = getMessageDetails(settings, embed);
         }
 
         // request to the message page
