@@ -121,10 +121,10 @@ class ForumNotification {
             client.channels.cache.find(c => c.id === '708218080815218748').send({ embed }).catch(console.error);
             client.channels.cache.find(c => c.id === '711614062408237108').send({ embed }).catch(console.error);
           });
+          client.works = false;
         }
 
       });
-      client.works = false;
     }
   }
 }
