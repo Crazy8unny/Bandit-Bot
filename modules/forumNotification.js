@@ -14,17 +14,15 @@ const request = require('request');
 
 class ForumNotification {
   static listen(client) {
-    const timestamp = `[${moment().format("YYYY-MM-DD HH:mm:ss")}]:`;
+    if (!client.works) {
+    client.works = true;
     const prevName = client.lastThread.get("name");
     const prevAuthor = client.lastThread.get("author");
-    // console.log("test name: " + prevName);
     let settings = {
       "url": "https://lf2.co.il/forum/index.php",
       "method": "GET",
       "encoding": null
     }
-    if (!client.works) {
-      client.works = true;
       request.get(settings, function (error, response, data) {
 
         // find message author and title in forum general page
