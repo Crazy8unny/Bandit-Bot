@@ -62,7 +62,6 @@ class ForumNotification {
           client.lastThread.set("name", name.innerHTML);
           client.lastThread.set("author", author);
           let MD = getMessageDetails(settings, embed);
-          client.works = false;
         }
 
         // request to the message page
@@ -121,6 +120,7 @@ class ForumNotification {
             client.channels.cache.find(c => c.id === '704981301572403211').send({ embed }).catch(console.error);
             client.channels.cache.find(c => c.id === '708218080815218748').send({ embed }).catch(console.error);
             client.channels.cache.find(c => c.id === '711614062408237108').send({ embed }).catch(console.error);
+            client.works = false;
           });
         }
 
