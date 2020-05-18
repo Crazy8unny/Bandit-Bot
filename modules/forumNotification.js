@@ -126,7 +126,7 @@ class ForumNotification {
         function addLF2Domain(name, isRank) {
           if (name.startsWith("images") || isRank) {
             name = "https://www.lf2.co.il/forum/" + MD.avatar;
-            name = MD.avatar.replace("\\", "/");
+            name = name.replace("\\", "/");
           }
           return name;
         }
