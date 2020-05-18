@@ -133,7 +133,7 @@ class ForumNotification {
 
       });
       client.works = false;
-      console.log("I ended here");
+      // console.log("I ended here");
     }
   }
 }
