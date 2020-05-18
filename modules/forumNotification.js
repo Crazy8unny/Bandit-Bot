@@ -15,15 +15,18 @@ const request = require('request');
 class ForumNotification {
   static listen(client) {
     if (!client.works) {
-    const prevName = client.lastThread.get("name");
-    const prevAuthor = client.lastThread.get("author");
-    let settings = {
-      "url": "https://lf2.co.il/forum/index.php",
-      "method": "GET",
-      "encoding": null
-    }
+      client.works = true;
+      let settings = {
+        "url": "https://lf2.co.il/forum/index.php",
+        "method": "GET",
+        "encoding": null
+      }
       request.get(settings, function (error, response, data) {
-
+        
+        const prevName = client.lastThread.get("name");
+        const prevAuthor = client.lastThread.get("author");
+        const prevNumber = client.lastThread.get("commentsNumber");
+        
         // find message author and title in forum general page
         const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
         const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");
@@ -45,8 +48,7 @@ class ForumNotification {
         }
 
         // check if its a new message
-        if (name.innerHTML != prevName || author != prevAuthor) {
-          client.works = true;
+        if (name.innerHTML != prevName || author != prevAuthor || number != prevNumber) {
           // get message info
           settings.url = "https://lf2.co.il" + body[body.length - 4].href
           let embed = {
@@ -61,6 +63,7 @@ class ForumNotification {
           };
           client.lastThread.set("name", name.innerHTML);
           client.lastThread.set("author", author);
+          client.lastThread.set("commentsNumber", author);
           let MD = getMessageDetails(settings, embed);
         }
 
@@ -78,17 +81,13 @@ class ForumNotification {
             let MD = {};
             MD.avatar = table.getElementsByClassName("postdetails");
             MD.avatar = MD.avatar[MD.avatar.length - 3];
-            MD.avatar = MD.avatar.getElementsByTagName("img");
-            MD.rank = MD.avatar[0].src;
-            MD.avatar = MD.avatar[1].src;
-            MD.rank = "https://www.lf2.co.il/forum/" + MD.rank;
-            MD.rank = MD.rank.replace("\\", "/");
+            let photos = MD.avatar.getElementsByTagName("img");
+            MD.avatar = addLF2Domain(photos[1].src, false);
+            MD.rank = addLF2Domain(photos[0].src, true);
             
-            console.log("avatar: " + MD.avatar);
-            console.log("rank: " + MD.rank);
-            if (MD.avatar.startsWith("images")) {
-              MD.avatar = "https://www.lf2.co.il/forum/" + MD.avatar;
-              MD.avatar = MD.avatar.replace("\\", "/");
+            if(MD.rank == "https://lf2.co.il/forum/templates/fiblack3dblue/images/Big_Sword.gif" && photos.length > 2) {
+              MD.rank = MD.avatar;
+              MD.avatar = addLF2Domain(photos[2].src, false);
             }
 
             // console.log(MD.avatar);
@@ -124,7 +123,17 @@ class ForumNotification {
           });
         }
 
+        function addLF2Domain(name, isRank) {
+          if (name.startsWith("images") || isRank) {
+            name = "https://www.lf2.co.il/forum/" + MD.avatar;
+            name = MD.avatar.replace("\\", "/");
+          }
+          return name;
+        }
+
       });
+      client.works = false;
+      console.log("I ended here");
     }
   }
 }
