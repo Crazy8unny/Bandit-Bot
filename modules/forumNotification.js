@@ -63,7 +63,7 @@ class ForumNotification {
           };
           client.lastThread.set("name", name.innerHTML);
           client.lastThread.set("author", author);
-          client.lastThread.set("commentsNumber", author);
+          client.lastThread.set("commentsNumber", number);
           let MD = getMessageDetails(settings, embed);
         }
 
