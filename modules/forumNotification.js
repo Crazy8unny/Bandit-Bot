@@ -15,7 +15,6 @@ const request = require('request');
 class ForumNotification {
   static listen(client) {
     if (!client.works) {
-    client.works = true;
     const prevName = client.lastThread.get("name");
     const prevAuthor = client.lastThread.get("author");
     let settings = {
@@ -47,6 +46,7 @@ class ForumNotification {
 
         // check if its a new message
         if (name.innerHTML != prevName || author != prevAuthor) {
+          client.works = true;
           // get message info
           settings.url = "https://lf2.co.il" + body[body.length - 4].href
           let embed = {
@@ -61,8 +61,8 @@ class ForumNotification {
           };
           client.lastThread.set("name", name.innerHTML);
           client.lastThread.set("author", author);
-          client.works = false;
           let MD = getMessageDetails(settings, embed);
+          client.works = false;
         }
 
         // request to the message page
