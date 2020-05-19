@@ -84,7 +84,8 @@ class ForumNotification {
             let photos = MD.avatar.getElementsByTagName("img");
             MD.avatar = addLF2Domain(photos[1].src, false);
             MD.rank = addLF2Domain(photos[0].src, true);
-            
+            console.log(MD.rank);
+             
             if(MD.rank == "https://lf2.co.il/forum/templates/fiblack3dblue/images/Big_Sword.gif" && photos.length > 2) {
               MD.rank = MD.avatar;
               MD.avatar = addLF2Domain(photos[2].src, false);
