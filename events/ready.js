@@ -10,9 +10,6 @@ module.exports = class {
     // for all of them to be loaded.
     // NOTE: client.wait is added by ./modules/functions.js!
     await this.client.wait(1000);
-    if (!this.client.lastThread.has("name")) {
-      this.client.lastThread.set("name", "first run");
-    }
 
     // This loop ensures that client.appInfo always contains up to date data
     // about the app's status. This includes whether the bot is public or not,

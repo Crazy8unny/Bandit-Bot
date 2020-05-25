@@ -11,10 +11,30 @@ const readdir = promisify(require("fs").readdir);
 const Enmap = require("enmap");
 const klaw = require("klaw");
 const path = require("path");
+const admin = require("firebase-admin");
 
 class BanditBot extends Client {
   constructor (options) {
     super(options);
+
+    // Init firebase
+    admin.initializeApp({
+      credential: admin.credential.cert({
+        "type": "service_account",
+        "project_id": "bandit-bot-db",
+        "private_key_id": process.env.private_key_id,
+        "private_key": process.env.private_key,
+        "client_email": process.env.client_email,
+        "client_id": process.env.client_id,
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-8r1o3%40bandit-bot-db.iam.gserviceaccount.com"
+      }),
+      databaseURL: "https://bandit-bot-db.firebaseio.com"
+    });
+
+    this.db = admin.firestore();
 
     // Here we load the config.js file that contains our token and our prefix values.
     this.config = require("./config.js");
@@ -33,7 +53,7 @@ class BanditBot extends Client {
     // essentially saves a collection to disk. This is great for per-server configs,
     // and makes things extremely easy for this purpose.
     this.settings = new Enmap({ name: "settings", cloneLevel: "deep", fetchAll: false, autoFetch: true });
-    this.lastThread = new Enmap({ name: "lastThread", cloneLevel: "deep", fetchAll: false, autoFetch: true})
+    this.lastThread = this.db.collection("lastThread");
     
     //requiring the Logger class for easy console logging
     this.logger = require("./modules/Logger");
