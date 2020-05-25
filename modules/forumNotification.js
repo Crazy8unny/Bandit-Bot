@@ -27,6 +27,8 @@ class ForumNotification {
         const prevName = prevComment.name;
         const prevAuthor = prevComment.author;
         const prevNumber = prevComment.commentsNumber;
+
+        console.log(prevName + prevAuthor + prevNumber);
         
         // find message author and title in forum general page
         const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
@@ -71,7 +73,6 @@ class ForumNotification {
           request.get(settings, function (error, response, data) {
             const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
             let table = jsdom.window.document.getElementsByClassName("forumline");
-            console.log("topic something wierd length:" + table.length);
             if (table.length < 2) {
               table = table[0];
             } else {
@@ -88,8 +89,6 @@ class ForumNotification {
               MD.rank = MD.avatar;
               MD.avatar = addLF2Domain(photos[2].src, false);
             }
-
-            // console.log(MD.avatar);
 
             let comment = table.getElementsByClassName("postbody");
             comment = comment[comment.length - 1]
@@ -132,7 +131,6 @@ class ForumNotification {
 
       });
       client.works = false;
-      // console.log("I ended here");
     }
   }
 }

@@ -17,12 +17,6 @@ class BanditBot extends Client {
   constructor (options) {
     super(options);
 
-    console.log(process.env.private_key_id);
-    console.log(process.env.private_key);
-    console.log(process.env.client_email);
-    console.log(process.env.client_id);
-
-
     // Init firebase
     admin.initializeApp({
       credential: admin.credential.cert({
