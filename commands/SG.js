@@ -14,13 +14,15 @@ class SG extends Command {
     async run(message, args, level) {
         let res = "https://www.sdarot.today/watch/92-stargate-sg-1-%D7%A1%D7%98%D7%90%D7%A8%D7%92%D7%99%D7%99%D7%98-%D7%90%D7%A1-%D7%92%D7%99-1";
         let popcorn = false;
-        this.client.SG.doc(message.guild).get().then(lastEpisode => {
+        const server = this.client.SG.doc(message.guild);
+        server.get().then(lastEpisode => {
             if (!lastEpisode.exists) {
                 lastEpisode = { url: "וואלה לא יודע אח שלי"};
             }
             else {
                 lastEpisode = lastEpisode.data();
             }
+            
             if (args[0] == null) {
             }
             else if (args[0] == "הקודם" && args[1] == null) {
@@ -36,7 +38,7 @@ class SG extends Command {
                 res += "-stargate-sg-1/season/" + args[0] + "/episode/" + args[2];
                 popcorn = true;
                 lastEpisode.url = `אתם בעונה ${args[0]} פרק ${args[2]}`;
-                this.client.SG.doc(message.guild).set(lastEpisode);
+               server.set(lastEpisode);
             }
             message.channel.send(res.toString());
             if (popcorn) {
