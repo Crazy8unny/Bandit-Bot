@@ -24,11 +24,6 @@ class ForumNotification {
       request.get(settings, function (error, response, data) {
         
         let prevComment = client.lastThread.get();
-        if (!prevComment.exist) {
-          client.lastThread.set({name: "hi", author: "hi", commentsNumber: 0});
-        }
-        prevComment = client.lastThread.get();
-
         const prevName = prevComment.name;
         const prevAuthor = prevComment.author;
         const prevNumber = prevComment.commentsNumber;
