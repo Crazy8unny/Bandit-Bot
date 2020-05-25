@@ -38,7 +38,7 @@ class SG extends Command {
                 res += "-stargate-sg-1/season/" + args[0] + "/episode/" + args[2];
                 popcorn = true;
                 lastEpisode.url = `אתם בעונה ${args[0]} פרק ${args[2]}`;
-               server.set(lastEpisode);
+                server.set(lastEpisode);
             }
             message.channel.send(res.toString());
             if (popcorn) {
