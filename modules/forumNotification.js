@@ -23,9 +23,15 @@ class ForumNotification {
       }
       request.get(settings, function (error, response, data) {
         
-        const prevName = client.lastThread.get("name");
-        const prevAuthor = client.lastThread.get("author");
-        const prevNumber = client.lastThread.get("commentsNumber");
+        let prevComment = client.lastThread.get();
+        if (!prevComment.exist) {
+          client.lastThread.set({name: "hi", author: "hi", commentsNumber: 0});
+        }
+        prevComment = client.lastThread.get();
+
+        const prevName = prevComment.name;
+        const prevAuthor = prevComment.author;
+        const prevNumber = prevComment.commentsNumber;
         
         // find message author and title in forum general page
         const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
@@ -61,9 +67,7 @@ class ForumNotification {
               text: forum + ` (${number} תגובות) `
             }
           };
-          client.lastThread.set("name", name.innerHTML);
-          client.lastThread.set("author", author);
-          client.lastThread.set("commentsNumber", number);
+          client.lastThread.set({name: name.innerHTML, author: author, commentsNumber: number});
           let MD = getMessageDetails(settings, embed);
         }
 
