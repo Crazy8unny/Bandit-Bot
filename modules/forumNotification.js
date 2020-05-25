@@ -23,7 +23,8 @@ class ForumNotification {
       }
       request.get(settings, function (error, response, data) {
         
-        let prevComment = client.lastThread.get()[0];
+        let prevComment = await client.lastThread.get();
+        prevComment = prevComment.data();
         const prevName = prevComment.name;
         const prevAuthor = prevComment.author;
         const prevNumber = prevComment.commentsNumber;
