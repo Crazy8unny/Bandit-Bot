@@ -33,8 +33,6 @@ class ForumNotification {
           const prevAuthor = prevComment.author;
           const prevNumber = prevComment.commentsNumber;
 
-          console.log(prevName + " " + prevAuthor + " " + prevNumber);
-
           // find message author and title in forum general page
           const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
           const body = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].getElementsByTagName("a");

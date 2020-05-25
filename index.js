@@ -54,6 +54,7 @@ class BanditBot extends Client {
     // and makes things extremely easy for this purpose.
     this.settings = new Enmap({ name: "settings", cloneLevel: "deep", fetchAll: false, autoFetch: true });
     this.lastThread = this.db.collection("lastThread").doc("LT");
+    this.SG = this.db.collection("Stargate");
     
     //requiring the Logger class for easy console logging
     this.logger = require("./modules/Logger");
