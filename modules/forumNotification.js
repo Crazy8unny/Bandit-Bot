@@ -59,7 +59,7 @@ class ForumNotification {
           newUserTable = newUserTable[newUserTable.length - 3]
           newUserTable = newUserTable.getElementsByTagName("tr")
           newUserTable = newUserTable[newUserTable.length - 2]
-          let newUser = newUserTable.getElementsByTagName("a");
+          let newUser = newUserTable.getElementsByTagName("a")[0].innerHTML;
 
 
           // check if its a new message
