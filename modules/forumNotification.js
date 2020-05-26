@@ -57,22 +57,13 @@ class ForumNotification {
           //find new user details
           let newUserTable = jsdom.window.document.getElementsByTagName("tbody");
           console.log(newUserTable.length);
-          console.log(newUserTable[newUserTable.length - 1].getElementsByTagName("tr").length);
-          console.log(newUserTable[newUserTable.length - 2].getElementsByTagName("tr").length);
-          console.log(newUserTable[newUserTable.length - 3].getElementsByTagName("tr").length);
-          console.log(newUserTable[newUserTable.length - 4].getElementsByTagName("tr").length);
-          console.log(newUserTable[newUserTable.length - 5].getElementsByTagName("tr").length);
           console.log(newUserTable[newUserTable.length - 6].getElementsByTagName("tr").length);
-          console.log(newUserTable[newUserTable.length - 7].getElementsByTagName("tr").length);
-          console.log(newUserTable[newUserTable.length - 8].getElementsByTagName("tr").length);
-          console.log(newUserTable[newUserTable.length - 9].getElementsByTagName("tr").length);
-          console.log(newUserTable[newUserTable.length - 10].getElementsByTagName("tr").length);
-          console.log(newUserTable[newUserTable.length - 11].getElementsByTagName("tr").length);
-          // newUserTable = newUserTable[newUserTable.length - 2];
-          // newUserTable = newUserTable.getElementsByTagName("tr");
-          // console.log(newUserTable.length);
-          // newUserTable = newUserTable[newUserTable.length - 3];
-          // let newUser = newUserTable.getElementsByTagName("a")[1].innerHTML;
+          // console.log(newUserTable[newUserTable.length - 9].getElementsByTagName("tr").length)
+          newUserTable = newUserTable[newUserTable.length - 6];
+          newUserTable = newUserTable.getElementsByTagName("tr");
+          console.log(newUserTable.length);
+          newUserTable = newUserTable[newUserTable.length - 3];
+          let newUser = newUserTable.getElementsByTagName("a")[0].innerHTML;
 
           // check if its a new message
           if (name.innerHTML != prevName || author != prevAuthor || number != prevNumber) {
