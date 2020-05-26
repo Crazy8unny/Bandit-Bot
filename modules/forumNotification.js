@@ -55,11 +55,12 @@ class ForumNotification {
           }
 
           //find new user details
-          let newUserTable = jsdom.window.document.getElementsByTagName("tbody")
-          newUserTable = newUserTable[newUserTable.length - 4]
-          newUserTable = newUserTable.getElementsByTagName("tr")
-          newUserTable = newUserTable[newUserTable.length - 3]
-          let newUser = newUserTable.getElementsByTagName("a")[0].innerHTML;
+          let newUserTable = jsdom.window.document.getElementsByTagName("tbody");
+          newUserTable = newUserTable[newUserTable.length - 4];
+          newUserTable = newUserTable.getElementsByTagName("tr");
+          newUserTable = newUserTable[newUserTable.length - 2];
+          console.log(newUserTable.length);
+          // let newUser = newUserTable.getElementsByTagName("a")[0].innerHTML;
 
 
           // check if its a new message
