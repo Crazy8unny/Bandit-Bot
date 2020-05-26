@@ -53,6 +53,9 @@ class ForumNotification {
           if (number == 0) {
             color = 0x0099ff;
           }
+          let embed2 = {
+            color: "#00FF15"
+          };
 
           //find new user details
           let newUserTable = jsdom.window.document.getElementsByTagName("tbody");
@@ -86,11 +89,7 @@ class ForumNotification {
           // check if there is a new user
           if (newUser != prevNewUser) {
             client.lastThread.set({ name: prevName, author: prevAuthor, commentsNumber: prevNumber, newUser: newUser });
-            let embed2 = {
-              title: "**" + "test" + "** הצטרף לפורום !!!!111",
-              description: "",
-              color: "#00FF15"
-            };
+            embed2.title =  "**" + newUser + "** הצטרף לפורום !!!!111";
             console.log("hi");
             client.channels.cache.find(c => c.id === '704981301572403211').send({ embed2 }).catch(console.error);
             client.channels.cache.find(c => c.id === '708218080815218748').send({ embed2 }).catch(console.error);
