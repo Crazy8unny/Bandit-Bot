@@ -21,7 +21,7 @@ class ForumNotification {
         "method": "GET",
         "encoding": null
       }
-      request.get(settings, function (error, response, data) {
+        request.get(settings, function (error, response, data) {
         client.lastThread.get().then(prevComment => {
           if (!prevComment.exists) {
             prevComment = { name: "hi", author: "hi", commentsNumber: "0", newUser: "test" };
@@ -56,13 +56,9 @@ class ForumNotification {
 
           //find new user details
           let newUserTable = jsdom.window.document.getElementsByTagName("tbody");
-          console.log(newUserTable.length);
-          console.log(newUserTable[newUserTable.length - 6].getElementsByTagName("tr").length);
-          // console.log(newUserTable[newUserTable.length - 9].getElementsByTagName("tr").length)
-          newUserTable = newUserTable[newUserTable.length - 6];
+          newUserTable = newUserTable[newUserTable.length - 5];
           newUserTable = newUserTable.getElementsByTagName("tr");
-          console.log(newUserTable.length);
-          newUserTable = newUserTable[newUserTable.length - 3];
+          newUserTable = newUserTable[newUserTable.length - 2];
           let newUser = newUserTable.getElementsByTagName("a")[0].innerHTML;
 
           // check if its a new message
@@ -90,9 +86,9 @@ class ForumNotification {
               title: `**${newUser}** הצטרף לפורום !!!!111`,
               color: "#00FF15"
             }
-            client.channels.cache.find(c => c.id === '704981301572403211').send({ embed }).catch(console.error);
-            client.channels.cache.find(c => c.id === '708218080815218748').send({ embed }).catch(console.error);
-            client.channels.cache.find(c => c.id === '711614062408237108').send({ embed }).catch(console.error);
+            client.channels.cache.find(c => c.id === '704981301572403211').send({ embed2 }).catch(console.error);
+            client.channels.cache.find(c => c.id === '708218080815218748').send({ embed2 }).catch(console.error);
+            client.channels.cache.find(c => c.id === '711614062408237108').send({ embed2 }).catch(console.error);
           }
 
           // request to the message page
