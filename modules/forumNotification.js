@@ -29,10 +29,10 @@ class ForumNotification {
           else {
             prevComment = prevComment.data();
           }
-          const prevName = prevComment.name;
-          const prevAuthor = prevComment.author;
-          const prevNumber = prevComment.commentsNumber;
-          const prevNewUser = prevComment.newUser;
+          let prevName = prevComment.name;
+          let prevAuthor = prevComment.author;
+          let prevNumber = prevComment.commentsNumber;
+          let prevNewUser = prevComment.newUser;
 
           // find message author and title in forum general page
           const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
