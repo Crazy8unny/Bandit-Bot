@@ -56,13 +56,10 @@ class ForumNotification {
 
           //find new user details
           let newUserTable = jsdom.window.document.getElementsByTagName("tbody")
-          console.log(newUserTable.length);
-          newUserTable = newUserTable[newUserTable.length - 2]
-          console.log(newUserTable.length);
+          newUserTable = newUserTable[newUserTable.length - 4]
           newUserTable = newUserTable.getElementsByTagName("tr")
-          console.log(newUserTable.length);
-          // newUserTable = newUserTable[newUserTable.length - 2]
-          // let newUser = newUserTable.getElementsByTagName("a")[0].innerHTML;
+          newUserTable = newUserTable[newUserTable.length - 2]
+          let newUser = newUserTable.getElementsByTagName("a")[0].innerHTML;
 
 
           // check if its a new message
