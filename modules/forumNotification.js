@@ -90,6 +90,7 @@ class ForumNotification {
               title: "**" + newUser + "** הצטרף לפורום !!!!111",
               color: "#00FF15"
             }
+            console.log("hi");
             client.channels.cache.find(c => c.id === '704981301572403211').send({ embed2 }).catch(console.error);
             client.channels.cache.find(c => c.id === '708218080815218748').send({ embed2 }).catch(console.error);
             client.channels.cache.find(c => c.id === '711614062408237108').send({ embed2 }).catch(console.error);
