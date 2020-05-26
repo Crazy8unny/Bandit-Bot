@@ -63,6 +63,10 @@ class ForumNotification {
 
           // check if its a new message
           if (name.innerHTML != prevName || author != prevAuthor || number != prevNumber) {
+            prevName = name.innerHTML;
+            prevAuthor = author;
+            prevNumber = number;
+          
             // get message info
             settings.url = "https://lf2.co.il" + body[body.length - 4].href
             let embed = {
@@ -75,13 +79,13 @@ class ForumNotification {
                 text: forum + ` (${number} תגובות) `
               }
             };
-            client.lastThread.set({ name: name.innerHTML, author: author, commentsNumber: number });
+            client.lastThread.set({ name: prevName, author: prevAuthor, commentsNumber: prevNumber, newUser: prevNewUser });
             let MD = getMessageDetails(settings, embed);
           }
 
           // check if there is a new user
           if (newUser != prevNewUser) {
-            client.lastThread.set({newUser: newUser});
+            client.lastThread.set({ name: prevName, author: prevAuthor, commentsNumber: prevNumber, newUser: newUser });
             let embed2 = {
               title: `**${newUser}** הצטרף לפורום !!!!111`,
               color: "#00FF15"
