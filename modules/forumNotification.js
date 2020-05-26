@@ -57,7 +57,7 @@ class ForumNotification {
           //find new user details
           let newUserTable = jsdom.window.document.getElementsByTagName("tbody")
           console.log(newUserTable.length);
-          newUserTable = newUserTable[newUserTable.length - 3]
+          newUserTable = newUserTable[newUserTable.length - 2]
           console.log(newUserTable.length);
           newUserTable = newUserTable.getElementsByTagName("tr")
           console.log(newUserTable.length);
