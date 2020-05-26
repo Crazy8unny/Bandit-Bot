@@ -86,7 +86,10 @@ class ForumNotification {
           // check if there is a new user
           if (newUser != prevNewUser) {
             client.lastThread.set({ name: prevName, author: prevAuthor, commentsNumber: prevNumber, newUser: newUser });
-            let embed2 = new Discord.MessageEmbed().setTitle("**" + newUser + "** הצטרף לפורום !!!!111").setColor("#00FF15");
+            let embed2 = {
+              title: "**" + newUser + "** הצטרף לפורום !!!!111",
+              color: "#00FF15"
+            }
             client.channels.cache.find(c => c.id === '704981301572403211').send({ embed2 }).catch(console.error);
             client.channels.cache.find(c => c.id === '708218080815218748').send({ embed2 }).catch(console.error);
             client.channels.cache.find(c => c.id === '711614062408237108').send({ embed2 }).catch(console.error);
