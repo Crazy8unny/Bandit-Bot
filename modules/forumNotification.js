@@ -55,7 +55,13 @@ class ForumNotification {
           }
 
           //find new user details
-          let newUser = jsdom.window.document.getElementsByTagName("tbody")[13].getElementsByTagName("tr")[5].getElementsByTagName("a")[0].innerHTML
+          let newUserTable = jsdom.window.document.getElementsByTagName("tbody")
+          console.log(newUserTable.length);
+          // newUserTable = newUserTable[newUserTable.length - 3]
+          // newUserTable = newUserTable.getElementsByTagName("tr")
+          // newUserTable = newUserTable[newUserTable.length - 2]
+          // let newUser = newUserTable.getElementsByTagName("a")[0].innerHTML;
+
 
           // check if its a new message
           if (name.innerHTML != prevName || author != prevAuthor || number != prevNumber) {
