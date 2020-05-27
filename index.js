@@ -17,13 +17,6 @@ class BanditBot extends Client {
   constructor(options) {
     super(options);
 
-    // function to get ID doc from COLLECTIOIN
-    async function getDoc(collection, id) {
-      const snapshot = await db.collection(collection).doc(id).get();
-      const data = snapshot.data();
-      return data;
-    }
-
     // Init firebase
     admin.initializeApp({
       credential: admin.credential.cert({
@@ -43,6 +36,13 @@ class BanditBot extends Client {
 
     this.db = admin.firestore();
 
+    // function to get ID doc from COLLECTIOIN
+    async function getDoc(collection, id) {
+      const snapshot = await this.db.collection(collection).doc(id).get();
+      const data = snapshot.data();
+      return data;
+    }
+
     // Here we load the config.js file that contains our token and our prefix values.
     this.config = require("./config.js");
     // client.config.token contains the bot's token
@@ -61,7 +61,7 @@ class BanditBot extends Client {
     // and makes things extremely easy for this purpose.
     this.settings = new Enmap({ name: "settings", cloneLevel: "deep", fetchAll: false, autoFetch: true });
     this.lastThread = this.db.collection("lastThread").doc("LT");
-    this.servers = await getDoc("lastThread", "Servers");
+    this.servers = getDoc("lastThread", "Servers");
     this.SG = this.db.collection("Stargate");
 
     //requiring the Logger class for easy console logging
