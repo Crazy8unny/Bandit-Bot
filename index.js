@@ -14,8 +14,15 @@ const path = require("path");
 const admin = require("firebase-admin");
 
 class BanditBot extends Client {
-  constructor (options) {
+  constructor(options) {
     super(options);
+
+    // function to get ID doc from COLLECTIOIN
+    async function getDoc(collection, id) {
+      const snapshot = await db.collection(collection).doc(id).get();
+      const data = snapshot.data();
+      return data;
+    }
 
     // Init firebase
     admin.initializeApp({
@@ -54,9 +61,9 @@ class BanditBot extends Client {
     // and makes things extremely easy for this purpose.
     this.settings = new Enmap({ name: "settings", cloneLevel: "deep", fetchAll: false, autoFetch: true });
     this.lastThread = this.db.collection("lastThread").doc("LT");
-    this.servers = await this.getDoc("lastThread", "Servers");
+    this.servers = await getDoc("lastThread", "Servers");
     this.SG = this.db.collection("Stargate");
-    
+
     //requiring the Logger class for easy console logging
     this.logger = require("./modules/Logger");
     this.FN = require("./modules/forumNotification")
@@ -75,7 +82,7 @@ class BanditBot extends Client {
   command including the VERY DANGEROUS `eval` command!
 
   */
-  permlevel (message) {
+  permlevel(message) {
     let permlvl = 0;
 
     const permOrder = this.config.permLevels.slice(0).sort((p, c) => p.level < c.level ? 1 : -1);
@@ -99,25 +106,25 @@ class BanditBot extends Client {
   that unloading happens in a consistent manner across the board.
   */
 
- loadContainsCommand (commandPath, commandName) {
-  try {
-    const props = new (require(`${commandPath}${path.sep}${commandName}`))(this);
-    this.logger.log(`Loading Contains Command: ${props.help.name}. 👌`, "log");
-    props.conf.location = commandPath;
-    if (props.init) {
-      props.init(this);
-    }
-    this.containsCommands.set(props.help.name, props);
-    props.conf.contains.forEach(alias => {
-      this.containsCommandsAliases.set(alias, props.help.name);
-    });
-    return false;
-  } catch (e) {
+  loadContainsCommand(commandPath, commandName) {
+    try {
+      const props = new (require(`${commandPath}${path.sep}${commandName}`))(this);
+      this.logger.log(`Loading Contains Command: ${props.help.name}. 👌`, "log");
+      props.conf.location = commandPath;
+      if (props.init) {
+        props.init(this);
+      }
+      this.containsCommands.set(props.help.name, props);
+      props.conf.contains.forEach(alias => {
+        this.containsCommandsAliases.set(alias, props.help.name);
+      });
+      return false;
+    } catch (e) {
       return `Unable to load command ${commandName}: ${e}`;
+    }
   }
-}
 
-  loadCommand (commandPath, commandName) {
+  loadCommand(commandPath, commandName) {
     try {
       const props = new (require(`${commandPath}${path.sep}${commandName}`))(this);
       this.logger.log(`Loading Command: ${props.help.name}. 👌`, "log");
@@ -135,7 +142,7 @@ class BanditBot extends Client {
     }
   }
 
-  async unloadCommand (commandPath, commandName) {
+  async unloadCommand(commandPath, commandName) {
     let command;
     if (this.commands.has(commandName)) {
       command = this.commands.get(commandName);
@@ -158,7 +165,7 @@ class BanditBot extends Client {
   and stringifies objects!
   This is mostly only used by the Eval and Exec commands.
   */
-  async clean (text) {
+  async clean(text) {
     if (text && text.constructor.name == "Promise")
       text = await text;
     if (typeof text !== "string")
@@ -180,7 +187,7 @@ class BanditBot extends Client {
 
   // getSettings merges the client defaults with the guild settings. guild settings in
   // enmap should only have *unique* overrides that are different from defaults.
-  getSettings (guild) {
+  getSettings(guild) {
     const defaults = this.config.defaultSettings || {};
     const guildData = this.settings.get(guild.id) || {};
     const returnObject = {};
@@ -192,7 +199,7 @@ class BanditBot extends Client {
 
   // writeSettings overrides, or adds, any configuration item that is different
   // than the defaults. This ensures less storage wasted and to detect overrides.
-  writeSettings (id, newSettings) {
+  writeSettings(id, newSettings) {
     const defaults = this.settings.get("default");
     let settings = this.settings.get(id);
     if (typeof settings != "object") settings = {};
@@ -214,7 +221,7 @@ class BanditBot extends Client {
   const response = await client.awaitReply(msg, "Favourite Color?");
   msg.reply(`Oh, I really love ${response} too!`);
   */
-  async awaitReply (msg, question, limit = 60000) {
+  async awaitReply(msg, question, limit = 60000) {
     const filter = m => m.author.id === msg.author.id;
     await msg.channel.send(question);
     try {
@@ -298,20 +305,13 @@ client.on("disconnect", () => client.logger.warn("Bot is disconnecting..."))
 // <String>.toPropercase() returns a proper-cased string such as: 
 // "Mary had a little lamb".toProperCase() returns "Mary Had A Little Lamb"
 String.prototype.toProperCase = function () {
-  return this.replace(/([^\W_]+[^\s-]*) */g, function (txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+  return this.replace(/([^\W_]+[^\s-]*) */g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
 };
 // <Array>.random() returns a single random element from an array
 // [1, 2, 3, 4, 5].random() can return 1, 2, 3, 4 or 5.
 Array.prototype.random = function () {
   return this[Math.floor(Math.random() * this.length)];
 };
-
-// function to get ID doc from COLLECTIOIN
-async function getDoc(collection, id) {
-  const snapshot = await db.collection(collection).doc(id).get();
-  const data = snapshot.data();
-  return data;
-}
 
 // These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
 process.on("uncaughtException", (err) => {
