@@ -153,7 +153,9 @@ class ForumNotification {
           }
 
           function sendEmbed(embed) {
+            console.log(client.servers);
             Object.keys(client.servers).forEach(function (id) {
+              console.log("hi");
               console.log(server.id);
               console.log(server[id]);
               client.channels.cache.find(c => c.id === server.id).send({ embed }).catch(console.error);
