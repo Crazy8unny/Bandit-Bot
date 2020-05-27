@@ -85,8 +85,8 @@ class ForumNotification {
           if (newUser != prevNewUser) {
             client.lastThread.set({ name: prevName, author: prevAuthor, commentsNumber: prevNumber, newUser: newUser });
             let embed2 = {
-              title: "**" + newUser + "** הצטרף לפורום !!!!!111",
-              color: "#00BCBC"
+              title: "הצטרף לפורום !!!!!111" + "**" + newUser + "**",
+              color: "#FF7519"
             };
             sendEmbed(embed2);
           }
