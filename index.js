@@ -54,7 +54,7 @@ class BanditBot extends Client {
     // and makes things extremely easy for this purpose.
     this.settings = new Enmap({ name: "settings", cloneLevel: "deep", fetchAll: false, autoFetch: true });
     this.lastThread = this.db.collection("lastThread").doc("LT");
-    this.servers = this.db.collection("lastThread").doc("Servers").get().then(Servers => {return Servers.data()});
+    this.servers = await this.getDoc("lastThread", "Servers");
     this.SG = this.db.collection("Stargate");
     
     //requiring the Logger class for easy console logging
@@ -305,6 +305,13 @@ String.prototype.toProperCase = function () {
 Array.prototype.random = function () {
   return this[Math.floor(Math.random() * this.length)];
 };
+
+// function to get ID doc from COLLECTIOIN
+async function getDoc(collection, id) {
+  const snapshot = await db.collection(collection).doc(id).get();
+  const data = snapshot.data();
+  return data;
+}
 
 // These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
 process.on("uncaughtException", (err) => {
