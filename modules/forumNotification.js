@@ -155,7 +155,7 @@ class ForumNotification {
           function sendEmbed (embed) {
             client.db.collection("lastThread").doc("Servers").get().then(servers => {
               for (let index in servers) {
-                console.log(servers[index]);
+                console.log(index);
               }
             });
           }
