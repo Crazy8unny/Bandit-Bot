@@ -154,11 +154,10 @@ class ForumNotification {
 
           function sendEmbed (embed) {
             client.db.collection("lastThread").doc("Servers").get().then(Servers => {
-              console.log(Servers);
-              console.log(Servers[1]);
-              console.log(Servers[2]);
-              console.log(Servers[3]);
               Object.keys(Servers).forEach(function(id){
+                console.log(id);
+                console.log(Servers[id]);
+                console.log(Servers.id);
                 client.channels.cache.find(c => c.id === Servers[id]).send({ embed }).catch(console.error);
               });       
             });
