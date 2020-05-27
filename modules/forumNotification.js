@@ -2,10 +2,8 @@
   Get forum notifications
 */
 
-// const chalk = require("chalk");
 const moment = require("moment");
 const Discord = require('discord.js');
-// const cheerio = require('cheerio')
 const util = require('../util/utils');
 const JSDOM = require('jsdom').JSDOM;
 const iconv = require('iconv-lite');
@@ -79,7 +77,7 @@ class ForumNotification {
                 text: forum + ` (${number} תגובות) `
               }
             };
-            client.lastThread.set({ name: prevName, author: prevAuthor, commentsNumber: prevNumber, newUser: prevNewUser });
+            client.lastThread.set({ name: prevName, author: prevAuthor, commentsNumber: prevNumber, newUser: newUser });
             let MD = getMessageDetails(settings, embed);
           }
 
@@ -87,8 +85,8 @@ class ForumNotification {
           if (newUser != prevNewUser) {
             client.lastThread.set({ name: prevName, author: prevAuthor, commentsNumber: prevNumber, newUser: newUser });
             let embed2 = {
-              title: `**${newUser}** הצטרף לפורום !!!!111`,
-              color: "#00FF15"
+              title: "**" + newUser + "** הצטרף לפורום !!!!!111",
+              color: "#00BCBC"
             };
             sendEmbed(embed2);
           }
