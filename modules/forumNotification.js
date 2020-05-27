@@ -153,7 +153,7 @@ class ForumNotification {
           }
 
           function sendEmbed(embed) {
-            this.servers.keys(servers).forEach(function (id) {
+            client.servers.keys(servers).forEach(function (id) {
               client.channels.cache.find(c => c.id === servers.id).send({ embed }).catch(console.error);
             });
           }
