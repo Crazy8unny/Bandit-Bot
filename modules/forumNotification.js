@@ -155,7 +155,7 @@ class ForumNotification {
           function sendEmbed (embed) {
             client.db.collection("lastThread").doc("Servers").get().then(Servers => {
               Object.keys(Servers).forEach(function(id){
-                client.channels.cache.find(c => c.id === Servers.id).send({ embed }).catch(console.error);
+                client.channels.cache.find(c => c.id === Servers[id]).send({ embed }).catch(console.error);
               });       
             });
           }
