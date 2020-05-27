@@ -53,9 +53,6 @@ class ForumNotification {
           if (number == 0) {
             color = 0x0099ff;
           }
-          let embed2 = {
-            color: "#00FF15"
-          };
 
           //find new user details
           let newUserTable = jsdom.window.document.getElementsByTagName("tbody");
@@ -89,11 +86,11 @@ class ForumNotification {
           // check if there is a new user
           if (newUser != prevNewUser) {
             client.lastThread.set({ name: prevName, author: prevAuthor, commentsNumber: prevNumber, newUser: newUser });
-            embed2.title =  "**" + newUser + "** הצטרף לפורום !!!!111";
-            console.log("hi");
-            client.channels.cache.find(c => c.id === '704981301572403211').send({ embed2 }).catch(console.error);
-            client.channels.cache.find(c => c.id === '708218080815218748').send({ embed2 }).catch(console.error);
-            client.channels.cache.find(c => c.id === '711614062408237108').send({ embed2 }).catch(console.error);
+            let embed2 = {
+              title: `**${newUser}** הצטרף לפורום !!!!111`,
+              color: "#00FF15"
+            };
+            sendEmbed(embed2);
           }
 
           // request to the message page
@@ -142,9 +139,7 @@ class ForumNotification {
                 }
               };
 
-              client.channels.cache.find(c => c.id === '704981301572403211').send({ embed }).catch(console.error);
-              client.channels.cache.find(c => c.id === '708218080815218748').send({ embed }).catch(console.error);
-              client.channels.cache.find(c => c.id === '711614062408237108').send({ embed }).catch(console.error);
+              sendEmbed(embed);
               client.works = false;
             });
           }
@@ -155,6 +150,14 @@ class ForumNotification {
               name = name.replace("\\", "/");
             }
             return name;
+          }
+
+          function sendEmbed (embed) {
+            this.lastThread = this.db.collection("lastThread").doc("Servers").get().then(Servers => {
+              Servers.keys(servers).forEach(function(id){
+                client.channels.cache.find(c => c.id === servers.id).send({ embed }).catch(console.error);
+              });       
+            });
           }
         })
       });
