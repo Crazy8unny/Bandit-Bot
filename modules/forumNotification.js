@@ -21,7 +21,7 @@ class ForumNotification {
         "method": "GET",
         "encoding": null
       }
-        request.get(settings, function (error, response, data) {
+      request.get(settings, function (error, response, data) {
         client.lastThread.get().then(prevComment => {
           if (!prevComment.exists) {
             prevComment = { name: "hi", author: "hi", commentsNumber: "0", newUser: "test" };
@@ -66,7 +66,7 @@ class ForumNotification {
             prevName = name.innerHTML;
             prevAuthor = author;
             prevNumber = number;
-          
+
             // get message info
             settings.url = "https://lf2.co.il" + body[body.length - 4].href
             let embed = {
@@ -152,11 +152,9 @@ class ForumNotification {
             return name;
           }
 
-          function sendEmbed (embed) {
-            client.db.collection("lastThread").doc("Servers").get().then(Servers => {
-              Servers.keys(servers).forEach(function(id){
-                client.channels.cache.find(c => c.id === servers.id).send({ embed }).catch(console.error);
-              });       
+          function sendEmbed(embed) {
+            this.servers.keys(servers).forEach(function (id) {
+              client.channels.cache.find(c => c.id === servers.id).send({ embed }).catch(console.error);
             });
           }
         })
