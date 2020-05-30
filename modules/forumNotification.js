@@ -159,8 +159,10 @@ class ForumNotification {
               else {
                 servers = servers.data().servers;
                 for (let i in servers) {
-                  console.log("id:" + i);
-                  client.channels.cache.find(c => c.id === servers[i]).send({ embed }).catch(console.error);
+                  if (i != "random") {
+                    console.log("id:" + i);
+                    client.channels.cache.find(c => c.id === servers[i]).send({ embed }).catch(console.error);
+                  }
                 }
               }
             });
