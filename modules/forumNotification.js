@@ -160,7 +160,6 @@ class ForumNotification {
                 servers = servers.data().servers;
                 for (let i in servers) {
                   if (i != "random") {
-                    console.log("id:" + i);
                     client.channels.cache.find(c => c.id === servers[i]).send({ embed }).catch(console.error);
                   }
                 }
