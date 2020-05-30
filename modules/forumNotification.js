@@ -86,7 +86,7 @@ class ForumNotification {
             client.lastThread.set({ name: prevName, author: prevAuthor, commentsNumber: prevNumber, newUser: newUser });
             newUser = "**" + newUser + "**";
             let embed2 = {
-              title: `${newUser} הצטרף לפורום !!!!!`,
+              title: `הצטרף לפורום ${newUser} !!!!!`,
               color: "#FF7519"
             };
             sendEmbed(embed2);
