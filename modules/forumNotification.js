@@ -137,6 +137,10 @@ class ForumNotification {
                 }
               };
 
+              if (embed.title == "Top 5 - Random" || embed.title == "Top 5") {
+                embed.description += "\n <@211510271053791232>"
+              }
+
               sendEmbed(embed);
               client.works = false;
             });
