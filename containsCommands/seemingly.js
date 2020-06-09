@@ -40,21 +40,16 @@ class Seemingly extends ContainsCommand {
         this.client.settings.set("EitanCurse", curseNum);
       }
       if (curseNum % 4 == true) {
-        let PM = "";
-        let num = Math.floor(Math.random() * 4 + 1);
-        if (num == 4) {
-          PM = "איתן כדאי לך להיזהר ממני י'חצוף, למה אני שמתי את העין שלי עליך";
-        }
-        else if (num == 3) {
-          PM = "לא יודע מי חינך אותך איתן, אבל כדאי שתשמור על הפה שלך";
-        }
-        else if (num == 2) {
-          PM = "פעם הבאה אני לא אעבור על זה בשתיקה.";
-        }
-        else {
-          PM = "אני מקווה לטובתך שהיה לך סיבה טובה להגיד את זה";
-        }
-        message.author.send(PM);
+        this.client.db.collection("Curses").doc("Warnings").get().then(warnings => {
+          if (!warnings.exists) {
+            warnings = { warnings: [] };
+          }
+          else {
+            warnings = warnings.data().warningsList;
+            message.channel.send((warnings[Math.floor(Math.random() * warnings.length - 1)]).toString());
+            // message.author.send((warnings[Math.floor(Math.random() * warnings.length - 1)]).toString());
+          }
+        });
       }
     }
     message.channel.send(res);
