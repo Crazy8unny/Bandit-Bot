@@ -38,7 +38,7 @@ class Seemingly extends ContainsCommand {
         curseNum++;
         this.client.settings.set("EitanCurse", curseNum);
       }
-      if (curseNum % 1 == true) {
+      if (true) {
         this.client.db.collection("Curses").doc("Warnings").get().then(warnings => {
           if (!warnings.exists) {
             warnings = { warnings: [] };
