@@ -45,7 +45,7 @@ class Seemingly extends ContainsCommand {
           }
           else {
             warnings = warnings.data().warningsList;
-            message.channel.send((warnings[Math.floor(Math.random() * warnings.length - 1)]).toString());
+            message.channel.send((warnings[Math.floor(Math.random() * (warnings.length - 1))]).toString());
             console.log(warnings.length);
             // message.author.send((warnings[Math.floor(Math.random() * warnings.length - 1)]).toString());
           }
