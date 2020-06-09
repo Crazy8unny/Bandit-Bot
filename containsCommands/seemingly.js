@@ -33,13 +33,12 @@ class Seemingly extends ContainsCommand {
       this.client.settings.set("EitanCurse", 0);
     }
     let curseNum = this.client.settings.get("EitanCurse");
-    console.log(message.author.id);
     if (message.author.id.toString() == "300332593881153547" && !valid) {
       if (curse) {
         curseNum++;
         this.client.settings.set("EitanCurse", curseNum);
       }
-      if (curseNum % 4 == true) {
+      if (curseNum % 1 == true) {
         this.client.db.collection("Curses").doc("Warnings").get().then(warnings => {
           if (!warnings.exists) {
             warnings = { warnings: [] };
@@ -47,6 +46,7 @@ class Seemingly extends ContainsCommand {
           else {
             warnings = warnings.data().warningsList;
             message.channel.send((warnings[Math.floor(Math.random() * warnings.length - 1)]).toString());
+            console.log(warnings.length);
             // message.author.send((warnings[Math.floor(Math.random() * warnings.length - 1)]).toString());
           }
         });
