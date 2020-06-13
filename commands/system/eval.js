@@ -6,7 +6,7 @@
 
 // However it's, like, super ultra useful for troubleshooting and doing stuff
 // you don't want to put in a command.
-const Command = require("../base/Command.js");
+const Command = require("../../base/Command.js");
 
 class Eval extends Command {
   constructor (client) {

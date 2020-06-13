@@ -1,4 +1,4 @@
-const Command = require("../base/Command.js");
+const Command = require("../../../base/Command.js");
 
 /*
   The HELP command is used to display every command's name and description
@@ -12,7 +12,7 @@ class Help extends Command {
     super(client, {
       name: "עזרה",
       description: "מציג את כל הפקודות האפשריות עבורך",
-      category: "מערכת",
+      category: "מידע",
       usage: "עזרה [פקודה]",
       aliases: ["הצילו"]
     });
