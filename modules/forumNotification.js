@@ -105,8 +105,11 @@ class ForumNotification {
               MD.avatar = table.getElementsByClassName("postdetails");
               MD.avatar = MD.avatar[MD.avatar.length - 3];
               let photos = MD.avatar.getElementsByTagName("img");
-              MD.avatar = addLF2Domain(photos[1].src, false);
               MD.rank = addLF2Domain(photos[0].src, true);
+              MD.avatar = addLF2Domain(photos[1].src, false);
+              if (MD.avatar == "templates/fiblack3dblue/images/lang_hebrew/icon_buddy.gif") {
+                MD.avatar = "https://lf2.co.il/forum/images/avatars/gallery/fighters/index.9.gif";
+              }
 
               if (MD.rank == "https://www.lf2.co.il/forum/templates/fiblack3dblue/images/Big_Sword.gif" && photos.length > 2) {
                 MD.rank = MD.avatar;
