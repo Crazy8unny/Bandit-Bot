@@ -171,6 +171,7 @@ class ForumNotification {
                       }
                     }
                   }
+                  return embed;
                 }
               }
             });
