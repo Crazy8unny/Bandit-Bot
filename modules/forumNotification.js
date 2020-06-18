@@ -40,6 +40,7 @@ class ForumNotification {
           let bodyWords = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("td")[1].innerHTML;
           let position = bodyWords.search("תגובה אחרונה על ידי");
           let author = bodyWords.substring(position, bodyWords.length);
+          let link = "https://lf2.co.il" + body[body.length - 6].href;
           position = author.search(",");
           author = author.substring(20, position);
           position = bodyWords.search("תגובות\\)");
@@ -144,7 +145,7 @@ class ForumNotification {
                 embed.description += "\n <@211510271053791232>"
               }
 
-              sendEmbed(embed);
+              sendEmbed(embed, link);
               client.works = false;
             });
           }
@@ -156,18 +157,36 @@ class ForumNotification {
             }
             return name;
           }
-
-          function sendEmbed(embed) {
-            client.db.collection("lastThread").doc("Servers").get().then(servers => {
-              if (!servers.exists) {
-                servers = { servers: [] };
+          
+          function addRegisteredUsers(embed, serverID, link) {
+            client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
+              if (servers.exists) {
+                let server = servers.data().serverID;
+                if (server != undefined) {
+                  let usersID = Object.keys(server);
+                  for (user = 0; user < server.length; user++) {
+                    for (let subjectURL in user) {
+                      if (subjectURL != "random" && subjectURL == link) {
+                        embed.description += `\n <@${usersid[user]}>`
+                      }
+                    }
+                  }
+                }
               }
-              else {
+            });
+          }
+
+          function sendEmbed(embed, link) {
+            client.db.collection("lastThread").doc("Servers").get().then(servers => {
+              if (servers.exists) {
                 servers = servers.data().servers;
+                let embedbck = embed
                 for (let i in servers) {
                   if (i != "random") {
+                    embed = addRegisteredUsers(embed, servers[i], link);
                     client.channels.cache.find(c => c.id === servers[i]).send({ embed }).catch(console.error);
                   }
+                  embed = embedbck;
                 }
               }
             });

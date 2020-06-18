@@ -35,8 +35,8 @@ class Remember extends Command {
                 let position = msg.search("אנחנו ב");
                 let placeString = msg.substring(position + 7, msg.length);
                 lastEpisode.where = placeString;
-                server.set(lastEpisode);
                 message.channel.send("הכל אני זוכר אחים שלי");
+                server.set(lastEpisode);
             }
             else {
                 message.channel.send("שימוש שגוי בפקודה שלח `אנחנו ב` או `איפה אנחנו`");
