@@ -162,14 +162,14 @@ class ForumNotification {
             client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
               if (servers.exists) {
                 let server = servers.data().serverID;
-                console.log("server: " + ServerID);
+                console.log("server: " + serverID);
                 if (server != undefined) {
                   let usersID = Object.keys(server);
                   for (user = 0; user < server.length; user++) {
                     for (let subjectURL in user) {
                       if (subjectURL != "random" && subjectURL == link) {
-                        embed.description += `\n <@${usersid[user]}>`
-                        console.log("user: " + userid[user]);
+                        embed.description += `\n <@${usersID[user]}>`
+                        console.log("user: " + usersID[user]);
                       }
                     }
                   }
