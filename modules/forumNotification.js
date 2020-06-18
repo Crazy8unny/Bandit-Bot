@@ -167,7 +167,8 @@ class ForumNotification {
                   let usersID = Object.keys(server);
                   for (user = 0; user < server.length; user++) {
                     for (let subjectURL in server[user]) {
-                      if (subjectURL != "random" && subjectURL == link) {
+                      console.log("URL: " + subjectURL)
+                      if (subjectURL == link) {
                         embed.description += `\n <@${usersID[user]}>`
                         console.log("user: " + usersID[user]);
                       }
