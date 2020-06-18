@@ -4,10 +4,10 @@ class Follow extends Command {
     constructor(client) {
         super(client, {
             name: "עקוב",
-            description: "מעקב אחר נושאים בהתראות של הפורום",
+            description: "מעקב אחר נושאים בהתראות של הפורום \n עקוב <לינק של נושא> - הוספת נושא למעקב \n הסר מעקב <לינק של נושא> - הוספת נושא למעקב \n רשימת מעקב - מדפיס את כל הנושאים שאתה עוקב אחריהם",
             usage: "עקוב",
             category: "שימושי",
-            aliases: ["הסר מעקב, רשימתמעקב"]
+            aliases: ["הסר, רשימת"]
         });
     }
 
@@ -44,4 +44,4 @@ class Follow extends Command {
     }
 }
 
-module.exports = Remember;
+module.exports = Follow;
