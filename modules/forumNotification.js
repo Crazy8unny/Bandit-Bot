@@ -174,7 +174,7 @@ class ForumNotification {
                       }
                     }
                   }
-                  return embed;
+                  client.channels.cache.find(c => c.id === serversID).send({ embed }).catch(console.error);
                 }
               }
             });
@@ -184,13 +184,10 @@ class ForumNotification {
             client.db.collection("lastThread").doc("Servers").get().then(servers => {
               if (servers.exists) {
                 servers = servers.data().servers;
-                let embedbck = embed
                 for (let i in servers) {
                   if (i != "random") {
-                    embed = addRegisteredUsers(embed, servers[i], link);
-                    client.channels.cache.find(c => c.id === servers[i]).send({ embed }).catch(console.error);
+                    addRegisteredUsers(embed, servers[i], link);
                   }
-                  embed = embedbck;
                 }
               }
             });
