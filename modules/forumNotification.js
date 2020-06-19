@@ -165,10 +165,6 @@ class ForumNotification {
                 console.log("server: " + serverID);
                 console.log(server);
                 console.log(server == undefined);
-                server = servers.data().get(serverID);
-                console.log("server: " + serverID);
-                console.log(server);
-                console.log(server == undefined);
                 if (server != undefined) {
                   let usersID = Object.keys(server);
                   console.log("server.length: " + server.length);
