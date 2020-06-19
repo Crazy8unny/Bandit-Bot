@@ -164,18 +164,20 @@ class ForumNotification {
                 let server = servers.data()[serverID];
                 if (server != undefined) {
                   let usersID = Object.keys(server);
+                  let subjectsID;
                   console.log("server.length: " + usersID.length);
                   for (let user = 0; user < usersID.length; user++) {
-                    console.log("server[user].length: " + server[usersID[user]].length);
+                    subjectsID = Object.keys(server[usersID[user]]);
+                    console.log("server[user].length: " + subjectsID.length);
                     for (let subjectURL in server[usersID[user]]) {
-                      console.log("URL: " + subjectURL)
-                      if (subjectURL == link) {
+                      console.log("URL: " + server[usersID[user]][subjectURL])
+                      if (server[usersID[user]][subjectURL] == link) {
                         embed.description += `\n <@${usersID[user]}>`
                         console.log("user: " + usersID[user]);
                       }
                     }
                   }
-                  client.channels.cache.find(c => c.id === serversID).send({ embed }).catch(console.error);
+                  client.channels.cache.find(c => c.id === serverID).send({ embed }).catch(console.error);
                 }
               }
             });
