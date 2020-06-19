@@ -165,7 +165,7 @@ class ForumNotification {
                 if (server != undefined) {
                   let usersID = Object.keys(server);
                   console.log("server.length: " + usersID.length);
-                  for (user = 0; user < usersID.length; user++) {
+                  for (let user = 0; user < usersID.length; user++) {
                     console.log("server[user].length: " + server[usersID[user]].length);
                     for (let subjectURL in server[usersID[user]]) {
                       console.log("URL: " + subjectURL)
