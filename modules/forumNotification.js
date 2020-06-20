@@ -41,6 +41,7 @@ class ForumNotification {
           let position = bodyWords.search("תגובה אחרונה על ידי");
           let author = bodyWords.substring(position, bodyWords.length);
           let link = "https://lf2.co.il" + body[body.length - 6].href;
+          console.log(link);
           position = author.search(",");
           author = author.substring(20, position);
           position = bodyWords.search("תגובות\\)");
