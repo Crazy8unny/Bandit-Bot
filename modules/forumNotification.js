@@ -153,30 +153,32 @@ class ForumNotification {
             }
             return name;
           }
-          
+
           function addRegisteredUsers(embed, serverID, link) {
             client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
-              if (servers.exists && link != undefined) {
-                let server = servers.data()[serverID];
-                if (server != undefined) {
-                  let usersID = Object.keys(server);
-                  console.log("link: " + link);
-                  // let subjectsID;
-                  // console.log("server.length: " + usersID.length);
-                  for (let user = 0; user < usersID.length; user++) {
-                    // subjectsID = Object.keys(server[usersID[user]]);
-                    // console.log("server[user].length: " + subjectsID.length);
-                    for (let subjectURL in server[usersID[user]]) {
-                      console.log("URL: " + server[usersID[user]][subjectURL])
-                      if (server[usersID[user]][subjectURL] == link) {
-                        embed.description += `\n <@${usersID[user]}>`
-                        console.log("user: " + usersID[user]);
+              if (link != undefined) {
+                if (servers.exists) {
+                  let server = servers.data()[serverID];
+                  if (server != undefined) {
+                    let usersID = Object.keys(server);
+                    console.log("link: " + link);
+                    // let subjectsID;
+                    // console.log("server.length: " + usersID.length);
+                    for (let user = 0; user < usersID.length; user++) {
+                      // subjectsID = Object.keys(server[usersID[user]]);
+                      // console.log("server[user].length: " + subjectsID.length);
+                      for (let subjectURL in server[usersID[user]]) {
+                        console.log("URL: " + server[usersID[user]][subjectURL])
+                        if (server[usersID[user]][subjectURL] == link) {
+                          embed.description += `\n <@${usersID[user]}>`
+                          console.log("user: " + usersID[user]);
+                        }
                       }
                     }
                   }
                 }
+                client.channels.cache.find(c => c.id === serverID).send({ embed }).catch(console.error);
               }
-              client.channels.cache.find(c => c.id === serverID).send({ embed }).catch(console.error);
             });
           }
 
