@@ -156,6 +156,7 @@ class ForumNotification {
 
           function addRegisteredUsers(embed, serverID, link) {
             client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
+              let works = true;
               if (link != undefined) {
                 if (servers.exists) {
                   let server = servers.data()[serverID];
@@ -177,8 +178,9 @@ class ForumNotification {
                     }
                   }
                 }
-                client.channels.cache.find(c => c.id === serverID).send({ embed }).catch(console.error);
+                works = false;
               }
+              if (!works) {client.channels.cache.find(c => c.id === serverID).send({ embed }).catch(console.error);}
             });
           }
 
