@@ -170,7 +170,7 @@ class ForumNotification {
                       console.log("URL: " + server[usersID[user]][subjectURL])
                       if (server[usersID[user]][subjectURL] == link) {
                         embed.description += `\n <@${usersID[user]}>`
-                        // console.log("user: " + usersID[user]);
+                        console.log("user: " + usersID[user]);
                       }
                     }
                   }
