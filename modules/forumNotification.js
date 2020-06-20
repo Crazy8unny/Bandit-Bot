@@ -156,7 +156,7 @@ class ForumNotification {
           
           function addRegisteredUsers(embed, serverID, link) {
             client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
-              if (servers.exists) {
+              if (servers.exists && link != undefined) {
                 let server = servers.data()[serverID];
                 if (server != undefined) {
                   let usersID = Object.keys(server);
