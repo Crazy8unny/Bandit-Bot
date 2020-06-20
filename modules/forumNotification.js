@@ -41,7 +41,6 @@ class ForumNotification {
           let position = bodyWords.search("תגובה אחרונה על ידי");
           let author = bodyWords.substring(position, bodyWords.length);
           let link = "https://lf2.co.il" + body[body.length - 6].href;
-          console.log(link);
           position = author.search(",");
           author = author.substring(20, position);
           position = bodyWords.search("תגובות\\)");
@@ -161,13 +160,14 @@ class ForumNotification {
                 let server = servers.data()[serverID];
                 if (server != undefined) {
                   let usersID = Object.keys(server);
+                  console.log("link: " + link);
                   // let subjectsID;
                   // console.log("server.length: " + usersID.length);
                   for (let user = 0; user < usersID.length; user++) {
                     // subjectsID = Object.keys(server[usersID[user]]);
                     // console.log("server[user].length: " + subjectsID.length);
                     for (let subjectURL in server[usersID[user]]) {
-                      // console.log("URL: " + server[usersID[user]][subjectURL])
+                      console.log("URL: " + server[usersID[user]][subjectURL])
                       if (server[usersID[user]][subjectURL] == link) {
                         embed.description += `\n <@${usersID[user]}>`
                         // console.log("user: " + usersID[user]);
