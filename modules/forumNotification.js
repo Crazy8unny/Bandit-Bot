@@ -188,11 +188,13 @@ class ForumNotification {
 
           function sendEmbed(embed, link) {
             client.db.collection("lastThread").doc("Servers").get().then(servers => {
+              let embedbck = embed;
               if (servers.exists) {
                 servers = servers.data().servers;
                 for (let i in servers) {
                   if (i != "random") {
                     addRegisteredUsers(embed, servers[i], link);
+                    embed = embedbck;
                   }
                 }
               }
