@@ -123,6 +123,10 @@ class ForumNotification {
               comment = comment.replace("<br>", "\n");
               let regex = new RegExp('[^' + '\nאבגדהוזחטיכלמנסעפצקרשתךםןץף ' + ']', 'g');
               comment = comment.replace(regex, '');
+              if (comment.length > 2000) {
+                comment = comment.substring(0, 2000);
+                comment += ".......";
+              }
 
               embed = {
                 author: {
