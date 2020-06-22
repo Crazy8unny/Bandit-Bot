@@ -163,7 +163,7 @@ class ForumNotification {
                   if (server != undefined) {
                     let usersID = Object.keys(server);
                     console.log("link: " + link);
-                    embed.description += "\n \n |"
+                    embed.description += "\n \n ||"
                     // let subjectsID;
                     // console.log("server.length: " + usersID.length);
                     for (let user = 0; user < usersID.length; user++) {
@@ -177,7 +177,7 @@ class ForumNotification {
                         }
                       }
                     }
-                    embed.description += "| \n"
+                    embed.description += "||"
                   }
                 }
                 works = false;
