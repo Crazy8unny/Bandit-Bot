@@ -166,8 +166,8 @@ class ForumNotification {
                   let server = servers.data()[serverID];
                   if (server != undefined) {
                     let usersID = Object.keys(server);
+                    let names = "";
                     console.log("link: " + link);
-                    embed.description += "\n \n ||"
                     // let subjectsID;
                     // console.log("server.length: " + usersID.length);
                     for (let user = 0; user < usersID.length; user++) {
@@ -176,12 +176,15 @@ class ForumNotification {
                       for (let subjectURL in server[usersID[user]]) {
                         console.log("URL: " + server[usersID[user]][subjectURL])
                         if (server[usersID[user]][subjectURL] == link) {
-                          embed.description += `<@${usersID[user]}> \n`
+                          names += `<@${usersID[user]}> \n`
                           console.log("user: " + usersID[user]);
                         }
                       }
                     }
-                    embed.description += "||"
+                    if (names != "") {
+                      embed.description += `\n \n || ${names} ||`;
+                    }
+                    
                   }
                 }
                 works = false;
