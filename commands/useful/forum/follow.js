@@ -13,17 +13,18 @@ class Follow extends Command {
 
     async run(message, args, level) {
         let msg = message.toString();
+        console.log(msg);
         let res;
         if (args[0] == null || args[1] != null) {
             message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה עקוב` על מנת לקבל מידע מלא על הפקודה");
         }
-        else if (msg.startsWith("רשימת מעקב!")) {
+        else if (msg.startsWith("רשימת מעקב")) {
             message.channel.send("אחי אתה עוקב אחרי כל השיט הבא");
         }
-        else if (msg.startsWith("הסר!")) {
+        else if (msg.startsWith("הסר")) {
             message.channel.send("הלינק הוסר בהצלחה משהו");
         }
-        else if (msg.startsWith("עקוב!")) {
+        else if (msg.startsWith("עקוב")) {
             message.channel.send("אתה עוקב אחרי הדבר המגניב הזה");
         }
         else {

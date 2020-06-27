@@ -16,7 +16,7 @@ module.exports = class {
     // Cancel any attempt to execute commands if the bot cannot respond to the user.
     if (message.guild && !message.channel.permissionsFor(message.guild.me).missing("SEND_MESSAGES")) return;
 
-    if (message.channel.type == "dm") return message.reply('אל דבר איתי פה אחי');
+    if (message.channel.type == "dm" && message.client.appInfo.owner.id != message.author.id) return message.reply('אל דבר איתי פה אחי');
 
     // Grab the settings for this server from the Enmap
     // If there is no guild, get default conf (DMs)
