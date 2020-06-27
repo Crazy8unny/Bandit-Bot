@@ -7,7 +7,7 @@ class Follow extends Command {
             description: "מעקב אחר נושאים בהתראות של הפורום",
             usage: "עקוב <לינק של נושא> - הוספת נושא למעקב \n הסר מעקב <לינק של נושא> - הוספת נושא למעקב \n רשימת מעקב - מדפיס את כל הנושאים שאתה עוקב אחריהם",
             category: "שימושי",
-            aliases: ["הסר, רשימת"]
+            aliases: ["הסר", "רשימת"]
         });
     }
 
@@ -18,13 +18,13 @@ class Follow extends Command {
         if (args[0] == null || args[1] != null) {
             message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה עקוב` על מנת לקבל מידע מלא על הפקודה");
         }
-        else if (msg.startsWith("רשימת מעקב")) {
+        else if (msg.startsWith("!רשימת מעקב")) {
             message.channel.send("אחי אתה עוקב אחרי כל השיט הבא");
         }
-        else if (msg.startsWith("הסר")) {
+        else if (msg.startsWith("!הסר")) {
             message.channel.send("הלינק הוסר בהצלחה משהו");
         }
-        else if (msg.startsWith("עקוב")) {
+        else if (msg.startsWith("!עקוב")) {
             message.channel.send("אתה עוקב אחרי הדבר המגניב הזה");
         }
         else {
