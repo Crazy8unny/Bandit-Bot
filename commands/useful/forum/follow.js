@@ -4,8 +4,8 @@ class Follow extends Command {
     constructor(client) {
         super(client, {
             name: "עקוב",
-            description: "מעקב אחר נושאים בהתראות של הפורום \n עקוב <לינק של נושא> - הוספת נושא למעקב \n הסר מעקב <לינק של נושא> - הוספת נושא למעקב \n רשימת מעקב - מדפיס את כל הנושאים שאתה עוקב אחריהם",
-            usage: "עקוב",
+            description: "מעקב אחר נושאים בהתראות של הפורום",
+            usage: "עקוב <לינק של נושא> - הוספת נושא למעקב \n הסר מעקב <לינק של נושא> - הוספת נושא למעקב \n רשימת מעקב - מדפיס את כל הנושאים שאתה עוקב אחריהם",
             category: "שימושי",
             aliases: ["הסר, רשימת"]
         });
@@ -14,20 +14,20 @@ class Follow extends Command {
     async run(message, args, level) {
         let msg = message.toString();
         let res;
-        if (args[0] == null || args[1] == null || args[2] != null) {
+        if (args[0] == null || args[1] != null) {
             message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה עקוב` על מנת לקבל מידע מלא על הפקודה");
         }
-        else if (msg.startsWith("רשימת מעקב")) {
+        else if (msg.startsWith("רשימת מעקב!")) {
             message.channel.send("אחי אתה עוקב אחרי כל השיט הבא");
         }
-        else if (msg.startsWith("הסר")) {
+        else if (msg.startsWith("הסר!")) {
             message.channel.send("הלינק הוסר בהצלחה משהו");
         }
-        else if (msg.startsWith("עקוב")) {
+        else if (msg.startsWith("עקוב!")) {
             message.channel.send("אתה עוקב אחרי הדבר המגניב הזה");
         }
         else {
-            message.channel.send("שימוש שגוי בפקודה שלח `אנחנו ב` או `איפה אנחנו`");
+            message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה עקוב` על מנת לקבל מידע מלא על הפקודה");
         }
         // let msg = message.toString();
         // let res;
