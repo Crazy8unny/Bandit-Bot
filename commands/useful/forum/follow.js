@@ -1,3 +1,7 @@
+const request = require('request');
+const JSDOM = require('jsdom').JSDOM;
+const iconv = require('iconv-lite');
+
 const Command = require("../../../base/Command.js");
 
 class Follow extends Command {
@@ -25,40 +29,57 @@ class Follow extends Command {
             message.channel.send("הלינק הוסר בהצלחה משהו");
         }
         else if (msg.startsWith("!עקוב")) {
-            message.channel.send("אתה עוקב אחרי הדבר המגניב הזה");
+            let subjectName = getSubjectName(args[0]);
+            if (subjectName == "לינק לא חוקי. איתן האפס.") {
+                message.channel.send("לא יודע מה כתבת פה אחי...");
+            }
+            else {
+                client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
+                    const guild = message.guild.id;
+                    const author = message.author.id;
+                    if (!servers.exists) {
+                        servers = { guild: { author: { subjectName: args[0] } } };
+                    }
+                    let server = servers.data()[guild];
+                    if (server != undefined) {
+                        let userSubjects = servers[author];
+                        if (userSubjects != undefined) {
+                            if (JSON.stringify(userSubjects).includes(args[0])) {
+                                message.channel.send("אתה כבר עוקב אחרי הנושא הזה אחינו");
+                            }
+                            else {
+                                userSubjects[subjectName] = args[0];
+                            }
+                        }
+                        else {
+                            servers[author] = { subjectName: args[0] };
+                        }
+                    }
+                    else {
+                        servers[guild] = { author: { subjectName: args[0] } };
+                    }
+                });
+            }
         }
         else {
             message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה עקוב` על מנת לקבל מידע מלא על הפקודה");
         }
-        // let msg = message.toString();
-        // let res;
-        // const server = this.client.SG.doc(message.guild.id);
-        // server.get().then(lastEpisode => {
-        //     if (!lastEpisode.exists) {
-        //         lastEpisode = { 'where': "וואלה לא יודע איפה הייתם"};
-        //     }
-        //     else {
-        //         lastEpisode = lastEpisode.data();
-        //     }
-        //     if (args[0] == null) {
-        //         message.channel.send("שימוש שגוי בפקודה שלח `אנחנו ב` או `איפה אנחנו`");
-        //     }
-        //     else if (msg.includes("אנחנו אנחנו")) {
-        //         message.channel.send("אנחנו אנחנו ? מה זה בכלל ?");
-        //     }
-        //     else if (args[0] == "אנחנו" && args[1] == null) {
-        //         message.channel.send("אתם ב" + lastEpisode.where);
-        //     }
-        //     else if (args[0].startsWith('ב') && msg.includes("אנחנו ב")) {
-        //         let position = msg.search("אנחנו ב");
-        //         let placeString = msg.substring(position + 7, msg.length);
-        //         lastEpisode.where = placeString;
-        //         server.set(lastEpisode);
-        //     }
-        //     else {
-        //         message.channel.send("שימוש שגוי בפקודה שלח `אנחנו ב` או `איפה אנחנו`");
-        //     }
-        // })
+
+        function getSubjectName(link) {
+            if (!link.startsWith("https://lf2.co.il/forum/viewtopic.php?t=") || !link.startsWith("https://lf2.co.il/forum/viewtopic.php?t=")) {
+                return "לינק לא חוקי. איתן האפס.";
+            }
+            let settings = {
+                "url": link,
+                "method": "GET",
+                "encoding": null
+            };
+            request.get(settings, function (error, response, data) {
+                const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
+                const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
+                return subjectName;
+            });
+        }
     }
 }
 
