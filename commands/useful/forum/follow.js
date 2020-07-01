@@ -34,7 +34,7 @@ class Follow extends Command {
                 message.channel.send("לא יודע מה כתבת פה אחי...");
             }
             else {
-                client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
+                this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
                     const guild = message.guild.id;
                     const author = message.author.id;
                     if (!servers.exists) {

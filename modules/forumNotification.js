@@ -89,7 +89,7 @@ class ForumNotification {
               description: `מזל טוב ! **${newUser}** הצטרף לפורום !!!!11`,
               color: "#FF7519"
             };
-            sendEmbed(embed2);
+            sendEmbed(embed2, "", true);
           }
 
           // request to the message page
@@ -123,10 +123,10 @@ class ForumNotification {
               comment = comment.replace("<br />", "`");
               // let regex = new RegExp('[^' + '\nאבגדהוזחטיכלמנסעפצקרשתךםןץף ' + ']', 'g');
               // comment = comment.replace(regex, '');
-              // if (comment.length > 2000) {
-              //   comment = comment.substring(0, 2000);
-              //   comment += ".......";
-              // }
+              if (comment.length > 2000) {
+                comment = comment.substring(0, 2000);
+                comment += ".......";
+              }
 
               embed = {
                 author: {
@@ -145,7 +145,7 @@ class ForumNotification {
                 }
               };
 
-              sendEmbed(embed, link);
+              sendEmbed(embed, link, false);
               client.works = false;
             });
           }
@@ -193,15 +193,18 @@ class ForumNotification {
             });
           }
 
-          function sendEmbed(embed, link) {
+          function sendEmbed(embed, link, isUserName) {
             client.db.collection("lastThread").doc("Servers").get().then(servers => {
               let embedbck = embed;
               if (servers.exists) {
                 servers = servers.data().servers;
                 for (let i in servers) {
-                  if (i != "random") {
+                  if (i != "random" && !isUserName) {
                     addRegisteredUsers(embed, servers[i], link);
                     embed = embedbck;
+                  }
+                  else {
+                    client.channels.cache.find(c => c.id === serverID).send({ embed }).catch(console.error);
                   }
                 }
               }
