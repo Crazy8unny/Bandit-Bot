@@ -30,6 +30,7 @@ class Follow extends Command {
         }
         else if (msg.startsWith("!עקוב")) {
             let subjectName = getSubjectName(args[0]);
+            console.log(subjectName);
             if (subjectName == "לינק לא חוקי. איתן האפס.") {
                 message.channel.send("לא יודע מה כתבת פה אחי...");
             }
@@ -48,6 +49,9 @@ class Follow extends Command {
                             if (JSON.stringify(userSubjects).includes(args[0])) {
                                res = "אתה כבר עוקב אחרי הנושא הזה אחינו";
                             }
+                        }
+                        else {
+                            server[author] = {};
                         }
                         servers[author][subjectName] = args[0];
                     }

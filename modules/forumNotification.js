@@ -205,7 +205,7 @@ class ForumNotification {
                       embed = embedbck;
                     }
                     else {
-                      client.channels.cache.find(c => c.id === i).send({ embed }).catch(console.error);
+                      client.channels.cache.find(c => c.id === servers[i]).send({ embed }).catch(console.error);
                     }
                   }
                 }
