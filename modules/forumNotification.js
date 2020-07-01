@@ -120,7 +120,7 @@ class ForumNotification {
               let comment = table.getElementsByClassName("postbody");
               comment = comment[comment.length - 1].textContent
               // comment = comment.innerHTML;
-              // comment = comment.replace("<br>", "\n");
+              comment = comment.replace("<br />", "`");
               // let regex = new RegExp('[^' + '\nאבגדהוזחטיכלמנסעפצקרשתךםןץף ' + ']', 'g');
               // comment = comment.replace(regex, '');
               // if (comment.length > 2000) {
