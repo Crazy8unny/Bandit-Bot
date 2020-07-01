@@ -184,12 +184,12 @@ class ForumNotification {
                     if (names != "") {
                       embed.description += `\n \n || ${names.substring(0, names.length - 2)} ||`;
                     }
-                    
+
                   }
                 }
                 works = false;
               }
-              if (!works) {client.channels.cache.find(c => c.id === serverID).send({ embed }).catch(console.error);}
+              if (!works) { client.channels.cache.find(c => c.id === serverID).send({ embed }).catch(console.error); }
             });
           }
 
@@ -199,12 +199,14 @@ class ForumNotification {
               if (servers.exists) {
                 servers = servers.data().servers;
                 for (let i in servers) {
-                  if (i != "random" && !isUserName) {
-                    addRegisteredUsers(embed, servers[i], link);
-                    embed = embedbck;
-                  }
-                  else {
-                    client.channels.cache.find(c => c.id === i).send({ embed }).catch(console.error);
+                  if (i != "random") {
+                    if (!isUserName) {
+                      addRegisteredUsers(embed, servers[i], link);
+                      embed = embedbck;
+                    }
+                    else {
+                      client.channels.cache.find(c => c.id === i).send({ embed }).catch(console.error);
+                    }
                   }
                 }
               }

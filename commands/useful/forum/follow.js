@@ -35,7 +35,7 @@ class Follow extends Command {
             }
             else {
                 this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
-                    let res = `הנושא ${SubjectName} נוסף בהצלחה !!111`
+                    let res = `הנושא ${subjectName} נוסף בהצלחה !!111`
                     const guild = message.guild.id;
                     const author = message.author.id;
                     if (!servers.exists) {
