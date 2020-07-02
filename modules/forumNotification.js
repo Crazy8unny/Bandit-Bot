@@ -108,7 +108,9 @@ class ForumNotification {
               let photos = MD.avatar.getElementsByTagName("img");
               MD.rank = addLF2Domain(photos[0].src, true);
               MD.avatar = addLF2Domain(photos[1].src, false);
-              if (MD.avatar == "templates/fiblack3dblue/images/lang_hebrew/icon_buddy.gif") {
+              if (MD.avatar == "templates/fiblack3dblue/images/lang_hebrew/icon_buddy.gif" ||
+                !(MD.avatar.endsWith("png") || MD.avatar.endsWith("bmp") || MD.avatar.endsWith("jpg") || MD.avatar.endsWith("jpeg")
+                  || MD.avatar.endsWith("bmp") || MD.avatar.endsWith("gif"))) {
                 MD.avatar = "https://lf2.co.il/forum/images/avatars/gallery/fighters/index.9.gif";
               }
 
@@ -117,10 +119,16 @@ class ForumNotification {
                 MD.avatar = addLF2Domain(photos[2].src, false);
               }
 
+              if (!(MD.rank.endsWith("png") || MD.rank.endsWith("bmp") || MD.rank.endsWith("jpg") ||
+                MD.rank.endsWith("jpeg") || MD.rank.endsWith("bmp") || MD.rank.endsWith("gif"))) {
+                MD.rank = "https://lf2.co.il/forum/images/ranks/lang_hebrew/10.gif";
+              }
+
               let comment = table.getElementsByClassName("postbody");
               comment = comment[comment.length - 1].textContent
               // comment = comment.innerHTML;
-              comment = comment.replace("<br />", "`");
+              comment = comment.replace(/<br \/>/g, "||");
+              comment = comment.replace(/<[\s\S]*\/>/g, "");
               // let regex = new RegExp('[^' + '\nאבגדהוזחטיכלמנסעפצקרשתךםןץף ' + ']', 'g');
               // comment = comment.replace(regex, '');
               if (comment.length > 2000) {
