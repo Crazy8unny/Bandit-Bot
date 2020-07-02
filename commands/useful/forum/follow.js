@@ -76,11 +76,12 @@ class Follow extends Command {
                 "method": "GET",
                 "encoding": null
             };
-            request.get(settings, function (error, response, data) {
+            let subjectName = request.get(settings, function (error, response, data) {
                 const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
                 const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
                 return subjectName;
             });
+            return subjectName;
         }
     }
 }
