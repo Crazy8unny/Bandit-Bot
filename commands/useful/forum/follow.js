@@ -29,7 +29,7 @@ class Follow extends Command {
             message.channel.send("הלינק הוסר בהצלחה משהו");
         }
         else if (msg.startsWith("!עקוב")) {
-            let subjectName = getSubjectName(args[0]);
+            let subjectName = await getSubjectName(args[0]);
             console.log(subjectName);
             if (subjectName == "לינק לא חוקי. איתן האפס.") {
                 message.channel.send("לא יודע מה כתבת פה אחי...");
@@ -67,7 +67,7 @@ class Follow extends Command {
             message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה עקוב` על מנת לקבל מידע מלא על הפקודה");
         }
 
-        function getSubjectName(link) {
+        async function getSubjectName(link) {
             if (!link.startsWith("https://lf2.co.il/forum/viewtopic.php?t=") || !link.startsWith("https://lf2.co.il/forum/viewtopic.php?t=")) {
                 return "לינק לא חוקי. איתן האפס.";
             }
@@ -76,12 +76,11 @@ class Follow extends Command {
                 "method": "GET",
                 "encoding": null
             };
-            let subjectName = request.get(settings, function (error, response, data) {
+            return Promise (request.get(settings, function (error, response, data) {
                 const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
                 const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
                 return subjectName;
-            });
-            return subjectName;
+            }));
         }
     }
 }
