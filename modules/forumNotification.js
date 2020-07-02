@@ -128,7 +128,7 @@ class ForumNotification {
               comment = comment[comment.length - 1].textContent
               // comment = comment.innerHTML;
               comment = comment.replace(/<br \/>(?!([\s\S]*<br \/>))/g, "||")
-              comment = comment.replace(/ספוילר:/g, "ספוילר: ||")
+              comment = comment.replace(/ספוילר:(?!([\s\S]*ספוילר:))/g, "ספוילר: ||")
               comment = comment.replace(/<br \/>/g, ""); 
               comment = comment.replace(/<[\s\S]*\/>/g, "");
               // let regex = new RegExp('[^' + '\nאבגדהוזחטיכלמנסעפצקרשתךםןץף ' + ']', 'g');
