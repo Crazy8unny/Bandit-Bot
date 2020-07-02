@@ -29,12 +29,20 @@ class Follow extends Command {
             message.channel.send("הלינק הוסר בהצלחה משהו");
         }
         else if (msg.startsWith("!עקוב")) {
-            let subjectName = await getSubjectName(args[0]);
-            console.log(subjectName);
-            if (subjectName == "לינק לא חוקי. איתן האפס.") {
+            if (!args[0].startsWith("https://lf2.co.il/forum/viewtopic.php?t=") || !args[0].startsWith("https://lf2.co.il/forum/viewtopic.php?t=")) {
                 message.channel.send("לא יודע מה כתבת פה אחי...");
             }
             else {
+
+            }
+            let settings = {
+                "url": args[0],
+                "method": "GET",
+                "encoding": null
+            };
+            request.get(settings, function (error, response, data) {
+                const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
+                const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
                 this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
                     let res = `הנושא ${subjectName} נוסף בהצלחה !!111`
                     const guild = message.guild.id;
@@ -47,7 +55,7 @@ class Follow extends Command {
                         let userSubjects = servers[author];
                         if (userSubjects != undefined) {
                             if (JSON.stringify(userSubjects).includes(args[0])) {
-                               res = "אתה כבר עוקב אחרי הנושא הזה אחינו";
+                                res = "אתה כבר עוקב אחרי הנושא הזה אחינו";
                             }
                         }
                         else {
@@ -61,26 +69,10 @@ class Follow extends Command {
                     this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
                     message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה עקוב` על מנת לקבל מידע מלא על הפקודה");
                 });
-            }
+            });
         }
         else {
             message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה עקוב` על מנת לקבל מידע מלא על הפקודה");
-        }
-
-        async function getSubjectName(link) {
-            if (!link.startsWith("https://lf2.co.il/forum/viewtopic.php?t=") || !link.startsWith("https://lf2.co.il/forum/viewtopic.php?t=")) {
-                return "לינק לא חוקי. איתן האפס.";
-            }
-            let settings = {
-                "url": link,
-                "method": "GET",
-                "encoding": null
-            };
-            return Promise (request.get(settings, function (error, response, data) {
-                const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
-                const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
-                return subjectName;
-            }));
         }
     }
 }
