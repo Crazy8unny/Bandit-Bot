@@ -201,7 +201,7 @@ class ForumNotification {
                       }
                     }
                     if (names != "") {
-                      embed.description += `\n \n \`\`\` ${names.substring(0, names.length - 2)} \`\`\``;
+                      embed.description += `\n \n || ${names.substring(0, names.length - 2)} ||`;
                     }
 
                   }
