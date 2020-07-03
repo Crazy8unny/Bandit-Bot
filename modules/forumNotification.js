@@ -138,9 +138,9 @@ class ForumNotification {
                 spoilers[i] = spoilers[i].replace(/<br \/>(?!([\s\S]*<br \/>))/g, "||")
                 spoilers[i] = spoilers[i].replace(/ספוילר:(?!([\s\S]*ספוילר:))/g, "ספוילר: ||")
                 spoilers[i] = spoilers[i].replace(/<br \/>/g, "");
-                spoilers[i] = spoilers[i].replace(/<[\s\S]*\/>/g, "");
                 comment = comment.replace("!יש כאן ספוייילר!", spoilers[i]);
               }
+              comment = comment.replace(/<[\s\S]*\/>/g, "");
 
               if (comment.length > 2000) {
                 comment = comment.substring(0, 2000);
