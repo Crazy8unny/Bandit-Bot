@@ -126,7 +126,7 @@ class ForumNotification {
 
               let comment = table.getElementsByClassName("postbody");
               comment = comment[comment.length - 1].textContent
-              let regex = /sp:(?!([\s\S]*sp:))([\s\S]*)(?=<br \/>(?!([\s\S]*<br \/>)))<br \/>/g;
+              let regex = /ספוילר:(?!([\s\S]*ספוילר:))([\s\S]*)(?=<br \/>(?!([\s\S]*<br \/>)))<br \/>/g;
               let found;
               let spoilers = [];
               while (comment.match(regex)) {
@@ -136,7 +136,7 @@ class ForumNotification {
               }
               for (let i = spoilers.length - 1; i >= 0; i--) {
                 spoilers[i] = spoilers[i].replace(/<br \/>(?!([\s\S]*<br \/>))/g, "||")
-                spoilers[i] = spoilers[i].replace(/sp:(?!([\s\S]*sp:))/g, "sp: ||")
+                spoilers[i] = spoilers[i].replace(/ספוילר:(?!([\s\S]*ספוילר:))/g, "ספוילר: ||")
                 spoilers[i] = spoilers[i].replace(/<br \/>/g, "");
                 spoilers[i] = spoilers[i].replace(/<[\s\S]*\/>/g, "");
                 comment = comment.replace("!יש כאן ספוייילר!", spoilers[i]);
