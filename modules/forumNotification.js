@@ -126,13 +126,22 @@ class ForumNotification {
 
               let comment = table.getElementsByClassName("postbody");
               comment = comment[comment.length - 1].textContent
-              // comment = comment.innerHTML;
-              comment = comment.replace(/<br \/>(?!([\s\S]*<br \/>))/g, "||")
-              comment = comment.replace(/ספוילר:(?!([\s\S]*ספוילר:))/g, "ספוילר: ||")
-              comment = comment.replace(/<br \/>/g, ""); 
-              comment = comment.replace(/<[\s\S]*\/>/g, "");
-              // let regex = new RegExp('[^' + '\nאבגדהוזחטיכלמנסעפצקרשתךםןץף ' + ']', 'g');
-              // comment = comment.replace(regex, '');
+              let regex = /sp:(?!([\s\S]*sp:))([\s\S]*)(?=<br \/>(?!([\s\S]*<br \/>)))<br \/>/g;
+              let found;
+              let spoilers = [];
+              while (comment.match(regex)) {
+                found = comment.match(regex);
+                spoilers.push(found[0]);
+                comment = comment.replace(found[0], "!יש כאן ספוייילר!")
+              }
+              for (let i = spoilers.length - 1; i >= 0; i--) {
+                spoilers[i] = spoilers[i].replace(/<br \/>(?!([\s\S]*<br \/>))/g, "||")
+                spoilers[i] = spoilers[i].replace(/sp:(?!([\s\S]*sp:))/g, "sp: ||")
+                spoilers[i] = spoilers[i].replace(/<br \/>/g, "");
+                spoilers[i] = spoilers[i].replace(/<[\s\S]*\/>/g, "");
+                comment = comment.replace("!יש כאן ספוייילר!", spoilers[i]);
+              }
+
               if (comment.length > 2000) {
                 comment = comment.substring(0, 2000);
                 comment += ".......";
