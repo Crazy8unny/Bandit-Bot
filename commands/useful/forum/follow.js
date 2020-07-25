@@ -66,15 +66,12 @@ class Follow extends Command {
                                 servers[author][subjectName] = args[0];
                             }
                             else {
-                                servers[guild] = {};
-                                console.log("6");
-                                servers[guild][author] = {};
                                 servers[guild][author][subjectName] = args[0];
                             }
                         }
-                        this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
-                        message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה עקוב` על מנת לקבל מידע מלא על הפקודה");
+                        message.channel.send(res);
                     });
+                    this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
                 });
             }
         }
