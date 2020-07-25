@@ -51,21 +51,23 @@ class Follow extends Command {
                         if (!servers.exists) {
                             servers = { guild: { author: { subjectName: args[0] } } };
                         }
-                        let server = servers.data()[guild];
-                        if (server != undefined) {
-                            let userSubjects = server[author];
-                            if (userSubjects != undefined) {
-                                if (JSON.stringify(userSubjects).includes(args[0])) {
-                                    res = "אתה כבר עוקב אחרי הנושא הזה אחינו";
+                        else {
+                            let server = servers.data()[guild];
+                            if (server != undefined) {
+                                let userSubjects = server[author];
+                                if (userSubjects != undefined) {
+                                    if (JSON.stringify(userSubjects).includes(args[0])) {
+                                        res = "אתה כבר עוקב אחרי הנושא הזה אחינו";
+                                    }
                                 }
+                                else {
+                                    server[author] = {};
+                                }
+                                servers[author][subjectName] = args[0];
                             }
                             else {
-                                server[author] = {};
+                                servers[guild][author][subjectName] = args[0];
                             }
-                            servers[author][subjectName] = args[0];
-                        }
-                        else {
-                            servers[guild][author][subjectName] = args[0];
                         }
                         this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
                         message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה עקוב` על מנת לקבל מידע מלא על הפקודה");
