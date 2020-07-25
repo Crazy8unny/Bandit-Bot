@@ -67,6 +67,7 @@ class Follow extends Command {
                             }
                             else {
                                 servers[guild] = {};
+                                console.log("6");
                                 servers[guild][author] = {};
                                 servers[guild][author][subjectName] = args[0];
                             }
