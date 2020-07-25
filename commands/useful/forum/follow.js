@@ -53,7 +53,7 @@ class Follow extends Command {
                         }
                         let server = servers.data()[guild];
                         if (server != undefined) {
-                            let userSubjects = servers[author];
+                            let userSubjects = server[author];
                             if (userSubjects != undefined) {
                                 if (JSON.stringify(userSubjects).includes(args[0])) {
                                     res = "אתה כבר עוקב אחרי הנושא הזה אחינו";
