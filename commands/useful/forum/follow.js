@@ -50,28 +50,24 @@ class Follow extends Command {
                         let res = `הנושא ${subjectName} נוסף בהצלחה !!111`
                         if (!servers.exists) {
                             servers = { guild: { author: { subjectName: args[0] } } };
-                            console.log("1")
                         }
                         else {
                             let server = servers.data()[guild];
                             if (server != undefined) {
-                                console.log("2")
                                 let userSubjects = server[author];
                                 if (userSubjects != undefined) {
-                                    console.log("3")
                                     if (JSON.stringify(userSubjects).includes(args[0])) {
-                                        console.log("4")
                                         res = "אתה כבר עוקב אחרי הנושא הזה אחינו";
                                     }
                                 }
                                 else {
-                                    console.log("5")
                                     server[author] = {};
                                 }
                                 servers[author][subjectName] = args[0];
                             }
                             else {
-                                console.log("6")
+                                servers[guild] = {};
+                                servers[guild][author] = {};
                                 servers[guild][author][subjectName] = args[0];
                             }
                         }
