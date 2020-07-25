@@ -38,14 +38,16 @@ class Follow extends Command {
                     "method": "GET",
                     "encoding": null
                 };
-                request.get(settings, function (error, response, data) {
-                    const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
-                    const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
-                    console.log(subjectName);
-                    this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
-                        let res = `הנושא ${subjectName} נוסף בהצלחה !!111`
+                this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
+                    request.get(settings, function (error, response, data) {
+                        const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
+                        const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
                         const guild = message.guild.id;
                         const author = message.author.id;
+                        console.log("subjectName: " + subjectName);
+                        console.log("guild: " + guild);
+                        console.log("author: " + author);
+                        let res = `הנושא ${subjectName} נוסף בהצלחה !!111`
                         if (!servers.exists) {
                             servers = { guild: { author: { subjectName: args[0] } } };
                         }
