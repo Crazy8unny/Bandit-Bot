@@ -33,43 +33,42 @@ class Follow extends Command {
                 message.channel.send("לא יודע מה כתבת פה אחי...");
             }
             else {
-
-            }
-            let settings = {
-                "url": args[0],
-                "method": "GET",
-                "encoding": null
-            };
-            request.get(settings, function (error, response, data) {
-                const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
-                const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
-                this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
-                    let res = `הנושא ${subjectName} נוסף בהצלחה !!111`
-                    const guild = message.guild.id;
-                    const author = message.author.id;
-                    if (!servers.exists) {
-                        servers = { guild: { author: { subjectName: args[0] } } };
-                    }
-                    let server = servers.data()[guild];
-                    if (server != undefined) {
-                        let userSubjects = servers[author];
-                        if (userSubjects != undefined) {
-                            if (JSON.stringify(userSubjects).includes(args[0])) {
-                                res = "אתה כבר עוקב אחרי הנושא הזה אחינו";
+                let settings = {
+                    "url": args[0],
+                    "method": "GET",
+                    "encoding": null
+                };
+                request.get(settings, function (error, response, data) {
+                    const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
+                    const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
+                    this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
+                        let res = `הנושא ${subjectName} נוסף בהצלחה !!111`
+                        const guild = message.guild.id;
+                        const author = message.author.id;
+                        if (!servers.exists) {
+                            servers = { guild: { author: { subjectName: args[0] } } };
+                        }
+                        let server = servers.data()[guild];
+                        if (server != undefined) {
+                            let userSubjects = servers[author];
+                            if (userSubjects != undefined) {
+                                if (JSON.stringify(userSubjects).includes(args[0])) {
+                                    res = "אתה כבר עוקב אחרי הנושא הזה אחינו";
+                                }
                             }
+                            else {
+                                server[author] = {};
+                            }
+                            servers[author][subjectName] = args[0];
                         }
                         else {
-                            server[author] = {};
+                            servers[guild][author][subjectName] = args[0];
                         }
-                        servers[author][subjectName] = args[0];
-                    }
-                    else {
-                        servers[guild][author][subjectName] = args[0];
-                    }
-                    this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
-                    message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה עקוב` על מנת לקבל מידע מלא על הפקודה");
+                        this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
+                        message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה עקוב` על מנת לקבל מידע מלא על הפקודה");
+                    });
                 });
-            });
+            }
         }
         else {
             message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה עקוב` על מנת לקבל מידע מלא על הפקודה");
