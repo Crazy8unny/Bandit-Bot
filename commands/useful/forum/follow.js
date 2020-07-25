@@ -41,6 +41,7 @@ class Follow extends Command {
                 request.get(settings, function (error, response, data) {
                     const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
                     const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
+                    console.log(subjectName);
                     this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
                         let res = `הנושא ${subjectName} נוסף בהצלחה !!111`
                         const guild = message.guild.id;
