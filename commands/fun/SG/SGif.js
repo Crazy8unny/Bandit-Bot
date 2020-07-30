@@ -13,10 +13,10 @@ class SGif extends Command {
     }
 
     async run(message, args, level) {
-        if (args[0] == null || args[1] != null) {
+        if (args[0] == null || args[1] != null || args[0] != "נו") {
             message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה הזה` על מנת לקבל מידע מלא על הפקודה");
         }
-        else if (args[0] == "נו") {
+        else {
             try {
                 let embed = new Discord.MessageEmbed()
                     .setImage("https://i.imgur.com/0gYpI9t.gif")
