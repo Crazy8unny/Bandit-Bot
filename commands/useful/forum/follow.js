@@ -40,7 +40,7 @@ class Follow extends Command {
                 };
                 this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
                     // request.get(settings, function (error, response, data) {
-                    const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
+                    // const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
                     // const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
                     const guild = message.guild.id;
                     const author = message.author.id;
