@@ -45,28 +45,29 @@ class Follow extends Command {
                     const guild = message.guild.id;
                     const author = message.author.id;
                     // console.log("subjectName: " + subjectName);
+                    const link = args[0];
                     console.log("guild: " + guild);
                     console.log("author: " + author);
                     let res = `הנושא נוסף בהצלחה !!111`
                     if (!servers.exists) {
-                        servers = { guild: { author: { args[0]: "subjectname" } } };
+                        servers = { guild: { author: { link: "subjectname" } } };
                     }
                     else {
                         let server = servers.data()[guild];
                         if (server != undefined) {
                             let userSubjects = server[author];
                             if (userSubjects != undefined) {
-                                if (JSON.stringify(userSubjects).includes(args[0])) {
+                                if (JSON.stringify(userSubjects).includes(link)) {
                                     res = "אתה כבר עוקב אחרי הנושא הזה אחינו";
                                 }
                             }
                             else {
                                 server[author] = {};
                             }
-                            servers[author][args[0]] = "subjectname";
+                            servers[author][link] = "subjectname";
                         }
                         else {
-                            servers[guild][author][args[0]] = "subjectname";
+                            servers[guild][author][link] = "subjectname";
                         }
                     }
                     message.channel.send(res);
