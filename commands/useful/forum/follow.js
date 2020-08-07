@@ -39,38 +39,38 @@ class Follow extends Command {
                     "encoding": null
                 };
                 this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
-                    request.get(settings, function (error, response, data) {
-                        const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
-                        const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
-                        const guild = message.guild.id;
-                        const author = message.author.id;
-                        console.log("subjectName: " + subjectName);
-                        console.log("guild: " + guild);
-                        console.log("author: " + author);
-                        let res = `הנושא ${subjectName} נוסף בהצלחה !!111`
-                        if (!servers.exists) {
-                            servers = { guild: { author: { subjectName: args[0] } } };
-                        }
-                        else {
-                            let server = servers.data()[guild];
-                            if (server != undefined) {
-                                let userSubjects = server[author];
-                                if (userSubjects != undefined) {
-                                    if (JSON.stringify(userSubjects).includes(args[0])) {
-                                        res = "אתה כבר עוקב אחרי הנושא הזה אחינו";
-                                    }
+                    // request.get(settings, function (error, response, data) {
+                    const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
+                    // const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
+                    const guild = message.guild.id;
+                    const author = message.author.id;
+                    // console.log("subjectName: " + subjectName);
+                    console.log("guild: " + guild);
+                    console.log("author: " + author);
+                    let res = `הנושא נוסף בהצלחה !!111`
+                    if (!servers.exists) {
+                        servers = { guild: { author: { args[0]: "subjectname" } } };
+                    }
+                    else {
+                        let server = servers.data()[guild];
+                        if (server != undefined) {
+                            let userSubjects = server[author];
+                            if (userSubjects != undefined) {
+                                if (JSON.stringify(userSubjects).includes(args[0])) {
+                                    res = "אתה כבר עוקב אחרי הנושא הזה אחינו";
                                 }
-                                else {
-                                    server[author] = {};
-                                }
-                                servers[author][subjectName] = args[0];
                             }
                             else {
-                                servers[guild][author][subjectName] = args[0];
+                                server[author] = {};
                             }
+                            servers[author][args[0]] = "subjectname";
                         }
-                        message.channel.send(res);
-                    });
+                        else {
+                            servers[guild][author][args[0]] = "subjectname";
+                        }
+                    }
+                    message.channel.send(res);
+                    // });
                     this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
                 });
             }
