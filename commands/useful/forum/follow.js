@@ -75,6 +75,8 @@ class Follow extends Command {
                             }
                         }
                         message.channel.send(res);
+                        return servers;
+                    }).then(servers => {
                         this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
                     });
                 });
