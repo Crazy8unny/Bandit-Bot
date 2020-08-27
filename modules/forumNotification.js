@@ -216,7 +216,7 @@ class ForumNotification {
             client.db.collection("lastThread").doc("Servers").get().then(servers => {
               let embedbck = embed;
               if (servers.exists) {
-                servers = servers.data().servers;
+                servers = servers.data().test;
                 for (let i in servers) {
                   if (i != "random") {
                     if (!isUserName) {
