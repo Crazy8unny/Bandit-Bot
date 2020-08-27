@@ -29,7 +29,7 @@ class Follow extends Command {
             message.channel.send("הלינק הוסר בהצלחה משהו");
         }
         else if (msg.startsWith("!עקוב")) {
-            if (!args[0].startsWith("https://lf2.co.il/forum/viewtopic.php?t=") || !args[0].startsWith("https://lf2.co.il/forum/viewtopic.php?t=")) {
+            if (!args[0].startsWith("https://lf2.co.il/forum/viewtopic.php?t=") || !args[0].startsWith("http://lf2.co.il/forum/viewtopic.php?t=")) {
                 message.channel.send("לא יודע מה כתבת פה אחי...");
             }
             else {
@@ -54,6 +54,7 @@ class Follow extends Command {
                     }
                     else {
                         let server = servers.data()[guild];
+                        console.log(server)
                         if (server != undefined) {
                             let userSubjects = server[author];
                             if (userSubjects != undefined) {
