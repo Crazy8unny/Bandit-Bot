@@ -64,9 +64,9 @@ class Follow extends Command {
                                 }
                             }
                             else {
-                                server[author] = {};
+                                servers[guild][author] = {};
                             }
-                            servers[author][link] = "subjectname";
+                            servers[guild][author][link] = "subjectname";
                         }
                         else {
                             servers[guild][author][link] = "subjectname";
