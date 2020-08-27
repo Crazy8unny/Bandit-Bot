@@ -50,7 +50,7 @@ class Follow extends Command {
                         console.log("author: " + author);
                         let res = `הנושא נוסף בהצלחה !!111`
                         if (!servers.exists) {
-                            servers = { [guild]: { [author]: { [link]: "subjectname" } } };
+                            servers = { [guild]: { [author]: { [link]: [subjectName] } } };
                         }
                         else {
                             servers = servers.data();
@@ -66,17 +66,17 @@ class Follow extends Command {
                                 else {
                                     servers[guild][author] = {};
                                 }
-                                servers[guild][author][link] = "subjectname";
+                                servers[guild][author][link] = subjectName;
                             }
                             else {
                                 servers[guild] = {};
                                 servers[guild][author] = {};
-                                servers[guild][author][link] = "subjectname";
+                                servers[guild][author][link] = subjectName;
                             }
                         }
                         message.channel.send(res);
+                        this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
                     });
-                    this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
                 });
             }
         }
