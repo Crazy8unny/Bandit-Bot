@@ -51,7 +51,7 @@ class Follow extends Command {
                     console.log("author: " + author);
                     let res = `הנושא נוסף בהצלחה !!111`
                     if (!servers.exists) {
-                        servers = { guild: { author: { link: "subjectname" } } };
+                        servers = { [guild]: { [author]: { [link]: "subjectname" } } };
                     }
                     else {
                         let server = servers[guild];
