@@ -32,7 +32,7 @@ class Follow extends Command {
                     if (servers.exists) {
                         let userSubjects = servers.data()[guild][author];
                         if (userSubjects != undefined) {
-                            res = "אתה עוקב אחרי הנושאים הבאים: \n \מ"
+                            res = "אתה עוקב אחרי הנושאים הבאים: \n \n"
                             for (let link in userSubjects) {
                                 if (link != "random") {
                                     res += userSubjects[link] + "\n";
