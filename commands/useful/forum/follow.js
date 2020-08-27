@@ -39,43 +39,45 @@ class Follow extends Command {
                     "encoding": null
                 };
                 this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
-                    request.get(settings, function (error, response, data) {
-                        const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
-                        const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
-                        const guild = message.guild.id;
-                        const author = message.author.id;
-                        console.log("subjectName: " + subjectName);
-                        const link = args[0];
-                        console.log("guild: " + guild);
-                        console.log("author: " + author);
-                        let res = `הנושא נוסף בהצלחה !!111`
-                        if (!servers.exists) {
-                            servers = { [guild]: { [author]: { [link]: [subjectName] } } };
-                        }
-                        else {
-                            servers = servers.data();
-                            let server = servers[guild];
-                            console.log(server)
-                            if (server != undefined) {
-                                let userSubjects = server[author];
-                                if (userSubjects != undefined) {
-                                    if (JSON.stringify(userSubjects).includes(link)) {
-                                        res = "אתה כבר עוקב אחרי הנושא הזה אחינו";
-                                    }
-                                }
-                                else {
-                                    servers[guild][author] = {};
-                                }
-                                servers[guild][author][link] = subjectName;
+                    return new Pormise(resolve => {
+                        request.get(settings, function (error, response, data) {
+                            const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
+                            const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
+                            const guild = message.guild.id;
+                            const author = message.author.id;
+                            console.log("subjectName: " + subjectName);
+                            const link = args[0];
+                            console.log("guild: " + guild);
+                            console.log("author: " + author);
+                            let res = `הנושא נוסף בהצלחה !!111`
+                            if (!servers.exists) {
+                                servers = { [guild]: { [author]: { [link]: [subjectName] } } };
                             }
                             else {
-                                servers[guild] = {};
-                                servers[guild][author] = {};
-                                servers[guild][author][link] = subjectName;
+                                servers = servers.data();
+                                let server = servers[guild];
+                                console.log(server)
+                                if (server != undefined) {
+                                    let userSubjects = server[author];
+                                    if (userSubjects != undefined) {
+                                        if (JSON.stringify(userSubjects).includes(link)) {
+                                            res = "אתה כבר עוקב אחרי הנושא הזה אחינו";
+                                        }
+                                    }
+                                    else {
+                                        servers[guild][author] = {};
+                                    }
+                                    servers[guild][author][link] = subjectName;
+                                }
+                                else {
+                                    servers[guild] = {};
+                                    servers[guild][author] = {};
+                                    servers[guild][author][link] = subjectName;
+                                }
                             }
-                        }
-                        message.channel.send(res);
-                        return servers;
+                            message.channel.send(res);
+                            resolve(servers);
+                        })
                     }).then(servers => {
                         this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
                     });
