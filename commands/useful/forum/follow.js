@@ -1,7 +1,6 @@
 const request = require('request');
 const JSDOM = require('jsdom').JSDOM;
 const iconv = require('iconv-lite');
-
 const Command = require("../../../base/Command.js");
 
 class Follow extends Command {
@@ -39,7 +38,7 @@ class Follow extends Command {
                     "encoding": null
                 };
                 this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
-                    return new Pormise(resolve => {
+                    return new Promise(resolve => {
                         request.get(settings, function (error, response, data) {
                             const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
                             const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
