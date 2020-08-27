@@ -42,6 +42,7 @@ class Follow extends Command {
                     // request.get(settings, function (error, response, data) {
                     // const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
                     // const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
+                    servers = servers.data();
                     const guild = message.guild.id;
                     const author = message.author.id;
                     // console.log("subjectName: " + subjectName);
@@ -53,7 +54,7 @@ class Follow extends Command {
                         servers = { guild: { author: { link: "subjectname" } } };
                     }
                     else {
-                        let server = servers.data()[guild];
+                        let server = servers[guild];
                         console.log(server)
                         if (server != undefined) {
                             let userSubjects = server[author];
