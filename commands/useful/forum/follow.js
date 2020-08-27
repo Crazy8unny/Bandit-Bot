@@ -22,7 +22,23 @@ class Follow extends Command {
             message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה עקוב` על מנת לקבל מידע מלא על הפקודה");
         }
         else if (msg.startsWith("!רשימת מעקב")) {
-            message.channel.send("אחי אתה עוקב אחרי כל השיט הבא");
+            this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
+                const guild = message.guild.id;
+                const author = message.author.id;
+                let res = "אתה לא עוקב אחרי כלום פה גבר";
+                if (servers.exists) {
+                    let userSubjects = servers.data()[guild][author];
+                    if (userSubjects != undefined) {
+                        res = "אתה עוקב אחרי הנושאים הבאים: \n"
+                        for (let link in userSubjects) {
+                            if (link != "random") {
+                                res += userSubjects[link] + "\n";
+                            }
+                        }
+                    }
+                }
+                message.channel.send(res);
+            });
         }
         else if (msg.startsWith("!הסר")) {
             message.channel.send("הלינק הוסר בהצלחה משהו");
@@ -55,7 +71,6 @@ class Follow extends Command {
                             else {
                                 servers = servers.data();
                                 let server = servers[guild];
-                                console.log(server)
                                 if (server != undefined) {
                                     let userSubjects = server[author];
                                     if (userSubjects != undefined) {
