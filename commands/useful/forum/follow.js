@@ -66,7 +66,6 @@ class Follow extends Command {
                             request.get(settings, function (error, response, data) {
                                 const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
                                 const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
-                                const guild = message.guild.id;
                                 const author = message.author.id;
                                 console.log("subjectName: " + subjectName);
                                 const link = args[0];
