@@ -180,7 +180,7 @@ class ForumNotification {
           function addRegisteredUsers(embed, serverID, link) {
             client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
               let works = true;
-              console.log("serverID " + serverID)l
+              console.log("serverID " + serverID);
               if (link != undefined) {
                 if (servers.exists) {
                   let server = servers.data()[serverID];
