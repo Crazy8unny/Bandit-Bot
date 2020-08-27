@@ -194,8 +194,8 @@ class ForumNotification {
                       // subjectsID = Object.keys(server[usersID[user]]);
                       // console.log("server[user].length: " + subjectsID.length);
                       for (let subjectURL in server[usersID[user]]) {
-                        console.log("URL: " + server[usersID[user]][subjectURL])
-                        if (server[usersID[user]][subjectURL] == link) {
+                        console.log("URL: " + subjectURL)
+                        if (subjectURL == link) {
                           names += `<@${usersID[user]}> \n`
                           console.log("user: " + usersID[user]);
                         }
