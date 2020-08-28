@@ -32,12 +32,13 @@ class Follow extends Command {
                     if (servers.exists) {
                         let userSubjects = servers.data()[guild][author];
                         if (userSubjects != undefined) {
-                            res = "אתה עוקב אחרי הנושאים הבאים: \n \n"
+                            res = "```asciidoc\n= רשימת מעקב = \n"
                             for (let link in userSubjects) {
-                                if (link != "random") {
-                                    res += userSubjects[link] + "\n";
+                                if (link != "random") { 
+                                    res += `${link} :: ${userSubjects[link]} \n`
                                 }
                             }
+                            res += "```";
                         }
                     }
                     message.channel.send(res);
@@ -53,6 +54,9 @@ class Follow extends Command {
                 message.channel.send("לא יודע מה כתבת פה אחי...");
             }
             else {
+                if (args[0].startsWith("http://")) {
+                    args[0] = "https://" + args[0].substring(7, msg.length);
+                }
                 let settings = {
                     "url": args[0],
                     "method": "GET",
