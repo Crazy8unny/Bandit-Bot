@@ -35,7 +35,7 @@ class Follow extends Command {
                             res = "```asciidoc\n= רשימת מעקב = \n"
                             for (let link in userSubjects) {
                                 if (link != "random") { 
-                                    res += `${link} :: ${userSubjects[link]} \n`
+                                    res += `${userSubjects[link]}:: ${link}\n`
                                 }
                             }
                             res += "```";
@@ -68,14 +68,24 @@ class Follow extends Command {
                     this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
                         return new Promise(resolve => {
                             request.get(settings, function (error, response, data) {
+                                let res = `הנושא נוסף בהצלחה !!111`
                                 const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
                                 const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
+                                if (subjectName != "לחזרה לפורום לחצו כאן.") {
+                                    message.channel.send("מה זה הנושא הזה");
+                                    if (!servers.exists) {
+                                        servers = { [guild]: { [author]: {} } };
+                                    }
+                                    else {
+                                        servers = servers.data();
+                                    }
+                                    resolve(servers);
+                                }
                                 const author = message.author.id;
                                 console.log("subjectName: " + subjectName);
                                 const link = args[0];
                                 console.log("guild: " + guild);
                                 console.log("author: " + author);
-                                let res = `הנושא נוסף בהצלחה !!111`
                                 if (!servers.exists) {
                                     servers = { [guild]: { [author]: { [link]: [subjectName] } } };
                                 }
