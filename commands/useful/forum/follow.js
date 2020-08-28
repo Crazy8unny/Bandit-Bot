@@ -132,11 +132,13 @@ class Follow extends Command {
                                                 servers[guild][author] = {};
                                             }
                                             servers[guild][author][link] = subjectName;
+                                            res = "הנושא  `" + subjectName + "` נוסף בהצלחה !!111"
                                         }
                                         else {
                                             servers[guild] = {};
                                             servers[guild][author] = {};
                                             servers[guild][author][link] = subjectName;
+                                            res = "הנושא  `" + subjectName + "` נוסף בהצלחה !!111"
                                         }
                                     }
                                     message.channel.send(res);
