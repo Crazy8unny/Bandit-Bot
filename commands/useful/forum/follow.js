@@ -35,12 +35,7 @@ class Follow extends Command {
                             res = "```asciidoc\n= רשימת מעקב = \n"
                             for (let link in userSubjects) {
                                 if (link != "random") {
-                                    res += `${link} ::${userSubjects[link]}\n`
-                                    res += `${link}::${userSubjects[link]}\n`
-                                    res += `${link}:: ${userSubjects[link]}\n`
                                     res += `${userSubjects[link]}:: ${link}\n`
-                                    res += `${userSubjects[link]}::${link}\n`
-                                    res += `${userSubjects[link]} ::${link}\n`
                                 }
                             }
                             res += "```";
@@ -69,7 +64,7 @@ class Follow extends Command {
                                 for (let link in userSubjects) {
                                     if (link != "random") {
                                         if (link == args[0] || userSubjects[link] == args[0]) {
-                                            servers[guild][author].delete(link);
+                                            delete servers[guild][author][link];
                                             res = "הנושא  `" + userSubjects[link] + "` נמחק בהצלחה לא נחפור לך יותר";
                                             this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
                                         }
