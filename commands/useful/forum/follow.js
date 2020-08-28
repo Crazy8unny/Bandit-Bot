@@ -34,7 +34,7 @@ class Follow extends Command {
                         if (userSubjects != undefined) {
                             res = "```asciidoc\n= רשימת מעקב = \n"
                             for (let link in userSubjects) {
-                                if (link != "random") { 
+                                if (link != "random") {
                                     res += `${userSubjects[link]}:: ${link}\n`
                                 }
                             }
@@ -47,16 +47,42 @@ class Follow extends Command {
             });
         }
         else if (msg.startsWith("!הסר")) {
-            message.channel.send("הלינק הוסר בהצלחה משהו");
-        }
-        else if (msg.startsWith("!עקוב")) {
-            if (!args[0].startsWith("https://lf2.co.il/forum/viewtopic.php?t=") && !args[0].startsWith("http://lf2.co.il/forum/viewtopic.php?t=")) {
-                message.channel.send("לא יודע מה כתבת פה אחי...");
-            }
-            else {
+            this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
                 if (args[0].startsWith("http://")) {
                     args[0] = "https://" + args[0].substring(7, msg.length);
                 }
+                else {
+                    const guild = message.guild.id;
+                    const author = message.author.id;
+                    let res = "אתה לא עוקב אחרי הנושא הזה";
+                    if (servers.exists) {
+                        servers = servers.data();
+                        let userSubjects = servers[guild][author];
+                        if (userSubjects != undefined) {
+                            for (let link in userSubjects) {
+                                if (link != "random") {
+                                    if (link == args[0] || userSubjects[link] == args[0]) {
+                                        servers[guild][author].delete(link);
+                                        res = "הנושא  `" + userSubjects[link] + "` נמחק בהצלחה לא נחפור לך יותר";
+                                        this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    message.channel.send(res);
+                }
+            });
+
+        }
+        else if (msg.startsWith("!עקוב")) {
+            if (args[0].startsWith("http://")) {
+                args[0] = "https://" + args[0].substring(7, msg.length);
+            }
+            if (!args[0].startsWith("https://lf2.co.il/forum/viewtopic.php?t=")) {
+                message.channel.send("לא יודע מה כתבת פה אחי...");
+            }
+            else {
                 let settings = {
                     "url": args[0],
                     "method": "GET",
