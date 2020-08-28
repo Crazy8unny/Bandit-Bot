@@ -64,9 +64,9 @@ class Follow extends Command {
                                 for (let link in userSubjects) {
                                     if (link != "random") {
                                         if (link == args[0] || userSubjects[link] == args[0]) {
-                                            delete servers[guild][author][link];
                                             res = "הנושא  `" + userSubjects[link] + "` נמחק בהצלחה לא נחפור לך יותר";
                                             this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
+                                            delete servers[guild][author][link];
                                         }
                                     }
                                 }
@@ -109,37 +109,39 @@ class Follow extends Command {
                                     }
                                     resolve(servers);
                                 }
-                                const author = message.author.id;
-                                console.log("subjectName: " + subjectName);
-                                const link = args[0];
-                                console.log("guild: " + guild);
-                                console.log("author: " + author);
-                                if (!servers.exists) {
-                                    servers = { [guild]: { [author]: { [link]: [subjectName] } } };
-                                }
                                 else {
-                                    servers = servers.data();
-                                    let server = servers[guild];
-                                    if (server != undefined) {
-                                        let userSubjects = server[author];
-                                        if (userSubjects != undefined) {
-                                            if (JSON.stringify(userSubjects).includes(link)) {
-                                                res = "אתה כבר עוקב אחרי הנושא הזה אחינו";
-                                            }
-                                        }
-                                        else {
-                                            servers[guild][author] = {};
-                                        }
-                                        servers[guild][author][link] = subjectName;
+                                    const author = message.author.id;
+                                    console.log("subjectName: " + subjectName);
+                                    const link = args[0];
+                                    console.log("guild: " + guild);
+                                    console.log("author: " + author);
+                                    if (!servers.exists) {
+                                        servers = { [guild]: { [author]: { [link]: [subjectName] } } };
                                     }
                                     else {
-                                        servers[guild] = {};
-                                        servers[guild][author] = {};
-                                        servers[guild][author][link] = subjectName;
+                                        servers = servers.data();
+                                        let server = servers[guild];
+                                        if (server != undefined) {
+                                            let userSubjects = server[author];
+                                            if (userSubjects != undefined) {
+                                                if (JSON.stringify(userSubjects).includes(link)) {
+                                                    res = "אתה כבר עוקב אחרי הנושא הזה אחינו";
+                                                }
+                                            }
+                                            else {
+                                                servers[guild][author] = {};
+                                            }
+                                            servers[guild][author][link] = subjectName;
+                                        }
+                                        else {
+                                            servers[guild] = {};
+                                            servers[guild][author] = {};
+                                            servers[guild][author][link] = subjectName;
+                                        }
                                     }
+                                    message.channel.send(res);
+                                    resolve(servers);
                                 }
-                                message.channel.send(res);
-                                resolve(servers);
                             })
                         }).then(servers => {
                             this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
