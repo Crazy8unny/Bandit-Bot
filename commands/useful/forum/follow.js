@@ -35,7 +35,12 @@ class Follow extends Command {
                             res = "```asciidoc\n= רשימת מעקב = \n"
                             for (let link in userSubjects) {
                                 if (link != "random") {
+                                    res += `${link} ::${userSubjects[link]}\n`
+                                    res += `${link}::${userSubjects[link]}\n`
+                                    res += `${link}:: ${userSubjects[link]}\n`
                                     res += `${userSubjects[link]}:: ${link}\n`
+                                    res += `${userSubjects[link]}::${link}\n`
+                                    res += `${userSubjects[link]} ::${link}\n`
                                 }
                             }
                             res += "```";
@@ -47,33 +52,35 @@ class Follow extends Command {
             });
         }
         else if (msg.startsWith("!הסר")) {
-            this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
-                if (args[0].startsWith("http://")) {
-                    args[0] = "https://" + args[0].substring(7, msg.length);
-                }
-                else {
-                    const guild = message.guild.id;
-                    const author = message.author.id;
-                    let res = "אתה לא עוקב אחרי הנושא הזה";
-                    if (servers.exists) {
-                        servers = servers.data();
-                        let userSubjects = servers[guild][author];
-                        if (userSubjects != undefined) {
-                            for (let link in userSubjects) {
-                                if (link != "random") {
-                                    if (link == args[0] || userSubjects[link] == args[0]) {
-                                        servers[guild][author].delete(link);
-                                        res = "הנושא  `" + userSubjects[link] + "` נמחק בהצלחה לא נחפור לך יותר";
-                                        this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
+            this.client.db.collection("lastThread").doc("Servers").get().then(translatedServers => {
+                translatedServers = translatedServers.data().test;
+                const guild = translatedServers[message.guild.id];
+                this.client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
+                    if (args[0].startsWith("http://")) {
+                        args[0] = "https://" + args[0].substring(7, msg.length);
+                    }
+                    else {
+                        const author = message.author.id;
+                        let res = "אתה לא עוקב אחרי הנושא הזה";
+                        if (servers.exists) {
+                            servers = servers.data();
+                            let userSubjects = servers[guild][author];
+                            if (userSubjects != undefined) {
+                                for (let link in userSubjects) {
+                                    if (link != "random") {
+                                        if (link == args[0] || userSubjects[link] == args[0]) {
+                                            servers[guild][author].delete(link);
+                                            res = "הנושא  `" + userSubjects[link] + "` נמחק בהצלחה לא נחפור לך יותר";
+                                            this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
+                                        }
                                     }
                                 }
                             }
                         }
+                        message.channel.send(res);
                     }
-                    message.channel.send(res);
-                }
+                });
             });
-
         }
         else if (msg.startsWith("!עקוב")) {
             if (args[0].startsWith("http://")) {
@@ -97,7 +104,7 @@ class Follow extends Command {
                                 let res = `הנושא נוסף בהצלחה !!111`
                                 const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
                                 const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
-                                if (subjectName != "לחזרה לפורום לחצו כאן.") {
+                                if (subjectName == "לחזרה לפורום לחצו כאן.") {
                                     message.channel.send("מה זה הנושא הזה");
                                     if (!servers.exists) {
                                         servers = { [guild]: { [author]: {} } };
