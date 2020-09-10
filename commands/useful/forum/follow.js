@@ -42,7 +42,7 @@ class Follow extends Command {
 
                             for (let userLink in userSubjects) {
                                 if (userLink != "random" && !userLink.startsWith("https://lf2.co.il/forum/viewtopic.php?t=")) {
-                                    res += `${userSubjects[link]}:: ${userlink}\n`
+                                    res += `${userSubjects[userLink]}:: ${userlink}\n`
                                 }
                             }
                             res += "```";
