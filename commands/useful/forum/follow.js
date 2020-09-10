@@ -154,7 +154,7 @@ class Follow extends Command {
                                             res = "הנושא  `" + subjectName + "` נוסף בהצלחה !!111"
                                         }
                                     }
-                                    if (res.startsWith("הנושא") && args[0].startsWith("https://lf2.co.il/forum/profile.php?mode=viewprofile&u=") {
+                                    if (res.startsWith("הנושא") && args[0].startsWith("https://lf2.co.il/forum/profile.php?mode=viewprofile&u=")) {
                                         res = "המשתמש  `" + subjectName + "` נוסף בהצלחה !!111"
                                     }
                                     message.channel.send(res);
