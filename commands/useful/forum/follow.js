@@ -34,8 +34,15 @@ class Follow extends Command {
                         if (userSubjects != undefined) {
                             res = "```asciidoc\n= רשימת מעקב = \n"
                             for (let link in userSubjects) {
-                                if (link != "random") {
+                                if (link != "random" && !link.startsWith("https://lf2.co.il/forum/profile.php?mode=viewprofile&u=")) {
                                     res += `${userSubjects[link]}:: ${link}\n`
+                                }
+                            }
+                            res += "\n"
+
+                            for (let userLink in userSubjects) {
+                                if (userLink != "random" && !userLink.startsWith("https://lf2.co.il/forum/viewtopic.php?t=")) {
+                                    res += `${userSubjects[link]}:: ${userlink}\n`
                                 }
                             }
                             res += "```";
@@ -64,7 +71,7 @@ class Follow extends Command {
                                 for (let link in userSubjects) {
                                     if (link != "random") {
                                         if (link == args[0] || userSubjects[link] == args[0]) {
-                                            res = "הנושא  `" + userSubjects[link] + "` נמחק בהצלחה לא נחפור לך יותר";
+                                            res = "הדבר  `" + userSubjects[link] + "` נמחק בהצלחה לא נחפור לך יותר";
                                             this.client.db.collection("lastThread").doc("RegisteredSubjects").set(servers);
                                             delete servers[guild][author][link];
                                         }
@@ -81,7 +88,7 @@ class Follow extends Command {
             if (args[0].startsWith("http://")) {
                 args[0] = "https://" + args[0].substring(7, msg.length);
             }
-            if (!args[0].startsWith("https://lf2.co.il/forum/viewtopic.php?t=")) {
+            if (!args[0].startsWith("https://lf2.co.il/forum/viewtopic.php?t=") && !args[0].startsWith("https://lf2.co.il/forum/profile.php?mode=viewprofile&u=")) {
                 message.channel.send("לא יודע מה כתבת פה אחי...");
             }
             else {
@@ -98,9 +105,15 @@ class Follow extends Command {
                             request.get(settings, function (error, response, data) {
                                 let res = `הנושא נוסף בהצלחה !!111`
                                 const jsdom = new JSDOM(iconv.decode(data, 'iso-8859-8'));
-                                const subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
-                                if (subjectName == "לחזרה לפורום לחצו כאן.") {
-                                    message.channel.send("מה זה הנושא הזה");
+                                let subjectName;
+                                if (args[0].startsWith("https://lf2.co.il/forum/profile.php?mode=viewprofile&u=")) {
+                                    subjectName = jsdom.window.document.getElementsByClassName("maintitle")[0].textContent.slice(24);
+                                }
+                                else {
+                                    subjectName = jsdom.window.document.getElementsByTagName("tbody")[6].getElementsByTagName("a")[0].textContent
+                                }
+                                if (subjectName == "לחזרה לפורום לחצו כאן." || subjectName == "") {
+                                    message.channel.send("מה זה הדבר הזה");
                                     if (!servers.exists) {
                                         servers = { [guild]: { [author]: {} } };
                                     }
@@ -140,6 +153,9 @@ class Follow extends Command {
                                             servers[guild][author][link] = subjectName;
                                             res = "הנושא  `" + subjectName + "` נוסף בהצלחה !!111"
                                         }
+                                    }
+                                    if (res.startsWith("הנושא") && args[0].startsWith("https://lf2.co.il/forum/profile.php?mode=viewprofile&u=") {
+                                        res = "המשתמש  `" + subjectName + "` נוסף בהצלחה !!111"
                                     }
                                     message.channel.send(res);
                                     resolve(servers);
