@@ -37,17 +37,17 @@ class Seemingly extends ContainsCommand {
       if (curse) {
         curseNum++;
         this.client.settings.set("EitanCurse", curseNum);
-      }
-      if (curseNum % 4 == 0) {
-        this.client.db.collection("Curses").doc("Warnings").get().then(warnings => {
-          if (!warnings.exists) {
-            warnings = { warnings: [] };
-          }
-          else {
-            warnings = warnings.data().warningsList;
-            message.author.send((warnings[Math.floor(Math.random() * warnings.length)]).toString());
-          }
-        });
+        if (curseNum % 4 == 0) {
+          this.client.db.collection("Curses").doc("Warnings").get().then(warnings => {
+            if (!warnings.exists) {
+              warnings = { warnings: [] };
+            }
+            else {
+              warnings = warnings.data().warningsList;
+              message.author.send((warnings[Math.floor(Math.random() * warnings.length)]).toString());
+            }
+          });
+        }
       }
     }
     message.channel.send(res);
