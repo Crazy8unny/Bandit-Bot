@@ -211,7 +211,7 @@ class ForumNotification {
               }
               if (!works) {
                  client.channels.cache.find(c => c.id === serverID).send({ embed }).catch(console.error); 
-                 client.channels.cache.find(c => c.id === serverID).send( `|| ${name} ||` ).catch(console.error); 
+                 client.channels.cache.find(c => c.id === serverID).send( `|| ${names} ||` ).catch(console.error); 
                 }
             });
           }
