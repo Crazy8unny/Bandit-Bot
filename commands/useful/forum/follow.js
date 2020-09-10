@@ -18,6 +18,7 @@ class Follow extends Command {
         let msg = message.toString();
         console.log(msg);
         let res;
+        let endres;
         if (args[0] == null || args[1] != null) {
             message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה עקוב` על מנת לקבל מידע מלא על הפקודה");
         }
@@ -34,17 +35,16 @@ class Follow extends Command {
                         if (userSubjects != undefined) {
                             res = "```asciidoc\n= רשימת מעקב = \n"
                             for (let link in userSubjects) {
-                                if (link != "random" && !link.startsWith("https://lf2.co.il/forum/profile.php?mode=viewprofile&u=")) {
-                                    res += `${userSubjects[link]}:: ${link}\n`
+                                if (link != "random") {
+                                    if(!link.startsWith("https://lf2.co.il/forum/profile.php?mode=viewprofile&u=")) {
+                                        res += `${userSubjects[link]}:: ${link}\n`
+                                    } 
+                                    else {
+                                        endres += `${userSubjects[link]}:: ${link}\n`;
+                                    }
                                 }
                             }
-                            res += "\n"
-
-                            for (let userLink in userSubjects) {
-                                if (userLink != "random" && !userLink.startsWith("https://lf2.co.il/forum/viewtopic.php?t=")) {
-                                    res += `${userSubjects[userLink]}:: ${userlink}\n`
-                                }
-                            }
+                            res += "\n" + endres + "```";
                             res += "```";
                         }
                     }
