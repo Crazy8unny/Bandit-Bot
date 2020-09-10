@@ -180,13 +180,13 @@ class ForumNotification {
           function addRegisteredUsers(embed, serverID, link) {
             client.db.collection("lastThread").doc("RegisteredSubjects").get().then(servers => {
               let works = true;
+              let names = "";
               console.log("serverID " + serverID);
               if (link != undefined) {
                 if (servers.exists) {
                   let server = servers.data()[serverID];
                   if (server != undefined) {
                     let usersID = Object.keys(server);
-                    let names = "";
                     console.log("link: " + link);
                     // let subjectsID;
                     // console.log("server.length: " + usersID.length);
@@ -210,9 +210,11 @@ class ForumNotification {
                 works = false;
               }
               if (!works) {
-                 client.channels.cache.find(c => c.id === serverID).send({ embed }).catch(console.error); 
-                 client.channels.cache.find(c => c.id === serverID).send( `|| ${names} ||` ).catch(console.error); 
+                client.channels.cache.find(c => c.id === serverID).send({ embed }).catch(console.error);
+                if (names != "") {
+                  client.channels.cache.find(c => c.id === serverID).send(`|| ${names} ||`).catch(console.error);
                 }
+              }
             });
           }
 
