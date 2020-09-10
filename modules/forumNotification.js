@@ -196,20 +196,23 @@ class ForumNotification {
                       for (let subjectURL in server[usersID[user]]) {
                         console.log("URL: " + subjectURL)
                         if (subjectURL == link || embed.author.name == server[usersID[user]][subjectURL]) {
-                          names += `<@${usersID[user]}> \n`
+                          names += `<@${usersID[user]}>  `
                           console.log("user: " + usersID[user]);
                         }
                       }
                     }
-                    if (names != "") {
-                      embed.description += `\n \n || ${names.substring(0, names.length - 2)} ||`;
-                    }
+                    // if (names != "") {
+                    //   embed.description += `\n \n || ${names.substring(0, names.length - 2)} ||`;
+                    // }
 
                   }
                 }
                 works = false;
               }
-              if (!works) { client.channels.cache.find(c => c.id === serverID).send({ embed }).catch(console.error); }
+              if (!works) {
+                 client.channels.cache.find(c => c.id === serverID).send({ embed }).catch(console.error); 
+                 client.channels.cache.find(c => c.id === serverID).send( `|| ${name} ||` ).catch(console.error); 
+                }
             });
           }
 
