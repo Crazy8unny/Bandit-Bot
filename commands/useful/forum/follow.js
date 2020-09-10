@@ -17,8 +17,6 @@ class Follow extends Command {
     async run(message, args, level) {
         let msg = message.toString();
         console.log(msg);
-        let res;
-        let endres;
         if (args[0] == null || args[1] != null) {
             message.channel.send("שימוש שגוי בפקודה, שלח `!עזרה עקוב` על מנת לקבל מידע מלא על הפקודה");
         }
@@ -30,6 +28,7 @@ class Follow extends Command {
                     // const guild = message.guild.id;
                     const author = message.author.id;
                     let res = "אתה לא עוקב אחרי כלום פה גבר";
+                    let endres = "";
                     if (servers.exists) {
                         let userSubjects = servers.data()[guild][author];
                         if (userSubjects != undefined) {
@@ -45,7 +44,6 @@ class Follow extends Command {
                                 }
                             }
                             res += "\n" + endres + "```";
-                            res += "```";
                         }
                     }
                     message.channel.send(res);
