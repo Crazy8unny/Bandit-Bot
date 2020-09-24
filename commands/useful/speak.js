@@ -20,6 +20,7 @@ class Speak extends Command {
             message.channel.send("מה זה אחי לא כתבת כלום");
         }
         else {
+            message.delete();
             let settings = {
                 "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=" + encodeURI(tranlateString),
                 "method": "GET",
@@ -27,7 +28,6 @@ class Speak extends Command {
             }
             request.get(settings, function (error, response, data) {
                 let result = JSON.parse(data);
-                message.delete();
                 message.channel.send(result[0][0][0], {tts: true});
             });
         }
