@@ -26,7 +26,8 @@ class Speak extends Command {
                 "encoding": null
             }
             request.get(settings, function (error, response, data) {
-                message.channel.send("/tts " + data[0][0][0]);
+                let result = JSON.parse(data);
+                message.channel.send("/tts " + result[0][0][0]);
             });
         }
     }
