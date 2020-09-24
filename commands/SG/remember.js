@@ -32,7 +32,7 @@ class Remember extends Command {
                 message.channel.send("אתם ב" + lastEpisode.where);
             }
             else if (args[0].startsWith('ב') && msg.includes("אנחנו ב")) {
-                message.delete(1);
+                message.delete();
                 let position = msg.search("אנחנו ב");
                 let placeString = msg.substring(position + 7, msg.length);
                 lastEpisode.where = placeString;
