@@ -32,11 +32,11 @@ class Remember extends Command {
                 message.channel.send("אתם ב" + lastEpisode.where);
             }
             else if (args[0].startsWith('ב') && msg.includes("אנחנו ב")) {
-                message.channel.send("הכל אני זוכר אחים שלי");
                 let position = msg.search("אנחנו ב");
                 let placeString = msg.substring(position + 7, msg.length);
                 lastEpisode.where = placeString;
                 server.set(lastEpisode);
+                this.client.deleteMessage(message);
             }
             else {
                 message.channel.send("שימוש שגוי בפקודה שלח `אנחנו ב` או `איפה אנחנו`");

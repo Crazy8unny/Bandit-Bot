@@ -28,6 +28,7 @@ class Speak extends Command {
             request.get(settings, function (error, response, data) {
                 let result = JSON.parse(data);
                 message.channel.send(result[0][0][0], {tts: true});
+                this.client.deleteMessage(message);
             });
         }
     }
