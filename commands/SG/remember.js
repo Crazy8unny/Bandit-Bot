@@ -36,7 +36,10 @@ class Remember extends Command {
                 let placeString = msg.substring(position + 7, msg.length);
                 lastEpisode.where = placeString;
                 server.set(lastEpisode);
-                this.client.deleteMessage(message);
+                this.client.deleteMessage({
+                    channelID: message.channel_id,
+                    messageID: message.id
+                });
             }
             else {
                 message.channel.send("שימוש שגוי בפקודה שלח `אנחנו ב` או `איפה אנחנו`");
