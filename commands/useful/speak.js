@@ -1,0 +1,34 @@
+const Command = require("../../base/Command.js");
+
+class Speak extends Command {
+    constructor(client) {
+        super(client, {
+            name: "דבר",
+            description: "מדברררררררררררר",
+            usage: "דבר",
+            category: "שימושי",
+            aliases: []
+        });
+    }
+
+    async run(message, args, level) {
+        let msg = message.toString();
+        let position = msg.search("דבר");
+        let tranlateString = msg.substring(position + 3, msg.length);
+        if (tranlateString == "") {
+            message.channel.send("מה זה אחי לא כתבת כלום");
+        }
+        else {
+            let settings = {
+                "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=" + encodeURI(tranlateString),
+                "method": "GET",
+                "encoding": null
+            }
+            request.get(settings, function (error, response, data) {
+                message.channel.send("/tts " + data[0][0][0]);
+            });
+        }
+    }
+}
+
+module.exports = Speak;
