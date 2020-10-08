@@ -32,6 +32,7 @@ class Search extends Command {
                 message.channel.send(`לעוד תוצאות אתה יכול להיכנס ל: https://www.google.com/search?q=${searchString}`);
             });
         }
+    }
 }
 
 module.exports = Search;
