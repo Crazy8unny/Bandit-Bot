@@ -27,9 +27,10 @@ class Search extends Command {
                 "encoding": null
             }
             request.get(settings, function (error, response, data) {
-                let result = JSON.parse(data);
-                message.channel.send(result.items[0].formattedUrl);
-                message.channel.send(`לעוד תוצאות אתה יכול להיכנס ל: https://www.google.com/search?q=${searchString}`);
+                console.log(data)
+                // let result = JSON.parse(data);
+                // message.channel.send(result.items[0].formattedUrl);
+                // message.channel.send(`לעוד תוצאות אתה יכול להיכנס ל: https://www.google.com/search?q=${searchString}`);
             });
         }
     }
