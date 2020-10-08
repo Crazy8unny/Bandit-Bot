@@ -8,7 +8,7 @@ class Search extends Command {
         super(client, {
             name: "חפש",
             description: "מחפש לך דברים בגוגלה",
-            usage: "דבר",
+            usage: "חפש",
             category: "שימושי",
             aliases: []
         });
