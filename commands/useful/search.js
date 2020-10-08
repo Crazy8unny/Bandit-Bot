@@ -1,7 +1,5 @@
 const Command = require("../../base/Command.js");
 const request = require('request');
-const GSR = require('google-search-results-nodejs');
-const client = new GSR.GoogleSearchResults("secret_api_key");
 
 class Search extends Command {
     constructor(client) {
