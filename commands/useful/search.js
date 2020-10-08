@@ -20,7 +20,7 @@ class Search extends Command {
             message.channel.send("תחפש את זה אתה אחי");
         }
         else {
-            url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyAOC4ag2OfYOoybYzjozLYXlcWIcSKTCDM&cx=ff93fdfe771eb4a7e&q=" + searchString;
+            let url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyAOC4ag2OfYOoybYzjozLYXlcWIcSKTCDM&cx=ff93fdfe771eb4a7e&q=" + searchString;
             let settings = {
                 "url": url,
                 "method": "GET",
