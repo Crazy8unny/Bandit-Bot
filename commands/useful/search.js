@@ -27,6 +27,8 @@ class Search extends Command {
                 "encoding": null
             }
             request.get(settings, function (error, response, data) {
+                console.log(error)
+                console.log(response)
                 console.log(data)
                 // let result = JSON.parse(data);
                 // message.channel.send(result.items[0].formattedUrl);
