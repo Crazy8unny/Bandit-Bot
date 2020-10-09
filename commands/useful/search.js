@@ -29,6 +29,7 @@ class Search extends Command {
             request.get(settings, function (error, response, data) {
                 let result = JSON.parse(data);
                 message.channel.send(result.items[0].link);
+                searchString = searchString.replace(" ", "+");
                 message.channel.send(`לעוד תוצאות אתה יכול להיכנס ל: https://www.google.com/search?q=${searchString}`);
             });
         }
