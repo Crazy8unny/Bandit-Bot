@@ -30,7 +30,7 @@ class Search extends Command {
                 let result = JSON.parse(data);
                 if (result != undefined) {
                     message.channel.send(result.items[0].link);
-                    searchString = searchString.replace(" ", "+");
+                    searchString = searchString.replace(/ /g, "+");
                     message.channel.send(`לעוד תוצאות אתה יכול להיכנס ל: https://www.google.com/search?q=${searchString}`);
                 }
                 else {
