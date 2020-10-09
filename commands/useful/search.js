@@ -20,19 +20,16 @@ class Search extends Command {
             message.channel.send("תחפש את זה אתה אחי");
         }
         else {
-            let url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyAOC4ag2OfYOoybYzjozLYXlcWIcSKTCDM&cx=ff93fdfe771eb4a7e&q=" + searchString;
+            let url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyAOC4ag2OfYOoybYzjozLYXlcWIcSKTCDM&cx=ff93fdfe771eb4a7e&q=" + encodeURI(searchString);
             let settings = {
                 "url": url,
                 "method": "GET",
                 "encoding": null
             }
             request.get(settings, function (error, response, data) {
-                console.log(error)
-                console.log(response)
-                console.log(data)
-                // let result = JSON.parse(data);
-                // message.channel.send(result.items[0].formattedUrl);
-                // message.channel.send(`לעוד תוצאות אתה יכול להיכנס ל: https://www.google.com/search?q=${searchString}`);
+                let result = JSON.parse(data);
+                message.channel.send(result.items[0].formattedUrl);
+                message.channel.send(`לעוד תוצאות אתה יכול להיכנס ל: https://www.google.com/search?q=${searchString}`);
             });
         }
     }
