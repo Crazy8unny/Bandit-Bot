@@ -15,7 +15,7 @@ class Search extends Command {
     async run(message, args, level) {
         let msg = message.toString();
         let position = msg.search("חפש");
-        let searchString = msg.substring(position + 3, msg.length);
+        let searchString = msg.substring(position + 4, msg.length);
         if (searchString == "") {
             message.channel.send("תחפש את זה אתה אחי");
         }
