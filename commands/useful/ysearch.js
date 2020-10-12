@@ -38,7 +38,7 @@ class ySearch extends Command {
                         message.channel.send(`וואלה לא הצלחתי למצוא כלום, נסה לבדוק פה: https://www.youtube.com/results?search_query=${searchString}`);
                     }
                     else {
-                        message.channel.send("https://www.youtube.com/watch?v=" + result.items.id.videoId);
+                        message.channel.send("https://www.youtube.com/watch?v=" + result.items[count].id.videoId);
                         message.channel.send(`לעוד תוצאות אתה יכול להיכנס ל: https://www.youtube.com/results?search_query=${searchString}`);
                     }
                 }
