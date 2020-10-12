@@ -29,7 +29,7 @@ class ySearch extends Command {
             request.get(settings, function (error, response, data) {
                 let result = JSON.parse(data);
                 searchString = searchString.replace(/ /g, "+");
-                if (result.items != undefined) {
+                if (result.items != undefined && result.items.length > 0) {
                     let count = 0;
                     while (result.items[count].id.kind != "youtube#video" && count < result.items.length) {
                         count++;
