@@ -31,7 +31,7 @@ class iSearch extends Command {
                 if (result.items != undefined) {
                     message.channel.send(result.items[0].link);
                     searchString = searchString.replace(/ /g, "+");
-                    message.channel.send(`לעוד תוצאות אתה יכול להיכנס ל: https://www.google.co.il/search?tbm=isch&q=${searchString}`);
+                    // message.channel.send(`לעוד תוצאות אתה יכול להיכנס ל: https://www.google.co.il/search?tbm=isch&q=${searchString}`);
                 }
                 else {
                     searchString = searchString.replace(/ /g, "+");
