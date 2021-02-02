@@ -22,12 +22,8 @@ class Inspire extends Command {
     }
     request.get(settings, function (error, response, data) {
       try {
-        console.log(data)
-        console.log(response)
-        console.log(JSON.stringify(data))
-        console.log(JSON.parse(data))
         let embed = new Discord.MessageEmbed()
-          .setImage("https://generated.inspirobot.me/a/qlPBXYBje5.jpg")
+          .setImage(response.body)
           .setAuthor(message.author.username, message.author.displayAvatarURL())
           .setColor('#1E2023');
         message.channel.send(embed);
