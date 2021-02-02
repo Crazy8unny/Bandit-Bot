@@ -34,5 +34,4 @@ class Inspire extends Command {
 }
 
 
-
 module.exports = Inspire;
