@@ -16,17 +16,20 @@ class Inspire extends Command {
   async run(message, args, level) {
     let url = "https://inspirobot.me/api?generate=true";
     let settings = {
-      method: "GET",
-      redirect: 'follow'
+      "url": url,
+      "method": "GET"
     }
-
-    fetch(url, settings).then(response => response.text())
-    .then(result => {let embed = new Discord.MessageEmbed()
-        .setImage(result)
-        .setAuthor(message.author.username, message.author.displayAvatarURL())
-        .setColor('#1E2023'); 
-        message.channel.send(embed)})
-    .catch(error => console.log('error', error));
+    request.get(settings, function (error, response, data) {
+      try {
+        let embed = new Discord.MessageEmbed()
+          .setImage(response.body)
+          .setAuthor(message.author.username, message.author.displayAvatarURL())
+          .setColor('#1E2023');
+        message.channel.send(embed);
+      } catch (e) {
+        console.log(e);
+      }
+    });
   }
 }
 
