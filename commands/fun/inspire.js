@@ -1,5 +1,6 @@
 const Command = require("../../base/Command.js");
 const Discord = require('discord.js');
+const request = require('request');
 
 class Inspire extends Command {
   constructor(client) {
