@@ -22,6 +22,7 @@ class Inspire extends Command {
     }
     request.get(settings, function (error, response, data) {
       try {
+        console.log(data)
         let embed = new Discord.MessageEmbed()
           .setImage("https://generated.inspirobot.me/a/qlPBXYBje5.jpg")
           .setAuthor(message.author.username, message.author.displayAvatarURL())
