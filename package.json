@@ -33,6 +33,7 @@
     "chalk": "^2.4.1",
     "discord.js": "^12.1.1",
     "enmap": "^5.0.1",
+    "firebase-admin": "^8.12.1",
     "iconv-lite": "^0.5.1",
     "jimp": "^0.10.2",
     "jquery": "^3.5.1",
