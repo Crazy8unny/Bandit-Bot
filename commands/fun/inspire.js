@@ -23,6 +23,7 @@ class Inspire extends Command {
     request.get(settings, function (error, response, data) {
       try {
         let embed = new Discord.MessageEmbed()
+        console.log(response.body)
           .setImage(response.body)
           .setAuthor(message.author.username, message.author.displayAvatarURL())
           .setColor('#1E2023');
