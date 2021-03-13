@@ -8,7 +8,7 @@ class ySearch extends Command {
             description: "מחפש לך סרטון ביוטיוב",
             usage: "יוטיוב",
             category: "שימושי",
-            aliases: []
+            aliases: ["youtube"]
         });
     }
 

@@ -8,7 +8,7 @@ class iSearch extends Command {
             description: "מחפש לך תמונה בגוגלה",
             usage: "תמונה",
             category: "שימושי",
-            aliases: []
+            aliases: ["pic"]
         });
     }
 

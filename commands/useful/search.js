@@ -8,7 +8,7 @@ class Search extends Command {
             description: "מחפש לך דברים בגוגלה",
             usage: "חפש",
             category: "שימושי",
-            aliases: []
+            aliases: ["search"]
         });
     }
 

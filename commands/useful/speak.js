@@ -8,7 +8,7 @@ class Speak extends Command {
             description: "מדברררררררררררר",
             usage: "דבר",
             category: "שימושי",
-            aliases: []
+            aliases: ["speak"]
         });
     }
 
