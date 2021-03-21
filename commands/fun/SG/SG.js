@@ -48,7 +48,7 @@ class SG extends Command {
                         }
                       };
                     embed.title = episode.getElementsByTagName("img")[0].alt;
-                    embed.description = episode.getElementsByClassName("item_description")[0].innerText;
+                    embed.description = episode.getElementsByClassName("item_description")[0].textContent;
                     message.channel.send( { embed });
                 });
             }
@@ -64,7 +64,9 @@ class SG extends Command {
                 lastEpisode.url = `${args[0]}-${args[2]}`;
                 server.set(lastEpisode);
             }
-            message.channel.send(res.toString());
+            if (args[0] != "הבא") {
+                message.channel.send(res.toString());
+            }
             if (popcorn) {
                 message.channel.send("לא לשכוח incognito אחי");
                 message.channel.send("צפייה נעימה ! 🍿");
