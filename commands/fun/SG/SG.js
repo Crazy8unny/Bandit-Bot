@@ -1,4 +1,5 @@
 const Command = require("../../../base/Command.js");
+const request = require('request');
 
 class SG extends Command {
     constructor(client) {
@@ -28,6 +29,26 @@ class SG extends Command {
             else if (args[0] == "הקודם" && args[1] == null) {
                 let episodes = lastEpisode.url.split('-');
                 res = `אתם בעונה ${episodes[0]} פרק ${episodes[1]}`
+            }
+            else if (args[0] == "הבא" && args[1] == null) {
+                let episodes = lastEpisode.url.split('-');
+                let url = `https://www.imdb.com/title/tt0118480/episodes?season=${episodes[0]}&ref_=tt_eps_sn_${episodes[0]}`;
+                let settings = {
+                  "url": url,
+                  "method": "GET"
+                }
+                request.get(settings, function (error, response, data) {
+                    let episode = data.getElementsByClassName("list_item")[episodes[1]];                    
+                    let embed = {
+                        color: "#1E2023",
+                        thumbnail: {
+                          url: episode.getElementsByTagName("img")[0].src,
+                        }
+                      };
+                    embed.title = episode.getElementsByTagName("img")[0].alt;
+                    embed.description = episode.getElementsByClassName("item_description")[0].innerText;
+                    res = { embed };
+                });
             }
             else if (args[1] != '-' || args[3] != null) {
                 res = "שימוש שגוי בפקודה, שלח ללא פרמטרים או עם <עונה> - <פרק>";
