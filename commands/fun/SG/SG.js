@@ -26,7 +26,8 @@ class SG extends Command {
             if (args[0] == null) {
             }
             else if (args[0] == "הקודם" && args[1] == null) {
-                res = lastEpisode.url;
+                let episodes = lastEpisode.url.split('-');
+                res = `אתם בעונה ${episodes[0]} פרק ${episodes[1]}`
             }
             else if (args[1] != '-' || args[3] != null) {
                 res = "שימוש שגוי בפקודה, שלח ללא פרמטרים או עם <עונה> - <פרק>";
@@ -37,7 +38,7 @@ class SG extends Command {
             else {
                 res += "-stargate-sg-1/season/" + args[0] + "/episode/" + args[2];
                 popcorn = true;
-                lastEpisode.url = `אתם בעונה ${args[0]} פרק ${args[2]}`;
+                lastEpisode.url = `${args[0]}-${args[2]}`;
                 server.set(lastEpisode);
             }
             message.channel.send(res.toString());
