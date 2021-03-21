@@ -1,5 +1,6 @@
 const Command = require("../../../base/Command.js");
 const request = require('request');
+const JSDOM = require('jsdom').JSDOM;
 
 class SG extends Command {
     constructor(client) {
@@ -38,7 +39,8 @@ class SG extends Command {
                   "method": "GET"
                 }
                 request.get(settings, function (error, response, data) {
-                    let episode = data.getElementsByClassName("list_item")[episodes[1]];                    
+                    const jsdom = new JSDOM(data);
+                    let episode =  jsdom.window.document.getElementsByClassName("list_item")[episodes[1]];                    
                     let embed = {
                         color: "#1E2023",
                         thumbnail: {
