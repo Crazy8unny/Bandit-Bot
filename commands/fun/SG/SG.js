@@ -49,7 +49,7 @@ class SG extends Command {
                       };
                     embed.title = episode.getElementsByTagName("img")[0].alt;
                     embed.description = episode.getElementsByClassName("item_description")[0].innerText;
-                    res = { embed };
+                    message.channel.send( { embed });
                 });
             }
             else if (args[1] != '-' || args[3] != null) {
