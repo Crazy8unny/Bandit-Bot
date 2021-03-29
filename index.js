@@ -52,7 +52,8 @@ class BanditBot extends Client {
     // Now we integrate the use of Evie's awesome Enhanced Map module, which
     // essentially saves a collection to disk. This is great for per-server configs,
     // and makes things extremely easy for this purpose.
-    this.settings = new Enmap({ name: "settings", cloneLevel: "deep", fetchAll: false, autoFetch: true });
+    this.settings = this.db.collection("Settings");
+    this.roles = this.db.collection("Settings").doc("roles");
     this.lastThread = this.db.collection("lastThread").doc("LT");
     this.SG = this.db.collection("Stargate");
     
@@ -74,7 +75,7 @@ class BanditBot extends Client {
   command including the VERY DANGEROUS `eval` command!
 
   */
-  permlevel (message) {
+  async permlevel (message) {
     let permlvl = 0;
 
     const permOrder = this.config.permLevels.slice(0).sort((p, c) => p.level < c.level ? 1 : -1);
@@ -82,7 +83,14 @@ class BanditBot extends Client {
     while (permOrder.length) {
       const currentLevel = permOrder.shift();
       if (message.guild && currentLevel.guildOnly) continue;
-      if (currentLevel.check(message)) {
+      let checkResult = (currentLevel.check(message)).toString();
+      if (checkResult.startsWith("ca")) {
+        if ((await this.roles.get()).data()[checkResult[checkResult.length - 1]].includes(message.author.id)) {
+          permlvl = currentLevel.level;
+          break;
+        }
+      }
+      if (checkResult == "true") {
         permlvl = currentLevel.level;
         break;
       }
@@ -181,7 +189,7 @@ class BanditBot extends Client {
   // enmap should only have *unique* overrides that are different from defaults.
   getSettings (guild) {
     const defaults = this.config.defaultSettings || {};
-    const guildData = this.settings.get(guild.id) || {};
+    const guildData = this.settings.doc(guild.id).get() || {};
     const returnObject = {};
     Object.keys(defaults).forEach((key) => {
       returnObject[key] = guildData[key] ? guildData[key] : defaults[key];
@@ -192,8 +200,8 @@ class BanditBot extends Client {
   // writeSettings overrides, or adds, any configuration item that is different
   // than the defaults. This ensures less storage wasted and to detect overrides.
   writeSettings (id, newSettings) {
-    const defaults = this.settings.get("default");
-    let settings = this.settings.get(id);
+    const defaults = this.settings.doc("default").get();
+    let settings = this.settings.doc(id).get().data();
     if (typeof settings != "object") settings = {};
     for (const key in newSettings) {
       if (defaults[key] !== newSettings[key]) {
@@ -202,7 +210,7 @@ class BanditBot extends Client {
         delete settings[key];
       }
     }
-    this.settings.set(id, settings);
+    this.settings.doc(id).set(settings);
   }
 
   /*

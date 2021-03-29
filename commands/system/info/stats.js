@@ -10,7 +10,8 @@ class Stats extends Command {
       description: "מציג נתונים שימושיים על הבוט",
       usage: "סטטיסטיקה",
       category: "מידע",
-      aliases: ["נתונים", "סטטיסטיקות"]
+      aliases: ["נתונים", "סטטיסטיקות"],
+      permLevel: "Bot Support"
     });
   }
 

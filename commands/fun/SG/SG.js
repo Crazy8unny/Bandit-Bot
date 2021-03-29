@@ -9,7 +9,8 @@ class SG extends Command {
             description: "מביא את הלינק של סטארגייט בסדרות",
             usage: "סטארגייט",
             category: "פנאי",
-            aliases: []
+            aliases: [],
+            permLevel: "Bot Support"
         });
     }
 

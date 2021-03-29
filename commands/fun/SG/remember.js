@@ -7,7 +7,8 @@ class Remember extends Command {
             description: "זוכר איפה היינו בסטארגייט",
             usage: "איפה",
             category: "פנאי",
-            aliases: ["אנחנו"]
+            aliases: ["אנחנו"],
+            permLevel: "Bot Support"
         });
     }
 

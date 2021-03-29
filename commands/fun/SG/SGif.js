@@ -8,7 +8,8 @@ class SGif extends Command {
             description: "מדפיס את השם של הסדרה הזאת נו",
             usage: "הזה נו",
             aliases: [],
-            category: "פנאי"
+            category: "פנאי",
+            permLevel: "Bot Support"
         });
     }
 

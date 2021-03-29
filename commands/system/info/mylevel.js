@@ -9,7 +9,7 @@ class MyLevel extends Command {
       guildOnly: true,
       category: "מידע",
       aliases: ["הרמה שלי", "רמה"],
-      permLevel: "Bot Admin"
+      permLevel: "Bot Support"
     });
   }
 

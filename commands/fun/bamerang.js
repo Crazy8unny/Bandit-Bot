@@ -8,7 +8,8 @@ class Bamerang extends Command {
       description: "בנגרנגגגגגג",
       usage: "בנגרנג",
       aliases: [],
-      category: "פנאי"
+      category: "פנאי",
+      permLevel: "Bot Support"
     });
   }
 

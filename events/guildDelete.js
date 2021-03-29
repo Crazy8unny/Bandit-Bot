@@ -1,15 +1,16 @@
 // This event executes when a new guild (server) is left.
 
 module.exports = class {
-  constructor (client) {
+  constructor(client) {
     this.client = client;
   }
 
-  async run (guild) {
-
-    this.client.user.setActivity(`${this.client.settings.get("default").prefix}help | ${this.client.guilds.cache.size} Servers`);
+  async run(guild) {
     // Well they're gone. Let's remove them from the settings and log it!
-    this.client.settings.delete(guild.id);
-    this.client.logger.log(`Left guild: ${guild.name} (${guild.id}) with ${guild.memberCount} members`);
+    this.client.settings.doc(guild.id).delete().then(() => {
+      this.client.logger.log(`Left guild: ${guild.name} (${guild.id}) with ${guild.memberCount} members`);
+    }).catch((error) => {
+      this.client.logger.log(`Error removing guild: ${guild.name} - ${error}`);
+    });
   }
 };
