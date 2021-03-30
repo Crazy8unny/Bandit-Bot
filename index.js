@@ -82,6 +82,7 @@ class BanditBot extends Client {
 
     while (permOrder.length) {
       const currentLevel = permOrder.shift();
+      console.log("now checking lvl: " + currentLevel.level)
       if (message.guild && currentLevel.guildOnly) continue;
       let checkResult = (currentLevel.check(message)).toString();
       if (checkResult.startsWith("ca")) {
