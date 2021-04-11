@@ -45,6 +45,7 @@ class SG extends Command {
                     let episode =  jsdom.window.document.getElementsByClassName("list_item")[episodes[1]];                    
                     let embed = {
                         color: "#1E2023",
+                        url: url,
                         thumbnail: {
                           url: episode.getElementsByTagName("img")[0].src,
                         }
