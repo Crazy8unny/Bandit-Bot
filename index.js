@@ -64,6 +64,7 @@ class BanditBot extends Client {
     // Basically just an async shortcut to using a setTimeout. Nothing fancy!
     this.wait = require("util").promisify(setTimeout);
     this.works = false;
+    this.count = false;
   }
 
   /*
