@@ -33,16 +33,16 @@ class Count extends Command {
       while (countdown > 0 && this.client.count) {
         countMin = Math.floor(countdown / 60);
         minString = countMin + ":" + (countdown - (countMin * 60));
-        minString.replace("0", "0️⃣");
-        minString.replace("1", "1️⃣");
-        minString.replace("2", "2️⃣");
-        minString.replace("3", "3️⃣");
-        minString.replace("4", "4️⃣");
-        minString.replace("5", "5️⃣");
-        minString.replace("6", "6️⃣");
-        minString.replace("7", "7️⃣");
-        minString.replace("8", "8️⃣");
-        minString.replace("9", "9️⃣");
+        minString = minString.replace("0", "0️⃣");
+        minString = minString.replace("1", "1️⃣");
+        minString = minString.replace("2", "2️⃣");
+        minString = minString.replace("3", "3️⃣");
+        minString = minString.replace("4", "4️⃣");
+        minString = minString.replace("5", "5️⃣");
+        minString = minString.replace("6", "6️⃣");
+        minString = minString.replace("7", "7️⃣");
+        minString = minString.replace("8", "8️⃣");
+        minString = minString.replace("9", "9️⃣");
         if (minString.length < 4) {
           minString = minString[0] + minString[1] + "0️⃣" + minString[2];
         }
