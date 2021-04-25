@@ -24,7 +24,7 @@ class Count extends Command {
     else if (countdown.toString() == "חלאס") {
       this.client.count = false;
     }
-    if (args[0] == "דקות") {
+    if (args[1] == "דקות") {
       if (countdown.toString() == 'NaN' || countdown > 10 || countdown < 0) {
         countdown = 0;
         message.channel.send('עליך לציין מספר דקות לאחר הפקודה (עד 10 דקות)');
