@@ -32,7 +32,7 @@ class Count extends Command {
       }
       countdown *= 60;
       if (countdown > 0 && this.client.count) {
-        editMsg = await message.channel.send(test); 
+        editMsg = await message.channel.send("test"); 
       }
       while (countdown > 0 && this.client.count) {
         countMin = Math.floor(countdown / 60);
