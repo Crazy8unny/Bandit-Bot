@@ -17,6 +17,7 @@ class Count extends Command {
     let printLion = false;
     let minString;
     let countMin;
+    let editMsg;
     if (!args[0]) {
       countdown = 5;
       printLion = true;
@@ -30,24 +31,27 @@ class Count extends Command {
         message.channel.send('עליך לציין מספר דקות לאחר הפקודה (עד 10 דקות)');
       }
       countdown *= 60;
+      if (countdown > 0 && this.client.count) {
+        editMsg = await message.channel.send(test); 
+      }
       while (countdown > 0 && this.client.count) {
         countMin = Math.floor(countdown / 60);
         minString = countMin + ":" + (countdown - (countMin * 60));
-        minString = minString.replace("0", "0️⃣");
-        minString = minString.replace("1", "1️⃣");
-        minString = minString.replace("2", "2️⃣");
-        minString = minString.replace("3", "3️⃣");
-        minString = minString.replace("4", "4️⃣");
-        minString = minString.replace("5", "5️⃣");
-        minString = minString.replace("6", "6️⃣");
-        minString = minString.replace("7", "7️⃣");
-        minString = minString.replace("8", "8️⃣");
-        minString = minString.replace("9", "9️⃣");
+        minString = minString.replace(/0/g, "0️⃣");
+        minString = minString.replace(/1/g, "1️⃣");
+        minString = minString.replace(/2/g, "2️⃣");
+        minString = minString.replace(/3/g, "3️⃣");
+        minString = minString.replace(/4/g, "4️⃣");
+        minString = minString.replace(/5/g, "5️⃣");
+        minString = minString.replace(/6/g, "6️⃣");
+        minString = minString.replace(/7/g, "7️⃣");
+        minString = minString.replace(/8/g, "8️⃣");
+        minString = minString.replace(/9/g, "9️⃣");
         if (minString.length < 4) {
           minString = minString[0] + minString[1] + "0️⃣" + minString[2];
         }
         minString = "0️⃣" + minString;
-        message.channel.send(minString);
+        editMsg.edit(minString);
         await this.client.wait(1000);
         countdown--;
       }
