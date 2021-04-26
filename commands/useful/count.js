@@ -38,6 +38,9 @@ class Count extends Command {
       while (countdown > 0 && this.client.count) {
         countMin = Math.floor(countdown / 60);
         countSec = (countdown - (countMin * 60));
+        if (countSec < 10) {
+          minString = minString[0] + minString[1] + "0" + minString[2];
+        }
         minString = countMin + ":" + countSec;
         minString = minString.replace(/0/g, "0️⃣");
         minString = minString.replace(/1/g, "1️⃣");
@@ -49,9 +52,6 @@ class Count extends Command {
         minString = minString.replace(/7/g, "7️⃣");
         minString = minString.replace(/8/g, "8️⃣");
         minString = minString.replace(/9/g, "9️⃣");
-        if (countSec < 10) {
-          minString = minString[0] + minString[1] + "0️⃣" + minString[2];
-        }
         minString = "0️⃣" + minString;
         editMsg.edit(minString);
         await this.client.wait(1000);
