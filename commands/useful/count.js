@@ -17,6 +17,7 @@ class Count extends Command {
     let printLion = false;
     let minString;
     let countMin;
+    let countSec;
     let editMsg;
     if (!args[0]) {
       countdown = 5;
@@ -32,11 +33,12 @@ class Count extends Command {
       }
       countdown *= 60;
       if (countdown > 0 && this.client.count) {
-        editMsg = await message.channel.send("test"); 
+        editMsg = await message.channel.send("0️⃣0️⃣:0️⃣0️⃣"); 
       }
       while (countdown > 0 && this.client.count) {
         countMin = Math.floor(countdown / 60);
-        minString = countMin + ":" + (countdown - (countMin * 60));
+        countSec = (countdown - (countMin * 60));
+        minString = countMin + ":" + countSec;
         minString = minString.replace(/0/g, "0️⃣");
         minString = minString.replace(/1/g, "1️⃣");
         minString = minString.replace(/2/g, "2️⃣");
@@ -47,7 +49,7 @@ class Count extends Command {
         minString = minString.replace(/7/g, "7️⃣");
         minString = minString.replace(/8/g, "8️⃣");
         minString = minString.replace(/9/g, "9️⃣");
-        if (minString.length < 4) {
+        if (countSec < 10) {
           minString = minString[0] + minString[1] + "0️⃣" + minString[2];
         }
         minString = "0️⃣" + minString;
