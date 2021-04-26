@@ -38,10 +38,10 @@ class Count extends Command {
       while (countdown > 0 && this.client.count) {
         countMin = Math.floor(countdown / 60);
         countSec = (countdown - (countMin * 60));
+        minString = countMin + ":" + countSec;
         if (countSec < 10) {
           minString = minString[0] + minString[1] + "0" + minString[2];
         }
-        minString = countMin + ":" + countSec;
         minString = minString.replace(/0/g, "0️⃣");
         minString = minString.replace(/1/g, "1️⃣");
         minString = minString.replace(/2/g, "2️⃣");
