@@ -14,6 +14,11 @@ class iSearch extends Command {
 
     async run(message, args, level) {
         let msg = message.toString();
+        let lastword = args[args.length - 1]
+        if ((lastword[0] == '(' || lastword[0] == ')') && (lastword[lastword.length - 1] == '(' || lastword[lastword.length - 1] == ')')) {
+            msg = msg.substring(0, msg.length - lastword.length - 1);
+            lastword = lastword.substring(1, lastword.length - 1);
+        }
         let position = msg.search("תמונה");
         let searchString = msg.substring(position + 6, msg.length);
         if (searchString == "") {
@@ -29,9 +34,17 @@ class iSearch extends Command {
             request.get(settings, function (error, response, data) {
                 let result = JSON.parse(data);
                 if (result.items != undefined) {
-                    message.channel.send(result.items[0].link);
-                    searchString = searchString.replace(/ /g, "+");
-                    // message.channel.send(`לעוד תוצאות אתה יכול להיכנס ל: https://www.google.co.il/search?tbm=isch&q=${searchString}`);
+                    if (Number.isInteger(lastword)) {
+                        for (let index = 0; (index < lastword && index < result.items.length); index++) {
+                            message.channel.send(result.items[index].link);
+                        }
+                    }
+                    else {
+                        message.channel.send(result.items[0].link);
+                        // searchString = searchString.replace(/ /g, "+");
+                        // message.channel.send(`לעוד תוצאות אתה יכול להיכנס ל: https://www.google.co.il/search?tbm=isch&q=${searchString}`);
+                    }
+
                 }
                 else {
                     searchString = searchString.replace(/ /g, "+");
