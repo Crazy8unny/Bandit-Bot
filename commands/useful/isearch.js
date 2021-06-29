@@ -34,7 +34,7 @@ class iSearch extends Command {
             request.get(settings, function (error, response, data) {
                 let result = JSON.parse(data);
                 if (result.items != undefined) {
-                    if (Number.isInteger(lastword)) {
+                    if (lastword >= "0" && lastword <= "9") {
                         for (let index = 0; (index < lastword && index < result.items.length); index++) {
                             message.channel.send(result.items[index].link);
                         }
