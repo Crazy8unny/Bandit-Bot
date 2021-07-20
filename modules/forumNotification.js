@@ -195,9 +195,8 @@ class ForumNotification {
                       // console.log("server[user].length: " + subjectsID.length);
                       for (let subjectURL in server[usersID[user]]) {
                         console.log("URL: " + subjectURL)
-                        if (subjectURL == link || embed.author.name == server[usersID[user]][subjectURL]) {
+                        if ((subjectURL == link || embed.author.name == server[usersID[user]][subjectURL]) && !names.includes(usersID[user])) {
                           names += `<@${usersID[user]}>  `
-                          console.log("user: " + usersID[user]);
                         }
                       }
                     }
